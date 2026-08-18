@@ -30,12 +30,11 @@ test("server-renders the crime explorer and social metadata", async () => {
 
   const html = await response.text();
   assert.match(html, /<title>Dublin Crime Explorer<\/title>/i);
-  assert.match(html, /What was recorded/);
-  assert.match(html, /Search Dublin area/);
-  assert.match(html, /Increase \/ decrease view/);
-  assert.match(html, /<select[^>]*id="area-search"/i);
-  assert.doesNotMatch(html, /<input[^>]*id="area-search"/i);
-  assert.match(html, /Method &amp; limitations/);
+  assert.match(html, /See where crime is rising/);
+  assert.match(html, /<select[^>]*id="crime-type"/i);
+  assert.match(html, /All 41 Dublin reporting areas/);
+  assert.match(html, /Map of Dublin recorded-crime reporting areas/);
+  assert.match(html, /Source &amp; limits/);
   assert.match(html, /http:\/\/localhost\/og\.png/);
   assert.doesNotMatch(html, /codex-preview|SkeletonPreview|Your site is taking shape/);
 });

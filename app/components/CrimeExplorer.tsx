@@ -7,7 +7,6 @@ type Category = {
   id: string;
   label: string;
   shortLabel: string;
-  codes: string[];
   kind: "grouped" | "official";
   description: string;
   availabilityNote?: string;
@@ -19,79 +18,36 @@ type Station = {
   division: string;
   lat: number;
   lng: number;
-  address: string;
-  flags: string[];
   contextNote: string;
-  places: string[];
   series: Record<string, Array<number | null>>;
-};
-
-type Place = {
-  place: string;
-  stationIds: string[];
-  confidence: "high" | "medium" | "low";
-  note: string;
 };
 
 type DashboardData = {
   meta: {
-    title: string;
-    sourceTable: string;
-    sourceLabel: string;
     latestCompleteYear: number;
     years: number[];
-    geography: string;
-    geographyNote: string;
     dataNote: string;
-    fraudNote: string;
-    vehicleNote: string;
+    geographyNote: string;
   };
   categories: Category[];
   stations: Station[];
-  places: Place[];
 };
 
-type Metric = "raw" | "share" | "change" | "percentile";
 type TrendPeriod = "year_on_year" | "three_year" | "since_2019";
+type Point = { x: number; y: number };
+type AreaChange = {
+  station: Station;
+  current: number | null;
+  baseline: number | null;
+  change: number | null;
+};
 
 const numberFormat = new Intl.NumberFormat("en-IE");
 const oneDecimal = new Intl.NumberFormat("en-IE", {
   minimumFractionDigits: 1,
   maximumFractionDigits: 1,
 });
-
-const metricCopy: Record<Metric, { label: string; short: string; note: string }> = {
-  raw: {
-    label: "Raw recorded incidents",
-    short: "Recorded count",
-    note: "Absolute incident count; catchment sizes and footfall differ.",
-  },
-  share: {
-    label: "% of area’s recorded total",
-    short: "Share of area total",
-    note: "Selected incidents as a share of all CJA11 categories published for the station.",
-  },
-  change: {
-    label: "Increase / decrease",
-    short: "Change over selected period",
-    note: "Percentage change is withheld where the comparison-year baseline is below 10 incidents.",
-  },
-  percentile: {
-    label: "Dublin percentile",
-    short: "Dublin percentile",
-    note: "Relative position among the 41 DMR station geographies for the selected count.",
-  },
-};
-
-const contextLabels: Record<string, string> = {
-  high_footfall: "High footfall",
-  retail: "Major retail",
-  transport: "Transport hub",
-  nightlife: "Nightlife",
-  large_catchment: "Large catchment",
-};
-
-const comparisonRows = ["03", "06", "07", "08", "10", "12", "13"];
+const longitudeScale = Math.cos((53.4 * Math.PI) / 180);
 
 async function loadLeaflet() {
   const leafletModule = await import("leaflet");
@@ -99,24 +55,6 @@ async function loadLeaflet() {
     (leafletModule as typeof leafletModule & { default?: typeof leafletModule }).default ??
     leafletModule
   );
-}
-
-function markerColour(value: number, min: number, max: number) {
-  const ratio = max === min ? 0.5 : (value - min) / (max - min);
-  if (ratio > 0.8) return "#9b3e2f";
-  if (ratio > 0.6) return "#c46b3c";
-  if (ratio > 0.4) return "#db9c55";
-  if (ratio > 0.2) return "#8aa382";
-  return "#4d745f";
-}
-
-function changeMarkerColour(value: number) {
-  if (value >= 20) return "#9b3e2f";
-  if (value >= 5) return "#c46b3c";
-  if (value > 2) return "#db9c55";
-  if (value >= -2) return "#c9c5ba";
-  if (value >= -10) return "#8aa382";
-  return "#4d745f";
 }
 
 function percentageChange(current: number | null, baseline: number | null) {
@@ -128,192 +66,152 @@ function formatSigned(value: number) {
   return `${value > 0 ? "+" : ""}${oneDecimal.format(value)}%`;
 }
 
-function TrendChart({
-  values,
-  years,
-  label,
-}: {
-  values: Array<number | null>;
-  years: number[];
-  label: string;
-}) {
-  const available = values
-    .map((value, index) => ({ value, index }))
-    .filter((item): item is { value: number; index: number } => item.value !== null);
-  if (available.length < 2) {
-    return <div className="trend-empty">Not enough comparable years to draw a trend.</div>;
-  }
-  const width = 300;
-  const height = 110;
-  const insetX = 10;
-  const insetY = 16;
-  const maximum = Math.max(...available.map((item) => item.value));
-  const minimum = Math.min(...available.map((item) => item.value));
-  const range = Math.max(1, maximum - minimum);
-  const points = available.map((item) => ({
-    ...item,
-    x: insetX + (item.index / (years.length - 1)) * (width - insetX * 2),
-    y: insetY + ((maximum - item.value) / range) * (height - insetY * 2),
-  }));
-  const path = points.map((point, index) => `${index === 0 ? "M" : "L"}${point.x},${point.y}`).join(" ");
+function changeColour(value: number | null) {
+  if (value === null) return "#b9b6ae";
+  if (value >= 25) return "#8f2f27";
+  if (value >= 10) return "#bd5941";
+  if (value > 2) return "#df9870";
+  if (value >= -2) return "#e8e1d4";
+  if (value >= -10) return "#a8bc96";
+  if (value >= -25) return "#6f9674";
+  return "#376b54";
+}
 
-  return (
-    <div className="trend-chart">
-      <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label={`${label} trend from ${years[0]} to ${years.at(-1)}`}>
-        <line x1="10" x2="290" y1="55" y2="55" className="trend-grid" />
-        <path d={path} className="trend-line" />
-        {points.map((point) => (
-          <circle key={point.index} cx={point.x} cy={point.y} r="3.5" className="trend-point">
-            <title>{`${years[point.index]}: ${numberFormat.format(point.value)}`}</title>
-          </circle>
-        ))}
-      </svg>
-      <div className="trend-axis">
-        <span>{years[0]}</span>
-        <strong>{numberFormat.format(points[0].value)} → {numberFormat.format(points.at(-1)!.value)}</strong>
-        <span>{years.at(-1)}</span>
-      </div>
-    </div>
-  );
+function clipPolygon(polygon: Point[], a: number, b: number, c: number) {
+  const result: Point[] = [];
+  for (let index = 0; index < polygon.length; index += 1) {
+    const current = polygon[index];
+    const next = polygon[(index + 1) % polygon.length];
+    const currentDistance = a * current.x + b * current.y - c;
+    const nextDistance = a * next.x + b * next.y - c;
+    const currentInside = currentDistance <= 0;
+    const nextInside = nextDistance <= 0;
+
+    if (currentInside) result.push(current);
+    if (currentInside !== nextInside) {
+      const ratio = currentDistance / (currentDistance - nextDistance);
+      result.push({
+        x: current.x + ratio * (next.x - current.x),
+        y: current.y + ratio * (next.y - current.y),
+      });
+    }
+  }
+  return result;
+}
+
+function buildAreaCell(
+  station: Station,
+  stations: Station[],
+  bounds: [number, number, number, number],
+) {
+  const point = { x: station.lng * longitudeScale, y: station.lat };
+  let polygon: Point[] = [
+    { x: bounds[0] * longitudeScale, y: bounds[1] },
+    { x: bounds[2] * longitudeScale, y: bounds[1] },
+    { x: bounds[2] * longitudeScale, y: bounds[3] },
+    { x: bounds[0] * longitudeScale, y: bounds[3] },
+  ];
+
+  stations.forEach((other) => {
+    if (other.id === station.id || polygon.length === 0) return;
+    const otherPoint = { x: other.lng * longitudeScale, y: other.lat };
+    const a = 2 * (otherPoint.x - point.x);
+    const b = 2 * (otherPoint.y - point.y);
+    const c =
+      otherPoint.x * otherPoint.x +
+      otherPoint.y * otherPoint.y -
+      point.x * point.x -
+      point.y * point.y;
+    polygon = clipPolygon(polygon, a, b, c);
+  });
+
+  return polygon.map((vertex) => [vertex.y, vertex.x / longitudeScale] as [number, number]);
+}
+
+function escapeHtml(value: string) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
 
 export function CrimeExplorer({ data }: { data: DashboardData }) {
-  const [selectedCategory, setSelectedCategory] = useState("07");
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedYear, setSelectedYear] = useState(data.meta.latestCompleteYear);
-  const [selectedMetric, setSelectedMetric] = useState<Metric>("raw");
   const [trendPeriod, setTrendPeriod] = useState<TrendPeriod>("year_on_year");
   const [selectedStationId, setSelectedStationId] = useState("65102");
-  const [comparisonIds, setComparisonIds] = useState<string[]>(["65102"]);
-  const [selectedPlaceName, setSelectedPlaceName] = useState("");
-  const [lookupResult, setLookupResult] = useState<Place | null>(null);
   const [mapReady, setMapReady] = useState(false);
   const mapElement = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<LeafletMap | null>(null);
-  const markerLayer = useRef<LayerGroup | null>(null);
+  const areaLayer = useRef<LayerGroup | null>(null);
 
-  const stationsById = useMemo(
-    () => new Map(data.stations.map((station) => [station.id, station])),
-    [data.stations],
-  );
-  const categoriesById = useMemo(
-    () => new Map(data.categories.map((category) => [category.id, category])),
-    [data.categories],
-  );
   const yearIndex = data.meta.years.indexOf(selectedYear);
-  const trendBaselineIndex =
+  const baselineIndex =
     trendPeriod === "year_on_year"
       ? Math.max(0, yearIndex - 1)
       : trendPeriod === "three_year"
         ? Math.max(0, yearIndex - 3)
         : 0;
-  const hasTrendBaseline = trendBaselineIndex < yearIndex;
-  const trendBaselineYear = data.meta.years[trendBaselineIndex];
-  const comparisonPeriodLabel = `${trendBaselineYear}–${selectedYear}`;
-  const tableBaselineIndex = selectedMetric === "change" ? trendBaselineIndex : 0;
-  const tableBaselineYear = data.meta.years[tableBaselineIndex];
-  const selectedStation = stationsById.get(selectedStationId) ?? data.stations[0];
-  const selectedCategoryCopy = categoriesById.get(selectedCategory) ?? data.categories[0];
-  const rawValue = selectedStation.series[selectedCategory][yearIndex];
-  const baselineValue = selectedStation.series[selectedCategory][0];
-  const since2019Change = percentageChange(rawValue, baselineValue);
-  const selectedPeriodChange = percentageChange(
-    rawValue,
-    hasTrendBaseline
-      ? selectedStation.series[selectedCategory][trendBaselineIndex]
-      : null,
-  );
-  const areaTotal = selectedStation.series.all[yearIndex];
-  const areaShare =
-    rawValue !== null && areaTotal ? (rawValue / areaTotal) * 100 : null;
+  const baselineYear = data.meta.years[baselineIndex];
+  const hasBaseline = baselineIndex < yearIndex;
+  const selectedCategoryCopy =
+    data.categories.find((category) => category.id === selectedCategory) ?? data.categories[0];
 
-  const rawEntries = useMemo(
+  const areaChanges = useMemo<AreaChange[]>(
     () =>
-      data.stations
-        .map((station) => ({
+      data.stations.map((station) => {
+        const current = station.series[selectedCategory][yearIndex];
+        const baseline = hasBaseline ? station.series[selectedCategory][baselineIndex] : null;
+        return {
           station,
-          value: station.series[selectedCategory][yearIndex],
-        }))
-        .filter((item): item is { station: Station; value: number } => item.value !== null),
-    [data.stations, selectedCategory, yearIndex],
+          current,
+          baseline,
+          change: percentageChange(current, baseline),
+        };
+      }),
+    [baselineIndex, data.stations, hasBaseline, selectedCategory, yearIndex],
   );
 
-  const metricEntries = useMemo(() => {
-    if (selectedMetric === "raw") return rawEntries;
-    if (selectedMetric === "share") {
-      return rawEntries
-        .map(({ station, value }) => ({
-          station,
-          value: station.series.all[yearIndex]
-            ? (value / station.series.all[yearIndex]!) * 100
-            : null,
-        }))
-        .filter((item): item is { station: Station; value: number } => item.value !== null);
-    }
-    if (selectedMetric === "change") {
-      return rawEntries
-        .map(({ station, value }) => ({
-          station,
-          value: percentageChange(
-            value,
-            hasTrendBaseline
-              ? station.series[selectedCategory][trendBaselineIndex]
-              : null,
-          ),
-        }))
-        .filter((item): item is { station: Station; value: number } => item.value !== null);
-    }
-    const ordered = [...rawEntries].sort((a, b) => a.value - b.value);
-    return ordered.map((item, index) => ({
-      station: item.station,
-      value: ((index + 1) / ordered.length) * 100,
-    }));
-  }, [hasTrendBaseline, rawEntries, selectedCategory, selectedMetric, trendBaselineIndex, yearIndex]);
-
-  const metricByStation = useMemo(
-    () => new Map(metricEntries.map((item) => [item.station.id, item.value])),
-    [metricEntries],
+  const availableChanges = useMemo(
+    () => areaChanges.filter((entry): entry is AreaChange & { change: number } => entry.change !== null),
+    [areaChanges],
   );
-  const selectedMetricValue = metricByStation.get(selectedStation.id) ?? null;
-  const rawPercentile = useMemo(() => {
-    if (rawValue === null || rawEntries.length === 0) return null;
-    const atOrBelow = rawEntries.filter((item) => item.value <= rawValue).length;
-    return (atOrBelow / rawEntries.length) * 100;
-  }, [rawEntries, rawValue]);
-
-  const crimeMix = useMemo(() => {
-    return data.categories
-      .filter((category) => category.kind === "official")
-      .map((category) => ({
-        category,
-        value: selectedStation.series[category.id][yearIndex],
-      }))
-      .filter((item): item is { category: Category; value: number } => item.value !== null)
-      .sort((a, b) => b.value - a.value)
-      .slice(0, 5);
-  }, [data.categories, selectedStation, yearIndex]);
-
-  const sortedPlaces = useMemo(
-    () => [...data.places].sort((a, b) => a.place.localeCompare(b.place, "en-IE")),
-    [data.places],
+  const rankedIncreases = useMemo(
+    () => [...availableChanges].sort((a, b) => b.change - a.change),
+    [availableChanges],
+  );
+  const rankedDecreases = useMemo(
+    () => [...availableChanges].sort((a, b) => a.change - b.change),
+    [availableChanges],
+  );
+  const selectedArea =
+    areaChanges.find((entry) => entry.station.id === selectedStationId) ?? areaChanges[0];
+  const summary = useMemo(
+    () =>
+      availableChanges.reduce(
+        (result, entry) => {
+          if (entry.change > 2) result.increased += 1;
+          else if (entry.change < -2) result.decreased += 1;
+          else result.stable += 1;
+          return result;
+        },
+        { increased: 0, decreased: 0, stable: 0 },
+      ),
+    [availableChanges],
   );
 
-  const ranked = useMemo(
-    () => [...metricEntries].sort((a, b) => b.value - a.value),
-    [metricEntries],
-  );
-
-  const changeSummary = useMemo(() => {
-    if (selectedMetric !== "change") return null;
-    return metricEntries.reduce(
-      (summary, entry) => {
-        if (entry.value > 2) summary.increased += 1;
-        else if (entry.value < -2) summary.decreased += 1;
-        else summary.littleChange += 1;
-        return summary;
-      },
-      { increased: 0, decreased: 0, littleChange: 0 },
-    );
-  }, [metricEntries, selectedMetric]);
+  const mapBounds = useMemo<[number, number, number, number]>(() => {
+    const latitudes = data.stations.map((station) => station.lat);
+    const longitudes = data.stations.map((station) => station.lng);
+    return [
+      Math.min(...longitudes) - 0.035,
+      Math.min(...latitudes) - 0.025,
+      Math.max(...longitudes) + 0.035,
+      Math.max(...latitudes) + 0.025,
+    ];
+  }, [data.stations]);
 
   useEffect(() => {
     let cancelled = false;
@@ -325,583 +223,261 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         zoomControl: false,
         attributionControl: true,
         minZoom: 9,
-        preferCanvas: false,
+        preferCanvas: true,
       });
       mapInstance.current = map;
       leaflet
         .tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
           attribution: "&copy; OpenStreetMap contributors",
           maxZoom: 18,
+          opacity: 0.68,
         })
         .addTo(map);
       new leaflet.Control.Zoom({ position: "bottomright" }).addTo(map);
       map.fitBounds(
-        leaflet.latLngBounds(data.stations.map((station) => [station.lat, station.lng])),
-        { padding: [22, 22] },
+        [
+          [mapBounds[1], mapBounds[0]],
+          [mapBounds[3], mapBounds[2]],
+        ],
+        { padding: [10, 10] },
       );
-      markerLayer.current = leaflet.layerGroup().addTo(map);
+      areaLayer.current = leaflet.layerGroup().addTo(map);
       setMapReady(true);
     }
     initialiseMap();
     return () => {
       cancelled = true;
-      if (mapInstance.current) {
-        mapInstance.current.remove();
-        mapInstance.current = null;
-        markerLayer.current = null;
-      }
+      mapInstance.current?.remove();
+      mapInstance.current = null;
+      areaLayer.current = null;
     };
-  }, [data.stations]);
+  }, [data.stations, mapBounds]);
 
   useEffect(() => {
-    async function renderMarkers() {
-      if (!mapReady || !mapInstance.current || !markerLayer.current) return;
+    async function renderAreas() {
+      if (!mapReady || !areaLayer.current) return;
       const leaflet = await loadLeaflet();
-      markerLayer.current.clearLayers();
-      const values = metricEntries.map((entry) => entry.value);
-      if (values.length === 0) return;
-      const min = Math.min(...values);
-      const max = Math.max(...values);
-      metricEntries.forEach(({ station, value }) => {
-        const selected = station.id === selectedStationId;
-        const marker = leaflet.circleMarker([station.lat, station.lng], {
-          radius: selected ? 12 : 7,
-          color: selected ? "#f6f1e7" : "#17372d",
-          weight: selected ? 3 : 1.5,
-          fillColor:
-            selectedMetric === "change"
-              ? changeMarkerColour(value)
-              : markerColour(value, min, max),
-          fillOpacity: 0.94,
+      areaLayer.current.clearLayers();
+
+      areaChanges.forEach((entry) => {
+        const selected = entry.station.id === selectedStationId;
+        const cell = buildAreaCell(entry.station, data.stations, mapBounds);
+        const changeLabel = entry.change === null ? "Not available" : formatSigned(entry.change);
+        const countLabel =
+          entry.current === null || entry.baseline === null
+            ? "No comparable counts"
+            : `${numberFormat.format(entry.baseline)} → ${numberFormat.format(entry.current)} incidents`;
+        const tooltip = `
+          <div class="area-tooltip">
+            <span>${escapeHtml(entry.station.division)}</span>
+            <strong>${escapeHtml(entry.station.name)}</strong>
+            <b>${escapeHtml(changeLabel)}</b>
+            <small>${baselineYear}–${selectedYear} · ${escapeHtml(countLabel)}</small>
+          </div>`;
+        const polygon = leaflet.polygon(cell, {
+          color: selected ? "#102e26" : "rgba(23,55,45,.56)",
+          weight: selected ? 3 : 1,
+          fillColor: changeColour(entry.change),
+          fillOpacity: entry.change === null ? 0.48 : 0.76,
+          className: "reporting-area-cell",
         });
-        marker.bindTooltip(
-          `<strong>${station.name}</strong><br>${formatMetricValue(value, selectedMetric)}`,
-          { direction: "top", offset: [0, -8] },
+        polygon.bindTooltip(tooltip, {
+          sticky: true,
+          direction: "top",
+          opacity: 1,
+          className: "change-tooltip",
+        });
+        polygon.on("mouseover", () => polygon.setStyle({ weight: 3, fillOpacity: 0.9 }));
+        polygon.on("mouseout", () =>
+          polygon.setStyle({
+            weight: entry.station.id === selectedStationId ? 3 : 1,
+            fillOpacity: entry.change === null ? 0.48 : 0.76,
+          }),
         );
-        marker.on("click", () => {
-          setSelectedStationId(station.id);
-          setLookupResult(null);
-          setSelectedPlaceName("");
+        polygon.on("click", () => setSelectedStationId(entry.station.id));
+        polygon.addTo(areaLayer.current!);
+
+        const stationPoint = leaflet.circleMarker([entry.station.lat, entry.station.lng], {
+          radius: selected ? 4.5 : 2.6,
+          color: "#f8f5ee",
+          weight: 1,
+          fillColor: "#17372d",
+          fillOpacity: 0.9,
         });
-        marker.addTo(markerLayer.current!);
-        const element = marker.getElement();
-        if (element) {
-          element.setAttribute("tabindex", "0");
-          element.setAttribute("role", "button");
-          element.setAttribute("aria-label", `${station.name}: ${formatMetricValue(value, selectedMetric)}`);
-          element.addEventListener("keydown", (event) => {
-            if (event.key === "Enter" || event.key === " ") {
-              event.preventDefault();
-              setSelectedStationId(station.id);
-            }
-          });
-        }
+        stationPoint.bindTooltip(tooltip, {
+          direction: "top",
+          opacity: 1,
+          className: "change-tooltip",
+        });
+        stationPoint.on("click", () => setSelectedStationId(entry.station.id));
+        stationPoint.addTo(areaLayer.current!);
       });
     }
-    renderMarkers();
-  }, [mapReady, metricEntries, selectedMetric, selectedStationId, trendBaselineYear]);
-
-  useEffect(() => {
-    if (!mapReady || !mapInstance.current) return;
-    mapInstance.current.panTo([selectedStation.lat, selectedStation.lng], { animate: true });
-  }, [mapReady, selectedStation]);
-
-  useEffect(() => {
-    if (selectedCategory === "all" && selectedMetric === "share") {
-      setSelectedMetric("raw");
-    }
-  }, [selectedCategory, selectedMetric]);
-
-  useEffect(() => {
-    if (lookupResult && !lookupResult.stationIds.includes(selectedStationId)) {
-      setLookupResult(null);
-      setSelectedPlaceName("");
-    }
-  }, [lookupResult, selectedStationId]);
-
-  function selectPlace(place: Place) {
-    setSelectedPlaceName(place.place);
-    setLookupResult(place);
-    setSelectedStationId(place.stationIds[0]);
-  }
-
-  function toggleComparison(stationId: string) {
-    setComparisonIds((current) => {
-      if (current.includes(stationId)) return current.filter((id) => id !== stationId);
-      if (current.length >= 3) return [...current.slice(1), stationId];
-      return [...current, stationId];
-    });
-  }
-
-  function formatMetricValue(value: number, metric: Metric) {
-    if (metric === "raw") return `${numberFormat.format(Math.round(value))} incidents`;
-    if (metric === "share") return `${oneDecimal.format(value)}% of area total`;
-    if (metric === "change") return `${formatSigned(value)} vs ${trendBaselineYear}`;
-    return `${Math.round(value)}th percentile`;
-  }
+    renderAreas();
+  }, [areaChanges, baselineYear, data.stations, mapBounds, mapReady, selectedStationId, selectedYear]);
 
   return (
-    <main className="explorer-shell">
-      <header className="site-header">
-        <a className="wordmark" href="#top" aria-label="Dublin Crime Explorer home">
-          <span className="wordmark-dot" />
+    <main className="change-map-app">
+      <header className="map-site-header">
+        <a href="#atlas" className="map-wordmark" aria-label="Dublin Crime Explorer map">
+          <i aria-hidden="true" />
           Dublin Crime Explorer
         </a>
-        <nav aria-label="Page sections">
-          <a href="#atlas">Atlas</a>
-          <a href="#compare">Compare</a>
-          <a href="#rankings">Rankings</a>
-        </nav>
-        <a className="method-button" href="#methodology">Method & limits</a>
+        <p>Official CSO CJA11 data · through {data.meta.latestCompleteYear}</p>
+        <a href="#source">Source &amp; limits</a>
       </header>
 
-      <section className="hero-strip" id="top">
-        <div>
-          <p className="eyebrow">A clearer view of recorded crime</p>
-          <h1>What was recorded<br />across Dublin?</h1>
-        </div>
-        <div className="hero-copy">
-          <p>
-            Compare Garda reporting geographies by offence, year and trend—without
-            mistaking raw station totals for a neighbourhood safety score.
-          </p>
-          <span>Official CSO CJA11 · Annual data to 2025</span>
-        </div>
-      </section>
-
-      <section className="dashboard-frame" id="atlas" aria-label="Crime explorer dashboard">
-        <aside className="filter-rail">
-          <div className="rail-heading">
-            <span>Explore the data</span>
-            <span className="live-pill">41 stations</span>
+      <section className="map-workspace" id="atlas">
+        <aside className="map-controls">
+          <div>
+            <p className="map-eyebrow">Recorded crime change</p>
+            <h1>See where crime is rising—or falling.</h1>
+            <p className="map-intro">
+              Pick a crime type. Every Dublin reporting area is coloured by its percentage
+              change, from green decreases to red increases.
+            </p>
           </div>
 
-          <div className="search-block">
-            <label htmlFor="area-search">Search Dublin area</label>
-            <select
-              id="area-search"
-              className="area-select"
-              value={selectedPlaceName}
-              onChange={(event) => {
-                const place = data.places.find((item) => item.place === event.target.value);
-                if (place) selectPlace(place);
-              }}
-            >
-              <option value="">Choose a Dublin area…</option>
-              {sortedPlaces.map((place) => (
-                <option key={place.place} value={place.place}>{place.place}</option>
-              ))}
-            </select>
-          </div>
-
-          {lookupResult && (
-            <div className={`lookup-card confidence-${lookupResult.confidence}`}>
-              <div>
-                <span>{lookupResult.place}</span>
-                <small>{lookupResult.confidence} mapping confidence</small>
-              </div>
-              <p>{lookupResult.note}</p>
-              <strong>Relevant published geography</strong>
-              <div className="lookup-stations">
-                {lookupResult.stationIds.map((id) => {
-                  const station = stationsById.get(id)!;
-                  return (
-                    <button
-                      type="button"
-                      key={id}
-                      className={id === selectedStationId ? "active" : ""}
-                      onClick={() => setSelectedStationId(id)}
-                    >
-                      {station.name}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          <label>
-            Crime view
-            <select
-              value={selectedCategory}
-              onChange={(event) => setSelectedCategory(event.target.value)}
-            >
-              <optgroup label="Useful groupings">
-                {data.categories
-                  .filter((category) => category.kind === "grouped")
-                  .map((category) => (
-                    <option key={category.id} value={category.id}>
-                      {category.shortLabel}
-                    </option>
-                  ))}
-              </optgroup>
-              <optgroup label="Official CJA11 categories">
-                {data.categories
-                  .filter((category) => category.kind === "official")
-                  .map((category) => (
-                    <option key={category.id} value={category.id}>
-                      {category.shortLabel}
-                    </option>
-                  ))}
-              </optgroup>
-            </select>
-          </label>
-          <label>
-            Year
-            <select
-              value={selectedYear}
-              onChange={(event) => setSelectedYear(Number(event.target.value))}
-            >
-              {[...data.meta.years].reverse().map((year) => (
-                <option key={year} value={year}>{year}</option>
-              ))}
-            </select>
-          </label>
-          <label>
-            Map measure
-            <select
-              value={selectedMetric}
-              onChange={(event) => setSelectedMetric(event.target.value as Metric)}
-            >
-              {(Object.keys(metricCopy) as Metric[]).map((metric) => (
-                <option key={metric} value={metric} disabled={metric === "share" && selectedCategory === "all"}>
-                  {metricCopy[metric].label}
-                </option>
-              ))}
-            </select>
-          </label>
-          <button
-            type="button"
-            className={selectedMetric === "change" ? "increase-view-button active" : "increase-view-button"}
-            onClick={() => setSelectedMetric(selectedMetric === "change" ? "raw" : "change")}
-            aria-pressed={selectedMetric === "change"}
-          >
-            <span aria-hidden="true">↗</span>
-            <strong>Increase / decrease view</strong>
-            <small>Colour the map by direction</small>
-          </button>
-          {selectedMetric === "change" && (
-            <label>
-              Comparison period
+          <div className="control-stack">
+            <label htmlFor="crime-type">
+              Crime type
               <select
-                value={trendPeriod}
-                onChange={(event) => setTrendPeriod(event.target.value as TrendPeriod)}
+                id="crime-type"
+                value={selectedCategory}
+                onChange={(event) => setSelectedCategory(event.target.value)}
               >
-                <option value="year_on_year">Year on year</option>
-                <option value="three_year">Three-year change</option>
-                <option value="since_2019">Since 2019</option>
+                <optgroup label="Useful groupings">
+                  {data.categories
+                    .filter((category) => category.kind === "grouped")
+                    .map((category) => (
+                      <option value={category.id} key={category.id}>{category.shortLabel}</option>
+                    ))}
+                </optgroup>
+                <optgroup label="Official CJA11 categories">
+                  {data.categories
+                    .filter((category) => category.kind === "official")
+                    .map((category) => (
+                      <option value={category.id} key={category.id}>{category.shortLabel}</option>
+                    ))}
+                </optgroup>
               </select>
             </label>
-          )}
-          <p className="filter-explainer">{selectedCategoryCopy.description}</p>
+            <div className="control-pair">
+              <label htmlFor="map-year">
+                Latest year
+                <select
+                  id="map-year"
+                  value={selectedYear}
+                  onChange={(event) => setSelectedYear(Number(event.target.value))}
+                >
+                  {[...data.meta.years].reverse().map((year) => (
+                    <option value={year} key={year}>{year}</option>
+                  ))}
+                </select>
+              </label>
+              <label htmlFor="comparison-period">
+                Compare with
+                <select
+                  id="comparison-period"
+                  value={trendPeriod}
+                  onChange={(event) => setTrendPeriod(event.target.value as TrendPeriod)}
+                >
+                  <option value="year_on_year">Previous year</option>
+                  <option value="three_year">Three years earlier</option>
+                  <option value="since_2019">2019</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <p className="category-description">{selectedCategoryCopy.description}</p>
           {selectedCategoryCopy.availabilityNote && (
-            <div className="data-warning">{selectedCategoryCopy.availabilityNote}</div>
+            <p className="category-warning">{selectedCategoryCopy.availabilityNote}</p>
           )}
-          <div className="rail-callout">
-            <span className="callout-icon">i</span>
-            <p>{data.meta.geographyNote}</p>
-          </div>
-        </aside>
 
-        <div className="map-stage">
-          <div className="map-heading">
+          <div className="change-counts" aria-label={`Area changes from ${baselineYear} to ${selectedYear}`}>
+            <div><i className="up-dot" /><strong>{summary.increased}</strong><span>increased</span></div>
+            <div><i className="down-dot" /><strong>{summary.decreased}</strong><span>decreased</span></div>
+            <div><i className="flat-dot" /><strong>{summary.stable}</strong><span>little change</span></div>
+          </div>
+
+          <section className="movement-list" aria-label="Largest changes">
             <div>
-              <span className="map-kicker">Dublin · {selectedYear}</span>
-              <h2>{selectedCategoryCopy.shortLabel}</h2>
-              <p>
-                {selectedMetric === "change"
-                  ? `${comparisonPeriodLabel} percentage change`
-                  : metricCopy[selectedMetric].short}
-              </p>
-            </div>
-            <div
-              className={selectedMetric === "change" ? "map-legend change-legend" : "map-legend"}
-              aria-label={selectedMetric === "change" ? "Decrease to increase colour scale" : "Map colour scale"}
-            >
-              <span>{selectedMetric === "change" ? "Decreased" : "Lower recorded"}</span>
-              <i /><i /><i /><i /><i />
-              <span>{selectedMetric === "change" ? "Increased" : "Higher"}</span>
-            </div>
-          </div>
-          {changeSummary && (
-            <div className="change-summary" aria-label={`Change summary for ${comparisonPeriodLabel}`}>
-              <span><i className="increase-dot" /> <strong>{changeSummary.increased}</strong> increased</span>
-              <span><i className="decrease-dot" /> <strong>{changeSummary.decreased}</strong> decreased</span>
-              <span><i className="steady-dot" /> <strong>{changeSummary.littleChange}</strong> little change</span>
-            </div>
-          )}
-          <div ref={mapElement} className="leaflet-map" aria-label="Map of Dublin Garda station locations" />
-          {metricEntries.length === 0 && (
-            <div className="map-empty">No comparable station-level data for this selection.</div>
-          )}
-          <div className="map-caption">
-            <span>Point markers, not catchment polygons</span>
-            {selectedMetric === "change"
-              ? `Change from ${trendBaselineYear} to ${selectedYear}. ${metricCopy.change.note}`
-              : metricCopy[selectedMetric].note}
-          </div>
-        </div>
-
-        <aside className="area-panel" aria-live="polite">
-          <div className="panel-topline">
-            <span>{selectedStation.division}</span>
-            <span>{selectedYear}</span>
-          </div>
-          <h2>{selectedStation.name}</h2>
-          <p className="station-label">Garda station / sub-district geography</p>
-          <div className="primary-stat">
-            <strong>
-              {selectedMetricValue === null
-                ? "—"
-                : selectedMetric === "raw"
-                  ? numberFormat.format(Math.round(selectedMetricValue))
-                  : selectedMetric === "percentile"
-                    ? `${Math.round(selectedMetricValue)}th`
-                    : selectedMetric === "change"
-                      ? formatSigned(selectedMetricValue)
-                      : `${oneDecimal.format(selectedMetricValue)}%`}
-            </strong>
-            <span>
-              {selectedMetric === "change"
-                ? `change from ${trendBaselineYear}`
-                : metricCopy[selectedMetric].short.toLowerCase()}
-            </span>
-          </div>
-          <div className="mini-metrics">
-            <div>
-              <span>Dublin percentile</span>
-              <strong>{rawPercentile === null ? "—" : `${Math.round(rawPercentile)}th`}</strong>
-            </div>
-            <div>
-              <span>{selectedMetric === "change" ? `vs ${trendBaselineYear}` : "Since 2019"}</span>
-              <strong>
-                {(selectedMetric === "change" ? selectedPeriodChange : since2019Change) === null
-                  ? "n/a"
-                  : formatSigned(
-                      (selectedMetric === "change" ? selectedPeriodChange : since2019Change)!,
-                    )}
-              </strong>
-            </div>
-            <div>
-              <span>Area share</span>
-              <strong>{areaShare === null ? "—" : `${oneDecimal.format(areaShare)}%`}</strong>
-            </div>
-          </div>
-          <button
-            type="button"
-            className={comparisonIds.includes(selectedStation.id) ? "compare-button active" : "compare-button"}
-            onClick={() => toggleComparison(selectedStation.id)}
-          >
-            {comparisonIds.includes(selectedStation.id) ? "✓ In comparison" : "+ Add to comparison"}
-          </button>
-
-          <section className="panel-section">
-            <div className="panel-section-heading">
-              <h3>Trend</h3>
-              <span>2019–2025</span>
-            </div>
-            <TrendChart
-              values={selectedStation.series[selectedCategory]}
-              years={data.meta.years}
-              label={`${selectedStation.name} ${selectedCategoryCopy.shortLabel}`}
-            />
-          </section>
-
-          <section className="panel-section">
-            <div className="panel-section-heading">
-              <h3>Crime mix</h3>
-              <span>% of published total</span>
-            </div>
-            <div className="mix-list">
-              {crimeMix.map(({ category, value }) => {
-                const share = areaTotal ? (value / areaTotal) * 100 : 0;
-                return (
-                  <div className="mix-row" key={category.id}>
-                    <div><span>{category.shortLabel}</span><strong>{oneDecimal.format(share)}%</strong></div>
-                    <i><b style={{ width: `${Math.min(100, share)}%` }} /></i>
-                  </div>
-                );
-              })}
-            </div>
-          </section>
-
-          <section className="panel-section context-section">
-            <h3>Context</h3>
-            {selectedStation.flags.length > 0 && (
-              <div className="flag-list">
-                {selectedStation.flags.map((flag) => <span key={flag}>{contextLabels[flag]}</span>)}
-              </div>
-            )}
-            <p>{selectedStation.contextNote || data.meta.dataNote}</p>
-          </section>
-        </aside>
-      </section>
-
-      <section className="comparison-section" id="compare">
-        <div className="section-intro">
-          <div>
-            <p className="eyebrow">Side by side</p>
-            <h2>Compare reporting geographies</h2>
-          </div>
-          <p>
-            Counts are shown for {selectedYear}. The final row compares change from {tableBaselineYear}
-            {selectedMetric === "change" ? " using your selected period." : "."}
-          </p>
-        </div>
-        <div className="comparison-toolbar">
-          <div className="comparison-pills">
-            {comparisonIds.map((id) => {
-              const station = stationsById.get(id)!;
-              return (
-                <button type="button" key={id} onClick={() => toggleComparison(id)}>
-                  {station.name}<span aria-label={`Remove ${station.name}`}>×</span>
+              <p>Largest increases</p>
+              {rankedIncreases.slice(0, 3).map((entry) => (
+                <button type="button" key={entry.station.id} onClick={() => setSelectedStationId(entry.station.id)}>
+                  <span>{entry.station.name}</span><strong>{formatSigned(entry.change)}</strong>
                 </button>
-              );
-            })}
-          </div>
-          <label>
-            Add area
-            <select
-              value=""
-              onChange={(event) => {
-                if (event.target.value) toggleComparison(event.target.value);
-              }}
-            >
-              <option value="">Choose a station…</option>
-              {data.stations
-                .filter((station) => !comparisonIds.includes(station.id))
-                .map((station) => <option value={station.id} key={station.id}>{station.name}</option>)}
-            </select>
-          </label>
-        </div>
-        {comparisonIds.length > 0 ? (
-          <div className="comparison-table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Recorded category</th>
-                  {comparisonIds.map((id) => <th key={id}>{stationsById.get(id)!.name}</th>)}
-                </tr>
-              </thead>
-              <tbody>
-                {comparisonRows.map((categoryId) => (
-                  <tr key={categoryId}>
-                    <th>{categoriesById.get(categoryId)!.shortLabel}</th>
-                    {comparisonIds.map((id) => {
-                      const value = stationsById.get(id)!.series[categoryId][yearIndex];
-                      return <td key={id}>{value === null ? "—" : numberFormat.format(value)}</td>;
-                    })}
-                  </tr>
-                ))}
-                <tr className="trend-comparison-row">
-                  <th>{selectedCategoryCopy.shortLabel} · change from {tableBaselineYear}</th>
-                  {comparisonIds.map((id) => {
-                    const series = stationsById.get(id)!.series[selectedCategory];
-                    const change = tableBaselineIndex < yearIndex
-                      ? percentageChange(series[yearIndex], series[tableBaselineIndex])
-                      : null;
-                    return <td key={id}>{change === null ? "n/a" : formatSigned(change)}</td>;
-                  })}
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <div className="comparison-empty">Add up to three stations from an area panel or the selector above.</div>
-        )}
-        <p className="table-note">Raw-count comparison only. Different station catchments are not equally sized and can have very different footfall.</p>
-      </section>
-
-      <section className="rankings-section" id="rankings">
-        <div className="section-intro">
-          <div>
-            <p className="eyebrow">Dublin-wide position</p>
-            <h2>Rankings, with the measure attached</h2>
-          </div>
-          <p>
-            {selectedMetric === "change"
-              ? `See which station geographies recorded the largest increases and decreases from ${trendBaselineYear} to ${selectedYear}.`
-              : "These are not “safest place” lists. They order station geographies only by your current category and map measure."}
-          </p>
-        </div>
-        <div className="ranking-grid">
-          <div className="ranking-card">
-            <div className="ranking-title">
-              <span>{selectedMetric === "change" ? "Largest increase" : "Higher recorded level"}</span>
-              <small>{selectedMetric === "change" ? comparisonPeriodLabel : metricCopy[selectedMetric].short}</small>
-            </div>
-            <ol>
-              {ranked.slice(0, 5).map((entry) => (
-                <li key={entry.station.id}>
-                  <button type="button" onClick={() => setSelectedStationId(entry.station.id)}>
-                    <span>{entry.station.name}</span>
-                    <strong>{formatMetricValue(entry.value, selectedMetric)}</strong>
-                  </button>
-                </li>
               ))}
-            </ol>
-          </div>
-          <div className="ranking-card">
-            <div className="ranking-title">
-              <span>{selectedMetric === "change" ? "Largest decrease" : "Lower recorded level"}</span>
-              <small>{selectedMetric === "change" ? comparisonPeriodLabel : metricCopy[selectedMetric].short}</small>
             </div>
-            <ol>
-              {[...ranked].reverse().slice(0, 5).map((entry) => (
-                <li key={entry.station.id}>
-                  <button type="button" onClick={() => setSelectedStationId(entry.station.id)}>
-                    <span>{entry.station.name}</span>
-                    <strong>{formatMetricValue(entry.value, selectedMetric)}</strong>
-                  </button>
-                </li>
+            <div>
+              <p>Largest decreases</p>
+              {rankedDecreases.slice(0, 3).map((entry) => (
+                <button type="button" key={entry.station.id} onClick={() => setSelectedStationId(entry.station.id)}>
+                  <span>{entry.station.name}</span><strong>{formatSigned(entry.change)}</strong>
+                </button>
               ))}
-            </ol>
+            </div>
+          </section>
+        </aside>
+
+        <section className="district-map-panel" aria-label="Dublin recorded crime change map">
+          <div className="map-panel-heading">
+            <div>
+              <span>All 41 Dublin reporting areas</span>
+              <strong>{selectedCategoryCopy.shortLabel} · {baselineYear}–{selectedYear}</strong>
+            </div>
+            <div className="change-legend" aria-label="Percentage-change colour scale">
+              <span>Decreased</span>
+              <i /><i /><i /><i /><i /><i /><i />
+              <span>Increased</span>
+            </div>
           </div>
-        </div>
+
+          <div
+            ref={mapElement}
+            className="district-map"
+            aria-label="Map of Dublin recorded-crime reporting areas"
+          />
+
+          {availableChanges.length === 0 && (
+            <div className="map-no-data">No comparable area data for this selection.</div>
+          )}
+
+          <article className="selected-area-card" aria-live="polite">
+            <span>{selectedArea.station.division}</span>
+            <h2>{selectedArea.station.name}</h2>
+            <div>
+              <strong>{selectedArea.change === null ? "n/a" : formatSigned(selectedArea.change)}</strong>
+              <p>from {baselineYear} to {selectedYear}</p>
+            </div>
+            <small>
+              {selectedArea.current === null || selectedArea.baseline === null
+                ? "Comparable counts unavailable"
+                : `${numberFormat.format(selectedArea.baseline)} → ${numberFormat.format(selectedArea.current)} recorded incidents`}
+            </small>
+          </article>
+
+          <p className="map-guidance">Hover over an area for its exact change · click to pin details</p>
+        </section>
       </section>
 
-      <section className="methodology-section" id="methodology">
-        <div className="methodology-heading">
-          <p className="eyebrow">Read before interpreting</p>
-          <h2>Method & limitations</h2>
-          <p>Transparent caveats are part of the product, not fine print.</p>
+      <footer id="source" className="map-source-footer">
+        <div>
+          <span>Data source</span>
+          <strong>Central Statistics Office · CJA11</strong>
         </div>
-        <div className="method-grid">
-          <article>
-            <span>01</span><h3>Recorded, not total prevalence</h3>
-            <p>{data.meta.dataNote}</p>
-          </article>
-          <article>
-            <span>02</span><h3>Station geography, not suburb</h3>
-            <p>{data.meta.geographyNote}</p>
-          </article>
-          <article>
-            <span>03</span><h3>No current catchment polygons</h3>
-            <p>The map uses published station locations. The available Garda boundary files describe the 2011/2013 structure and are not presented as current.</p>
-          </article>
-          <article>
-            <span>04</span><h3>Category gaps</h3>
-            <p>{data.meta.fraudNote} Homicide and sexual-offence groups are also not published in CJA11 station detail.</p>
-          </article>
-          <article>
-            <span>05</span><h3>Vehicle crime is not separable</h3>
-            <p>{data.meta.vehicleNote}</p>
-          </article>
-          <article>
-            <span>06</span><h3>Historical caution</h3>
-            <p>Closed-station incidents are reassigned to the station geography that assumed responsibility. COVID restrictions materially affected 2020–2022 patterns.</p>
-          </article>
-        </div>
-        <div className="source-bar">
-          <div><span>Primary source</span><strong>Central Statistics Office · CJA11</strong></div>
-          <a href="https://data.gov.ie/en_GB/dataset/cja11-recorded-crime-incidents-new-garda-operating-model" target="_blank" rel="noreferrer">Open official dataset ↗</a>
-        </div>
-      </section>
-
-      <footer>
-        <span>Dublin Crime Explorer</span>
-        <p>Neutral, reproducible exploration of official recorded-crime data.</p>
-        <a href="#top">Back to top ↑</a>
+        <p>
+          Values are exact station/sub-district records. Filled cells are approximate areas derived
+          from station locations—not official boundary polygons. {data.meta.dataNote}
+        </p>
+        <a
+          href="https://data.gov.ie/en_GB/dataset/cja11-recorded-crime-incidents-new-garda-operating-model"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Open official dataset ↗
+        </a>
       </footer>
     </main>
   );
