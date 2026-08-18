@@ -1,0 +1,42 @@
+station,high_footfall,retail,transport,nightlife,large_catchment,notes
+Donnybrook,0,0,0,0,0,
+Irishtown,0,0,0,0,0,
+Pearse Street,1,0,1,1,0,"City-centre and docklands footfall, nightlife and transport activity can raise recorded counts beyond resident exposure."
+Kevin Street,1,0,0,1,0,"City-centre and nightlife footfall can raise recorded counts beyond resident exposure."
+Kilmainham,0,0,0,0,0,
+Bridewell Dublin,1,0,1,1,0,"Core city-centre catchment with very high visitor, shopping, nightlife and transport footfall."
+Fitzgibbon Street,1,0,1,1,0,"Inner-city catchment with substantial commuter, retail and nightlife footfall."
+Mountjoy,1,0,0,0,0,"Inner-city station geography; residential population alone is not a suitable denominator."
+Store Street,1,0,1,1,0,"Core city-centre and Connolly transport-hub catchment with exceptional commuter and visitor footfall."
+Balbriggan,0,0,0,0,0,
+Garristown,0,0,0,0,0,
+Lusk,0,0,0,0,0,
+Skerries,0,0,0,0,0,
+Ballymun,0,0,0,0,1,"Station geography covers more than the neighbourhood immediately around the station."
+Dublin Airport,1,0,1,0,0,"Airport passengers, workers and transport activity make residential interpretation inappropriate."
+Santry,0,0,0,0,0,
+Coolock,0,0,0,0,1,"Large, heterogeneous station catchment containing several distinct communities and land uses."
+Malahide,0,0,0,0,0,
+Swords,1,1,1,0,1,"Large and fast-growing catchment with retail, employment and airport-adjacent activity."
+Clontarf,0,0,0,0,0,
+Howth,1,0,1,0,0,"Visitor and coastal transport footfall varies seasonally."
+Raheny,0,0,0,0,0,
+Crumlin,0,0,0,0,1,"Station geography includes several adjoining neighbourhoods."
+Sundrive Road,0,0,0,0,0,
+Rathfarnham,0,0,0,0,1,"Broad south-Dublin catchment; a station total is not a single-neighbourhood statistic."
+Tallaght,1,1,1,0,1,"Very large and heterogeneous catchment with major retail, civic, hospital and transport activity."
+Rathmines,1,0,0,1,0,"Busy mixed-use and nightlife area with non-residential footfall."
+Terenure,0,0,0,0,0,
+"Blackrock, Co Dublin",1,1,1,0,1,"Mixed and relatively broad east-Dublin station geography with retail and transport activity."
+Dundrum,1,1,1,0,1,"Major shopping-centre and transport destination; theft strongly influences the headline total."
+Cabinteely,0,0,0,0,1,"Station geography spans several south-eastern neighbourhoods."
+Dun Laoghaire,1,1,1,1,1,"Town-centre, harbour, transport and nightlife footfall complicate residential comparison."
+Shankill,0,0,0,0,0,
+Blanchardstown,1,1,1,0,1,"Very large, heterogeneous catchment with a major retail centre; it must not be treated as Castleknock-only data."
+Cabra,0,0,0,0,1,"Station geography includes more than Cabra's commonly understood neighbourhood boundary."
+Finglas,0,0,0,0,1,"Large station catchment containing distinct communities and land uses."
+Ballyfermot,0,0,0,0,1,"Broad station geography spanning more than the neighbourhood immediately around the station."
+Clondalkin,1,1,1,0,1,"Large and heterogeneous catchment with town-centre, retail and transport activity."
+Rathcoole,0,0,1,0,1,"Large outer-Dublin catchment including motorway, logistics and multiple settlements."
+Lucan,0,0,0,0,1,"Large suburban catchment; local neighbourhoods cannot be distinguished in CJA11."
+Ronanstown,0,0,0,0,1,"Large west-Dublin catchment containing several distinct communities."
