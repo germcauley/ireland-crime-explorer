@@ -32,6 +32,7 @@ test("server-renders the crime explorer and social metadata", async () => {
   assert.match(html, /<title>Dublin Crime Explorer<\/title>/i);
   assert.match(html, /What was recorded/);
   assert.match(html, /Search Dublin area/);
+  assert.match(html, /Increase \/ decrease view/);
   assert.match(html, /<select[^>]*id="area-search"/i);
   assert.doesNotMatch(html, /<input[^>]*id="area-search"/i);
   assert.match(html, /Method &amp; limitations/);

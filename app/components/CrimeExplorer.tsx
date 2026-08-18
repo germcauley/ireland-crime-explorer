@@ -52,6 +52,7 @@ type DashboardData = {
 };
 
 type Metric = "raw" | "share" | "change" | "percentile";
+type TrendPeriod = "year_on_year" | "three_year" | "since_2019";
 
 const numberFormat = new Intl.NumberFormat("en-IE");
 const oneDecimal = new Intl.NumberFormat("en-IE", {
@@ -71,9 +72,9 @@ const metricCopy: Record<Metric, { label: string; short: string; note: string }>
     note: "Selected incidents as a share of all CJA11 categories published for the station.",
   },
   change: {
-    label: "Change since 2019",
-    short: "Change since 2019",
-    note: "Percentage change is withheld where the 2019 baseline is below 10 incidents.",
+    label: "Increase / decrease",
+    short: "Change over selected period",
+    note: "Percentage change is withheld where the comparison-year baseline is below 10 incidents.",
   },
   percentile: {
     label: "Dublin percentile",
@@ -106,6 +107,15 @@ function markerColour(value: number, min: number, max: number) {
   if (ratio > 0.6) return "#c46b3c";
   if (ratio > 0.4) return "#db9c55";
   if (ratio > 0.2) return "#8aa382";
+  return "#4d745f";
+}
+
+function changeMarkerColour(value: number) {
+  if (value >= 20) return "#9b3e2f";
+  if (value >= 5) return "#c46b3c";
+  if (value > 2) return "#db9c55";
+  if (value >= -2) return "#c9c5ba";
+  if (value >= -10) return "#8aa382";
   return "#4d745f";
 }
 
@@ -171,6 +181,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const [selectedCategory, setSelectedCategory] = useState("07");
   const [selectedYear, setSelectedYear] = useState(data.meta.latestCompleteYear);
   const [selectedMetric, setSelectedMetric] = useState<Metric>("raw");
+  const [trendPeriod, setTrendPeriod] = useState<TrendPeriod>("year_on_year");
   const [selectedStationId, setSelectedStationId] = useState("65102");
   const [comparisonIds, setComparisonIds] = useState<string[]>(["65102"]);
   const [selectedPlaceName, setSelectedPlaceName] = useState("");
@@ -189,11 +200,28 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     [data.categories],
   );
   const yearIndex = data.meta.years.indexOf(selectedYear);
+  const trendBaselineIndex =
+    trendPeriod === "year_on_year"
+      ? Math.max(0, yearIndex - 1)
+      : trendPeriod === "three_year"
+        ? Math.max(0, yearIndex - 3)
+        : 0;
+  const hasTrendBaseline = trendBaselineIndex < yearIndex;
+  const trendBaselineYear = data.meta.years[trendBaselineIndex];
+  const comparisonPeriodLabel = `${trendBaselineYear}–${selectedYear}`;
+  const tableBaselineIndex = selectedMetric === "change" ? trendBaselineIndex : 0;
+  const tableBaselineYear = data.meta.years[tableBaselineIndex];
   const selectedStation = stationsById.get(selectedStationId) ?? data.stations[0];
   const selectedCategoryCopy = categoriesById.get(selectedCategory) ?? data.categories[0];
   const rawValue = selectedStation.series[selectedCategory][yearIndex];
   const baselineValue = selectedStation.series[selectedCategory][0];
-  const trendChange = percentageChange(rawValue, baselineValue);
+  const since2019Change = percentageChange(rawValue, baselineValue);
+  const selectedPeriodChange = percentageChange(
+    rawValue,
+    hasTrendBaseline
+      ? selectedStation.series[selectedCategory][trendBaselineIndex]
+      : null,
+  );
   const areaTotal = selectedStation.series.all[yearIndex];
   const areaShare =
     rawValue !== null && areaTotal ? (rawValue / areaTotal) * 100 : null;
@@ -225,7 +253,12 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       return rawEntries
         .map(({ station, value }) => ({
           station,
-          value: percentageChange(value, station.series[selectedCategory][0]),
+          value: percentageChange(
+            value,
+            hasTrendBaseline
+              ? station.series[selectedCategory][trendBaselineIndex]
+              : null,
+          ),
         }))
         .filter((item): item is { station: Station; value: number } => item.value !== null);
     }
@@ -234,7 +267,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       station: item.station,
       value: ((index + 1) / ordered.length) * 100,
     }));
-  }, [rawEntries, selectedCategory, selectedMetric, yearIndex]);
+  }, [hasTrendBaseline, rawEntries, selectedCategory, selectedMetric, trendBaselineIndex, yearIndex]);
 
   const metricByStation = useMemo(
     () => new Map(metricEntries.map((item) => [item.station.id, item.value])),
@@ -268,6 +301,19 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     () => [...metricEntries].sort((a, b) => b.value - a.value),
     [metricEntries],
   );
+
+  const changeSummary = useMemo(() => {
+    if (selectedMetric !== "change") return null;
+    return metricEntries.reduce(
+      (summary, entry) => {
+        if (entry.value > 2) summary.increased += 1;
+        else if (entry.value < -2) summary.decreased += 1;
+        else summary.littleChange += 1;
+        return summary;
+      },
+      { increased: 0, decreased: 0, littleChange: 0 },
+    );
+  }, [metricEntries, selectedMetric]);
 
   useEffect(() => {
     let cancelled = false;
@@ -322,7 +368,10 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           radius: selected ? 12 : 7,
           color: selected ? "#f6f1e7" : "#17372d",
           weight: selected ? 3 : 1.5,
-          fillColor: markerColour(value, min, max),
+          fillColor:
+            selectedMetric === "change"
+              ? changeMarkerColour(value)
+              : markerColour(value, min, max),
           fillOpacity: 0.94,
         });
         marker.bindTooltip(
@@ -350,7 +399,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       });
     }
     renderMarkers();
-  }, [mapReady, metricEntries, selectedMetric, selectedStationId]);
+  }, [mapReady, metricEntries, selectedMetric, selectedStationId, trendBaselineYear]);
 
   useEffect(() => {
     if (!mapReady || !mapInstance.current) return;
@@ -387,7 +436,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   function formatMetricValue(value: number, metric: Metric) {
     if (metric === "raw") return `${numberFormat.format(Math.round(value))} incidents`;
     if (metric === "share") return `${oneDecimal.format(value)}% of area total`;
-    if (metric === "change") return `${formatSigned(value)} since 2019`;
+    if (metric === "change") return `${formatSigned(value)} vs ${trendBaselineYear}`;
     return `${Math.round(value)}th percentile`;
   }
 
@@ -521,6 +570,29 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
               ))}
             </select>
           </label>
+          <button
+            type="button"
+            className={selectedMetric === "change" ? "increase-view-button active" : "increase-view-button"}
+            onClick={() => setSelectedMetric(selectedMetric === "change" ? "raw" : "change")}
+            aria-pressed={selectedMetric === "change"}
+          >
+            <span aria-hidden="true">↗</span>
+            <strong>Increase / decrease view</strong>
+            <small>Colour the map by direction</small>
+          </button>
+          {selectedMetric === "change" && (
+            <label>
+              Comparison period
+              <select
+                value={trendPeriod}
+                onChange={(event) => setTrendPeriod(event.target.value as TrendPeriod)}
+              >
+                <option value="year_on_year">Year on year</option>
+                <option value="three_year">Three-year change</option>
+                <option value="since_2019">Since 2019</option>
+              </select>
+            </label>
+          )}
           <p className="filter-explainer">{selectedCategoryCopy.description}</p>
           {selectedCategoryCopy.availabilityNote && (
             <div className="data-warning">{selectedCategoryCopy.availabilityNote}</div>
@@ -536,21 +608,37 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
             <div>
               <span className="map-kicker">Dublin · {selectedYear}</span>
               <h2>{selectedCategoryCopy.shortLabel}</h2>
-              <p>{metricCopy[selectedMetric].short}</p>
+              <p>
+                {selectedMetric === "change"
+                  ? `${comparisonPeriodLabel} percentage change`
+                  : metricCopy[selectedMetric].short}
+              </p>
             </div>
-            <div className="map-legend" aria-label="Map colour scale">
-              <span>Lower recorded</span>
+            <div
+              className={selectedMetric === "change" ? "map-legend change-legend" : "map-legend"}
+              aria-label={selectedMetric === "change" ? "Decrease to increase colour scale" : "Map colour scale"}
+            >
+              <span>{selectedMetric === "change" ? "Decreased" : "Lower recorded"}</span>
               <i /><i /><i /><i /><i />
-              <span>Higher</span>
+              <span>{selectedMetric === "change" ? "Increased" : "Higher"}</span>
             </div>
           </div>
+          {changeSummary && (
+            <div className="change-summary" aria-label={`Change summary for ${comparisonPeriodLabel}`}>
+              <span><i className="increase-dot" /> <strong>{changeSummary.increased}</strong> increased</span>
+              <span><i className="decrease-dot" /> <strong>{changeSummary.decreased}</strong> decreased</span>
+              <span><i className="steady-dot" /> <strong>{changeSummary.littleChange}</strong> little change</span>
+            </div>
+          )}
           <div ref={mapElement} className="leaflet-map" aria-label="Map of Dublin Garda station locations" />
           {metricEntries.length === 0 && (
             <div className="map-empty">No comparable station-level data for this selection.</div>
           )}
           <div className="map-caption">
             <span>Point markers, not catchment polygons</span>
-            {metricCopy[selectedMetric].note}
+            {selectedMetric === "change"
+              ? `Change from ${trendBaselineYear} to ${selectedYear}. ${metricCopy.change.note}`
+              : metricCopy[selectedMetric].note}
           </div>
         </div>
 
@@ -573,7 +661,11 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
                       ? formatSigned(selectedMetricValue)
                       : `${oneDecimal.format(selectedMetricValue)}%`}
             </strong>
-            <span>{metricCopy[selectedMetric].short.toLowerCase()}</span>
+            <span>
+              {selectedMetric === "change"
+                ? `change from ${trendBaselineYear}`
+                : metricCopy[selectedMetric].short.toLowerCase()}
+            </span>
           </div>
           <div className="mini-metrics">
             <div>
@@ -581,8 +673,14 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
               <strong>{rawPercentile === null ? "—" : `${Math.round(rawPercentile)}th`}</strong>
             </div>
             <div>
-              <span>Since 2019</span>
-              <strong>{trendChange === null ? "n/a" : formatSigned(trendChange)}</strong>
+              <span>{selectedMetric === "change" ? `vs ${trendBaselineYear}` : "Since 2019"}</span>
+              <strong>
+                {(selectedMetric === "change" ? selectedPeriodChange : since2019Change) === null
+                  ? "n/a"
+                  : formatSigned(
+                      (selectedMetric === "change" ? selectedPeriodChange : since2019Change)!,
+                    )}
+              </strong>
             </div>
             <div>
               <span>Area share</span>
@@ -645,7 +743,10 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
             <p className="eyebrow">Side by side</p>
             <h2>Compare reporting geographies</h2>
           </div>
-          <p>Counts are shown for {selectedYear}. The final row follows your selected crime view and compares change since 2019.</p>
+          <p>
+            Counts are shown for {selectedYear}. The final row compares change from {tableBaselineYear}
+            {selectedMetric === "change" ? " using your selected period." : "."}
+          </p>
         </div>
         <div className="comparison-toolbar">
           <div className="comparison-pills">
@@ -693,10 +794,12 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
                   </tr>
                 ))}
                 <tr className="trend-comparison-row">
-                  <th>{selectedCategoryCopy.shortLabel} · change since 2019</th>
+                  <th>{selectedCategoryCopy.shortLabel} · change from {tableBaselineYear}</th>
                   {comparisonIds.map((id) => {
                     const series = stationsById.get(id)!.series[selectedCategory];
-                    const change = percentageChange(series[yearIndex], series[0]);
+                    const change = tableBaselineIndex < yearIndex
+                      ? percentageChange(series[yearIndex], series[tableBaselineIndex])
+                      : null;
                     return <td key={id}>{change === null ? "n/a" : formatSigned(change)}</td>;
                   })}
                 </tr>
@@ -715,11 +818,18 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
             <p className="eyebrow">Dublin-wide position</p>
             <h2>Rankings, with the measure attached</h2>
           </div>
-          <p>These are not “safest place” lists. They order station geographies only by your current category and map measure.</p>
+          <p>
+            {selectedMetric === "change"
+              ? `See which station geographies recorded the largest increases and decreases from ${trendBaselineYear} to ${selectedYear}.`
+              : "These are not “safest place” lists. They order station geographies only by your current category and map measure."}
+          </p>
         </div>
         <div className="ranking-grid">
           <div className="ranking-card">
-            <div className="ranking-title"><span>Higher recorded level</span><small>{metricCopy[selectedMetric].short}</small></div>
+            <div className="ranking-title">
+              <span>{selectedMetric === "change" ? "Largest increase" : "Higher recorded level"}</span>
+              <small>{selectedMetric === "change" ? comparisonPeriodLabel : metricCopy[selectedMetric].short}</small>
+            </div>
             <ol>
               {ranked.slice(0, 5).map((entry) => (
                 <li key={entry.station.id}>
@@ -732,7 +842,10 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
             </ol>
           </div>
           <div className="ranking-card">
-            <div className="ranking-title"><span>Lower recorded level</span><small>{metricCopy[selectedMetric].short}</small></div>
+            <div className="ranking-title">
+              <span>{selectedMetric === "change" ? "Largest decrease" : "Lower recorded level"}</span>
+              <small>{selectedMetric === "change" ? comparisonPeriodLabel : metricCopy[selectedMetric].short}</small>
+            </div>
             <ol>
               {[...ranked].reverse().slice(0, 5).map((entry) => (
                 <li key={entry.station.id}>
