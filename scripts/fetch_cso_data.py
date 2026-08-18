@@ -21,10 +21,18 @@ CSO_URL = (
     "https://ws.cso.ie/public/api.restful/"
     "PxStat.Data.Cube_API.ReadDataset/CJA11/JSON-stat/2.0/en"
 )
+CJQ06_URL = (
+    "https://ws.cso.ie/public/api.restful/"
+    "PxStat.Data.Cube_API.ReadDataset/CJQ06/JSON-stat/2.0/en"
+)
 STATION_POINTS_URL = (
     "https://data.smartdublin.ie/dataset/87ce5c48-d0de-4968-b596-4002d156105d/"
     "resource/54c2e63b-8c9e-4b49-bf49-7d3a1ba499d4/download/"
     "garda-station-dublin-final.geojson"
+)
+DIVISION_BOUNDARIES_URL = (
+    "https://www.cso.ie/en/media/csoie/census/census2011boundaryfiles/"
+    "Garda_Divisions.zip"
 )
 
 
@@ -35,6 +43,15 @@ def fetch_json(url: str) -> object:
     )
     with urllib.request.urlopen(request, timeout=60) as response:
         return json.load(response)
+
+
+def fetch_bytes(url: str) -> bytes:
+    request = urllib.request.Request(
+        url,
+        headers={"User-Agent": "DublinCrimeExplorer/1.0 (public-data refresh)"},
+    )
+    with urllib.request.urlopen(request, timeout=60) as response:
+        return response.read()
 
 
 def write_json(path: Path, payload: object) -> None:
@@ -50,21 +67,28 @@ def main() -> None:
     GEOGRAPHY_DIR.mkdir(parents=True, exist_ok=True)
 
     cso_payload = fetch_json(CSO_URL)
+    cjq06_payload = fetch_json(CJQ06_URL)
     station_points = fetch_json(STATION_POINTS_URL)
+    division_boundaries_zip = fetch_bytes(DIVISION_BOUNDARIES_URL)
 
     write_json(RAW_DIR / "cja11.json", cso_payload)
+    write_json(RAW_DIR / "cjq06.json", cjq06_payload)
     write_json(GEOGRAPHY_DIR / "dublin_garda_stations.geojson", station_points)
+    (GEOGRAPHY_DIR / "garda_divisions.zip").write_bytes(division_boundaries_zip)
     write_json(
         RAW_DIR / "source_metadata.json",
         {
             "retrieved_at": datetime.now(timezone.utc).isoformat(),
             "cso_table": "CJA11",
             "cso_url": CSO_URL,
+            "cjq06_table": "CJQ06",
+            "cjq06_url": CJQ06_URL,
             "station_points_url": STATION_POINTS_URL,
+            "division_boundaries_url": DIVISION_BOUNDARIES_URL,
             "classification_mapping_version": "1.0.0",
         },
     )
-    print("Fetched CJA11 and Dublin Garda station points.")
+    print("Fetched CJA11, CJQ06, Dublin Garda station points and division boundaries.")
 
 
 if __name__ == "__main__":

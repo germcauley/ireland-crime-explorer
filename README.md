@@ -8,6 +8,10 @@ neighbourhood “safety score”.
 ## What is implemented
 
 - CSO CJA11 annual data for all 41 Dublin Metropolitan Region station rows
+- CSO CJQ06 quarterly data for all 6 DMR Garda Divisions, all 85 official
+  offence sub-categories, back to 2003
+- real official Division boundary polygons (CSO Census 2011 boundary file),
+  not approximated cells
 - 2019–2025 trends, offence filters and transparent derived groupings
 - raw count, area share, change-since-2019 and Dublin-percentile map views
 - authoritative Dublin City Council station points (not fabricated catchments)
@@ -18,6 +22,7 @@ neighbourhood “safety score”.
 ## Refresh the official data
 
 ```bash
+pip3 install -r scripts/requirements.txt
 python3 scripts/fetch_cso_data.py
 python3 scripts/clean_crime_data.py
 python3 scripts/validate_data.py
@@ -25,9 +30,12 @@ python3 scripts/validate_data.py
 
 The fetch script stores source files unchanged. The cleaning script creates:
 
-- `data/processed/dublin_crime_canonical.csv` — long-form official records
-- `data/processed/dashboard.json` — compact application data
+- `data/processed/dublin_crime_canonical.csv` — long-form official CJA11 records
+- `data/processed/dashboard.json` — compact application data (station and
+  division level)
 - `public/data/dashboard.json` — public application-data artifact
+- `data/geography/dublin_garda_divisions.geojson` — reprojected Division
+  boundary reference (also embedded per-division in dashboard.json)
 
 Curated context remains separate in `data/geography/station_metadata.csv` and
 `data/geography/place_lookup.csv`.
@@ -70,3 +78,8 @@ Node.js 22.13 or later is required.
   at station level.
 - Closed-station incidents are reassigned to the station geography that assumed
   responsibility, and COVID restrictions affect 2020–2022 comparisons.
+- CJQ06 (Division level) fraud/deception counts stop from 2023Q3 for the same
+  financial-institution reporting-backlog reason as the CJA11 fraud gap.
+- Division geography (6 areas) is much coarser than station geography (41
+  areas); it trades area detail for real boundaries, the full 85-category
+  offence breakdown and a quarterly cadence.

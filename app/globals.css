@@ -71,6 +71,23 @@ a { color: inherit; }
 }
 .map-intro { margin: 18px 0 0; color: #596961; font-size: 12px; line-height: 1.58; }
 
+.mode-toggle { margin-top: 22px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.mode-toggle button {
+  padding: 9px 8px;
+  border: 1px solid #bcb8ad;
+  border-radius: 2px;
+  background: #fffdf8;
+  color: #596961;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .02em;
+  text-align: center;
+  cursor: pointer;
+}
+.mode-toggle button small { display: block; margin-top: 2px; font-size: 8px; font-weight: 400; letter-spacing: .04em; text-transform: uppercase; color: #8a9089; }
+.mode-toggle button.active { border-color: var(--ink); background: var(--ink); color: var(--cream); }
+.mode-toggle button.active small { color: #b9c9c0; }
+
 .control-stack { margin-top: 28px; }
 .control-stack label {
   display: block;
@@ -194,6 +211,25 @@ a { color: inherit; }
 .selected-area-card > div strong { color: var(--rust); font: 36px/.9 Georgia, serif; }
 .selected-area-card > div p { margin: 5px 0 0; color: #6d7972; font-size: 9px; }
 .selected-area-card small { display: block; margin-top: 12px; color: #5b6962; font-size: 9px; }
+.division-card { width: 250px; }
+.quarter-chart { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
+.quarter-chart-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.quarter-chart-heading span { color: #79837e; font-size: 7px; letter-spacing: .08em; text-transform: uppercase; }
+.quarter-chart-heading button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--moss);
+  font-size: 8px;
+  letter-spacing: .03em;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.quarter-chart-svg { width: 100%; height: 40px; margin-top: 8px; overflow: visible; }
+.quarter-chart-svg polyline { stroke: var(--rust); stroke-width: .9; vector-effect: non-scaling-stroke; }
+.quarter-chart-svg circle { fill: var(--rust); }
+.quarter-chart-empty { margin: 8px 0 0; color: #6d7972; font-size: 9px; }
+.quarter-chart > small { display: block; margin-top: 6px; color: #8a9089; font-size: 8px; letter-spacing: .03em; }
 .map-guidance {
   position: absolute;
   z-index: 500;
@@ -253,6 +289,8 @@ a { color: inherit; }
   .selected-area-card { top: 94px; right: 12px; width: 180px; padding: 13px; }
   .selected-area-card h2 { font-size: 18px; }
   .selected-area-card > div strong { font-size: 29px; }
+  .division-card { width: 200px; }
+  .quarter-chart-heading { flex-direction: column; align-items: flex-start; gap: 4px; }
   .map-source-footer { padding: 18px; grid-template-columns: 1fr; gap: 12px; }
   .map-source-footer a { grid-column: auto; }
 }
