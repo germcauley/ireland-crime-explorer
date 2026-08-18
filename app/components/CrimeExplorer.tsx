@@ -173,8 +173,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const [selectedMetric, setSelectedMetric] = useState<Metric>("raw");
   const [selectedStationId, setSelectedStationId] = useState("65102");
   const [comparisonIds, setComparisonIds] = useState<string[]>(["65102"]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchFocused, setSearchFocused] = useState(false);
+  const [selectedPlaceName, setSelectedPlaceName] = useState("");
   const [lookupResult, setLookupResult] = useState<Place | null>(null);
   const [mapReady, setMapReady] = useState(false);
   const mapElement = useRef<HTMLDivElement>(null);
@@ -260,22 +259,10 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       .slice(0, 5);
   }, [data.categories, selectedStation, yearIndex]);
 
-  const searchSuggestions = useMemo(() => {
-    const query = searchQuery.trim().toLocaleLowerCase("en-IE");
-    if (!query) return [];
-    const placeMatches = data.places
-      .filter((place) => place.place.toLocaleLowerCase("en-IE").includes(query))
-      .map((place) => ({ key: `place-${place.place}`, label: place.place, place }));
-    const matchedNames = new Set(placeMatches.map((item) => item.label.toLocaleLowerCase("en-IE")));
-    const stationMatches = data.stations
-      .filter(
-        (station) =>
-          station.name.toLocaleLowerCase("en-IE").includes(query) &&
-          !matchedNames.has(station.name.toLocaleLowerCase("en-IE")),
-      )
-      .map((station) => ({ key: `station-${station.id}`, label: station.name, station }));
-    return [...placeMatches, ...stationMatches].slice(0, 7);
-  }, [data.places, data.stations, searchQuery]);
+  const sortedPlaces = useMemo(
+    () => [...data.places].sort((a, b) => a.place.localeCompare(b.place, "en-IE")),
+    [data.places],
+  );
 
   const ranked = useMemo(
     () => [...metricEntries].sort((a, b) => b.value - a.value),
@@ -345,6 +332,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         marker.on("click", () => {
           setSelectedStationId(station.id);
           setLookupResult(null);
+          setSelectedPlaceName("");
         });
         marker.addTo(markerLayer.current!);
         const element = marker.getElement();
@@ -375,18 +363,17 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     }
   }, [selectedCategory, selectedMetric]);
 
-  function selectPlace(place: Place) {
-    setSearchQuery(place.place);
-    setLookupResult(place);
-    setSearchFocused(false);
-    setSelectedStationId(place.stationIds[0]);
-  }
+  useEffect(() => {
+    if (lookupResult && !lookupResult.stationIds.includes(selectedStationId)) {
+      setLookupResult(null);
+      setSelectedPlaceName("");
+    }
+  }, [lookupResult, selectedStationId]);
 
-  function selectStation(station: Station) {
-    setSearchQuery(station.name);
-    setLookupResult(null);
-    setSearchFocused(false);
-    setSelectedStationId(station.id);
+  function selectPlace(place: Place) {
+    setSelectedPlaceName(place.place);
+    setLookupResult(place);
+    setSelectedStationId(place.stationIds[0]);
   }
 
   function toggleComparison(stationId: string) {
@@ -442,42 +429,20 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
 
           <div className="search-block">
             <label htmlFor="area-search">Search Dublin area</label>
-            <div className="search-field">
-              <span aria-hidden="true">⌕</span>
-              <input
-                id="area-search"
-                type="search"
-                value={searchQuery}
-                placeholder="Castleknock, Dundrum…"
-                autoComplete="off"
-                onChange={(event) => {
-                  setSearchQuery(event.target.value);
-                  setLookupResult(null);
-                }}
-                onFocus={() => setSearchFocused(true)}
-                onBlur={() => window.setTimeout(() => setSearchFocused(false), 120)}
-              />
-            </div>
-            {searchFocused && searchSuggestions.length > 0 && (
-              <div className="search-results" role="listbox" aria-label="Area search results">
-                {searchSuggestions.map((suggestion) => (
-                  <button
-                    key={suggestion.key}
-                    type="button"
-                    role="option"
-                    onMouseDown={(event) => event.preventDefault()}
-                    onClick={() =>
-                      "place" in suggestion
-                        ? selectPlace(suggestion.place)
-                        : selectStation(suggestion.station)
-                    }
-                  >
-                    <span>{suggestion.label}</span>
-                    <small>{"place" in suggestion ? "place lookup" : "station"}</small>
-                  </button>
-                ))}
-              </div>
-            )}
+            <select
+              id="area-search"
+              className="area-select"
+              value={selectedPlaceName}
+              onChange={(event) => {
+                const place = data.places.find((item) => item.place === event.target.value);
+                if (place) selectPlace(place);
+              }}
+            >
+              <option value="">Choose a Dublin area…</option>
+              {sortedPlaces.map((place) => (
+                <option key={place.place} value={place.place}>{place.place}</option>
+              ))}
+            </select>
           </div>
 
           {lookupResult && (

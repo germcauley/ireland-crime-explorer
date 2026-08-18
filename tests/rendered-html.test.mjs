@@ -32,6 +32,8 @@ test("server-renders the crime explorer and social metadata", async () => {
   assert.match(html, /<title>Dublin Crime Explorer<\/title>/i);
   assert.match(html, /What was recorded/);
   assert.match(html, /Search Dublin area/);
+  assert.match(html, /<select[^>]*id="area-search"/i);
+  assert.doesNotMatch(html, /<input[^>]*id="area-search"/i);
   assert.match(html, /Method &amp; limitations/);
   assert.match(html, /http:\/\/localhost\/og\.png/);
   assert.doesNotMatch(html, /codex-preview|SkeletonPreview|Your site is taking shape/);
