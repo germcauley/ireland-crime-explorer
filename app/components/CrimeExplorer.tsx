@@ -13,12 +13,14 @@ type AreaChange = {
   current: number | null;
   baseline: number | null;
   change: number | null;
+  isRaw: boolean;
 };
 type DivisionAreaChange = {
   division: Division;
   current: number | null;
   baseline: number | null;
   change: number | null;
+  isRaw: boolean;
 };
 type GeoJSONGeometry = Division["boundary"];
 
@@ -39,12 +41,30 @@ async function loadLeaflet() {
   );
 }
 
-function formatSigned(value: number) {
+// Percentage change is misleading on tiny baselines (one extra murder can
+// read as "+100%"), so below that threshold we fall back to showing and
+// colouring the raw count difference instead.
+function combinedChange(current: number | null, baseline: number | null): { change: number | null; isRaw: boolean } {
+  const pct = percentageChange(current, baseline);
+  if (pct !== null) return { change: pct, isRaw: false };
+  if (current !== null && baseline !== null) return { change: current - baseline, isRaw: true };
+  return { change: null, isRaw: false };
+}
+
+function formatSigned(value: number, isRaw = false) {
+  if (isRaw) return `${value > 0 ? "+" : ""}${numberFormat.format(value)}`;
   return `${value > 0 ? "+" : ""}${oneDecimal.format(value)}%`;
 }
 
-function changeColour(value: number | null) {
+function changeColour(value: number | null, isRaw = false) {
   if (value === null) return "#b9b6ae";
+  if (isRaw) {
+    if (value >= 3) return "#8f2f27";
+    if (value >= 1) return "#df9870";
+    if (value === 0) return "#e8e1d4";
+    if (value >= -2) return "#a8bc96";
+    return "#376b54";
+  }
   if (value >= 25) return "#8f2f27";
   if (value >= 10) return "#bd5941";
   if (value > 2) return "#df9870";
@@ -219,12 +239,8 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       data.stations.map((station) => {
         const current = station.series[selectedCategory][yearIndex];
         const baseline = hasBaseline ? station.series[selectedCategory][baselineIndex] : null;
-        return {
-          station,
-          current,
-          baseline,
-          change: percentageChange(current, baseline),
-        };
+        const { change, isRaw } = combinedChange(current, baseline);
+        return { station, current, baseline, change, isRaw };
       }),
     [baselineIndex, data.stations, hasBaseline, selectedCategory, yearIndex],
   );
@@ -247,7 +263,11 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     () =>
       availableChanges.reduce(
         (result, entry) => {
-          if (entry.change > 2) result.increased += 1;
+          if (entry.isRaw) {
+            if (entry.change > 0) result.increased += 1;
+            else if (entry.change < 0) result.decreased += 1;
+            else result.stable += 1;
+          } else if (entry.change > 2) result.increased += 1;
           else if (entry.change < -2) result.decreased += 1;
           else result.stable += 1;
           return result;
@@ -264,7 +284,8 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         const baseline = hasBaseline
           ? annualSum(division, selectedDivisionCode, baselineYear, data.meta.quarters)
           : null;
-        return { division, current, baseline, change: percentageChange(current, baseline) };
+        const { change, isRaw } = combinedChange(current, baseline);
+        return { division, current, baseline, change, isRaw };
       }),
     [baselineYear, data.divisions, data.meta.quarters, hasBaseline, selectedDivisionCode, selectedYear],
   );
@@ -289,7 +310,11 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     () =>
       availableDivisionChanges.reduce(
         (result, entry) => {
-          if (entry.change > 2) result.increased += 1;
+          if (entry.isRaw) {
+            if (entry.change > 0) result.increased += 1;
+            else if (entry.change < 0) result.decreased += 1;
+            else result.stable += 1;
+          } else if (entry.change > 2) result.increased += 1;
           else if (entry.change < -2) result.decreased += 1;
           else result.stable += 1;
           return result;
@@ -425,7 +450,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       areaChanges.forEach((entry) => {
         const selected = entry.station.id === selectedStationId;
         const cell = buildAreaCell(entry.station, data.stations, mapBounds);
-        const changeLabel = entry.change === null ? "Not available" : formatSigned(entry.change);
+        const changeLabel = entry.change === null ? "Not available" : formatSigned(entry.change, entry.isRaw);
         const countLabel =
           entry.current === null || entry.baseline === null
             ? "No comparable counts"
@@ -440,7 +465,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         const polygon = leaflet.polygon(cell, {
           color: selected ? "#102e26" : "rgba(23,55,45,.56)",
           weight: selected ? 3 : 1,
-          fillColor: changeColour(entry.change),
+          fillColor: changeColour(entry.change, entry.isRaw),
           fillOpacity: entry.change === null ? 0.48 : 0.76,
           className: "reporting-area-cell",
         });
@@ -487,7 +512,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
 
       divisionAreaChanges.forEach((entry) => {
         const selected = entry.division.id === selectedDivisionId;
-        const changeLabel = entry.change === null ? "Not available" : formatSigned(entry.change);
+        const changeLabel = entry.change === null ? "Not available" : formatSigned(entry.change, entry.isRaw);
         const countLabel =
           entry.current === null || entry.baseline === null
             ? "No comparable counts"
@@ -503,7 +528,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           style: {
             color: selected ? "#102e26" : "rgba(23,55,45,.56)",
             weight: selected ? 3 : 1.4,
-            fillColor: changeColour(entry.change),
+            fillColor: changeColour(entry.change, entry.isRaw),
             fillOpacity: entry.change === null ? 0.48 : 0.76,
             className: "reporting-area-cell",
           },
@@ -805,7 +830,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
                 <p>Largest increases</p>
                 {rankedIncreases.slice(0, 3).map((entry) => (
                   <button type="button" key={entry.station.id} onClick={() => setSelectedStationId(entry.station.id)}>
-                    <span>{entry.station.name}</span><strong>{formatSigned(entry.change)}</strong>
+                    <span>{entry.station.name}</span><strong>{formatSigned(entry.change, entry.isRaw)}</strong>
                   </button>
                 ))}
               </div>
@@ -813,7 +838,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
                 <p>Largest decreases</p>
                 {rankedDecreases.slice(0, 3).map((entry) => (
                   <button type="button" key={entry.station.id} onClick={() => setSelectedStationId(entry.station.id)}>
-                    <span>{entry.station.name}</span><strong>{formatSigned(entry.change)}</strong>
+                    <span>{entry.station.name}</span><strong>{formatSigned(entry.change, entry.isRaw)}</strong>
                   </button>
                 ))}
               </div>
@@ -824,7 +849,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
                 <p>Largest increases</p>
                 {rankedDivisionIncreases.slice(0, 3).map((entry) => (
                   <button type="button" key={entry.division.id} onClick={() => setSelectedDivisionId(entry.division.id)}>
-                    <span>{entry.division.name}</span><strong>{formatSigned(entry.change)}</strong>
+                    <span>{entry.division.name}</span><strong>{formatSigned(entry.change, entry.isRaw)}</strong>
                   </button>
                 ))}
               </div>
@@ -832,7 +857,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
                 <p>Largest decreases</p>
                 {rankedDivisionDecreases.slice(0, 3).map((entry) => (
                   <button type="button" key={entry.division.id} onClick={() => setSelectedDivisionId(entry.division.id)}>
-                    <span>{entry.division.name}</span><strong>{formatSigned(entry.change)}</strong>
+                    <span>{entry.division.name}</span><strong>{formatSigned(entry.change, entry.isRaw)}</strong>
                   </button>
                 ))}
               </div>
@@ -883,7 +908,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
               <span>{selectedArea.station.division}</span>
               <h2>{selectedArea.station.name}</h2>
               <div>
-                <strong>{selectedArea.change === null ? "n/a" : formatSigned(selectedArea.change)}</strong>
+                <strong>{selectedArea.change === null ? "n/a" : formatSigned(selectedArea.change, selectedArea.isRaw)}</strong>
                 <p>from {baselineYear} to {selectedYear}</p>
               </div>
               <small>
@@ -900,7 +925,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
                 <strong>
                   {selectedDivisionArea?.change === null || selectedDivisionArea?.change === undefined
                     ? "n/a"
-                    : formatSigned(selectedDivisionArea.change)}
+                    : formatSigned(selectedDivisionArea.change, selectedDivisionArea.isRaw)}
                 </strong>
                 <p>from {baselineYear} to {selectedYear}</p>
               </div>
