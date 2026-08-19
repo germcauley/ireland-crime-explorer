@@ -22,6 +22,9 @@ type DivisionAreaChange = {
 };
 type GeoJSONGeometry = Division["boundary"];
 
+// Disabled until Hugging Face inference credits are topped up.
+const ASK_CRIME_BOT_ENABLED = false;
+
 const numberFormat = new Intl.NumberFormat("en-IE");
 const oneDecimal = new Intl.NumberFormat("en-IE", {
   minimumFractionDigits: 1,
@@ -741,6 +744,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         </div>
       </section>
 
+      {ASK_CRIME_BOT_ENABLED && (
       <section className="ask-panel" aria-label="Ask Crime Bot">
         <div className="ask-header">
           <span className="ask-avatar" aria-hidden="true">
@@ -792,6 +796,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           </p>
         )}
       </section>
+      )}
 
       <section className="dashboard-body" id="atlas">
         <aside className={`movers-rail${mobileTab === "movers" ? " mobile-active" : ""}`} aria-label="Largest changes">
