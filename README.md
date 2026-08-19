@@ -1,15 +1,17 @@
 # Dublin Crime Explorer
 
-An interactive atlas of official recorded-crime incidents across Dublin Garda
-station/sub-district geographies. The product is intentionally neutral: it
-shows counts, category mix, trend and relative position without inventing a
-neighbourhood “safety score”.
+An interactive atlas of official recorded-crime incidents. Dublin gets
+station/sub-district detail (41 areas, annual); a Division view covers all
+28 national Garda Divisions with the full official offence breakdown and a
+quarterly trend. The product is intentionally neutral: it shows counts,
+category mix, trend and relative position without inventing a neighbourhood
+“safety score”.
 
 ## What is implemented
 
 - CSO CJA11 annual data for all 41 Dublin Metropolitan Region station rows
-- CSO CJQ06 quarterly data for all 6 DMR Garda Divisions, all 85 official
-  offence sub-categories, back to 2003
+- CSO CJQ06 quarterly data for all 28 national Garda Divisions, all 85
+  official offence sub-categories, back to 2003
 - real official Division boundary polygons (CSO Census 2011 boundary file),
   not approximated cells
 - 2019–2025 trends, offence filters and transparent derived groupings
@@ -34,7 +36,7 @@ The fetch script stores source files unchanged. The cleaning script creates:
 - `data/processed/dashboard.json` — compact application data (station and
   division level)
 - `public/data/dashboard.json` — public application-data artifact
-- `data/geography/dublin_garda_divisions.geojson` — reprojected Division
+- `data/geography/garda_divisions.geojson` — reprojected national Division
   boundary reference (also embedded per-division in dashboard.json)
 
 Curated context remains separate in `data/geography/station_metadata.csv` and
@@ -80,6 +82,8 @@ Node.js 22.13 or later is required.
   responsibility, and COVID restrictions affect 2020–2022 comparisons.
 - CJQ06 (Division level) fraud/deception counts stop from 2023Q3 for the same
   financial-institution reporting-backlog reason as the CJA11 fraud gap.
-- Division geography (6 areas) is much coarser than station geography (41
-  areas); it trades area detail for real boundaries, the full 85-category
-  offence breakdown and a quarterly cadence.
+- Division geography (28 national areas, 6 of them covering Dublin) is much
+  coarser than station geography (41 Dublin areas); it trades area detail for
+  real boundaries, the full 85-category offence breakdown and a quarterly
+  cadence. Station-level detail (CJA11) is Dublin-only — CSO does not publish
+  it nationally.

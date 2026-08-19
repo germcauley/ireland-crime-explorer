@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 const description =
-  "Explore official CSO recorded crime by Dublin Garda station geography, offence and trend.";
+  "Explore official CSO recorded crime by Dublin Garda station geography, or by Garda Division nationwide, offence and trend.";
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();

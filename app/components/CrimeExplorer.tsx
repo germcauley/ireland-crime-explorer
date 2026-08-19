@@ -215,6 +215,26 @@ function buildSparkline(points: Array<{ quarter: string; value: number | null }>
   return { segments, dots };
 }
 
+function geometryBounds(geometry: GeoJSONGeometry): [number, number, number, number] {
+  let minLng = Infinity;
+  let minLat = Infinity;
+  let maxLng = -Infinity;
+  let maxLat = -Infinity;
+  const visit = (node: unknown): void => {
+    if (Array.isArray(node) && typeof node[0] === "number") {
+      const [lng, lat] = node as [number, number];
+      if (lng < minLng) minLng = lng;
+      if (lng > maxLng) maxLng = lng;
+      if (lat < minLat) minLat = lat;
+      if (lat > maxLat) maxLat = lat;
+      return;
+    }
+    if (Array.isArray(node)) node.forEach(visit);
+  };
+  visit(geometry.coordinates);
+  return [minLng, minLat, maxLng, maxLat];
+}
+
 function escapeHtml(value: string) {
   return value
     .replaceAll("&", "&amp;")
@@ -366,6 +386,21 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     ];
   }, [data.stations]);
 
+  const nationalBounds = useMemo<[number, number, number, number]>(() => {
+    let minLng = Infinity;
+    let minLat = Infinity;
+    let maxLng = -Infinity;
+    let maxLat = -Infinity;
+    data.divisions.forEach((division) => {
+      const [dMinLng, dMinLat, dMaxLng, dMaxLat] = geometryBounds(division.boundary);
+      if (dMinLng < minLng) minLng = dMinLng;
+      if (dMinLat < minLat) minLat = dMinLat;
+      if (dMaxLng > maxLng) maxLng = dMaxLng;
+      if (dMaxLat > maxLat) maxLat = dMaxLat;
+    });
+    return [minLng - 0.15, minLat - 0.1, maxLng + 0.15, maxLat + 0.1];
+  }, [data.divisions]);
+
   useEffect(() => {
     let cancelled = false;
     async function initialiseMap() {
@@ -375,7 +410,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       const map = leaflet.map(mapElement.current, {
         zoomControl: false,
         attributionControl: true,
-        minZoom: 9,
+        minZoom: 6,
         preferCanvas: true,
       });
       mapInstance.current = map;
@@ -519,7 +554,19 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     return () => window.clearTimeout(timeout);
   }, [mobileTab]);
 
-  const areaCount = mapMode === "station" ? 41 : 6;
+  useEffect(() => {
+    if (!mapReady || !mapInstance.current) return;
+    const bounds = mapMode === "station" ? mapBounds : nationalBounds;
+    mapInstance.current.fitBounds(
+      [
+        [bounds[1], bounds[0]],
+        [bounds[3], bounds[2]],
+      ],
+      { padding: [10, 10] },
+    );
+  }, [mapBounds, mapMode, mapReady, nationalBounds]);
+
+  const areaCount = mapMode === "station" ? data.stations.length : data.divisions.length;
   const activeSummary = mapMode === "station" ? summary : divisionSummary;
 
   return (
@@ -541,14 +588,14 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
               className={mapMode === "station" ? "active" : ""}
               onClick={() => setMapMode("station")}
             >
-              Station <small>41 areas</small>
+              Station <small>{data.stations.length} Dublin areas</small>
             </button>
             <button
               type="button"
               className={mapMode === "division" ? "active" : ""}
               onClick={() => setMapMode("division")}
             >
-              Division <small>6 areas · real boundaries</small>
+              Division <small>{data.divisions.length} areas nationwide · real boundaries</small>
             </button>
           </div>
 
@@ -708,7 +755,9 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           <div className="map-panel-heading">
             <div>
               <span>
-                {mapMode === "station" ? "All 41 Dublin reporting areas" : "All 6 Dublin Garda Divisions"}
+                {mapMode === "station"
+                  ? `All ${data.stations.length} Dublin reporting areas`
+                  : `All ${data.divisions.length} Garda Divisions nationwide`}
               </span>
               <strong>
                 {mapMode === "station"

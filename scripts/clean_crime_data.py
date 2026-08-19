@@ -17,7 +17,7 @@ RAW_PATH = ROOT / "data" / "raw" / "cja11.json"
 CJQ06_PATH = ROOT / "data" / "raw" / "cjq06.json"
 POINTS_PATH = ROOT / "data" / "geography" / "dublin_garda_stations.geojson"
 DIVISION_ZIP_PATH = ROOT / "data" / "geography" / "garda_divisions.zip"
-DIVISION_GEOJSON_PATH = ROOT / "data" / "geography" / "dublin_garda_divisions.geojson"
+DIVISION_GEOJSON_PATH = ROOT / "data" / "geography" / "garda_divisions.geojson"
 METADATA_PATH = ROOT / "data" / "geography" / "station_metadata.csv"
 PLACES_PATH = ROOT / "data" / "geography" / "place_lookup.csv"
 PROCESSED_DIR = ROOT / "data" / "processed"
@@ -33,18 +33,28 @@ QUARTER_DIMENSION = "TLIST(Q1)"
 IRISH_GRID_EPSG = "EPSG:29903"
 WGS84_EPSG = "EPSG:4326"
 
-# CJQ06 division codes -> canonical name, matching the CJA11 station "division"
-# field and (after stripping " Division") the CSO boundary shapefile's DIVISION
-# field. CJQ06 uses "Northern"/"Southern"; CJA11 and the boundary file use
-# "North"/"South", so this is an explicit map rather than a string replace.
-DIVISION_CODE_MAP = {
-    "61": "DMR South Central Division",
-    "62": "DMR North Central Division",
-    "63": "DMR North Division",
-    "64": "DMR South Division",
-    "65": "DMR East Division",
-    "66": "DMR West Division",
-}
+def normalise_division_label(label: str) -> str:
+    """CJQ06 division label -> canonical name.
+
+    Matches the CJA11 station "division" field and (after stripping
+    " Division") the CSO boundary shapefile's DIVISION field. CJQ06 spells
+    the DMR divisions "Northern"/"Southern"/"Eastern"/"Western"; CJA11 and
+    the boundary file use "North"/"South"/"East"/"West".
+    """
+    name = re.sub(r"\s*Garda Division\s*$", "", label).strip()
+    name = name.replace("D.M.R.", "DMR")
+    name = name.replace("Northern", "North").replace("Southern", "South")
+    name = name.replace("Eastern", "East").replace("Western", "West")
+    return f"{name} Division"
+
+
+def read_division_code_map() -> dict[str, str]:
+    """All 28 national CJQ06 division codes -> canonical name."""
+    cube = json.loads(CJQ06_PATH.read_text(encoding="utf-8"))
+    dimension = cube["dimension"][DIVISION_DIMENSION]
+    codes = ordered_codes(dimension)
+    labels = dimension["category"]["label"]
+    return {code: normalise_division_label(labels[code]) for code in codes}
 
 OFFICIAL_CATEGORY_COPY = {
     "03": ("Assaults, threats & harassment", "Assaults / threats"),
@@ -228,11 +238,12 @@ def read_csv_by_key(path: Path, key: str) -> dict[str, dict[str, str]]:
         return {normalise(row[key]): row for row in csv.DictReader(handle)}
 
 
-def convert_division_boundaries() -> dict[str, dict[str, Any]]:
+def convert_division_boundaries(division_code_map: dict[str, str]) -> dict[str, dict[str, Any]]:
     """Reproject the CSO Garda Division shapefile to WGS84 GeoJSON.
 
-    Returns canonical division name -> GeoJSON geometry, and also writes the
-    full six-division FeatureCollection to data/geography for reference/QA.
+    Returns canonical division name -> GeoJSON geometry for all 28 national
+    divisions, and also writes the full FeatureCollection to data/geography
+    for reference/QA.
     """
     import shapefile
     from pyproj import Transformer
@@ -246,9 +257,7 @@ def convert_division_boundaries() -> dict[str, dict[str, Any]]:
     features = []
     for shape_record in reader.shapeRecords():
         record = shape_record.record
-        if record["REGION"] != "Dublin Metropolitan Region":
-            continue
-        raw_geometry = shape(shape_record.shape.__geo_interface__).simplify(15, preserve_topology=True)
+        raw_geometry = shape(shape_record.shape.__geo_interface__).simplify(60, preserve_topology=True)
         geometry = shapely_transform(transformer.transform, raw_geometry)
         geojson_geometry = mapping(geometry)
         division_name = f"{record['DIVISION']} Division"
@@ -261,10 +270,11 @@ def convert_division_boundaries() -> dict[str, dict[str, Any]]:
             }
         )
 
-    if len(geometries) != len(DIVISION_CODE_MAP):
-        raise ValueError(
-            f"expected {len(DIVISION_CODE_MAP)} DMR division boundaries, found {len(geometries)}"
-        )
+    expected_names = set(division_code_map.values())
+    if set(geometries) != expected_names:
+        missing = expected_names - set(geometries)
+        extra = set(geometries) - expected_names
+        raise ValueError(f"division boundary mismatch: missing={missing} extra={extra}")
 
     DIVISION_GEOJSON_PATH.write_text(
         json.dumps({"type": "FeatureCollection", "features": features}, ensure_ascii=False),
@@ -277,7 +287,7 @@ def clean_offence_label(label: str) -> str:
     return re.sub(r"\s*\(\d[\d,]*\)\s*$", "", label).strip()
 
 
-def read_cjq06_cube() -> tuple[list[str], dict[str, Any]]:
+def read_cjq06_cube(division_code_map: dict[str, str]) -> tuple[list[str], dict[str, Any]]:
     """Parse CJQ06 into division-code -> {offence_code: {quarter: count}}."""
     cube = json.loads(CJQ06_PATH.read_text(encoding="utf-8"))
     quarters = ordered_codes(cube["dimension"][QUARTER_DIMENSION])
@@ -292,11 +302,11 @@ def read_cjq06_cube() -> tuple[list[str], dict[str, Any]]:
     ]
 
     by_division: dict[str, dict[str, dict[str, int | None]]] = {
-        code: {offence: {} for offence in offences} for code in DIVISION_CODE_MAP
+        code: {offence: {} for offence in offences} for code in division_code_map
     }
     for quarter_index, quarter_label in enumerate(quarter_labels):
         for division_index, division_code in enumerate(divisions):
-            if division_code not in DIVISION_CODE_MAP:
+            if division_code not in division_code_map:
                 continue
             for offence_index, offence_code in enumerate(offences):
                 flat_index = (
@@ -338,10 +348,13 @@ def build_offence_hierarchy(offence_codes: list[str], offence_labels: dict[str, 
 
 
 def build_division_records(
-    quarter_labels: list[str], cjq06: dict[str, Any], boundaries: dict[str, dict[str, Any]]
+    quarter_labels: list[str],
+    cjq06: dict[str, Any],
+    boundaries: dict[str, dict[str, Any]],
+    division_code_map: dict[str, str],
 ) -> list[dict[str, Any]]:
     records = []
-    for division_code, division_name in DIVISION_CODE_MAP.items():
+    for division_code, division_name in division_code_map.items():
         boundary = boundaries.get(division_name)
         if boundary is None:
             raise ValueError(f"No boundary geometry matched division {division_name!r}")
@@ -367,10 +380,11 @@ def build_dashboard(rows: list[dict[str, Any]]) -> dict[str, Any]:
     with PLACES_PATH.open(newline="", encoding="utf-8") as handle:
         places = list(csv.DictReader(handle))
 
-    boundaries = convert_division_boundaries()
-    quarter_labels, cjq06 = read_cjq06_cube()
+    division_code_map = read_division_code_map()
+    boundaries = convert_division_boundaries(division_code_map)
+    quarter_labels, cjq06 = read_cjq06_cube(division_code_map)
     division_categories = build_offence_hierarchy(cjq06["offence_codes"], cjq06["offence_labels"])
-    division_records = build_division_records(quarter_labels, cjq06, boundaries)
+    division_records = build_division_records(quarter_labels, cjq06, boundaries, division_code_map)
 
     years = sorted({row["year"] for row in rows if row["year"] >= 2019})
     station_rows: dict[str, list[dict[str, Any]]] = defaultdict(list)
@@ -499,12 +513,13 @@ def build_dashboard(rows: list[dict[str, Any]]) -> dict[str, Any]:
             "divisionSourceLabel": (
                 "Central Statistics Office — recorded crime incidents by Garda Division and quarter"
             ),
-            "divisionGeography": "Garda Division boundary",
+            "divisionGeography": "Garda Division boundary — all 28 national divisions",
             "divisionGeographyNote": (
                 "Division boundaries are the official CSO Census 2011 Garda Division polygons "
                 "(Nov 2013 revision) — a real geographic boundary, unlike the approximated "
-                "station cells. Only six divisions cover Dublin, so this view trades area detail "
-                "for the full 85-category official offence breakdown and quarterly trend."
+                "station cells. All 28 national Garda Divisions are shown here, coarser than the "
+                "41 Dublin station areas but with the full 85-category official offence "
+                "breakdown and a quarterly trend."
             ),
         },
         "categories": grouped_categories + official_categories,

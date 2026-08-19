@@ -85,8 +85,8 @@ def main() -> None:
     if dict(canonical_totals) != dashboard_totals:
         fail("dashboard totals differ from canonical 2025 totals")
 
-    if len(dashboard["divisions"]) != 6:
-        fail("dashboard must contain all 6 DMR divisions")
+    if len(dashboard["divisions"]) != 28:
+        fail("dashboard must contain all 28 national Garda divisions")
     if len(dashboard["divisionCategories"]) != 16:
         fail("divisionCategories must cover all 16 CJQ06 top-level offence groups")
 
@@ -122,7 +122,7 @@ def main() -> None:
     print("PASS: canonical key uniqueness and 41-station coverage")
     print("PASS: all station points fall within a broad Dublin extent")
     print("PASS: dashboard aggregates reproduce canonical 2025 DMR totals")
-    print("PASS: 6 DMR divisions with real boundaries, 85-code quarterly series")
+    print("PASS: 28 national divisions with real boundaries, 85-code quarterly series")
     print("PASS: every station division name resolves to a division record")
     print(
         f"CHECK: Dundrum 2025 theft share = {dundrum_share:.1%} "
