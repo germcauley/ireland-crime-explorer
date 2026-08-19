@@ -1,6 +1,6 @@
 "use client";
 
-import type { LayerGroup, Map as LeafletMap } from "leaflet";
+import type { LayerGroup, Map as LeafletMap, Polygon as LeafletPolygon } from "leaflet";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 type Category = {
@@ -235,6 +235,16 @@ function geometryBounds(geometry: GeoJSONGeometry): [number, number, number, num
   return [minLng, minLat, maxLng, maxLat];
 }
 
+function exteriorRingsLatLng(geometry: GeoJSONGeometry): [number, number][][] {
+  const polygons =
+    geometry.type === "Polygon"
+      ? [geometry.coordinates as number[][][]]
+      : (geometry.coordinates as number[][][][]);
+  return polygons.map((polygon) =>
+    polygon[0].map(([lng, lat]) => [lat, lng] as [number, number]),
+  );
+}
+
 function escapeHtml(value: string) {
   return value
     .replaceAll("&", "&amp;")
@@ -259,6 +269,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const mapElement = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<LeafletMap | null>(null);
   const areaLayer = useRef<LayerGroup | null>(null);
+  const maskLayer = useRef<LeafletPolygon | null>(null);
 
   const selectedDivisionCode = selectedDivisionDetail ?? selectedDivisionGroup;
   const selectedDivisionGroupCopy =
@@ -401,6 +412,42 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     return [minLng - 0.15, minLat - 0.1, maxLng + 0.15, maxLat + 0.1];
   }, [data.divisions]);
 
+  const irelandMaskRings = useMemo(
+    () => data.divisions.flatMap((division) => exteriorRingsLatLng(division.boundary)),
+    [data.divisions],
+  );
+
+  useEffect(() => {
+    async function updateMask() {
+      if (!mapReady || !mapInstance.current) return;
+      const leaflet = await loadLeaflet();
+      if (mapMode !== "division") {
+        if (maskLayer.current) mapInstance.current.removeLayer(maskLayer.current);
+        return;
+      }
+      if (maskLayer.current) {
+        maskLayer.current.addTo(mapInstance.current);
+        return;
+      }
+      const worldRing: [number, number][] = [
+        [-85, -180],
+        [85, -180],
+        [85, 180],
+        [-85, 180],
+      ];
+      maskLayer.current = leaflet
+        .polygon([worldRing, ...irelandMaskRings], {
+          pane: "ireland-mask",
+          stroke: false,
+          fillColor: "#d7dfd8",
+          fillOpacity: 1,
+          interactive: false,
+        })
+        .addTo(mapInstance.current);
+    }
+    updateMask();
+  }, [irelandMaskRings, mapMode, mapReady]);
+
   useEffect(() => {
     let cancelled = false;
     async function initialiseMap() {
@@ -421,6 +468,9 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           opacity: 0.68,
         })
         .addTo(map);
+      const maskPane = map.createPane("ireland-mask");
+      maskPane.style.zIndex = "350";
+      maskPane.style.pointerEvents = "none";
       new leaflet.Control.Zoom({ position: "bottomright" }).addTo(map);
       map.fitBounds(
         [
@@ -438,6 +488,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       mapInstance.current?.remove();
       mapInstance.current = null;
       areaLayer.current = null;
+      maskLayer.current = null;
     };
   }, [data.stations, mapBounds]);
 
