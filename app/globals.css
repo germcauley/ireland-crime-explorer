@@ -164,7 +164,7 @@ a { color: inherit; }
 .movers-rail button strong { font-family: var(--sans); color: var(--rust); font-size: 9px; font-weight: 600; }
 .movers-rail > div:last-child button strong { color: var(--moss); }
 
-.district-map-panel { min-width: 0; position: relative; overflow: hidden; background: #d6dfd7; }
+.district-map-panel { min-width: 0; position: relative; overflow: hidden; background: #cfe1e6; }
 .map-panel-heading {
   height: 68px;
   padding: 12px 20px;
@@ -187,7 +187,7 @@ a { color: inherit; }
 .change-legend i:nth-of-type(6) { background: #bd5941; }
 .change-legend i:nth-of-type(7) { background: #8f2f27; }
 
-.district-map { width: 100%; height: calc(100vh - 60px - 90px - 68px - 62px); min-height: 500px; background: #d7dfd8; }
+.district-map { width: 100%; height: calc(100vh - 60px - 90px - 68px - 62px); min-height: 500px; background: #cfe1e6; }
 .leaflet-container { z-index: 1; font-family: var(--body); }
 .leaflet-control-attribution { font-size: 8px !important; }
 .leaflet-control-zoom a { color: var(--ink) !important; }

@@ -439,7 +439,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         .polygon([worldRing, ...irelandMaskRings], {
           pane: "ireland-mask",
           stroke: false,
-          fillColor: "#d7dfd8",
+          fillColor: "#cfe1e6",
           fillOpacity: 1,
           interactive: false,
         })
