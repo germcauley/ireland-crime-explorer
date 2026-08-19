@@ -2,61 +2,8 @@
 
 import type { LayerGroup, Map as LeafletMap, Polygon as LeafletPolygon } from "leaflet";
 import { useEffect, useMemo, useRef, useState } from "react";
-
-type Category = {
-  id: string;
-  label: string;
-  shortLabel: string;
-  kind: "grouped" | "official";
-  description: string;
-  availabilityNote?: string;
-};
-
-type Station = {
-  id: string;
-  name: string;
-  division: string;
-  lat: number;
-  lng: number;
-  contextNote: string;
-  series: Record<string, Array<number | null>>;
-};
-
-type DivisionCategoryChild = { id: string; label: string };
-type DivisionCategory = {
-  id: string;
-  label: string;
-  shortLabel: string;
-  children: DivisionCategoryChild[];
-};
-
-type GeoJSONGeometry = {
-  type: "Polygon" | "MultiPolygon";
-  coordinates: unknown;
-};
-
-type Division = {
-  id: string;
-  name: string;
-  boundary: GeoJSONGeometry;
-  series: Record<string, Array<number | null>>;
-};
-
-type DashboardData = {
-  meta: {
-    latestCompleteYear: number;
-    years: number[];
-    quarters: string[];
-    defaultQuarterStartIndex: number;
-    dataNote: string;
-    geographyNote: string;
-    divisionGeographyNote: string;
-  };
-  categories: Category[];
-  divisionCategories: DivisionCategory[];
-  stations: Station[];
-  divisions: Division[];
-};
+import { annualSum, percentageChange, type QueryAnswer } from "../lib/analytics";
+import type { DashboardData, Division, Station } from "../lib/dashboard-types";
 
 type MapMode = "station" | "division";
 type TrendPeriod = "year_on_year" | "three_year" | "since_2019";
@@ -73,6 +20,7 @@ type DivisionAreaChange = {
   baseline: number | null;
   change: number | null;
 };
+type GeoJSONGeometry = Division["boundary"];
 
 const numberFormat = new Intl.NumberFormat("en-IE");
 const oneDecimal = new Intl.NumberFormat("en-IE", {
@@ -87,36 +35,6 @@ async function loadLeaflet() {
     (leafletModule as typeof leafletModule & { default?: typeof leafletModule }).default ??
     leafletModule
   );
-}
-
-function percentageChange(current: number | null, baseline: number | null) {
-  if (current === null || baseline === null || baseline < 10) return null;
-  return ((current - baseline) / baseline) * 100;
-}
-
-function quarterYear(quarter: string) {
-  return Number(quarter.slice(0, 4));
-}
-
-function annualSum(
-  division: Division,
-  code: string,
-  year: number,
-  quarters: string[],
-): number | null {
-  const series = division.series[code];
-  if (!series) return null;
-  let total = 0;
-  let any = false;
-  quarters.forEach((quarter, index) => {
-    if (quarterYear(quarter) !== year) return;
-    const value = series[index];
-    if (value !== null) {
-      total += value;
-      any = true;
-    }
-  });
-  return any ? total : null;
 }
 
 function formatSigned(value: number) {
@@ -266,6 +184,10 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const [quarterRangeExpanded, setQuarterRangeExpanded] = useState(false);
   const [mapReady, setMapReady] = useState(false);
   const [mobileTab, setMobileTab] = useState<"map" | "filters" | "movers">("map");
+  const [askInput, setAskInput] = useState("");
+  const [askStatus, setAskStatus] = useState<"idle" | "loading" | "error">("idle");
+  const [askError, setAskError] = useState<string | null>(null);
+  const [askResult, setAskResult] = useState<QueryAnswer | null>(null);
   const mapElement = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<LeafletMap | null>(null);
   const areaLayer = useRef<LayerGroup | null>(null);
@@ -617,6 +539,54 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     );
   }, [mapBounds, mapMode, mapReady, nationalBounds]);
 
+  async function submitAskQuestion() {
+    const question = askInput.trim();
+    if (!question) return;
+    setAskStatus("loading");
+    setAskError(null);
+    try {
+      const response = await fetch("/api/query", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question }),
+      });
+      const payload = (await response.json()) as QueryAnswer;
+      if (!payload.ok) {
+        setAskStatus("error");
+        setAskError(payload.reason);
+        setAskResult(null);
+        return;
+      }
+      setAskStatus("idle");
+      setAskResult(payload);
+    } catch {
+      setAskStatus("error");
+      setAskError("Couldn't reach the query service.");
+      setAskResult(null);
+    }
+  }
+
+  function jumpToAskResult() {
+    if (!askResult || !askResult.ok) return;
+    setMapMode(askResult.geography);
+    setSelectedYear(askResult.year);
+    if (askResult.geography === "station") {
+      if (askResult.stationId) setSelectedStationId(askResult.stationId);
+      if (askResult.categoryId) setSelectedCategory(askResult.categoryId);
+    } else {
+      if (askResult.divisionId) setSelectedDivisionId(askResult.divisionId);
+      if (askResult.categoryId && askResult.categoryId !== "__all__") {
+        const group = data.divisionCategories.find(
+          (candidate) => candidate.id === askResult.categoryId || candidate.children.some((child) => child.id === askResult.categoryId),
+        );
+        if (group) {
+          setSelectedDivisionGroup(group.id);
+          setSelectedDivisionDetail(group.id === askResult.categoryId ? null : askResult.categoryId);
+        }
+      }
+    }
+  }
+
   const areaCount = mapMode === "station" ? data.stations.length : data.divisions.length;
   const activeSummary = mapMode === "station" ? summary : divisionSummary;
 
@@ -738,6 +708,21 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
               {selectedCategoryCopy.availabilityNote && (
                 <p className="category-warning">{selectedCategoryCopy.availabilityNote}</p>
               )}
+              <p className="category-note">
+                Homicide and sexual-offence detail is not published at station level.{" "}
+                <button
+                  type="button"
+                  className="inline-link"
+                  onClick={() => {
+                    setMapMode("division");
+                    setSelectedDivisionGroup("01");
+                    setSelectedDivisionDetail(null);
+                  }}
+                >
+                  See it in Division view
+                </button>
+                .
+              </p>
             </>
           ) : (
             <p className="category-description">
@@ -754,6 +739,58 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           <div className="stat-tile down"><strong>{activeSummary.decreased}</strong><span>decreased</span></div>
           <div className="stat-tile flat"><strong>{activeSummary.stable}</strong><span>little change</span></div>
         </div>
+      </section>
+
+      <section className="ask-panel" aria-label="Ask Crime Bot">
+        <div className="ask-header">
+          <span className="ask-avatar" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round">
+              <path d="M12 2 5 4.5V11c0 5 3 8.5 7 10 4-1.5 7-5 7-10V4.5L12 2Z" />
+              <path d="m9.3 12 1.9 1.9 3.7-3.9" />
+            </svg>
+          </span>
+          <div>
+            <strong className="ask-title">Ask Crime Bot</strong>
+            <span className="ask-subtitle">Ask a question about the data, in plain English</span>
+          </div>
+        </div>
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            submitAskQuestion();
+          }}
+        >
+          <label htmlFor="ask-question" className="visually-hidden">Ask Crime Bot a question</label>
+          <div className="ask-row">
+            <input
+              id="ask-question"
+              type="text"
+              placeholder="e.g. how many burglaries in Dundrum in 2023?"
+              value={askInput}
+              onChange={(event) => setAskInput(event.target.value)}
+              maxLength={300}
+            />
+            <button type="submit" disabled={askStatus === "loading" || !askInput.trim()}>
+              {askStatus === "loading" ? "Asking…" : "Ask"}
+            </button>
+          </div>
+        </form>
+        {askStatus === "error" && askError && <p className="ask-error">{askError}</p>}
+        {askResult?.ok && (
+          <p className="ask-answer">
+            <strong>
+              {askResult.count === null ? "No comparable data" : numberFormat.format(askResult.count)}
+            </strong>{" "}
+            {askResult.categoryLabel} incidents in {askResult.areaLabel} in {askResult.year}
+            {askResult.compareYear !== null && askResult.changePct !== null && (
+              <> — {formatSigned(askResult.changePct)} vs {askResult.compareYear} ({askResult.compareCount === null ? "n/a" : numberFormat.format(askResult.compareCount)})</>
+            )}
+            .{" "}
+            <button type="button" className="inline-link" onClick={jumpToAskResult}>
+              Show on map
+            </button>
+          </p>
+        )}
       </section>
 
       <section className="dashboard-body" id="atlas">
