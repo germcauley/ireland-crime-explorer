@@ -235,6 +235,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const [selectedDivisionId, setSelectedDivisionId] = useState(data.divisions[0]?.id ?? "");
   const [quarterRangeExpanded, setQuarterRangeExpanded] = useState(false);
   const [mapReady, setMapReady] = useState(false);
+  const [mobileTab, setMobileTab] = useState<"map" | "filters" | "movers">("map");
   const mapElement = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<LeafletMap | null>(null);
   const areaLayer = useRef<LayerGroup | null>(null);
@@ -512,6 +513,15 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     renderDivisionAreas();
   }, [baselineYear, divisionAreaChanges, mapMode, mapReady, selectedDivisionId, selectedYear]);
 
+  useEffect(() => {
+    if (mobileTab !== "map") return;
+    const timeout = window.setTimeout(() => mapInstance.current?.invalidateSize(), 50);
+    return () => window.clearTimeout(timeout);
+  }, [mobileTab]);
+
+  const areaCount = mapMode === "station" ? 41 : 6;
+  const activeSummary = mapMode === "station" ? summary : divisionSummary;
+
   return (
     <main className="change-map-app">
       <header className="map-site-header">
@@ -519,123 +529,110 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           <i aria-hidden="true" />
           Dublin Crime Explorer
         </a>
-        <p>Official CSO CJA11 data · through {data.meta.latestCompleteYear}</p>
+        <p>Official CSO data · through {data.meta.latestCompleteYear}</p>
         <a href="#source">Source &amp; limits</a>
       </header>
 
-      <section className="map-workspace" id="atlas">
-        <aside className="map-controls">
-          <div>
-            <p className="map-eyebrow">Recorded crime change</p>
-            <h1>See where crime is rising—or falling.</h1>
-            <p className="map-intro">
-              {mapMode === "station"
-                ? "Pick a crime type. Every Dublin station area is coloured by its percentage change, from green decreases to red increases."
-                : "Pick an offence type. Each Dublin Garda Division—a real official boundary, not an approximated area—is coloured by its percentage change."}
-            </p>
-          </div>
-
+      <section className="dashboard-toolbar-row">
+        <div className={`dashboard-toolbar${mobileTab === "filters" ? " mobile-active" : ""}`}>
           <div className="mode-toggle" role="group" aria-label="Map geography">
             <button
               type="button"
               className={mapMode === "station" ? "active" : ""}
               onClick={() => setMapMode("station")}
             >
-              Station view <small>41 areas</small>
+              Station <small>41 areas</small>
             </button>
             <button
               type="button"
               className={mapMode === "division" ? "active" : ""}
               onClick={() => setMapMode("division")}
             >
-              Division view <small>6 areas · real boundaries</small>
+              Division <small>6 areas · real boundaries</small>
             </button>
           </div>
 
-          <div className="control-stack">
-            {mapMode === "station" ? (
-              <label htmlFor="crime-type">
-                Crime type
-                <select
-                  id="crime-type"
-                  value={selectedCategory}
-                  onChange={(event) => setSelectedCategory(event.target.value)}
-                >
-                  <optgroup label="Useful groupings">
-                    {data.categories
-                      .filter((category) => category.kind === "grouped")
-                      .map((category) => (
-                        <option value={category.id} key={category.id}>{category.shortLabel}</option>
-                      ))}
-                  </optgroup>
-                  <optgroup label="Official CJA11 categories">
-                    {data.categories
-                      .filter((category) => category.kind === "official")
-                      .map((category) => (
-                        <option value={category.id} key={category.id}>{category.shortLabel}</option>
-                      ))}
-                  </optgroup>
-                </select>
-              </label>
-            ) : (
-              <div className="control-pair">
-                <label htmlFor="offence-group">
-                  Offence group
-                  <select
-                    id="offence-group"
-                    value={selectedDivisionGroup}
-                    onChange={(event) => {
-                      setSelectedDivisionGroup(event.target.value);
-                      setSelectedDivisionDetail(null);
-                    }}
-                  >
-                    {data.divisionCategories.map((group) => (
-                      <option value={group.id} key={group.id}>{group.shortLabel}</option>
+          {mapMode === "station" ? (
+            <label htmlFor="crime-type" className="toolbar-field">
+              Crime type
+              <select
+                id="crime-type"
+                value={selectedCategory}
+                onChange={(event) => setSelectedCategory(event.target.value)}
+              >
+                <optgroup label="Useful groupings">
+                  {data.categories
+                    .filter((category) => category.kind === "grouped")
+                    .map((category) => (
+                      <option value={category.id} key={category.id}>{category.shortLabel}</option>
                     ))}
-                  </select>
-                </label>
-                <label htmlFor="offence-detail">
-                  Detail
-                  <select
-                    id="offence-detail"
-                    value={selectedDivisionDetail ?? ""}
-                    onChange={(event) => setSelectedDivisionDetail(event.target.value || null)}
-                  >
-                    <option value="">All of this group</option>
-                    {selectedDivisionGroupCopy?.children.map((child) => (
-                      <option value={child.id} key={child.id}>{child.label}</option>
+                </optgroup>
+                <optgroup label="Official CJA11 categories">
+                  {data.categories
+                    .filter((category) => category.kind === "official")
+                    .map((category) => (
+                      <option value={category.id} key={category.id}>{category.shortLabel}</option>
                     ))}
-                  </select>
-                </label>
-              </div>
-            )}
-            <div className="control-pair">
-              <label htmlFor="map-year">
-                Latest year
+                </optgroup>
+              </select>
+            </label>
+          ) : (
+            <>
+              <label htmlFor="offence-group" className="toolbar-field">
+                Offence group
                 <select
-                  id="map-year"
-                  value={selectedYear}
-                  onChange={(event) => setSelectedYear(Number(event.target.value))}
+                  id="offence-group"
+                  value={selectedDivisionGroup}
+                  onChange={(event) => {
+                    setSelectedDivisionGroup(event.target.value);
+                    setSelectedDivisionDetail(null);
+                  }}
                 >
-                  {[...data.meta.years].reverse().map((year) => (
-                    <option value={year} key={year}>{year}</option>
+                  {data.divisionCategories.map((group) => (
+                    <option value={group.id} key={group.id}>{group.shortLabel}</option>
                   ))}
                 </select>
               </label>
-              <label htmlFor="comparison-period">
-                Compare with
+              <label htmlFor="offence-detail" className="toolbar-field">
+                Detail
                 <select
-                  id="comparison-period"
-                  value={trendPeriod}
-                  onChange={(event) => setTrendPeriod(event.target.value as TrendPeriod)}
+                  id="offence-detail"
+                  value={selectedDivisionDetail ?? ""}
+                  onChange={(event) => setSelectedDivisionDetail(event.target.value || null)}
                 >
-                  <option value="year_on_year">Previous year</option>
-                  <option value="three_year">Three years earlier</option>
-                  <option value="since_2019">2019</option>
+                  <option value="">All of this group</option>
+                  {selectedDivisionGroupCopy?.children.map((child) => (
+                    <option value={child.id} key={child.id}>{child.label}</option>
+                  ))}
                 </select>
               </label>
-            </div>
-          </div>
+            </>
+          )}
+
+          <label htmlFor="map-year" className="toolbar-field">
+            Latest year
+            <select
+              id="map-year"
+              value={selectedYear}
+              onChange={(event) => setSelectedYear(Number(event.target.value))}
+            >
+              {[...data.meta.years].reverse().map((year) => (
+                <option value={year} key={year}>{year}</option>
+              ))}
+            </select>
+          </label>
+          <label htmlFor="comparison-period" className="toolbar-field">
+            Compare with
+            <select
+              id="comparison-period"
+              value={trendPeriod}
+              onChange={(event) => setTrendPeriod(event.target.value as TrendPeriod)}
+            >
+              <option value="year_on_year">Previous year</option>
+              <option value="three_year">Three years earlier</option>
+              <option value="since_2019">2019</option>
+            </select>
+          </label>
 
           {mapMode === "station" ? (
             <>
@@ -651,28 +648,20 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
               {selectedDivisionCode}.
             </p>
           )}
+        </div>
 
-          <div
-            className="change-counts"
-            aria-label={`Area changes from ${baselineYear} to ${selectedYear}`}
-          >
-            {mapMode === "station" ? (
-              <>
-                <div><i className="up-dot" /><strong>{summary.increased}</strong><span>increased</span></div>
-                <div><i className="down-dot" /><strong>{summary.decreased}</strong><span>decreased</span></div>
-                <div><i className="flat-dot" /><strong>{summary.stable}</strong><span>little change</span></div>
-              </>
-            ) : (
-              <>
-                <div><i className="up-dot" /><strong>{divisionSummary.increased}</strong><span>increased</span></div>
-                <div><i className="down-dot" /><strong>{divisionSummary.decreased}</strong><span>decreased</span></div>
-                <div><i className="flat-dot" /><strong>{divisionSummary.stable}</strong><span>little change</span></div>
-              </>
-            )}
-          </div>
+        <div className="stat-tiles" aria-label={`Area changes from ${baselineYear} to ${selectedYear}`}>
+          <div className="stat-tile"><strong>{areaCount}</strong><span>areas</span></div>
+          <div className="stat-tile up"><strong>{activeSummary.increased}</strong><span>increased</span></div>
+          <div className="stat-tile down"><strong>{activeSummary.decreased}</strong><span>decreased</span></div>
+          <div className="stat-tile flat"><strong>{activeSummary.stable}</strong><span>little change</span></div>
+        </div>
+      </section>
 
+      <section className="dashboard-body" id="atlas">
+        <aside className={`movers-rail${mobileTab === "movers" ? " mobile-active" : ""}`} aria-label="Largest changes">
           {mapMode === "station" ? (
-            <section className="movement-list" aria-label="Largest changes">
+            <>
               <div>
                 <p>Largest increases</p>
                 {rankedIncreases.slice(0, 3).map((entry) => (
@@ -689,9 +678,9 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
                   </button>
                 ))}
               </div>
-            </section>
+            </>
           ) : (
-            <section className="movement-list" aria-label="Largest changes">
+            <>
               <div>
                 <p>Largest increases</p>
                 {rankedDivisionIncreases.slice(0, 3).map((entry) => (
@@ -708,11 +697,14 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
                   </button>
                 ))}
               </div>
-            </section>
+            </>
           )}
         </aside>
 
-        <section className="district-map-panel" aria-label="Dublin recorded crime change map">
+        <section
+          className={`district-map-panel${mobileTab === "map" ? " mobile-active" : ""}`}
+          aria-label="Dublin recorded crime change map"
+        >
           <div className="map-panel-heading">
             <div>
               <span>
@@ -811,6 +803,21 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           <p className="map-guidance">Hover over an area for its exact change · click to pin details</p>
         </section>
       </section>
+
+      <nav className="mobile-tabbar" aria-label="View switcher">
+        <button type="button" className={mobileTab === "map" ? "active" : ""} onClick={() => setMobileTab("map")}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2Z" strokeLinejoin="round"/><path d="M9 4v14M15 6v14" /></svg>
+          Map
+        </button>
+        <button type="button" className={mobileTab === "filters" ? "active" : ""} onClick={() => setMobileTab("filters")}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M4 6h16M7 12h10M10 18h4" strokeLinecap="round"/></svg>
+          Filters
+        </button>
+        <button type="button" className={mobileTab === "movers" ? "active" : ""} onClick={() => setMobileTab("movers")}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M4 18 10 10l4 4 6-9" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          Movers
+        </button>
+      </nav>
 
       <footer id="source" className="map-source-footer">
         <div>
