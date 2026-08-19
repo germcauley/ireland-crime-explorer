@@ -173,7 +173,7 @@ function escapeHtml(value: string) {
 }
 
 export function CrimeExplorer({ data }: { data: DashboardData }) {
-  const [mapMode, setMapMode] = useState<MapMode>("station");
+  const [mapMode, setMapMode] = useState<MapMode>("division");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedDivisionGroup, setSelectedDivisionGroup] = useState(data.divisionCategories[2]?.id ?? "03");
   const [selectedDivisionDetail, setSelectedDivisionDetail] = useState<string | null>(null);

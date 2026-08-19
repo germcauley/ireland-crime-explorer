@@ -31,8 +31,8 @@ test("server-renders the crime explorer and social metadata", async () => {
   const html = await response.text();
   assert.match(html, /<title>Ireland Crime Explorer<\/title>/i);
   assert.match(html, /Ireland Crime Explorer/);
-  assert.match(html, /<select[^>]*id="crime-type"/i);
-  assert.match(html, /All 41 Dublin reporting areas/);
+  assert.match(html, /<select[^>]*id="offence-group"/i);
+  assert.match(html, /All 28 Garda Divisions nationwide/);
   assert.match(html, /Map of Dublin recorded-crime reporting areas/);
   assert.match(html, /Source &amp; limits/);
   assert.match(html, /http:\/\/localhost\/og\.png/);
