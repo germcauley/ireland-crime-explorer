@@ -483,7 +483,7 @@ def build_dashboard(rows: list[dict[str, Any]]) -> dict[str, Any]:
 
     return {
         "meta": {
-            "title": "Dublin Crime Explorer",
+            "title": "Ireland Crime Explorer",
             "sourceTable": "CSO CJA11",
             "sourceLabel": "Central Statistics Office — recorded crime incidents",
             "latestCompleteYear": max(years),

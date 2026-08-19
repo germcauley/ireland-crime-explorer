@@ -572,9 +572,9 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   return (
     <main className="change-map-app">
       <header className="map-site-header">
-        <a href="#atlas" className="map-wordmark" aria-label="Dublin Crime Explorer map">
+        <a href="#atlas" className="map-wordmark" aria-label="Ireland Crime Explorer map">
           <i aria-hidden="true" />
-          Dublin Crime Explorer
+          Ireland Crime Explorer
         </a>
         <p>Official CSO data · through {data.meta.latestCompleteYear}</p>
         <a href="#source">Source &amp; limits</a>

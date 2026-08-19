@@ -1,4 +1,4 @@
-# Dublin Crime Explorer
+# Ireland Crime Explorer
 
 An interactive atlas of official recorded-crime incidents. Dublin gets
 station/sub-district detail (41 areas, annual); a Division view covers all

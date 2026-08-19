@@ -3,7 +3,7 @@ import dashboard from "@/data/processed/dashboard.json";
 import { CrimeExplorer } from "./components/CrimeExplorer";
 
 export const metadata: Metadata = {
-  title: "Dublin Crime Explorer",
+  title: "Ireland Crime Explorer",
   description:
     "Explore official CSO recorded crime by Dublin Garda station geography, or by Garda Division nationwide.",
 };

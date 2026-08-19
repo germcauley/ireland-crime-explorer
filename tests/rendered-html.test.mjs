@@ -29,8 +29,8 @@ test("server-renders the crime explorer and social metadata", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>Dublin Crime Explorer<\/title>/i);
-  assert.match(html, /Dublin Crime Explorer/);
+  assert.match(html, /<title>Ireland Crime Explorer<\/title>/i);
+  assert.match(html, /Ireland Crime Explorer/);
   assert.match(html, /<select[^>]*id="crime-type"/i);
   assert.match(html, /All 41 Dublin reporting areas/);
   assert.match(html, /Map of Dublin recorded-crime reporting areas/);

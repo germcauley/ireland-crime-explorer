@@ -30,24 +30,24 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     metadataBase: new URL(origin),
-    title: "Dublin Crime Explorer",
+    title: "Ireland Crime Explorer",
     description,
     openGraph: {
       type: "website",
-      title: "Dublin Crime Explorer",
+      title: "Ireland Crime Explorer",
       description: "Recorded crime, in context.",
       images: [
         {
           url: imageUrl,
           width: 1200,
           height: 630,
-          alt: "Dublin Crime Explorer — recorded crime, in context",
+          alt: "Ireland Crime Explorer — recorded crime, in context",
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: "Dublin Crime Explorer",
+      title: "Ireland Crime Explorer",
       description: "Recorded crime, in context.",
       images: [imageUrl],
     },
