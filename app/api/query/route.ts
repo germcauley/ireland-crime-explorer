@@ -5,7 +5,7 @@ import type { DashboardData } from "@/app/lib/dashboard-types";
 
 const data = dashboard as unknown as DashboardData;
 
-const HF_MODEL = process.env.HF_MODEL ?? "meta-llama/Llama-3.1-8B-Instruct";
+const HF_MODEL = process.env.HF_MODEL ?? "meta-llama/Llama-3.2-3B-Instruct";
 
 const SYSTEM_PROMPT = `You turn a question about Irish recorded crime into a JSON filter object.
 Reply with ONLY a single JSON object, no prose, no markdown fences. Shape:

@@ -22,8 +22,7 @@ type DivisionAreaChange = {
 };
 type GeoJSONGeometry = Division["boundary"];
 
-// Disabled until Hugging Face inference credits are topped up.
-const ASK_CRIME_BOT_ENABLED = false;
+const ASK_CRIME_BOT_ENABLED = true;
 
 const numberFormat = new Intl.NumberFormat("en-IE");
 const oneDecimal = new Intl.NumberFormat("en-IE", {
