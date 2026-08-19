@@ -162,7 +162,7 @@ function resolveGeography(filters: QueryFilters, data: DashboardData): Geography
       return "division";
     }
   }
-  return "station";
+  return "division";
 }
 
 export function computeAnswer(filters: QueryFilters, data: DashboardData): QueryAnswer {
