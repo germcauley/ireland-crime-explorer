@@ -320,6 +320,11 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [recentSearches, setRecentSearches] = useState<SearchHit[]>([]);
   const [filterSheetOpen, setFilterSheetOpen] = useState(false);
+  // The layout is CSS-driven, but Leaflet paints polygons into a canvas that
+  // no stylesheet can reach, so the map's own palette and its touch behaviour
+  // need to know the breakpoint. Starts false so the server render and the
+  // first client render agree.
+  const [isNarrow, setIsNarrow] = useState(false);
   const mapElement = useRef<HTMLDivElement>(null);
   const filterSheet = useRef<HTMLDivElement>(null);
   const searchInput = useRef<HTMLInputElement>(null);
@@ -480,6 +485,14 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   );
 
   useEffect(() => {
+    const query = window.matchMedia("(max-width: 700px)");
+    const update = () => setIsNarrow(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
     async function updateMask() {
       if (!mapReady || !mapInstance.current) return;
       const leaflet = await loadLeaflet();
@@ -488,6 +501,10 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         return;
       }
       if (maskLayer.current) {
+        // The land outside Ireland is water-blue on desktop and the Nightshift
+        // canvas colour on mobile, so the mask is restyled when the breakpoint
+        // flips rather than rebuilt.
+        maskLayer.current.setStyle({ fillColor: isNarrow ? "#0d1f19" : "#cfe1e6" });
         maskLayer.current.addTo(mapInstance.current);
         return;
       }
@@ -501,14 +518,14 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         .polygon([worldRing, ...irelandMaskRings], {
           pane: "ireland-mask",
           stroke: false,
-          fillColor: "#cfe1e6",
+          fillColor: isNarrow ? "#0d1f19" : "#cfe1e6",
           fillOpacity: 1,
           interactive: false,
         })
         .addTo(mapInstance.current);
     }
     updateMask();
-  }, [irelandMaskRings, mapMode, mapReady]);
+  }, [irelandMaskRings, isNarrow, mapMode, mapReady]);
 
   useEffect(() => {
     let cancelled = false;
@@ -560,6 +577,16 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       const leaflet = await loadLeaflet();
       areaLayer.current.clearLayers();
 
+      const restingOpacity = (change: number | null, selected: boolean) => {
+        if (change === null) return isNarrow ? 0.4 : 0.48;
+        if (isNarrow) return selected ? 0.98 : 0.62;
+        return 0.76;
+      };
+      const restingStroke = (selected: boolean) =>
+        isNarrow
+          ? { color: selected ? "#e07a5f" : "rgba(226,238,231,.28)", weight: selected ? 2.6 : 0.9 }
+          : { color: selected ? "#102e26" : "rgba(23,55,45,.56)", weight: selected ? 3 : 1 };
+
       areaChanges.forEach((entry) => {
         const selected = entry.station.id === selectedStationId;
         const cell = buildAreaCell(entry.station, data.stations, mapBounds);
@@ -576,46 +603,53 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
             <small>${baselineYear}–${selectedYear} · ${escapeHtml(countLabel)}</small>
           </div>`;
         const polygon = leaflet.polygon(cell, {
-          color: selected ? "#102e26" : "rgba(23,55,45,.56)",
-          weight: selected ? 3 : 1,
+          ...restingStroke(selected),
           fillColor: changeColour(entry.change, entry.isRaw),
-          fillOpacity: entry.change === null ? 0.48 : 0.76,
+          fillOpacity: restingOpacity(entry.change, selected),
           className: "reporting-area-cell",
         });
-        polygon.bindTooltip(tooltip, {
-          sticky: true,
-          direction: "top",
-          opacity: 1,
-          className: "change-tooltip",
-        });
-        polygon.on("mouseover", () => polygon.setStyle({ weight: 3, fillOpacity: 0.9 }));
-        polygon.on("mouseout", () =>
-          polygon.setStyle({
-            weight: entry.station.id === selectedStationId ? 3 : 1,
-            fillOpacity: entry.change === null ? 0.48 : 0.76,
-          }),
-        );
+        // Touch has no hover: a tooltip there would need a tap that is already
+        // spoken for by selection, and the readout says the same thing.
+        if (!isNarrow) {
+          polygon.bindTooltip(tooltip, {
+            sticky: true,
+            direction: "top",
+            opacity: 1,
+            className: "change-tooltip",
+          });
+          polygon.on("mouseover", () => polygon.setStyle({ weight: 3, fillOpacity: 0.9 }));
+          polygon.on("mouseout", () =>
+            polygon.setStyle({
+              weight: entry.station.id === selectedStationId ? 3 : 1,
+              fillOpacity: entry.change === null ? 0.48 : 0.76,
+            }),
+          );
+        }
         polygon.on("click", () => setSelectedStationId(entry.station.id));
         polygon.addTo(areaLayer.current!);
 
+        // On touch the point is a second, smaller tap target for the same
+        // area, so it grows enough to be reachable rather than decorative.
         const stationPoint = leaflet.circleMarker([entry.station.lat, entry.station.lng], {
-          radius: selected ? 4.5 : 2.6,
-          color: "#f8f5ee",
-          weight: 1,
-          fillColor: "#17372d",
+          radius: isNarrow ? (selected ? 9 : 4.5) : selected ? 4.5 : 2.6,
+          color: isNarrow ? "#f6f2e9" : "#f8f5ee",
+          weight: isNarrow ? 1.6 : 1,
+          fillColor: isNarrow ? "#12271f" : "#17372d",
           fillOpacity: 0.9,
         });
-        stationPoint.bindTooltip(tooltip, {
-          direction: "top",
-          opacity: 1,
-          className: "change-tooltip",
-        });
+        if (!isNarrow) {
+          stationPoint.bindTooltip(tooltip, {
+            direction: "top",
+            opacity: 1,
+            className: "change-tooltip",
+          });
+        }
         stationPoint.on("click", () => setSelectedStationId(entry.station.id));
         stationPoint.addTo(areaLayer.current!);
       });
     }
     renderStationAreas();
-  }, [areaChanges, baselineYear, data.stations, mapBounds, mapMode, mapReady, selectedStationId, selectedYear]);
+  }, [areaChanges, baselineYear, data.stations, isNarrow, mapBounds, mapMode, mapReady, selectedStationId, selectedYear]);
 
   useEffect(() => {
     async function renderDivisionAreas() {
@@ -639,47 +673,67 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           </div>`;
         const layer = leaflet.geoJSON(entry.division.boundary as never, {
           style: {
-            color: selected ? "#102e26" : "rgba(23,55,45,.56)",
-            weight: selected ? 3 : 1.4,
+            color: isNarrow
+              ? selected
+                ? "#e07a5f"
+                : "rgba(226,238,231,.28)"
+              : selected
+                ? "#102e26"
+                : "rgba(23,55,45,.56)",
+            weight: isNarrow ? (selected ? 2.6 : 0.9) : selected ? 3 : 1.4,
             fillColor: changeColour(entry.change, entry.isRaw),
-            fillOpacity: entry.change === null ? 0.48 : 0.76,
+            fillOpacity: isNarrow
+              ? entry.change === null
+                ? 0.4
+                : selected
+                  ? 0.98
+                  : 0.62
+              : entry.change === null
+                ? 0.48
+                : 0.76,
             className: "reporting-area-cell",
           },
         });
-        layer.bindTooltip(tooltip, { sticky: true, direction: "top", opacity: 1, className: "change-tooltip" });
-        layer.on("mouseover", () => layer.setStyle({ weight: 3, fillOpacity: 0.9 }));
-        layer.on("mouseout", () =>
-          layer.setStyle({
-            weight: entry.division.id === selectedDivisionId ? 3 : 1.4,
-            fillOpacity: entry.change === null ? 0.48 : 0.76,
-          }),
-        );
+        if (!isNarrow) {
+          layer.bindTooltip(tooltip, { sticky: true, direction: "top", opacity: 1, className: "change-tooltip" });
+          layer.on("mouseover", () => layer.setStyle({ weight: 3, fillOpacity: 0.9 }));
+          layer.on("mouseout", () =>
+            layer.setStyle({
+              weight: entry.division.id === selectedDivisionId ? 3 : 1.4,
+              fillOpacity: entry.change === null ? 0.48 : 0.76,
+            }),
+          );
+        }
         layer.on("click", () => setSelectedDivisionId(entry.division.id));
         layer.addTo(areaLayer.current!);
       });
     }
     renderDivisionAreas();
-  }, [baselineYear, divisionAreaChanges, mapMode, mapReady, selectedDivisionId, selectedYear]);
+  }, [baselineYear, divisionAreaChanges, isNarrow, mapMode, mapReady, selectedDivisionId, selectedYear]);
 
   // Leaflet renders grey wherever its container grew without it noticing, so
   // every change to the map's box has to be followed by invalidateSize().
   // Geography switches are one such change; the resizable sheet is the other.
   useEffect(() => {
-    const timeout = window.setTimeout(() => mapInstance.current?.invalidateSize(), 50);
+    if (!mapReady) return;
+    const timeout = window.setTimeout(() => {
+      const map = mapInstance.current;
+      if (!map) return;
+      // Measure first: the map's box differs between the two geographies on
+      // mobile (station view reserves a band for the readout), and Leaflet
+      // renders grey wherever it fits bounds to a stale size.
+      map.invalidateSize({ animate: false, pan: false });
+      const bounds = mapMode === "station" ? mapBounds : nationalBounds;
+      map.fitBounds(
+        [
+          [bounds[1], bounds[0]],
+          [bounds[3], bounds[2]],
+        ],
+        { padding: [10, 10] },
+      );
+    }, 60);
     return () => window.clearTimeout(timeout);
-  }, [mapMode]);
-
-  useEffect(() => {
-    if (!mapReady || !mapInstance.current) return;
-    const bounds = mapMode === "station" ? mapBounds : nationalBounds;
-    mapInstance.current.fitBounds(
-      [
-        [bounds[1], bounds[0]],
-        [bounds[3], bounds[2]],
-      ],
-      { padding: [10, 10] },
-    );
-  }, [mapBounds, mapMode, mapReady, nationalBounds]);
+  }, [isNarrow, mapBounds, mapMode, mapReady, nationalBounds]);
 
   async function submitAskQuestion() {
     const question = askInput.trim();
@@ -900,6 +954,24 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
 
   const closeFilterSheet = () => setFilterSheetOpen(false);
   useModalBehaviour(filterSheetOpen, closeFilterSheet, filterSheet);
+
+  // The one figure the mobile map leads with. Both branches read the same
+  // entries the map is coloured from; combinedChange returning null means the
+  // baseline is too small or missing, which reads as "n/a", never as 0%.
+  const readoutChange = mapMode === "station" ? selectedArea?.change ?? null : selectedDivisionArea?.change ?? null;
+  const readoutIsRaw = mapMode === "station" ? selectedArea?.isRaw ?? false : selectedDivisionArea?.isRaw ?? false;
+  const readoutCurrent = mapMode === "station" ? selectedArea?.current ?? null : selectedDivisionArea?.current ?? null;
+  const readoutBaseline = mapMode === "station" ? selectedArea?.baseline ?? null : selectedDivisionArea?.baseline ?? null;
+  const readoutName =
+    mapMode === "station" ? selectedArea?.station.name ?? "" : selectedDivisionArea?.division.name ?? "";
+  const readoutEyebrow =
+    mapMode === "station"
+      ? `${selectedArea?.station.division ?? "Dublin"} · ${selectedCategoryCopy.shortLabel} · ${selectedYear} vs ${baselineYear}`
+      : `${activeGroupLabel} · ${selectedYear} vs ${baselineYear}`;
+  const readoutCounts =
+    readoutCurrent === null || readoutBaseline === null
+      ? "Comparable counts unavailable"
+      : `${numberFormat.format(readoutBaseline)} → ${numberFormat.format(readoutCurrent)} recorded incidents`;
 
   function selectMobileGroup(id: string) {
     if (mapMode === "station") {
@@ -1200,7 +1272,10 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           )}
         </aside>
 
-        <section className="district-map-panel" aria-label="Dublin recorded crime change map">
+        <section
+          className={`district-map-panel${mapMode === "station" ? " ns-station-view" : ""}`}
+          aria-label="Dublin recorded crime change map"
+        >
           <div className="map-panel-heading">
             <div>
               <span>
@@ -1234,6 +1309,20 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           {mapMode === "division" && availableDivisionChanges.length === 0 && (
             <div className="map-no-data">No comparable area data for this selection.</div>
           )}
+
+          {/* Nightshift readout. The container never takes a tap — it sits over
+              live geography — so it is pointer-events:none and only the
+              controls inside it opt back in. */}
+          <div className="ns-readout" aria-live="polite">
+            <p className="ns-readout-eyebrow">{readoutEyebrow}</p>
+            <h2 className="ns-readout-name">{readoutName}</h2>
+            <div className="ns-readout-figure">
+              <strong className={`tone-${toneOf(readoutChange, readoutIsRaw)}`}>
+                {readoutChange === null ? "n/a" : formatSigned(readoutChange, readoutIsRaw)}
+              </strong>
+              <p>{readoutCounts}</p>
+            </div>
+          </div>
 
           {mapMode === "station" ? (
             <article className="selected-area-card" aria-live="polite">

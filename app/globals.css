@@ -53,6 +53,7 @@ a { color: inherit; }
    under the 700px breakpoint — see the Nightshift block near the foot of this
    file. Desktop never renders any of it. */
 .ns-header,
+.ns-readout,
 .ns-chiprow,
 .ns-scrim,
 .ns-overlay { display: none; }
@@ -406,6 +407,65 @@ a { color: inherit; }
     background: var(--ns-canvas);
   }
   .map-guidance { display: none; }
+  .selected-area-card { display: none; }
+  /* OpenStreetMap tiles are drawn for a light page; on the Nightshift canvas
+     they are pushed back so the change colours carry the map. */
+  .district-map .leaflet-tile-pane { filter: brightness(.42) saturate(.55) contrast(1.05); }
+  .map-no-data {
+    border: 1px solid var(--ns-border);
+    border-radius: 12px;
+    background: var(--ns-card);
+    color: var(--ns-text-secondary);
+    font: 12px var(--body);
+  }
+
+  /* Map readout ------------------------------------------------------------ */
+  .ns-readout {
+    position: absolute;
+    z-index: 500;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+    padding: 26px 16px 16px;
+    /* Never intercept a tap meant for the geography underneath. */
+    pointer-events: none;
+    background: linear-gradient(rgba(18, 39, 31, 0), var(--ns-page) 62%);
+  }
+  .ns-station-view .ns-readout {
+    background: linear-gradient(rgba(13, 31, 25, 0), rgba(13, 31, 25, .82) 30%, var(--ns-page) 60%);
+  }
+  .ns-readout button,
+  .ns-readout a { pointer-events: auto; }
+  .ns-readout-eyebrow {
+    margin: 0;
+    font: 600 9.5px var(--sans);
+    letter-spacing: .11em;
+    text-transform: uppercase;
+    color: var(--ns-muted);
+  }
+  .ns-station-view .ns-readout-eyebrow { color: #a9c4b5; }
+  .ns-readout-name {
+    margin: 4px 0 2px;
+    font: 700 24px var(--sans);
+    letter-spacing: -.01em;
+    color: var(--ns-text);
+  }
+  .ns-readout-figure { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .ns-readout-figure strong {
+    font: 700 56px/.95 var(--sans);
+    letter-spacing: -.04em;
+  }
+  .ns-readout-figure p {
+    flex: 1 1 140px;
+    margin: 0;
+    color: var(--ns-text-secondary);
+    font: 12.5px/1.35 var(--body);
+  }
+
+  /* Station cells reach the bottom of the map box, so the map gives up the
+     band the readout scrim covers rather than hiding geography under it. */
+  .district-map-panel.ns-station-view { padding-bottom: 124px; }
 
   /* Header ---------------------------------------------------------------- */
   .map-site-header { display: none; }
