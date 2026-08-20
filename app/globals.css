@@ -758,7 +758,18 @@ a { color: inherit; }
     align-items: flex-end;
     background: rgba(8, 20, 16, .45);
   }
+  /* Tapping the dimmed map behind a sheet dismisses it. That is a real
+     control, so it is a real button rather than a click handler on the scrim. */
+  .ns-scrim-dismiss {
+    position: absolute;
+    inset: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: default;
+  }
   .ns-filter-sheet {
+    position: relative;
     width: 100%;
     max-height: 88dvh;
     display: flex;

@@ -247,7 +247,9 @@ function useModalBehaviour(
   container: { current: HTMLElement | null },
 ) {
   const closeRef = useRef(close);
-  closeRef.current = close;
+  useEffect(() => {
+    closeRef.current = close;
+  });
 
   useEffect(() => {
     if (!open) return;
@@ -841,7 +843,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     categoryId?: string | null;
     year?: number | null;
   }) {
-    setMapMode(target.geography);
+    setGeography(target.geography);
     if (target.year !== null && target.year !== undefined) setSelectedYear(target.year);
     if (target.geography === "station") {
       if (target.areaId) setSelectedStationId(target.areaId);
@@ -1294,7 +1296,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           type="button"
           className={mapMode === "station" ? "is-active" : ""}
           aria-pressed={mapMode === "station"}
-          onClick={() => setMapMode("station")}
+          onClick={() => setGeography("station")}
         >
           Station
           <small>{data.stations.length} Dublin areas</small>
@@ -1303,7 +1305,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           type="button"
           className={mapMode === "division" ? "is-active" : ""}
           aria-pressed={mapMode === "division"}
-          onClick={() => setMapMode("division")}
+          onClick={() => setGeography("division")}
         >
           Division
           <small>{data.divisions.length} nationwide</small>
@@ -1337,14 +1339,14 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
             <button
               type="button"
               className={mapMode === "station" ? "active" : ""}
-              onClick={() => setMapMode("station")}
+              onClick={() => setGeography("station")}
             >
               Station <small>{data.stations.length} Dublin areas</small>
             </button>
             <button
               type="button"
               className={mapMode === "division" ? "active" : ""}
-              onClick={() => setMapMode("division")}
+              onClick={() => setGeography("division")}
             >
               Division <small>{data.divisions.length} areas nationwide · real boundaries</small>
             </button>
@@ -1444,7 +1446,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
                   type="button"
                   className="inline-link"
                   onClick={() => {
-                    setMapMode("division");
+                    setGeography("division");
                     setSelectedDivisionGroup("01");
                     setSelectedDivisionDetail(null);
                   }}
@@ -1719,6 +1721,11 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           if (event.propertyName === "height") mapInstance.current?.invalidateSize({ animate: false });
         }}
       >
+        {/* A resize grip is a separator, not a button: it has a value (the
+            height) rather than an action. That is what ARIA's separator role
+            is for, and it has to be focusable to be operable by keyboard, so
+            the two rules below are answered by the role itself. */}
+        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
         <div
           className="ns-handle"
           role="separator"
@@ -1727,6 +1734,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           aria-valuenow={sheetHeight}
           aria-valuemin={SHEET_MIN}
           aria-valuemax={SHEET_MAX}
+          // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
           tabIndex={0}
           onPointerDown={onSheetPointerDown}
           onPointerMove={onSheetPointerMove}
@@ -1842,7 +1850,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
                 type="button"
                 className="ns-inline-link"
                 onClick={() => {
-                  setMapMode("division");
+                  setGeography("division");
                   setSelectedDivisionGroup("01");
                   setSelectedDivisionDetail(null);
                 }}
@@ -1914,14 +1922,14 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       )}
 
       {ASK_CRIME_BOT_ENABLED && botOpen && (
-        <div className="ns-scrim" onClick={closeBot}>
+        <div className="ns-scrim">
+          <button type="button" className="ns-scrim-dismiss" aria-label="Close Ask Crime Bot" onClick={closeBot} />
           <div
             className="ns-filter-sheet ns-bot-sheet"
             ref={botPanel}
             role="dialog"
             aria-modal="true"
             aria-label="Ask Crime Bot"
-            onClick={(event) => event.stopPropagation()}
           >
             <div className="ns-filter-head">
               <h2>
@@ -2103,15 +2111,9 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       )}
 
       {filterSheetOpen && (
-        <div className="ns-scrim" onClick={closeFilterSheet}>
-          <div
-            className="ns-filter-sheet"
-            ref={filterSheet}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Filter"
-            onClick={(event) => event.stopPropagation()}
-          >
+        <div className="ns-scrim">
+          <button type="button" className="ns-scrim-dismiss" aria-label="Close the filter sheet" onClick={closeFilterSheet} />
+          <div className="ns-filter-sheet" ref={filterSheet} role="dialog" aria-modal="true" aria-label="Filter">
             <div className="ns-filter-head">
               <h2>Filter</h2>
               <span className="ns-summary-pill">
