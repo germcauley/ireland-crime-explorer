@@ -466,6 +466,14 @@ a { color: inherit; }
     font: 12.5px/1.35 var(--body);
   }
 
+  .ns-readout.is-compact { padding: 10px 16px; }
+  .ns-readout.is-compact .ns-readout-eyebrow,
+  .ns-readout.is-compact .ns-readout-push { display: none; }
+  .ns-readout.is-compact .ns-readout-name { display: inline; margin: 0 8px 0 0; font-size: 15px; }
+  .ns-readout.is-compact .ns-readout-figure { display: inline-flex; gap: 8px; }
+  .ns-readout.is-compact .ns-readout-figure strong { font-size: 17px; letter-spacing: -.01em; }
+  .ns-readout.is-compact .ns-readout-figure p { flex: 0 1 auto; font-size: 11.5px; }
+
   /* Station cells reach the bottom of the map box, so the map gives up the
      band the readout scrim covers rather than hiding geography under it. */
   .district-map-panel.ns-station-view { padding-bottom: 124px; }

@@ -604,10 +604,12 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       // finishing loading, the sheet being dragged, the on-screen keyboard,
       // an orientation change. Watching the element is the only way to be
       // sure Leaflet is never painting at a stale size — which is what grey
-      // tiles are.
+      // tiles are. Panning to keep the centre matters here: the sheet takes
+      // height off the bottom of the map, and without it the geography walks
+      // off the edge as the sheet grows.
       if (typeof ResizeObserver !== "undefined" && mapElement.current) {
         mapResizeObserver.current = new ResizeObserver(() => {
-          map.invalidateSize({ animate: false, pan: false });
+          map.invalidateSize({ animate: false });
         });
         mapResizeObserver.current.observe(mapElement.current);
       }
@@ -912,6 +914,9 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     (data.places ?? []).forEach((place) => {
       const tier = searchTier(normaliseQuery(place.place), needle);
       if (!tier) return;
+      // A place that shares its name with a station area is the station area
+      // as far as the reader is concerned — listing both is a false choice.
+      if (data.stations.some((station) => normaliseQuery(station.name) === normaliseQuery(place.place))) return;
       const stations = place.stationIds
         .map((id) => data.stations.find((station) => station.id === id))
         .filter((station): station is Station => Boolean(station));
@@ -1122,7 +1127,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   }
 
   function settleMap() {
-    window.setTimeout(() => mapInstance.current?.invalidateSize({ animate: false, pan: false }), 30);
+    window.setTimeout(() => mapInstance.current?.invalidateSize({ animate: false }), 30);
   }
 
   function applySheetHeight(height: number) {
@@ -1613,7 +1618,10 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           {/* Nightshift readout. The container never takes a tap — it sits over
               live geography — so it is pointer-events:none and only the
               controls inside it opt back in. */}
-          <div className="ns-readout" aria-live="polite">
+          {/* Past the half detent there is too little map left for the full
+              readout, so it collapses to the one-line label the sub-category
+              screen uses. */}
+          <div className={`ns-readout${sheetHeight > DETENTS[1] + 40 ? " is-compact" : ""}`} aria-live="polite">
             <p className="ns-readout-eyebrow">{readoutEyebrow}</p>
             <h2 className="ns-readout-name">{readoutName}</h2>
             <div className="ns-readout-figure">
@@ -1703,7 +1711,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         style={{ height: sheetHeight }}
         aria-label="Areas ranked by change"
         onTransitionEnd={(event) => {
-          if (event.propertyName === "height") mapInstance.current?.invalidateSize({ animate: false, pan: false });
+          if (event.propertyName === "height") mapInstance.current?.invalidateSize({ animate: false });
         }}
       >
         <div
@@ -2283,9 +2291,16 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
                       </span>
                       {hit.approximate ? (
                         <span className="ns-approx">approx</span>
+                      ) : hit.change === null ? (
+                        // Places have no series of their own, and an area with
+                        // no comparable baseline has no figure to show. Neither
+                        // gets a number invented for it.
+                        <span className="ns-match-change tone-flat" aria-hidden="true">
+                          →
+                        </span>
                       ) : (
                         <span className={`ns-match-change tone-${toneOf(hit.change, hit.isRaw)}`}>
-                          {hit.change === null ? "n/a" : formatSigned(hit.change, hit.isRaw)}
+                          {formatSigned(hit.change, hit.isRaw)}
                         </span>
                       )}
                     </button>
