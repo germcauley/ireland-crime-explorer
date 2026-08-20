@@ -74,6 +74,14 @@ function changeColour(value: number | null, isRaw = false) {
   return "#376b54";
 }
 
+// The three tones the Nightshift palette uses for a change figure. Thresholds
+// match changeColour's flat band so a colour and a tone never disagree.
+function toneOf(value: number | null, isRaw = false): "up" | "down" | "flat" {
+  if (value === null) return "flat";
+  if (isRaw) return value > 0 ? "up" : value < 0 ? "down" : "flat";
+  return value > 2 ? "up" : value < -2 ? "down" : "flat";
+}
+
 function clipPolygon(polygon: Point[], a: number, b: number, c: number) {
   const result: Point[] = [];
   for (let index = 0; index < polygon.length; index += 1) {
@@ -185,6 +193,49 @@ function exteriorRingsLatLng(geometry: GeoJSONGeometry): [number, number][][] {
   );
 }
 
+// Client-side echo of the normalise/matchTier pair in app/lib/analytics.ts.
+// The server matcher runs against an LLM's parsed filters; this one runs
+// against keystrokes, so it lives here rather than pulling the data layer
+// into the bundle — but it ranks by the same discrete tiers, so a query that
+// resolves one way in Crime Bot resolves the same way in search.
+function normaliseQuery(value: string): string {
+  return value
+    .normalize("NFKD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9 ]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function searchTier(hay: string, needle: string): number {
+  if (!hay || !needle) return 0;
+  if (hay === needle) return 3;
+  if (hay.startsWith(needle)) return 2;
+  if (hay.includes(needle)) return 1;
+  return 0;
+}
+
+type SearchHit = {
+  key: string;
+  kind: "station" | "division" | "place";
+  badge: string;
+  title: string;
+  subtitle: string;
+  change: number | null;
+  isRaw: boolean;
+  approximate: boolean;
+  geography: MapMode;
+  areaId: string;
+};
+
+const SEARCH_ICON = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" aria-hidden="true">
+    <circle cx="11" cy="11" r="7" />
+    <path d="m16.5 16.5 4 4" />
+  </svg>
+);
+
 function escapeHtml(value: string) {
   return value
     .replaceAll("&", "&amp;")
@@ -209,7 +260,12 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const [askStatus, setAskStatus] = useState<"idle" | "loading" | "error">("idle");
   const [askError, setAskError] = useState<string | null>(null);
   const [askResult, setAskResult] = useState<QueryAnswer | null>(null);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [recentSearches, setRecentSearches] = useState<SearchHit[]>([]);
   const mapElement = useRef<HTMLDivElement>(null);
+  const searchInput = useRef<HTMLInputElement>(null);
+  const searchOpener = useRef<HTMLButtonElement>(null);
   const mapInstance = useRef<LeafletMap | null>(null);
   const areaLayer = useRef<LayerGroup | null>(null);
   const maskLayer = useRef<LeafletPolygon | null>(null);
@@ -594,26 +650,162 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     }
   }
 
-  function jumpToAskResult() {
-    if (!askResult || !askResult.ok) return;
-    setMapMode(askResult.geography);
-    setSelectedYear(askResult.year);
-    if (askResult.geography === "station") {
-      if (askResult.stationId) setSelectedStationId(askResult.stationId);
-      if (askResult.categoryId) setSelectedCategory(askResult.categoryId);
-    } else {
-      if (askResult.divisionId) setSelectedDivisionId(askResult.divisionId);
-      if (askResult.categoryId && askResult.categoryId !== "__all__") {
-        const group = data.divisionCategories.find(
-          (candidate) => candidate.id === askResult.categoryId || candidate.children.some((child) => child.id === askResult.categoryId),
-        );
-        if (group) {
-          setSelectedDivisionGroup(group.id);
-          setSelectedDivisionDetail(group.id === askResult.categoryId ? null : askResult.categoryId);
-        }
+  // One place where "point the whole app at this area" is expressed. Crime
+  // Bot's "Show on map" and the search overlay both land here, so a bot answer
+  // and a search result can never drift into selecting different things.
+  function focusOn(target: {
+    geography: MapMode;
+    areaId?: string | null;
+    categoryId?: string | null;
+    year?: number | null;
+  }) {
+    setMapMode(target.geography);
+    if (target.year !== null && target.year !== undefined) setSelectedYear(target.year);
+    if (target.geography === "station") {
+      if (target.areaId) setSelectedStationId(target.areaId);
+      if (target.categoryId) setSelectedCategory(target.categoryId);
+      return;
+    }
+    if (target.areaId) setSelectedDivisionId(target.areaId);
+    if (target.categoryId && target.categoryId !== "__all__") {
+      const group = data.divisionCategories.find(
+        (candidate) =>
+          candidate.id === target.categoryId ||
+          candidate.children.some((child) => child.id === target.categoryId),
+      );
+      if (group) {
+        setSelectedDivisionGroup(group.id);
+        setSelectedDivisionDetail(group.id === target.categoryId ? null : target.categoryId);
       }
     }
   }
+
+  function jumpToAskResult() {
+    if (!askResult || !askResult.ok) return;
+    focusOn({
+      geography: askResult.geography,
+      areaId: askResult.geography === "station" ? askResult.stationId : askResult.divisionId,
+      categoryId: askResult.categoryId,
+      year: askResult.year,
+    });
+  }
+
+  const searchHits = useMemo<SearchHit[]>(() => {
+    const needle = normaliseQuery(searchQuery);
+    if (!needle) return [];
+    const scored: Array<{ tier: number; hit: SearchHit }> = [];
+
+    areaChanges.forEach((entry) => {
+      const tier = searchTier(normaliseQuery(entry.station.name), needle);
+      if (!tier) return;
+      scored.push({
+        tier,
+        hit: {
+          key: `station-${entry.station.id}`,
+          kind: "station",
+          badge: "ST",
+          title: entry.station.name,
+          subtitle: `Station area · ${entry.station.division} · ${
+            entry.current === null ? "no count" : `${numberFormat.format(entry.current)} in ${selectedYear}`
+          }`,
+          change: entry.change,
+          isRaw: entry.isRaw,
+          approximate: false,
+          geography: "station",
+          areaId: entry.station.id,
+        },
+      });
+    });
+
+    divisionAreaChanges.forEach((entry) => {
+      const name = entry.division.name;
+      const tier = Math.max(
+        searchTier(normaliseQuery(name), needle),
+        searchTier(normaliseQuery(name.replace(/ Division$/, "")), needle),
+      );
+      if (!tier) return;
+      scored.push({
+        tier,
+        hit: {
+          key: `division-${entry.division.id}`,
+          kind: "division",
+          badge: "DV",
+          title: name,
+          subtitle: `Garda Division · ${
+            entry.current === null ? "no comparable count" : `${numberFormat.format(entry.current)} in ${selectedYear}`
+          }`,
+          change: entry.change,
+          isRaw: entry.isRaw,
+          approximate: false,
+          geography: "division",
+          areaId: entry.division.id,
+        },
+      });
+    });
+
+    (data.places ?? []).forEach((place) => {
+      const tier = searchTier(normaliseQuery(place.place), needle);
+      if (!tier) return;
+      const stations = place.stationIds
+        .map((id) => data.stations.find((station) => station.id === id))
+        .filter((station): station is Station => Boolean(station));
+      if (stations.length === 0) return;
+      scored.push({
+        tier: tier - 0.5,
+        hit: {
+          key: `place-${place.place}`,
+          kind: "place",
+          badge: "PL",
+          // A place never gets a change figure of its own: it has no boundary
+          // and no series. It only says which official area it belongs to.
+          title: place.place,
+          subtitle: `Place · ${stations.length > 1 ? "nearest station areas are" : "nearest station area is"} ${stations
+            .map((station) => station.name)
+            .join(" or ")}`,
+          change: null,
+          isRaw: false,
+          approximate: place.confidence === "low",
+          geography: "station",
+          areaId: stations[0].id,
+        },
+      });
+    });
+
+    return scored
+      .sort((a, b) => b.tier - a.tier || a.hit.title.localeCompare(b.hit.title))
+      .slice(0, 8)
+      .map((entry) => entry.hit);
+  }, [areaChanges, data.places, data.stations, divisionAreaChanges, searchQuery, selectedYear]);
+
+  function closeSearch() {
+    setSearchOpen(false);
+    setSearchQuery("");
+    searchOpener.current?.focus();
+  }
+
+  function applySearchHit(hit: SearchHit) {
+    focusOn({ geography: hit.geography, areaId: hit.areaId });
+    setRecentSearches((previous) => [hit, ...previous.filter((entry) => entry.key !== hit.key)].slice(0, 6));
+    closeSearch();
+  }
+
+  useEffect(() => {
+    if (!searchOpen) return;
+    const timeout = window.setTimeout(() => searchInput.current?.focus(), 30);
+    return () => window.clearTimeout(timeout);
+  }, [searchOpen]);
+
+  useEffect(() => {
+    if (!searchOpen) return;
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeSearch();
+      }
+    }
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [searchOpen]);
 
   const areaCount = mapMode === "station" ? data.stations.length : data.divisions.length;
   const activeSummary = mapMode === "station" ? summary : divisionSummary;
@@ -627,6 +819,27 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         </a>
         <p>Official CSO data · through {data.meta.latestCompleteYear}</p>
         <a href="#source">Source &amp; limits</a>
+      </header>
+
+      {/* Nightshift header. Rendered on every viewport but shown only under the
+          700px breakpoint, so there is no JS viewport test and no hydration
+          mismatch — CSS alone decides which header the reader sees. */}
+      <header className="ns-header">
+        <span className="ns-wordmark">
+          <i aria-hidden="true" />
+          Crime Explorer
+        </span>
+        <div className="ns-header-actions">
+          <button
+            type="button"
+            ref={searchOpener}
+            className="ns-icon-button"
+            aria-label="Search for a place, station or division"
+            onClick={() => setSearchOpen(true)}
+          >
+            {SEARCH_ICON}
+          </button>
+        </div>
       </header>
 
       <section className="dashboard-toolbar-row">
@@ -967,6 +1180,86 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           <p className="map-guidance">Hover over an area for its exact change · click to pin details</p>
         </section>
       </section>
+
+      {searchOpen && (
+        <div className="ns-overlay ns-search" role="dialog" aria-modal="true" aria-label="Search areas">
+          <div className="ns-search-row">
+            <div className="ns-search-field">
+              {SEARCH_ICON}
+              <label htmlFor="ns-search-input" className="visually-hidden">
+                Search for a place, station or division
+              </label>
+              <input
+                id="ns-search-input"
+                ref={searchInput}
+                type="text"
+                inputMode="search"
+                enterKeyHint="search"
+                autoComplete="off"
+                placeholder="Place, station or division"
+                value={searchQuery}
+                onChange={(event) => setSearchQuery(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" && searchHits[0]) {
+                    event.preventDefault();
+                    applySearchHit(searchHits[0]);
+                  }
+                }}
+              />
+            </div>
+            <button type="button" className="ns-search-cancel" onClick={closeSearch}>
+              Cancel
+            </button>
+          </div>
+
+          <div className="ns-search-body">
+            {searchQuery.trim() !== "" && (
+              <>
+                <p className="ns-eyebrow">Matches</p>
+                {searchHits.length === 0 ? (
+                  <p className="ns-search-empty">
+                    Nothing matches “{searchQuery.trim()}”. Try a station, a Garda Division or a Dublin place name.
+                  </p>
+                ) : (
+                  searchHits.map((hit) => (
+                    <button key={hit.key} type="button" className="ns-match" onClick={() => applySearchHit(hit)}>
+                      <span className="ns-match-badge">{hit.badge}</span>
+                      <span className="ns-match-copy">
+                        <strong>{hit.title}</strong>
+                        <small>{hit.subtitle}</small>
+                      </span>
+                      {hit.approximate ? (
+                        <span className="ns-approx">approx</span>
+                      ) : (
+                        <span className={`ns-match-change tone-${toneOf(hit.change, hit.isRaw)}`}>
+                          {hit.change === null ? "n/a" : formatSigned(hit.change, hit.isRaw)}
+                        </span>
+                      )}
+                    </button>
+                  ))
+                )}
+              </>
+            )}
+
+            {recentSearches.length > 0 && (
+              <>
+                <p className="ns-eyebrow">Recent</p>
+                <div className="ns-recents">
+                  {recentSearches.map((hit) => (
+                    <button key={`recent-${hit.key}`} type="button" onClick={() => applySearchHit(hit)}>
+                      {hit.title}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+
+            <p className="ns-search-footnote">
+              A station name is not a suburb boundary — matches say which official area they belong to.
+            </p>
+          </div>
+        </div>
+      )}
 
       <footer id="source" className="map-source-footer">
         <div>

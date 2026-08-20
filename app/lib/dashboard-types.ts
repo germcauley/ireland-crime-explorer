@@ -58,4 +58,5 @@ export type DashboardData = {
   divisionCategories: DivisionCategory[];
   stations: Station[];
   divisions: Division[];
+  places: Place[];
 };

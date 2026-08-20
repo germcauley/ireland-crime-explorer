@@ -49,6 +49,12 @@ a { color: inherit; }
 .map-site-header > p { margin: 0; color: #69766f; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
 .map-site-header > a:last-child { justify-self: end; font-size: 10px; letter-spacing: .07em; text-transform: uppercase; text-decoration: none; }
 
+/* The Nightshift mobile chrome is in the DOM at every width and revealed only
+   under the 700px breakpoint — see the Nightshift block near the foot of this
+   file. Desktop never renders any of it. */
+.ns-header,
+.ns-overlay { display: none; }
+
 /* Toolbar: mode toggle, filters and stat tiles share one dense strip */
 .dashboard-toolbar-row {
   display: flex;
@@ -399,11 +405,160 @@ a { color: inherit; }
   }
   .map-guidance { display: none; }
 
+  /* Header ---------------------------------------------------------------- */
+  .map-site-header { display: none; }
+  .ns-header {
+    flex: 0 0 auto;
+    height: 44px;
+    box-sizing: content-box;
+    padding: env(safe-area-inset-top) 8px 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--ns-page);
+  }
+  .ns-wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font: 700 15px var(--sans);
+    letter-spacing: -.02em;
+    color: var(--ns-text);
+  }
+  .ns-wordmark i { width: 8px; height: 8px; border-radius: 50%; background: var(--ns-accent); }
+  .ns-header-actions { display: flex; align-items: center; }
+  .ns-icon-button {
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--ns-text);
+    cursor: pointer;
+  }
+  .ns-icon-button svg { width: 21px; height: 21px; }
+  .ns-icon-button.ns-icon-muted { color: var(--ns-muted); }
+
+  /* Full-screen search ----------------------------------------------------- */
+  .ns-eyebrow {
+    margin: 16px 0 8px;
+    font: 600 9.5px var(--sans);
+    letter-spacing: .11em;
+    text-transform: uppercase;
+    color: var(--ns-muted-deep);
+  }
+  .ns-overlay {
+    position: fixed;
+    z-index: 900;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--ns-page);
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .ns-search-row { display: flex; align-items: center; gap: 4px; padding: 6px 12px 10px; }
+  .ns-search-field {
+    flex: 1;
+    min-width: 0;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 15px;
+    border: 1.5px solid #4a6d59;
+    border-radius: 23px;
+    background: var(--ns-raised-soft);
+  }
+  .ns-search-field svg { width: 18px; height: 18px; flex: 0 0 auto; color: var(--ns-muted); }
+  .ns-search-field input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    background: transparent;
+    color: var(--ns-text);
+    font: 15.5px var(--body);
+    caret-color: var(--ns-accent);
+  }
+  .ns-search-field input:focus { outline: none; }
+  .ns-search-field input::placeholder { color: var(--ns-muted-deep); }
+  .ns-search-cancel {
+    min-height: 44px;
+    padding: 0 10px;
+    border: 0;
+    background: transparent;
+    color: #9ec0ac;
+    font: 600 14px var(--sans);
+    cursor: pointer;
+  }
+  .ns-search-body { flex: 1; min-height: 0; overflow-y: auto; padding: 0 12px 20px; }
+  .ns-match {
+    width: 100%;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+    padding: 10px 14px;
+    border: 0;
+    border-radius: 16px;
+    background: #1a3227;
+    color: var(--ns-text);
+    text-align: left;
+    cursor: pointer;
+  }
+  .ns-match-badge {
+    width: 36px;
+    height: 36px;
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 11px;
+    background: var(--ns-hairline);
+    color: #9ec0ac;
+    font: 700 10.5px var(--sans);
+  }
+  .ns-match-copy { flex: 1; min-width: 0; }
+  .ns-match-copy strong { display: block; font: 600 15.5px var(--sans); }
+  .ns-match-copy small {
+    display: block;
+    margin-top: 2px;
+    color: var(--ns-muted);
+    font: 11.5px/1.35 var(--body);
+  }
+  .ns-match-change { flex: 0 0 auto; font: 700 15px var(--sans); }
+  .ns-approx {
+    flex: 0 0 auto;
+    padding: 4px 9px;
+    border-radius: 999px;
+    background: var(--ns-hairline);
+    color: #9ec0ac;
+    font: 600 10px var(--sans);
+  }
+  .ns-search-empty { margin: 0; color: var(--ns-text-secondary); font: 12.5px/1.5 var(--body); }
+  .ns-recents { display: flex; flex-wrap: wrap; gap: 8px; }
+  .ns-recents button {
+    min-height: 42px;
+    padding: 0 15px;
+    border: 1px solid var(--ns-border-strong);
+    border-radius: 21px;
+    background: transparent;
+    color: #dfe8e1;
+    font: 13.5px var(--body);
+    cursor: pointer;
+  }
+  .ns-search-footnote { margin: 18px 0 0; color: #6f8a7c; font: 11px/1.5 var(--body); }
+
+  .tone-up { color: var(--ns-up); }
+  .tone-down { color: var(--ns-down); }
+  .tone-flat { color: var(--ns-flat); }
+
   /* Desktop chrome still standing at this step; each piece is replaced by its
      Nightshift equivalent in the steps that follow. */
-  .map-site-header { height: 54px; padding: 0 16px; flex: 0 0 auto; padding-top: env(safe-area-inset-top); }
-  .map-wordmark { font-size: 14px; }
-  .map-site-header > a:last-child { font-size: 8px; }
   .dashboard-toolbar-row { flex: 0 0 auto; padding: 12px 16px 10px; gap: 10px 14px; overflow-x: auto; }
   .dashboard-toolbar { flex: 1 1 100%; }
   .stat-tiles { flex: 1 1 100%; }
