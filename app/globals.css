@@ -356,7 +356,7 @@ a { color: inherit; }
    of the desktop grid behind a tab bar, map height from a calc() chain) is
    gone. The desktop layout above the breakpoint is untouched.
 --------------------------------------------------------------------------- */
-@media (max-width: 700px) {
+@media (max-width: 700px), (max-height: 480px) and (max-width: 900px) {
   .change-map-app {
     /* Nightshift dark surfaces, derived from --ink. Scoped to the breakpoint
        so desktop never sees them; every mobile rule reads these, no inline hex. */
@@ -1050,6 +1050,21 @@ a { color: inherit; }
 @media (max-width: 430px) {
   .toolbar-field select { min-width: 0; width: 100%; }
   .mode-toggle button { flex: 1; }
+}
+
+/* A phone held landscape has about 390px of height for everything. The
+   Nightshift proportions are drawn for portrait, so the hero figure and the
+   chrome around it give way rather than pushing the map out of existence. */
+@media (max-height: 480px) and (max-width: 900px) {
+  .ns-geo { padding: 2px 12px 6px; }
+  .ns-geo button { min-height: 40px; }
+  .ns-chiprow { padding: 0 12px 8px; }
+  .ns-chip { min-height: 36px; }
+  .ns-readout { padding: 14px 16px 10px; }
+  .ns-readout-name { margin: 2px 0 0; font-size: 18px; }
+  .ns-readout-figure strong { font-size: 34px; }
+  .ns-readout-push { margin-top: 6px; min-height: 36px; }
+  .district-map-panel.ns-station-view { padding-bottom: 84px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

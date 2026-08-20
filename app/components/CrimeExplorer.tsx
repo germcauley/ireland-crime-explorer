@@ -522,7 +522,10 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   );
 
   useEffect(() => {
-    const query = window.matchMedia("(max-width: 700px)");
+    // Must stay in step with the Nightshift media query in globals.css: a
+    // phone held landscape is 844px wide and 390px tall, and the desktop
+    // dashboard does not fit in 390px of height.
+    const query = window.matchMedia("(max-width: 700px), (max-height: 480px) and (max-width: 900px)");
     const update = () => setIsNarrow(query.matches);
     update();
     query.addEventListener("change", update);
