@@ -53,6 +53,8 @@ a { color: inherit; }
    under the 700px breakpoint — see the Nightshift block near the foot of this
    file. Desktop never renders any of it. */
 .ns-header,
+.ns-chiprow,
+.ns-scrim,
 .ns-overlay { display: none; }
 
 /* Toolbar: mode toggle, filters and stat tiles share one dense strip */
@@ -442,6 +444,149 @@ a { color: inherit; }
   .ns-icon-button svg { width: 21px; height: 21px; }
   .ns-icon-button.ns-icon-muted { color: var(--ns-muted); }
 
+  /* Chip row --------------------------------------------------------------- */
+  .ns-chiprow {
+    flex: 0 0 auto;
+    display: flex;
+    gap: 8px;
+    padding: 2px 12px 12px;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    background: var(--ns-page);
+  }
+  .ns-chiprow::-webkit-scrollbar { display: none; }
+  .ns-chip {
+    flex: 0 0 auto;
+    min-height: 40px;
+    padding: 0 15px;
+    border: 1px solid var(--ns-border-strong);
+    border-radius: 20px;
+    background: transparent;
+    color: var(--ns-text-tertiary);
+    font: 600 13px var(--sans);
+    white-space: nowrap;
+    scroll-snap-align: start;
+    cursor: pointer;
+  }
+  .ns-chip.is-selected { background: var(--ns-text); border-color: var(--ns-text); color: var(--ns-page); }
+  .ns-chip-more { border-style: dashed; color: var(--ns-muted); }
+
+  /* Filter sheet ----------------------------------------------------------- */
+  .ns-behind-sheet .dashboard-body { opacity: .55; pointer-events: none; }
+  .ns-scrim {
+    position: fixed;
+    z-index: 900;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    background: rgba(8, 20, 16, .45);
+  }
+  .ns-filter-sheet {
+    width: 100%;
+    max-height: 88dvh;
+    display: flex;
+    flex-direction: column;
+    padding: 14px 16px 26px;
+    padding-bottom: calc(26px + env(safe-area-inset-bottom));
+    border-radius: 24px 24px 0 0;
+    background: var(--ns-sheet);
+    box-shadow: 0 -18px 40px rgba(0, 0, 0, .35);
+  }
+  .ns-filter-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .ns-filter-head h2 { margin: 0; font: 700 19px var(--sans); color: var(--ns-text); }
+  .ns-summary-pill {
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 13px;
+    border-radius: 18px;
+    background: var(--ns-raised);
+    color: #9ec0ac;
+    font: 600 12px var(--sans);
+    white-space: nowrap;
+  }
+  .ns-filter-body { flex: 1; min-height: 0; overflow-y: auto; }
+  .ns-group-rows { display: flex; flex-direction: column; }
+  .ns-group-row {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 0 12px;
+    border: 0;
+    border-radius: 12px;
+    background: transparent;
+    color: var(--ns-text-tertiary);
+    font: 600 14.5px var(--sans);
+    text-align: left;
+    cursor: pointer;
+  }
+  .ns-group-row.is-selected { background: var(--ns-raised); color: var(--ns-text); }
+  .ns-group-row i { display: inline-flex; width: 18px; height: 18px; color: var(--ns-accent); }
+  .ns-group-row i svg { width: 18px; height: 18px; }
+  .ns-pill-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+  .ns-pill {
+    min-height: 42px;
+    padding: 0 14px;
+    border: 1px solid var(--ns-border-strong);
+    border-radius: 21px;
+    background: transparent;
+    color: var(--ns-text-tertiary);
+    font: 13px var(--body);
+    cursor: pointer;
+  }
+  .ns-pill.is-selected { background: var(--ns-raised); color: var(--ns-text); }
+  .ns-period-row { display: flex; gap: 8px; }
+  .ns-period {
+    flex: 1;
+    min-height: 44px;
+    padding: 0 8px;
+    border: 1px solid var(--ns-border-strong);
+    border-radius: 22px;
+    background: transparent;
+    color: var(--ns-text-tertiary);
+    font: 12.5px/1.25 var(--body);
+    cursor: pointer;
+  }
+  .ns-period.is-selected { background: var(--ns-text); border-color: var(--ns-text); color: var(--ns-page); }
+  .ns-note {
+    flex-basis: 100%;
+    margin: 4px 0 0;
+    padding: 10px 12px;
+    border: 1px solid var(--ns-hairline);
+    border-radius: 12px;
+    background: var(--ns-card);
+    color: var(--ns-text-secondary);
+    font: 11.5px/1.5 var(--body);
+  }
+  .ns-note-warning { border: 0; border-left: 3px solid var(--rust); border-radius: 0 12px 12px 0; }
+  .ns-filter-foot {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--ns-hairline);
+  }
+  .ns-filter-foot span { display: block; color: var(--ns-muted); font: 12px var(--body); }
+  .ns-filter-foot strong { display: block; margin-top: 2px; color: #dfe8e1; font: 12px/1.4 var(--body); }
+  .ns-primary {
+    flex: 0 0 auto;
+    min-height: 46px;
+    padding: 0 20px;
+    border: 0;
+    border-radius: 23px;
+    background: var(--ns-text);
+    color: var(--ns-page);
+    font: 700 14px var(--sans);
+    cursor: pointer;
+  }
+
   /* Full-screen search ----------------------------------------------------- */
   .ns-eyebrow {
     margin: 16px 0 8px;
@@ -559,10 +704,7 @@ a { color: inherit; }
 
   /* Desktop chrome still standing at this step; each piece is replaced by its
      Nightshift equivalent in the steps that follow. */
-  .dashboard-toolbar-row { flex: 0 0 auto; padding: 12px 16px 10px; gap: 10px 14px; overflow-x: auto; }
-  .dashboard-toolbar { flex: 1 1 100%; }
-  .stat-tiles { flex: 1 1 100%; }
-  .stat-tile { flex: 1; min-width: 0; padding: 6px 4px; }
+  .dashboard-toolbar-row { display: none; }
   .ask-panel { flex: 0 0 auto; }
   .selected-area-card { top: 12px; right: 12px; width: 168px; padding: 12px; }
   .selected-area-card h2 { font-size: 16px; }

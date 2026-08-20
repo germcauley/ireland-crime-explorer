@@ -229,6 +229,62 @@ type SearchHit = {
   areaId: string;
 };
 
+const FOCUSABLE =
+  'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+// Modal plumbing shared by the filter sheet and the drill-down screens:
+// focus moves in on open, Tab cycles inside, Escape closes, focus returns to
+// whatever opened it.
+function useModalBehaviour(
+  open: boolean,
+  close: () => void,
+  container: { current: HTMLElement | null },
+) {
+  const closeRef = useRef(close);
+  closeRef.current = close;
+
+  useEffect(() => {
+    if (!open) return;
+    const opener = document.activeElement as HTMLElement | null;
+    const focusables = () =>
+      container.current ? Array.from(container.current.querySelectorAll<HTMLElement>(FOCUSABLE)) : [];
+    const timeout = window.setTimeout(() => focusables()[0]?.focus(), 20);
+
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeRef.current();
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const items = focusables();
+      if (items.length === 0) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      window.clearTimeout(timeout);
+      window.removeEventListener("keydown", onKeyDown);
+      opener?.focus?.();
+    };
+  }, [container, open]);
+}
+
+const CHECK_ICON = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="m4.5 12.5 5 5 10-11" />
+  </svg>
+);
+
 const SEARCH_ICON = (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" aria-hidden="true">
     <circle cx="11" cy="11" r="7" />
@@ -263,7 +319,9 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [recentSearches, setRecentSearches] = useState<SearchHit[]>([]);
+  const [filterSheetOpen, setFilterSheetOpen] = useState(false);
   const mapElement = useRef<HTMLDivElement>(null);
+  const filterSheet = useRef<HTMLDivElement>(null);
   const searchInput = useRef<HTMLInputElement>(null);
   const searchOpener = useRef<HTMLButtonElement>(null);
   const mapInstance = useRef<LeafletMap | null>(null);
@@ -810,8 +868,50 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const areaCount = mapMode === "station" ? data.stations.length : data.divisions.length;
   const activeSummary = mapMode === "station" ? summary : divisionSummary;
 
+  // Chips carry the top-level choice for whichever geography is showing:
+  // the CJA11 "useful groupings" for stations, the CJQ06 groups for divisions.
+  const stationGroupCategories = useMemo(
+    () => data.categories.filter((category) => category.kind === "grouped"),
+    [data.categories],
+  );
+  const stationDetailCategories = useMemo(
+    () => data.categories.filter((category) => category.kind === "official"),
+    [data.categories],
+  );
+  const activeGroupLabel =
+    mapMode === "station"
+      ? selectedCategoryCopy.shortLabel
+      : selectedDivisionDetailCopy?.label ?? selectedDivisionGroupCopy?.shortLabel ?? "";
+
+  // The nationwide total for the current selection, summed from the same
+  // per-area values the map is coloured from — never a separate figure.
+  const nationalTotal = useMemo(() => {
+    const entries = mapMode === "station" ? areaChanges : divisionAreaChanges;
+    let total = 0;
+    let any = false;
+    entries.forEach((entry) => {
+      if (entry.current !== null) {
+        total += entry.current;
+        any = true;
+      }
+    });
+    return any ? total : null;
+  }, [areaChanges, divisionAreaChanges, mapMode]);
+
+  const closeFilterSheet = () => setFilterSheetOpen(false);
+  useModalBehaviour(filterSheetOpen, closeFilterSheet, filterSheet);
+
+  function selectMobileGroup(id: string) {
+    if (mapMode === "station") {
+      setSelectedCategory(id);
+      return;
+    }
+    setSelectedDivisionGroup(id);
+    setSelectedDivisionDetail(null);
+  }
+
   return (
-    <main className="change-map-app">
+    <main className={`change-map-app${filterSheetOpen ? " ns-behind-sheet" : ""}`}>
       <header className="map-site-header">
         <a href="#atlas" className="map-wordmark" aria-label="Ireland Crime Explorer map">
           <i aria-hidden="true" />
@@ -841,6 +941,27 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           </button>
         </div>
       </header>
+
+      <div className="ns-chiprow" role="group" aria-label="Offence group">
+        {(mapMode === "station" ? stationGroupCategories : data.divisionCategories).map((group) => {
+          const active =
+            mapMode === "station" ? group.id === selectedCategory : group.id === selectedDivisionGroup;
+          return (
+            <button
+              key={group.id}
+              type="button"
+              className={`ns-chip${active ? " is-selected" : ""}`}
+              aria-pressed={active}
+              onClick={() => selectMobileGroup(group.id)}
+            >
+              {group.shortLabel}
+            </button>
+          );
+        })}
+        <button type="button" className="ns-chip ns-chip-more" onClick={() => setFilterSheetOpen(true)}>
+          All filters
+        </button>
+      </div>
 
       <section className="dashboard-toolbar-row">
         <div className="dashboard-toolbar">
@@ -1180,6 +1301,151 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           <p className="map-guidance">Hover over an area for its exact change · click to pin details</p>
         </section>
       </section>
+
+      {filterSheetOpen && (
+        <div className="ns-scrim" onClick={closeFilterSheet}>
+          <div
+            className="ns-filter-sheet"
+            ref={filterSheet}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Filter"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="ns-filter-head">
+              <h2>Filter</h2>
+              <span className="ns-summary-pill">
+                {activeSummary.increased} up · {activeSummary.decreased} down
+              </span>
+            </div>
+
+            <div className="ns-filter-body">
+              <p className="ns-eyebrow">Offence group</p>
+              <div className="ns-group-rows">
+                {(mapMode === "station" ? stationGroupCategories : data.divisionCategories).map((group) => {
+                  const active =
+                    mapMode === "station" ? group.id === selectedCategory : group.id === selectedDivisionGroup;
+                  return (
+                    <button
+                      key={group.id}
+                      type="button"
+                      className={`ns-group-row${active ? " is-selected" : ""}`}
+                      aria-pressed={active}
+                      onClick={() => selectMobileGroup(group.id)}
+                    >
+                      <span>{group.shortLabel}</span>
+                      {active && <i aria-hidden="true">{CHECK_ICON}</i>}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <p className="ns-eyebrow">Detail</p>
+              <div className="ns-pill-wrap">
+                {mapMode === "division" ? (
+                  <>
+                    <button
+                      type="button"
+                      className={`ns-pill${selectedDivisionDetail === null ? " is-selected" : ""}`}
+                      aria-pressed={selectedDivisionDetail === null}
+                      onClick={() => setSelectedDivisionDetail(null)}
+                    >
+                      All of this group
+                    </button>
+                    {selectedDivisionGroupCopy?.children.length === 0 && (
+                      <p className="ns-note">
+                        The CSO publishes no sub-categories for {selectedDivisionGroupCopy?.label} — this group is
+                        the finest level available.
+                      </p>
+                    )}
+                    {selectedDivisionGroupCopy?.children.map((child) => (
+                      <button
+                        key={child.id}
+                        type="button"
+                        className={`ns-pill${selectedDivisionDetail === child.id ? " is-selected" : ""}`}
+                        aria-pressed={selectedDivisionDetail === child.id}
+                        onClick={() => setSelectedDivisionDetail(child.id)}
+                      >
+                        {child.label}
+                      </button>
+                    ))}
+                  </>
+                ) : (
+                  stationDetailCategories.map((category) => (
+                    <button
+                      key={category.id}
+                      type="button"
+                      className={`ns-pill${selectedCategory === category.id ? " is-selected" : ""}`}
+                      aria-pressed={selectedCategory === category.id}
+                      onClick={() => setSelectedCategory(category.id)}
+                    >
+                      {category.shortLabel}
+                    </button>
+                  ))
+                )}
+              </div>
+
+              <p className="ns-eyebrow">Latest year</p>
+              <div className="ns-pill-wrap">
+                {[...data.meta.years].reverse().map((year) => (
+                  <button
+                    key={year}
+                    type="button"
+                    className={`ns-pill${year === selectedYear ? " is-selected" : ""}`}
+                    aria-pressed={year === selectedYear}
+                    onClick={() => setSelectedYear(year)}
+                  >
+                    {year}
+                  </button>
+                ))}
+              </div>
+
+              <p className="ns-eyebrow">{selectedYear} compared with</p>
+              <div className="ns-period-row">
+                {(
+                  [
+                    ["year_on_year", "Previous year"],
+                    ["three_year", "Three years earlier"],
+                    ["since_2019", String(data.meta.years[0])],
+                  ] as Array<[TrendPeriod, string]>
+                ).map(([period, label]) => (
+                  <button
+                    key={period}
+                    type="button"
+                    className={`ns-period${trendPeriod === period ? " is-selected" : ""}`}
+                    aria-pressed={trendPeriod === period}
+                    onClick={() => setTrendPeriod(period)}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+
+              {mapMode === "station" && selectedCategoryCopy.availabilityNote && (
+                <p className="ns-note ns-note-warning">{selectedCategoryCopy.availabilityNote}</p>
+              )}
+            </div>
+
+            <div className="ns-filter-foot">
+              <div>
+                <span>
+                  {activeGroupLabel} · {selectedYear} vs {baselineYear}
+                </span>
+                <strong>
+                  {nationalTotal === null
+                    ? "No comparable counts for this selection"
+                    : `${numberFormat.format(nationalTotal)} incidents ${
+                        mapMode === "station" ? "across the 41 Dublin areas" : "nationwide"
+                      }`}
+                </strong>
+              </div>
+              <button type="button" className="ns-primary" onClick={closeFilterSheet}>
+                Show map
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {searchOpen && (
         <div className="ns-overlay ns-search" role="dialog" aria-modal="true" aria-label="Search areas">
