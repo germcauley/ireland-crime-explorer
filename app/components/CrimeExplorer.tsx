@@ -285,6 +285,13 @@ function useModalBehaviour(
   }, [container, open]);
 }
 
+const BOT_ICON = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round" aria-hidden="true">
+    <path d="M12 2 5 4.5V11c0 5 3 8.5 7 10 4-1.5 7-5 7-10V4.5L12 2Z" />
+    <path d="m9.3 12 1.9 1.9 3.7-3.9" />
+  </svg>
+);
+
 const BACK_ICON = (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <path d="m14.5 5-7 7 7 7" />
@@ -341,6 +348,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const [mixOpen, setMixOpen] = useState(false);
   const [openMixGroup, setOpenMixGroup] = useState<string | null>(null);
   const [pickerOpen, setPickerOpen] = useState(false);
+  const [botOpen, setBotOpen] = useState(false);
   // The layout is CSS-driven, but Leaflet paints polygons into a canvas that
   // no stylesheet can reach, so the map's own palette and its touch behaviour
   // need to know the breakpoint. Starts false so the server render and the
@@ -352,6 +360,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const mapElement = useRef<HTMLDivElement>(null);
   const filterSheet = useRef<HTMLDivElement>(null);
   const mixPanel = useRef<HTMLDivElement>(null);
+  const botPanel = useRef<HTMLDivElement>(null);
   const searchInput = useRef<HTMLInputElement>(null);
   const searchOpener = useRef<HTMLButtonElement>(null);
   const mapInstance = useRef<LeafletMap | null>(null);
@@ -1073,6 +1082,9 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const closeMix = () => setMixOpen(false);
   useModalBehaviour(mixOpen, closeMix, mixPanel);
 
+  const closeBot = () => setBotOpen(false);
+  useModalBehaviour(botOpen, closeBot, botPanel);
+
   const closeFilterSheet = () => setFilterSheetOpen(false);
   useModalBehaviour(filterSheetOpen, closeFilterSheet, filterSheet);
 
@@ -1564,6 +1576,16 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
             <div className="map-no-data">No comparable area data for this selection.</div>
           )}
 
+          {ASK_CRIME_BOT_ENABLED && (
+            <button type="button" className="ns-bot-pill" onClick={() => setBotOpen(true)}>
+              <span className="ns-bot-mark" aria-hidden="true">
+                {BOT_ICON}
+              </span>
+              Ask
+              <span className="ns-beta">beta</span>
+            </button>
+          )}
+
           {mapMode === "station" && (
             <p className="ns-map-caveat">Cells approximate areas from station points — not official boundaries.</p>
           )}
@@ -1799,6 +1821,86 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           )}
         </div>
       </section>
+
+      {ASK_CRIME_BOT_ENABLED && botOpen && (
+        <div className="ns-scrim" onClick={closeBot}>
+          <div
+            className="ns-filter-sheet ns-bot-sheet"
+            ref={botPanel}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Ask Crime Bot"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="ns-filter-head">
+              <h2>
+                Ask Crime Bot <span className="ns-beta">beta</span>
+              </h2>
+              <button type="button" className="ns-icon-button ns-icon-muted" aria-label="Close" onClick={closeBot}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" aria-hidden="true">
+                  <path d="m6 6 12 12M18 6 6 18" />
+                </svg>
+              </button>
+            </div>
+
+            <p className="ns-bot-provenance">
+              Every number is computed from CJA11/CJQ06; the model only reads your question.
+            </p>
+
+            <form
+              className="ns-bot-form"
+              onSubmit={(event) => {
+                event.preventDefault();
+                submitAskQuestion();
+              }}
+            >
+              <label htmlFor="ns-ask-question" className="visually-hidden">
+                Ask Crime Bot a question
+              </label>
+              <input
+                id="ns-ask-question"
+                type="text"
+                placeholder="e.g. how many burglaries in Dundrum in 2023?"
+                value={askInput}
+                onChange={(event) => setAskInput(event.target.value)}
+                maxLength={300}
+              />
+              <button type="submit" className="ns-primary" disabled={askStatus === "loading" || !askInput.trim()}>
+                {askStatus === "loading" ? "Asking…" : "Ask"}
+              </button>
+            </form>
+
+            {askStatus === "error" && askError && <p className="ns-note ns-note-warning">{askError}</p>}
+
+            {askResult?.ok && (
+              <p className="ns-bot-answer">
+                <strong>
+                  {askResult.count === null ? "No comparable data" : numberFormat.format(askResult.count)}
+                </strong>{" "}
+                {askResult.categoryLabel} incidents in {askResult.areaLabel} in {askResult.year}
+                {askResult.compareYear !== null && askResult.changePct !== null && (
+                  <>
+                    {" "}
+                    — {formatSigned(askResult.changePct)} vs {askResult.compareYear} (
+                    {askResult.compareCount === null ? "n/a" : numberFormat.format(askResult.compareCount)})
+                  </>
+                )}
+                .{" "}
+                <button
+                  type="button"
+                  className="ns-inline-link"
+                  onClick={() => {
+                    jumpToAskResult();
+                    closeBot();
+                  }}
+                >
+                  Show on map
+                </button>
+              </p>
+            )}
+          </div>
+        </div>
+      )}
 
       {mixOpen && (
         <div className="ns-overlay ns-mix" ref={mixPanel} role="dialog" aria-modal="true" aria-label="Offence mix">

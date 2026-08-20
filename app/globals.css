@@ -972,7 +972,55 @@ a { color: inherit; }
   /* Desktop chrome still standing at this step; each piece is replaced by its
      Nightshift equivalent in the steps that follow. */
   .dashboard-toolbar-row { display: none; }
-  .ask-panel { flex: 0 0 auto; }
+  /* Crime Bot ------------------------------------------------------------- */
+  /* Collapsed to a pill: it may not take vertical space before the map. */
+  .ask-panel { display: none; }
+  .ns-bot-pill {
+    position: absolute;
+    z-index: 520;
+    top: 10px;
+    right: 10px;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 0 12px;
+    border: 1px solid var(--ns-border-strong);
+    border-radius: 20px;
+    background: rgba(13, 31, 25, .86);
+    color: var(--ns-text);
+    font: 600 13px var(--sans);
+    cursor: pointer;
+  }
+  .ns-bot-mark { display: inline-flex; width: 17px; height: 17px; color: #9ec0ac; }
+  .ns-bot-mark svg { width: 17px; height: 17px; }
+  .ns-beta {
+    padding: 2px 6px;
+    border-radius: 999px;
+    background: var(--ns-raised);
+    color: #9ec0ac;
+    font: 600 9.5px var(--sans);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+  .ns-bot-sheet .ns-filter-head h2 { display: flex; align-items: center; gap: 8px; }
+  .ns-bot-provenance { margin: 10px 0 12px; color: var(--ns-muted); font: 11.5px/1.5 var(--body); }
+  .ns-bot-form { display: flex; gap: 8px; }
+  .ns-bot-form input {
+    flex: 1;
+    min-width: 0;
+    height: 46px;
+    padding: 0 15px;
+    border: 1.5px solid #4a6d59;
+    border-radius: 23px;
+    background: var(--ns-raised-soft);
+    color: var(--ns-text);
+    font: 15px var(--body);
+  }
+  .ns-bot-form input::placeholder { color: var(--ns-muted-deep); }
+  .ns-bot-form .ns-primary:disabled { opacity: .5; }
+  .ns-bot-answer { margin: 14px 0 0; color: #dfe8e1; font: 13px/1.55 var(--body); }
+  .ns-bot-answer strong { font: 700 15px var(--sans); color: var(--ns-text); }
   .selected-area-card { top: 12px; right: 12px; width: 168px; padding: 12px; }
   .selected-area-card h2 { font-size: 16px; }
   .selected-area-card > div strong { font-size: 26px; }
