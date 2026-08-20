@@ -285,6 +285,18 @@ function useModalBehaviour(
   }, [container, open]);
 }
 
+const BACK_ICON = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="m14.5 5-7 7 7 7" />
+  </svg>
+);
+
+const CHEVRON_ICON = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="m6 9.5 6 6 6-6" />
+  </svg>
+);
+
 const CHECK_ICON = (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <path d="m4.5 12.5 5 5 10-11" />
@@ -326,6 +338,9 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [recentSearches, setRecentSearches] = useState<SearchHit[]>([]);
   const [filterSheetOpen, setFilterSheetOpen] = useState(false);
+  const [mixOpen, setMixOpen] = useState(false);
+  const [openMixGroup, setOpenMixGroup] = useState<string | null>(null);
+  const [pickerOpen, setPickerOpen] = useState(false);
   // The layout is CSS-driven, but Leaflet paints polygons into a canvas that
   // no stylesheet can reach, so the map's own palette and its touch behaviour
   // need to know the breakpoint. Starts false so the server render and the
@@ -336,6 +351,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const sheetDrag = useRef<{ startY: number; startHeight: number; moved: boolean; height: number } | null>(null);
   const mapElement = useRef<HTMLDivElement>(null);
   const filterSheet = useRef<HTMLDivElement>(null);
+  const mixPanel = useRef<HTMLDivElement>(null);
   const searchInput = useRef<HTMLInputElement>(null);
   const searchOpener = useRef<HTMLButtonElement>(null);
   const mapInstance = useRef<LeafletMap | null>(null);
@@ -976,6 +992,87 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     return any ? total : null;
   }, [areaChanges, divisionAreaChanges, mapMode]);
 
+  // Everything recorded in the selected division, group by group and then
+  // child by child. Every value here is annualSum over the same quarters the
+  // map uses — the drill-down introduces no second way of counting.
+  const offenceMix = useMemo(() => {
+    const division = selectedDivisionArea?.division;
+    if (!division) return [];
+    return data.divisionCategories
+      .map((group) => {
+        const current = annualSum(division, group.id, selectedYear, data.meta.quarters);
+        const baseline = hasBaseline
+          ? annualSum(division, group.id, baselineYear, data.meta.quarters)
+          : null;
+        const { change, isRaw } = combinedChange(current, baseline);
+        return {
+          group,
+          current,
+          change,
+          isRaw,
+          children: group.children.map((child) => {
+            const childCurrent = annualSum(division, child.id, selectedYear, data.meta.quarters);
+            const childBaseline = hasBaseline
+              ? annualSum(division, child.id, baselineYear, data.meta.quarters)
+              : null;
+            const childChange = combinedChange(childCurrent, childBaseline);
+            return { child, current: childCurrent, change: childChange.change, isRaw: childChange.isRaw };
+          }),
+        };
+      })
+      .sort((a, b) => (b.current ?? -1) - (a.current ?? -1));
+  }, [baselineYear, data.divisionCategories, data.meta.quarters, hasBaseline, selectedDivisionArea, selectedYear]);
+
+  const offenceMixTotal = useMemo(
+    () => offenceMix.reduce((total, entry) => total + (entry.current ?? 0), 0),
+    [offenceMix],
+  );
+  const offenceMixLargest = useMemo(
+    () => offenceMix.reduce((max, entry) => Math.max(max, entry.current ?? 0), 0),
+    [offenceMix],
+  );
+
+  // Nationwide counts for the sub-category picker, summed across all divisions
+  // for the selected group and each of its children.
+  const subCategoryRows = useMemo(() => {
+    const group = selectedDivisionGroupCopy;
+    if (!group) return [];
+    const nationwide = (code: string) => {
+      let total = 0;
+      let any = false;
+      data.divisions.forEach((division) => {
+        const value = annualSum(division, code, selectedYear, data.meta.quarters);
+        if (value !== null) {
+          total += value;
+          any = true;
+        }
+      });
+      return any ? total : null;
+    };
+    const groupTotal = nationwide(group.id);
+    return [
+      { id: null as string | null, label: `All of ${group.shortLabel}`, count: groupTotal, groupTotal },
+      ...group.children.map((child) => ({
+        id: child.id,
+        label: child.label,
+        count: nationwide(child.id),
+        groupTotal,
+      })),
+    ];
+  }, [data.divisions, data.meta.quarters, selectedDivisionGroupCopy, selectedYear]);
+
+  // Sub-category depth exists only for divisions, so switching geography puts
+  // the drill-down away rather than leaving it open over the wrong data.
+  useEffect(() => {
+    if (mapMode !== "division") {
+      setMixOpen(false);
+      setPickerOpen(false);
+    }
+  }, [mapMode]);
+
+  const closeMix = () => setMixOpen(false);
+  useModalBehaviour(mixOpen, closeMix, mixPanel);
+
   const closeFilterSheet = () => setFilterSheetOpen(false);
   useModalBehaviour(filterSheetOpen, closeFilterSheet, filterSheet);
 
@@ -1483,6 +1580,12 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
               </strong>
               <p>{readoutCounts}</p>
             </div>
+            {mapMode === "division" && (
+              <button type="button" className="ns-readout-push" onClick={() => setMixOpen(true)}>
+                Full offence mix
+                <span aria-hidden="true">→</span>
+              </button>
+            )}
           </div>
 
           {mapMode === "station" ? (
@@ -1580,13 +1683,72 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           <span>{sheetHint}</span>
         </div>
 
-        <div className="ns-sheet-head">
-          <strong>Movers · {activeGroupLabel}</strong>
-          <span className="ns-count-chip up">{activeSummary.increased} up</span>
-          <span className="ns-count-chip down">{activeSummary.decreased} down</span>
-        </div>
+        {pickerOpen ? (
+          <div className="ns-sheet-head">
+            <button
+              type="button"
+              className="ns-icon-button"
+              aria-label="Back to the movers list"
+              onClick={() => setPickerOpen(false)}
+            >
+              {BACK_ICON}
+            </button>
+            <strong>
+              <span className="ns-crumb">{selectedDivisionGroupCopy?.shortLabel}</span>
+              {selectedDivisionDetailCopy ? ` › ${selectedDivisionDetailCopy.label}` : " › All of this group"}
+            </strong>
+          </div>
+        ) : (
+          <div className="ns-sheet-head">
+            <strong>Movers · {activeGroupLabel}</strong>
+            <span className="ns-count-chip up">{activeSummary.increased} up</span>
+            <span className="ns-count-chip down">{activeSummary.decreased} down</span>
+          </div>
+        )}
 
-        <div className="ns-sheet-body">
+        {pickerOpen && (
+          <div className="ns-sheet-body">
+            <p className="ns-eyebrow">Sub-categories · nationwide {selectedYear}</p>
+            {subCategoryRows.map((row) => {
+              const selected = selectedDivisionDetail === row.id;
+              const share =
+                row.count === null || !row.groupTotal ? 0 : Math.min(100, (row.count / row.groupTotal) * 100);
+              return (
+                <button
+                  key={row.id ?? "all"}
+                  type="button"
+                  className={`ns-pick${selected ? " is-selected" : ""}`}
+                  role="radio"
+                  aria-checked={selected}
+                  onClick={() => setSelectedDivisionDetail(row.id)}
+                >
+                  <span className={`ns-radio${selected ? " is-selected" : ""}`} aria-hidden="true" />
+                  <span className="ns-pick-label">
+                    {row.label}
+                    <i aria-hidden="true" style={{ width: `${Math.max(3, share)}%` }} />
+                  </span>
+                  <span className="ns-pick-value">
+                    <b>{row.count === null ? "n/a" : numberFormat.format(row.count)}</b>
+                    <small>{row.count === null || !row.groupTotal ? "—" : `${Math.round(share)}%`}</small>
+                  </span>
+                </button>
+              );
+            })}
+            {selectedDivisionGroupCopy?.children.length === 0 && (
+              <p className="ns-note ns-sheet-note">
+                The CSO publishes no sub-categories for this group — {selectedDivisionGroupCopy.label} is the
+                finest level available.
+              </p>
+            )}
+            {selectedDivisionGroup === "09" && <p className="ns-note ns-note-warning">{data.meta.fraudNote}</p>}
+            <p className="ns-note ns-sheet-note">
+              Where the earlier count is too small for a percentage to carry meaning, the change is reported as a
+              raw difference — +3 rather than +150%.
+            </p>
+          </div>
+        )}
+
+        <div className="ns-sheet-body" hidden={pickerOpen}>
           {moverRows.map((row, index) => (
             <button
               key={row.id}
@@ -1637,6 +1799,115 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           )}
         </div>
       </section>
+
+      {mixOpen && (
+        <div className="ns-overlay ns-mix" ref={mixPanel} role="dialog" aria-modal="true" aria-label="Offence mix">
+          <div className="ns-mix-head">
+            <button type="button" className="ns-icon-button" aria-label="Back to the map" onClick={closeMix}>
+              {BACK_ICON}
+            </button>
+            <div>
+              <strong>{selectedDivisionArea?.division.name}</strong>
+              <small>
+                {offenceMixTotal === 0
+                  ? "No comparable counts for this year"
+                  : `${numberFormat.format(offenceMixTotal)} recorded incidents`}{" "}
+                · {selectedYear} vs {baselineYear}
+              </small>
+            </div>
+          </div>
+
+          <div className="ns-mix-body">
+            <p className="ns-eyebrow">Offence mix · official CJQ06 groups</p>
+            {offenceMix.map((entry) => {
+              const open = openMixGroup === entry.group.id;
+              const share = offenceMixTotal === 0 ? 0 : ((entry.current ?? 0) / offenceMixTotal) * 100;
+              const barWidth = offenceMixLargest === 0 ? 0 : ((entry.current ?? 0) / offenceMixLargest) * 100;
+              return (
+                <div key={entry.group.id} className={`ns-mix-group${open ? " is-open" : ""}`}>
+                  <button
+                    type="button"
+                    className="ns-mix-row"
+                    aria-expanded={open}
+                    onClick={() => setOpenMixGroup(open ? null : entry.group.id)}
+                  >
+                    <span className="ns-mix-label">
+                      {entry.group.shortLabel}
+                      <i
+                        aria-hidden="true"
+                        style={{ width: `${Math.max(3, barWidth)}%`, background: changeColour(entry.change, entry.isRaw) }}
+                      />
+                      <small>{offenceMixTotal === 0 ? "no share" : `${Math.round(share)}% of all recorded`}</small>
+                    </span>
+                    <span className="ns-mix-value">
+                      <b>{entry.current === null ? "n/a" : numberFormat.format(entry.current)}</b>
+                      <em className={`tone-${toneOf(entry.change, entry.isRaw)}`}>
+                        {entry.change === null ? "n/a" : formatSigned(entry.change, entry.isRaw)}
+                      </em>
+                    </span>
+                    <span className="ns-mix-chevron" aria-hidden="true">
+                      {CHEVRON_ICON}
+                    </span>
+                  </button>
+
+                  {open &&
+                    (entry.children.length === 0 ? (
+                      <p className="ns-note">
+                        The CSO publishes no sub-categories for this group — {entry.group.label} is the finest
+                        level available.
+                      </p>
+                    ) : (
+                      entry.children.map((child) => (
+                        <button
+                          key={child.child.id}
+                          type="button"
+                          className="ns-mix-child"
+                          onClick={() => {
+                            // Picking a child both filters the map and takes
+                            // the reader to the picker, so the recolouring is
+                            // visible rather than happening behind a screen.
+                            setSelectedDivisionGroup(entry.group.id);
+                            setSelectedDivisionDetail(child.child.id);
+                            setMixOpen(false);
+                            setPickerOpen(true);
+                            applySheetHeight(Math.min(DETENTS[1], sheetLimit()));
+                          }}
+                        >
+                          <span className="ns-mix-label">
+                            {child.child.label}
+                            <i
+                              aria-hidden="true"
+                              style={{
+                                width: `${
+                                  entry.current
+                                    ? Math.max(3, ((child.current ?? 0) / entry.current) * 100)
+                                    : 3
+                                }%`,
+                                background: changeColour(child.change, child.isRaw),
+                              }}
+                            />
+                          </span>
+                          <span className="ns-mix-value">
+                            <b>{child.current === null ? "n/a" : numberFormat.format(child.current)}</b>
+                            <em className={`tone-${toneOf(child.change, child.isRaw)}`}>
+                              {child.change === null ? "n/a" : formatSigned(child.change, child.isRaw)}
+                            </em>
+                          </span>
+                        </button>
+                      ))
+                    ))}
+                </div>
+              );
+            })}
+
+            <p className="ns-note">
+              This depth is Division-only. CJA11 publishes 14 broad groups per Dublin station area and never
+              splits them, so the same breakdown cannot be shown for a station.
+            </p>
+            <p className="ns-note">{data.meta.fraudNote}</p>
+          </div>
+        </div>
+      )}
 
       {filterSheetOpen && (
         <div className="ns-scrim" onClick={closeFilterSheet}>

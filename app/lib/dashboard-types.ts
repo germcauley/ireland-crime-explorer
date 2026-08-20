@@ -51,6 +51,8 @@ export type DashboardData = {
     quarters: string[];
     defaultQuarterStartIndex: number;
     dataNote: string;
+    fraudNote: string;
+    vehicleNote: string;
     geographyNote: string;
     divisionGeographyNote: string;
   };
