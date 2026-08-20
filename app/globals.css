@@ -27,7 +27,7 @@ button, a, select { -webkit-tap-highlight-color: transparent; }
 a { color: inherit; }
 :focus-visible { outline: 3px solid #e0a367; outline-offset: 2px; }
 
-.change-map-app { min-height: 100vh; background: var(--cream); }
+.change-map-app { min-height: 100vh; min-height: 100dvh; background: var(--cream); }
 .map-site-header {
   height: 60px;
   padding: 0 28px;
@@ -337,74 +337,92 @@ a { color: inherit; }
   .map-source-footer a { grid-column: 1 / -1; }
 }
 
+/* ---------------------------------------------------------------------------
+   Nightshift — the mobile redesign.
+
+   Everything below the 700px breakpoint is a single-column, viewport-height
+   flex stack on a dark surface: header, controls, a map that takes whatever
+   height is left, and one resizable sheet. The old approach (hide/show panes
+   of the desktop grid behind a tab bar, map height from a calc() chain) is
+   gone. The desktop layout above the breakpoint is untouched.
+--------------------------------------------------------------------------- */
 @media (max-width: 700px) {
-  .map-site-header { height: 54px; padding: 0 16px; }
+  .change-map-app {
+    /* Nightshift dark surfaces, derived from --ink. Scoped to the breakpoint
+       so desktop never sees them; every mobile rule reads these, no inline hex. */
+    --ns-page: #12271f;
+    --ns-canvas: #0d1f19;
+    --ns-sheet: #193227;
+    --ns-raised: #23412f;
+    --ns-raised-soft: #1c3529;
+    --ns-card: #16291f;
+    --ns-hairline: #24402f;
+    --ns-border: #2a4438;
+    --ns-border-strong: #34503f;
+    --ns-text: #f6f2e9;
+    --ns-text-secondary: #a9bcb2;
+    --ns-text-tertiary: #c3d3ca;
+    --ns-muted: #8ea59a;
+    --ns-muted-deep: #7f9689;
+    --ns-accent: #e07a5f;
+    --ns-up: #eb9d84;
+    --ns-down: #8fc9a4;
+    --ns-flat: #c3cfc7;
+
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: var(--ns-page);
+  }
+
+  .dashboard-body {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+  .movers-rail { display: none; }
+  .district-map-panel {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--ns-canvas);
+  }
+  .map-panel-heading { display: none; }
+  .district-map {
+    flex: 1;
+    height: auto;
+    min-height: 0;
+    background: var(--ns-canvas);
+  }
+  .map-guidance { display: none; }
+
+  /* Desktop chrome still standing at this step; each piece is replaced by its
+     Nightshift equivalent in the steps that follow. */
+  .map-site-header { height: 54px; padding: 0 16px; flex: 0 0 auto; padding-top: env(safe-area-inset-top); }
   .map-wordmark { font-size: 14px; }
   .map-site-header > a:last-child { font-size: 8px; }
-
-  .dashboard-toolbar-row { padding: 12px 16px 10px; gap: 10px 14px; }
-  .dashboard-toolbar { display: none; flex: 1 1 100%; }
-  .dashboard-toolbar.mobile-active { display: flex; }
+  .dashboard-toolbar-row { flex: 0 0 auto; padding: 12px 16px 10px; gap: 10px 14px; overflow-x: auto; }
+  .dashboard-toolbar { flex: 1 1 100%; }
   .stat-tiles { flex: 1 1 100%; }
   .stat-tile { flex: 1; min-width: 0; padding: 6px 4px; }
-
-  .dashboard-body { display: block; min-height: 0; padding-bottom: 62px; }
-  .movers-rail { display: none; border-right: 0; border-bottom: 1px solid var(--line); }
-  .movers-rail.mobile-active { display: flex; }
-  .district-map-panel { display: none; }
-  .district-map-panel.mobile-active { display: block; }
-
-  .map-panel-heading { height: 76px; align-items: flex-start; }
-  .map-panel-heading > div:first-child strong { font-size: 15px; }
-  .change-legend { margin-top: 3px; }
-  .change-legend > span { display: none; }
-  .district-map { height: calc(100vh - 54px - 78px - 76px - 62px); min-height: 420px; }
-  .selected-area-card { top: 92px; right: 12px; width: 168px; padding: 12px; }
+  .ask-panel { flex: 0 0 auto; }
+  .selected-area-card { top: 12px; right: 12px; width: 168px; padding: 12px; }
   .selected-area-card h2 { font-size: 16px; }
   .selected-area-card > div strong { font-size: 26px; }
   .division-card { width: 190px; }
   .quarter-chart-heading { flex-direction: column; align-items: flex-start; gap: 4px; }
-  .map-source-footer { padding: 16px; grid-template-columns: 1fr; gap: 12px; }
+  .map-source-footer { flex: 0 0 auto; padding: 16px; grid-template-columns: 1fr; gap: 12px; }
   .map-source-footer a { grid-column: auto; }
-
-  .mobile-tabbar {
-    position: fixed;
-    z-index: 800;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    border-top: 1px solid var(--line);
-    background: var(--paper);
-    padding-bottom: env(safe-area-inset-bottom);
-  }
-  .mobile-tabbar button {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3px;
-    padding: 9px 0 8px;
-    border: 0;
-    background: transparent;
-    color: #7c8681;
-    font-family: var(--sans);
-    font-size: 9px;
-    font-weight: 600;
-    cursor: pointer;
-  }
-  .mobile-tabbar button svg { width: 19px; height: 19px; }
-  .mobile-tabbar button.active { color: var(--rust); }
 }
 
 @media (max-width: 430px) {
   .toolbar-field select { min-width: 0; width: 100%; }
-  .dashboard-toolbar { flex-direction: column; align-items: stretch; }
   .mode-toggle button { flex: 1; }
-  .map-panel-heading { padding: 12px 14px; }
-  .change-legend i { width: 9px; }
-  .selected-area-card { width: 150px; }
-  .map-guidance { right: 50px; line-height: 1.35; }
 }
 
 @media (prefers-reduced-motion: reduce) {
