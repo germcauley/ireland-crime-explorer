@@ -577,6 +577,9 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         zoomControl: false,
         attributionControl: true,
         minZoom: 6,
+        // Fractional zoom: with integer steps, fitting Ireland to a phone-sized
+        // box lands a whole zoom level short and letterboxes the island.
+        zoomSnap: 0,
         preferCanvas: true,
       });
       mapInstance.current = map;
@@ -821,6 +824,17 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   // One place where "point the whole app at this area" is expressed. Crime
   // Bot's "Show on map" and the search overlay both land here, so a bot answer
   // and a search result can never drift into selecting different things.
+  // Sub-category depth exists only for divisions, so any switch to station
+  // geography puts the drill-down away rather than leaving it open over data
+  // it cannot describe.
+  function setGeography(mode: MapMode) {
+    setMapMode(mode);
+    if (mode !== "division") {
+      setMixOpen(false);
+      setPickerOpen(false);
+    }
+  }
+
   function focusOn(target: {
     geography: MapMode;
     areaId?: string | null;
@@ -1079,15 +1093,6 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       })),
     ];
   }, [data.divisions, data.meta.quarters, selectedDivisionGroupCopy, selectedYear]);
-
-  // Sub-category depth exists only for divisions, so switching geography puts
-  // the drill-down away rather than leaving it open over the wrong data.
-  useEffect(() => {
-    if (mapMode !== "division") {
-      setMixOpen(false);
-      setPickerOpen(false);
-    }
-  }, [mapMode]);
 
   const closeMix = () => setMixOpen(false);
   useModalBehaviour(mixOpen, closeMix, mixPanel);
