@@ -26,6 +26,12 @@ type GeoJSONGeometry = Division["boundary"];
 
 const ASK_CRIME_BOT_ENABLED = true;
 
+// Peek / half / full. The sheet drags to any height between MIN and MAX and
+// settles on whichever of these three is nearest.
+const DETENTS = [112, 340, 620];
+const SHEET_MIN = 96;
+const SHEET_MAX = 660;
+
 const numberFormat = new Intl.NumberFormat("en-IE");
 const oneDecimal = new Intl.NumberFormat("en-IE", {
   minimumFractionDigits: 1,
@@ -325,6 +331,9 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   // need to know the breakpoint. Starts false so the server render and the
   // first client render agree.
   const [isNarrow, setIsNarrow] = useState(false);
+  const [sheetHeight, setSheetHeight] = useState(DETENTS[0]);
+  const sheet = useRef<HTMLElement | null>(null);
+  const sheetDrag = useRef<{ startY: number; startHeight: number; moved: boolean; height: number } | null>(null);
   const mapElement = useRef<HTMLDivElement>(null);
   const filterSheet = useRef<HTMLDivElement>(null);
   const searchInput = useRef<HTMLInputElement>(null);
@@ -332,6 +341,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const mapInstance = useRef<LeafletMap | null>(null);
   const areaLayer = useRef<LayerGroup | null>(null);
   const maskLayer = useRef<LeafletPolygon | null>(null);
+  const mapResizeObserver = useRef<ResizeObserver | null>(null);
 
   const selectedDivisionCode = selectedDivisionDetail ?? selectedDivisionGroup;
   const selectedDivisionGroupCopy =
@@ -556,14 +566,28 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           [mapBounds[1], mapBounds[0]],
           [mapBounds[3], mapBounds[2]],
         ],
-        { padding: [10, 10] },
+        { padding: [10, 10], animate: false },
       );
       areaLayer.current = leaflet.layerGroup().addTo(map);
+
+      // The map's box changes for reasons React never re-renders for: a font
+      // finishing loading, the sheet being dragged, the on-screen keyboard,
+      // an orientation change. Watching the element is the only way to be
+      // sure Leaflet is never painting at a stale size — which is what grey
+      // tiles are.
+      if (typeof ResizeObserver !== "undefined" && mapElement.current) {
+        mapResizeObserver.current = new ResizeObserver(() => {
+          map.invalidateSize({ animate: false, pan: false });
+        });
+        mapResizeObserver.current.observe(mapElement.current);
+      }
       setMapReady(true);
     }
     initialiseMap();
     return () => {
       cancelled = true;
+      mapResizeObserver.current?.disconnect();
+      mapResizeObserver.current = null;
       mapInstance.current?.remove();
       mapInstance.current = null;
       areaLayer.current = null;
@@ -729,9 +753,9 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           [bounds[1], bounds[0]],
           [bounds[3], bounds[2]],
         ],
-        { padding: [10, 10] },
+        { padding: [10, 10], animate: false },
       );
-    }, 60);
+    }, 140);
     return () => window.clearTimeout(timeout);
   }, [isNarrow, mapBounds, mapMode, mapReady, nationalBounds]);
 
@@ -972,6 +996,118 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     readoutCurrent === null || readoutBaseline === null
       ? "Comparable counts unavailable"
       : `${numberFormat.format(readoutBaseline)} → ${numberFormat.format(readoutCurrent)} recorded incidents`;
+
+  // The sheet may not grow past the viewport it lives in — 620px is a full
+  // sheet on a portrait phone and an impossibility in landscape.
+  function sheetLimit() {
+    if (typeof window === "undefined") return SHEET_MAX;
+    return Math.max(SHEET_MIN, Math.min(SHEET_MAX, window.innerHeight - 170));
+  }
+
+  function settleMap() {
+    window.setTimeout(() => mapInstance.current?.invalidateSize({ animate: false, pan: false }), 30);
+  }
+
+  function applySheetHeight(height: number) {
+    setSheetHeight(height);
+    // React skips the re-render when the height is unchanged, which would
+    // strand the inline height the drag wrote directly to the node.
+    if (sheet.current) sheet.current.style.height = `${height}px`;
+  }
+
+  function onSheetPointerDown(event: React.PointerEvent<HTMLDivElement>) {
+    event.currentTarget.setPointerCapture(event.pointerId);
+    sheetDrag.current = { startY: event.clientY, startHeight: sheetHeight, moved: false, height: sheetHeight };
+    sheet.current?.classList.add("is-dragging");
+  }
+
+  function onSheetPointerMove(event: React.PointerEvent<HTMLDivElement>) {
+    const drag = sheetDrag.current;
+    if (!drag) return;
+    const delta = drag.startY - event.clientY;
+    if (Math.abs(delta) > 3) drag.moved = true;
+    const height = Math.max(SHEET_MIN, Math.min(sheetLimit(), drag.startHeight + delta));
+    drag.height = height;
+    // Written straight to the node: the drag changes one property and never
+    // re-renders the list underneath it.
+    if (sheet.current) sheet.current.style.height = `${height}px`;
+  }
+
+  function onSheetPointerUp() {
+    const drag = sheetDrag.current;
+    sheetDrag.current = null;
+    sheet.current?.classList.remove("is-dragging");
+    if (!drag) return;
+    const limit = sheetLimit();
+    const detents = DETENTS.map((detent) => Math.min(detent, limit));
+    const target = drag.moved
+      ? detents.reduce((best, detent) =>
+          Math.abs(detent - drag.height) < Math.abs(best - drag.height) ? detent : best,
+        )
+      : // A tap cycles peek → half → full → peek.
+        detents[(detents.findIndex((detent) => Math.abs(detent - drag.height) < 40) + 1) % detents.length];
+    applySheetHeight(target);
+    settleMap();
+  }
+
+  function onSheetKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
+    const limit = sheetLimit();
+    const step = (delta: number) =>
+      applySheetHeight(Math.max(SHEET_MIN, Math.min(limit, sheetHeight + delta)));
+    if (event.key === "ArrowUp") step(40);
+    else if (event.key === "ArrowDown") step(-40);
+    else if (event.key === "Home") applySheetHeight(Math.min(DETENTS[0], limit));
+    else if (event.key === "End") applySheetHeight(Math.min(DETENTS[DETENTS.length - 1], limit));
+    else if (event.key === "Enter" || event.key === " ") {
+      const detents = DETENTS.map((detent) => Math.min(detent, limit));
+      applySheetHeight(detents[(detents.findIndex((d) => Math.abs(d - sheetHeight) < 40) + 1) % detents.length]);
+    } else return;
+    event.preventDefault();
+    settleMap();
+  }
+
+  const sheetHint =
+    sheetHeight <= DETENTS[0] + 40
+      ? `Drag up for all ${areaCount}`
+      : sheetHeight >= DETENTS[2] - 40
+        ? "Drag down for the map"
+        : "Drag to resize";
+
+  // Every area, ranked — the sheet is the full list, not the desktop rail's
+  // top three. Areas with no comparable change sort to the bottom.
+  const moverRows = useMemo(() => {
+    const rows =
+      mapMode === "station"
+        ? areaChanges.map((entry) => ({
+            id: entry.station.id,
+            name: entry.station.name,
+            change: entry.change,
+            isRaw: entry.isRaw,
+            current: entry.current,
+          }))
+        : divisionAreaChanges.map((entry) => ({
+            id: entry.division.id,
+            name: entry.division.name,
+            change: entry.change,
+            isRaw: entry.isRaw,
+            current: entry.current,
+          }));
+    return rows.sort((a, b) => {
+      if (a.change === null) return b.change === null ? a.name.localeCompare(b.name) : 1;
+      if (b.change === null) return -1;
+      return b.change - a.change;
+    });
+  }, [areaChanges, divisionAreaChanges, mapMode]);
+
+  const largestMove = useMemo(
+    () => moverRows.reduce((max, row) => Math.max(max, row.change === null ? 0 : Math.abs(row.change)), 0),
+    [moverRows],
+  );
+
+  function selectArea(id: string) {
+    if (mapMode === "station") setSelectedStationId(id);
+    else setSelectedDivisionId(id);
+  }
 
   function selectMobileGroup(id: string) {
     if (mapMode === "station") {
@@ -1389,6 +1525,73 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
 
           <p className="map-guidance">Hover over an area for its exact change · click to pin details</p>
         </section>
+      </section>
+
+      <section
+        className="ns-sheet"
+        ref={sheet}
+        style={{ height: sheetHeight }}
+        aria-label="Areas ranked by change"
+        onTransitionEnd={(event) => {
+          if (event.propertyName === "height") mapInstance.current?.invalidateSize({ animate: false, pan: false });
+        }}
+      >
+        <div
+          className="ns-handle"
+          role="separator"
+          aria-orientation="horizontal"
+          aria-label="Resize the movers sheet"
+          aria-valuenow={sheetHeight}
+          aria-valuemin={SHEET_MIN}
+          aria-valuemax={SHEET_MAX}
+          tabIndex={0}
+          onPointerDown={onSheetPointerDown}
+          onPointerMove={onSheetPointerMove}
+          onPointerUp={onSheetPointerUp}
+          onPointerCancel={onSheetPointerUp}
+          onKeyDown={onSheetKeyDown}
+        >
+          <i aria-hidden="true" />
+          <span>{sheetHint}</span>
+        </div>
+
+        <div className="ns-sheet-head">
+          <strong>Movers · {activeGroupLabel}</strong>
+          <span className="ns-count-chip up">{activeSummary.increased} up</span>
+          <span className="ns-count-chip down">{activeSummary.decreased} down</span>
+        </div>
+
+        <div className="ns-sheet-body">
+          {moverRows.map((row, index) => (
+            <button
+              key={row.id}
+              type="button"
+              className="ns-mover"
+              onClick={() => selectArea(row.id)}
+            >
+              <span className="ns-mover-rank">{index + 1}</span>
+              <span className="ns-mover-name">
+                {row.name}
+                <i
+                  aria-hidden="true"
+                  style={{
+                    width:
+                      largestMove === 0 || row.change === null
+                        ? 0
+                        : `${Math.max(4, (Math.abs(row.change) / largestMove) * 100)}%`,
+                    background: changeColour(row.change, row.isRaw),
+                  }}
+                />
+              </span>
+              <span className="ns-mover-value">
+                <b className={`tone-${toneOf(row.change, row.isRaw)}`}>
+                  {row.change === null ? "n/a" : formatSigned(row.change, row.isRaw)}
+                </b>
+                <small>{row.current === null ? "no count" : numberFormat.format(row.current)}</small>
+              </span>
+            </button>
+          ))}
+        </div>
       </section>
 
       {filterSheetOpen && (
