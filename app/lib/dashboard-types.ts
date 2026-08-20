@@ -25,6 +25,13 @@ export type DivisionCategory = {
   children: DivisionCategoryChild[];
 };
 
+export type Place = {
+  place: string;
+  stationIds: string[];
+  confidence: "high" | "low";
+  note: string;
+};
+
 export type GeoJSONGeometry = {
   type: "Polygon" | "MultiPolygon";
   coordinates: unknown;

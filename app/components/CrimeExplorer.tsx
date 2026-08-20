@@ -205,7 +205,6 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const [selectedDivisionId, setSelectedDivisionId] = useState(data.divisions[0]?.id ?? "");
   const [quarterRangeExpanded, setQuarterRangeExpanded] = useState(false);
   const [mapReady, setMapReady] = useState(false);
-  const [mobileTab, setMobileTab] = useState<"map" | "filters" | "movers">("map");
   const [askInput, setAskInput] = useState("");
   const [askStatus, setAskStatus] = useState<"idle" | "loading" | "error">("idle");
   const [askError, setAskError] = useState<string | null>(null);
@@ -548,11 +547,13 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     renderDivisionAreas();
   }, [baselineYear, divisionAreaChanges, mapMode, mapReady, selectedDivisionId, selectedYear]);
 
+  // Leaflet renders grey wherever its container grew without it noticing, so
+  // every change to the map's box has to be followed by invalidateSize().
+  // Geography switches are one such change; the resizable sheet is the other.
   useEffect(() => {
-    if (mobileTab !== "map") return;
     const timeout = window.setTimeout(() => mapInstance.current?.invalidateSize(), 50);
     return () => window.clearTimeout(timeout);
-  }, [mobileTab]);
+  }, [mapMode]);
 
   useEffect(() => {
     if (!mapReady || !mapInstance.current) return;
@@ -629,7 +630,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       </header>
 
       <section className="dashboard-toolbar-row">
-        <div className={`dashboard-toolbar${mobileTab === "filters" ? " mobile-active" : ""}`}>
+        <div className="dashboard-toolbar">
           <div className="mode-toggle" role="group" aria-label="Map geography">
             <button
               type="button"
@@ -823,7 +824,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       )}
 
       <section className="dashboard-body" id="atlas">
-        <aside className={`movers-rail${mobileTab === "movers" ? " mobile-active" : ""}`} aria-label="Largest changes">
+        <aside className="movers-rail" aria-label="Largest changes">
           {mapMode === "station" ? (
             <>
               <div>
@@ -865,10 +866,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           )}
         </aside>
 
-        <section
-          className={`district-map-panel${mobileTab === "map" ? " mobile-active" : ""}`}
-          aria-label="Dublin recorded crime change map"
-        >
+        <section className="district-map-panel" aria-label="Dublin recorded crime change map">
           <div className="map-panel-heading">
             <div>
               <span>
@@ -969,21 +967,6 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           <p className="map-guidance">Hover over an area for its exact change · click to pin details</p>
         </section>
       </section>
-
-      <nav className="mobile-tabbar" aria-label="View switcher">
-        <button type="button" className={mobileTab === "map" ? "active" : ""} onClick={() => setMobileTab("map")}>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2Z" strokeLinejoin="round"/><path d="M9 4v14M15 6v14" /></svg>
-          Map
-        </button>
-        <button type="button" className={mobileTab === "filters" ? "active" : ""} onClick={() => setMobileTab("filters")}>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M4 6h16M7 12h10M10 18h4" strokeLinecap="round"/></svg>
-          Filters
-        </button>
-        <button type="button" className={mobileTab === "movers" ? "active" : ""} onClick={() => setMobileTab("movers")}>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M4 18 10 10l4 4 6-9" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          Movers
-        </button>
-      </nav>
 
       <footer id="source" className="map-source-footer">
         <div>
