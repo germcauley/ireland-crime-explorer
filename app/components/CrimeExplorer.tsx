@@ -349,6 +349,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const [openMixGroup, setOpenMixGroup] = useState<string | null>(null);
   const [pickerOpen, setPickerOpen] = useState(false);
   const [botOpen, setBotOpen] = useState(false);
+  const [infoOpen, setInfoOpen] = useState(false);
   // The layout is CSS-driven, but Leaflet paints polygons into a canvas that
   // no stylesheet can reach, so the map's own palette and its touch behaviour
   // need to know the breakpoint. Starts false so the server render and the
@@ -361,6 +362,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const filterSheet = useRef<HTMLDivElement>(null);
   const mixPanel = useRef<HTMLDivElement>(null);
   const botPanel = useRef<HTMLDivElement>(null);
+  const infoPanel = useRef<HTMLDivElement>(null);
   const searchInput = useRef<HTMLInputElement>(null);
   const searchOpener = useRef<HTMLButtonElement>(null);
   const mapInstance = useRef<LeafletMap | null>(null);
@@ -1082,6 +1084,9 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const closeMix = () => setMixOpen(false);
   useModalBehaviour(mixOpen, closeMix, mixPanel);
 
+  const closeInfo = () => setInfoOpen(false);
+  useModalBehaviour(infoOpen, closeInfo, infoPanel);
+
   const closeBot = () => setBotOpen(false);
   useModalBehaviour(botOpen, closeBot, botPanel);
 
@@ -1255,6 +1260,18 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
             onClick={() => setSearchOpen(true)}
           >
             {SEARCH_ICON}
+          </button>
+          <button
+            type="button"
+            className="ns-icon-button ns-icon-muted"
+            aria-label="Data caveats and sources"
+            aria-expanded={infoOpen}
+            onClick={() => setInfoOpen(true)}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 11v5.5M12 7.6v.1" />
+            </svg>
           </button>
         </div>
       </header>
@@ -1821,6 +1838,64 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           )}
         </div>
       </section>
+
+      {infoOpen && (
+        <div
+          className="ns-overlay ns-info"
+          ref={infoPanel}
+          role="dialog"
+          aria-modal="true"
+          aria-label="What this data is, and is not"
+        >
+          <div className="ns-mix-head">
+            <button type="button" className="ns-icon-button" aria-label="Back to the map" onClick={closeInfo}>
+              {BACK_ICON}
+            </button>
+            <div>
+              <strong>What this shows</strong>
+              <small>Official CSO data · through {data.meta.latestCompleteYear}</small>
+            </div>
+          </div>
+
+          <div className="ns-mix-body">
+            <p className="ns-eyebrow">Read this first</p>
+            <p className="ns-note ns-note-warning">{data.meta.dataNote}</p>
+            <p className="ns-note">{data.meta.geographyNote}</p>
+            <p className="ns-note">{data.meta.divisionGeographyNote}</p>
+            <p className="ns-note">{data.meta.fraudNote}</p>
+            <p className="ns-note">{data.meta.vehicleNote}</p>
+            <p className="ns-note">
+              Homicide and sexual-offence detail, and the 84 official sub-categories, are published for Garda
+              Divisions only — never for a station area.
+            </p>
+
+            <p className="ns-eyebrow">Data source</p>
+            <div className="ns-source">
+              <strong>
+                {mapMode === "station"
+                  ? "Central Statistics Office · CJA11"
+                  : "Central Statistics Office · CJQ06"}
+              </strong>
+              <p>
+                {mapMode === "station"
+                  ? "Values are exact station/sub-district records. Filled cells are approximate areas derived from station locations — not official boundary polygons."
+                  : "Division boundaries are official CSO polygons; offence counts are exact quarterly records."}
+              </p>
+              <a
+                href={
+                  mapMode === "station"
+                    ? "https://data.gov.ie/en_GB/dataset/cja11-recorded-crime-incidents-new-garda-operating-model"
+                    : "https://data.gov.ie/en_GB/dataset/cjq06-recorded-crime-offences-by-type-of-offence-garda-division-and-quarter"
+                }
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open official dataset ↗
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
 
       {ASK_CRIME_BOT_ENABLED && botOpen && (
         <div className="ns-scrim" onClick={closeBot}>

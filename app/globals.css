@@ -1026,8 +1026,25 @@ a { color: inherit; }
   .selected-area-card > div strong { font-size: 26px; }
   .division-card { width: 190px; }
   .quarter-chart-heading { flex-direction: column; align-items: flex-start; gap: 4px; }
-  .map-source-footer { flex: 0 0 auto; padding: 16px; grid-template-columns: 1fr; gap: 12px; }
-  .map-source-footer a { grid-column: auto; }
+  /* Caveats and sources ----------------------------------------------------- */
+  /* One tap from the map rather than a wall of small print under it. */
+  .map-source-footer { display: none; }
+  .ns-info .ns-note + .ns-note { margin-top: 8px; }
+  .ns-source {
+    padding: 12px;
+    border: 1px solid var(--ns-hairline);
+    border-radius: 12px;
+    background: var(--ns-card);
+  }
+  .ns-source strong { display: block; color: var(--ns-text); font: 700 13px var(--sans); }
+  .ns-source p { margin: 6px 0 0; color: var(--ns-text-secondary); font: 11.5px/1.5 var(--body); }
+  .ns-source a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: #f0c4a6;
+    font: 12px var(--body);
+  }
 }
 
 @media (max-width: 430px) {
