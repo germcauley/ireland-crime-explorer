@@ -1150,6 +1150,27 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         </div>
       </header>
 
+      <div className="ns-geo" role="group" aria-label="Map geography">
+        <button
+          type="button"
+          className={mapMode === "station" ? "is-active" : ""}
+          aria-pressed={mapMode === "station"}
+          onClick={() => setMapMode("station")}
+        >
+          Station
+          <small>{data.stations.length} Dublin areas</small>
+        </button>
+        <button
+          type="button"
+          className={mapMode === "division" ? "is-active" : ""}
+          aria-pressed={mapMode === "division"}
+          onClick={() => setMapMode("division")}
+        >
+          Division
+          <small>{data.divisions.length} nationwide</small>
+        </button>
+      </div>
+
       <div className="ns-chiprow" role="group" aria-label="Offence group">
         {(mapMode === "station" ? stationGroupCategories : data.divisionCategories).map((group) => {
           const active =
@@ -1446,6 +1467,10 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
             <div className="map-no-data">No comparable area data for this selection.</div>
           )}
 
+          {mapMode === "station" && (
+            <p className="ns-map-caveat">Cells approximate areas from station points — not official boundaries.</p>
+          )}
+
           {/* Nightshift readout. The container never takes a tap — it sits over
               live geography — so it is pointer-events:none and only the
               controls inside it opt back in. */}
@@ -1591,6 +1616,25 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
               </span>
             </button>
           ))}
+
+          {mapMode === "station" && (
+            <p className="ns-note ns-sheet-note">
+              CJA11 publishes 14 broad groups per station area and no finer detail — sub-categories, and homicide
+              and sexual-offence figures, are Division-only.{" "}
+              <button
+                type="button"
+                className="ns-inline-link"
+                onClick={() => {
+                  setMapMode("division");
+                  setSelectedDivisionGroup("01");
+                  setSelectedDivisionDetail(null);
+                }}
+              >
+                See them in Division view
+              </button>
+              .
+            </p>
+          )}
         </div>
       </section>
 

@@ -53,6 +53,8 @@ a { color: inherit; }
    under the 700px breakpoint — see the Nightshift block near the foot of this
    file. Desktop never renders any of it. */
 .ns-header,
+.ns-geo,
+.ns-map-caveat,
 .ns-sheet,
 .ns-readout,
 .ns-chiprow,
@@ -585,6 +587,48 @@ a { color: inherit; }
   .ns-mover-value { flex: 0 0 auto; text-align: right; }
   .ns-mover-value b { display: block; font: 600 14px var(--sans); }
   .ns-mover-value small { display: block; color: var(--ns-muted-deep); font: 11px var(--body); }
+
+  /* Geography switch and the station-view caveat ---------------------------- */
+  .ns-geo { flex: 0 0 auto; display: flex; gap: 6px; padding: 4px 12px 10px; }
+  .ns-geo button {
+    flex: 1;
+    min-height: 44px;
+    padding: 4px 8px;
+    border: 0;
+    border-radius: 14px;
+    background: var(--ns-raised-soft);
+    color: var(--ns-text-tertiary);
+    font: 600 13px var(--sans);
+    cursor: pointer;
+  }
+  .ns-geo button small { display: block; margin-top: 1px; color: var(--ns-muted-deep); font: 9px var(--body); }
+  .ns-geo button.is-active { background: var(--ns-text); color: var(--ns-page); }
+  .ns-geo button.is-active small { color: #4a6152; }
+  .ns-map-caveat {
+    position: absolute;
+    z-index: 500;
+    top: 10px;
+    left: 10px;
+    display: block;
+    max-width: 190px;
+    margin: 0;
+    padding: 7px 10px;
+    border-radius: 11px;
+    background: rgba(13, 31, 25, .82);
+    color: #9ec0ac;
+    font: 10px/1.35 var(--body);
+    pointer-events: none;
+  }
+  .ns-sheet-note { margin: 14px 0 0; }
+  .ns-inline-link {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #9ec0ac;
+    font: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+  }
 
   /* Chip row --------------------------------------------------------------- */
   .ns-chiprow {
