@@ -776,9 +776,9 @@ a { color: inherit; }
     cursor: pointer;
   }
   .ns-pill.is-selected { background: var(--ns-raised); color: var(--ns-text); }
-  .ns-period-row { display: flex; gap: 8px; }
+  .ns-period-row { display: flex; flex-wrap: wrap; gap: 8px; }
   .ns-period {
-    flex: 1;
+    flex: 1 1 72px;
     min-height: 44px;
     padding: 0 8px;
     border: 1px solid var(--ns-border-strong);

@@ -6,7 +6,6 @@ import { annualSum, percentageChange } from "../lib/analytics";
 import type { DashboardData, Division, Station } from "../lib/dashboard-types";
 
 type MapMode = "station" | "division";
-type TrendPeriod = "year_on_year" | "three_year" | "since_2019";
 type Point = { x: number; y: number };
 type AreaChange = {
   station: Station;
@@ -321,7 +320,9 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const [selectedDivisionGroup, setSelectedDivisionGroup] = useState(data.divisionCategories[2]?.id ?? "03");
   const [selectedDivisionDetail, setSelectedDivisionDetail] = useState<string | null>(null);
   const [selectedYear, setSelectedYear] = useState(data.meta.latestCompleteYear);
-  const [trendPeriod, setTrendPeriod] = useState<TrendPeriod>("year_on_year");
+  const [selectedBaselineYear, setSelectedBaselineYear] = useState(
+    data.meta.years[Math.max(0, data.meta.years.length - 2)],
+  );
   const [selectedStationId, setSelectedStationId] = useState("65102");
   const [selectedDivisionId, setSelectedDivisionId] = useState(data.divisions[0]?.id ?? "");
   const [quarterRangeExpanded, setQuarterRangeExpanded] = useState(false);
@@ -361,14 +362,15 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     : undefined;
 
   const yearIndex = data.meta.years.indexOf(selectedYear);
-  const baselineIndex =
-    trendPeriod === "year_on_year"
-      ? Math.max(0, yearIndex - 1)
-      : trendPeriod === "three_year"
-        ? Math.max(0, yearIndex - 3)
-        : 0;
-  const baselineYear = data.meta.years[baselineIndex];
-  const hasBaseline = baselineIndex < yearIndex;
+  const comparisonYears = useMemo(
+    () => [...data.meta.years].filter((year) => year < selectedYear).reverse(),
+    [data.meta.years, selectedYear],
+  );
+  const baselineYear = comparisonYears.includes(selectedBaselineYear)
+    ? selectedBaselineYear
+    : comparisonYears[0] ?? selectedYear;
+  const baselineIndex = data.meta.years.indexOf(baselineYear);
+  const hasBaseline = baselineIndex >= 0 && baselineIndex < yearIndex;
   const selectedCategoryCopy =
     data.categories.find((category) => category.id === selectedCategory) ?? data.categories[0];
 
@@ -1273,10 +1275,8 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         </label>
         <label>
           Compare with
-          <select value={trendPeriod} onChange={(event) => setTrendPeriod(event.target.value as TrendPeriod)}>
-            <option value="year_on_year">Previous year</option>
-            <option value="three_year">Three years earlier</option>
-            <option value="since_2019">2019</option>
+          <select value={baselineYear} onChange={(event) => setSelectedBaselineYear(Number(event.target.value))}>
+            {comparisonYears.map((year) => <option value={year} key={year}>{year}</option>)}
           </select>
         </label>
         <button type="button" onClick={() => setFilterSheetOpen(true)}>All filters</button>
@@ -1395,12 +1395,10 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
             Compare with
             <select
               id="comparison-period"
-              value={trendPeriod}
-              onChange={(event) => setTrendPeriod(event.target.value as TrendPeriod)}
+              value={baselineYear}
+              onChange={(event) => setSelectedBaselineYear(Number(event.target.value))}
             >
-              <option value="year_on_year">Previous year</option>
-              <option value="three_year">Three years earlier</option>
-              <option value="since_2019">2019</option>
+              {comparisonYears.map((year) => <option value={year} key={year}>{year}</option>)}
             </select>
           </label>
 
@@ -2047,21 +2045,15 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
 
               <p className="ns-eyebrow">{selectedYear} compared with</p>
               <div className="ns-period-row">
-                {(
-                  [
-                    ["year_on_year", "Previous year"],
-                    ["three_year", "Three years earlier"],
-                    ["since_2019", String(data.meta.years[0])],
-                  ] as Array<[TrendPeriod, string]>
-                ).map(([period, label]) => (
+                {comparisonYears.map((year) => (
                   <button
-                    key={period}
+                    key={year}
                     type="button"
-                    className={`ns-period${trendPeriod === period ? " is-selected" : ""}`}
-                    aria-pressed={trendPeriod === period}
-                    onClick={() => setTrendPeriod(period)}
+                    className={`ns-period${baselineYear === year ? " is-selected" : ""}`}
+                    aria-pressed={baselineYear === year}
+                    onClick={() => setSelectedBaselineYear(year)}
                   >
-                    {label}
+                    {year}
                   </button>
                 ))}
               </div>
