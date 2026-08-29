@@ -2,7 +2,7 @@
 
 import type { LayerGroup, Map as LeafletMap, Polygon as LeafletPolygon } from "leaflet";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { annualSum, percentageChange, type QueryAnswer } from "../lib/analytics";
+import { annualSum, percentageChange } from "../lib/analytics";
 import type { DashboardData, Division, Station } from "../lib/dashboard-types";
 
 type MapMode = "station" | "division";
@@ -24,12 +24,10 @@ type DivisionAreaChange = {
 };
 type GeoJSONGeometry = Division["boundary"];
 
-const ASK_CRIME_BOT_ENABLED = true;
-
 // Peek / half / full. The sheet drags to any height between MIN and MAX and
 // settles on whichever of these three is nearest.
-const DETENTS = [112, 340, 620];
-const SHEET_MIN = 96;
+const DETENTS = [86, 320, 620];
+const SHEET_MIN = 78;
 const SHEET_MAX = 660;
 
 const numberFormat = new Intl.NumberFormat("en-IE");
@@ -199,11 +197,7 @@ function exteriorRingsLatLng(geometry: GeoJSONGeometry): [number, number][][] {
   );
 }
 
-// Client-side echo of the normalise/matchTier pair in app/lib/analytics.ts.
-// The server matcher runs against an LLM's parsed filters; this one runs
-// against keystrokes, so it lives here rather than pulling the data layer
-// into the bundle — but it ranks by the same discrete tiers, so a query that
-// resolves one way in Crime Bot resolves the same way in search.
+// Lightweight matching for the place and official-area search.
 function normaliseQuery(value: string): string {
   return value
     .normalize("NFKD")
@@ -287,13 +281,6 @@ function useModalBehaviour(
   }, [container, open]);
 }
 
-const BOT_ICON = (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round" aria-hidden="true">
-    <path d="M12 2 5 4.5V11c0 5 3 8.5 7 10 4-1.5 7-5 7-10V4.5L12 2Z" />
-    <path d="m9.3 12 1.9 1.9 3.7-3.9" />
-  </svg>
-);
-
 const BACK_ICON = (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <path d="m14.5 5-7 7 7 7" />
@@ -339,10 +326,6 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const [selectedDivisionId, setSelectedDivisionId] = useState(data.divisions[0]?.id ?? "");
   const [quarterRangeExpanded, setQuarterRangeExpanded] = useState(false);
   const [mapReady, setMapReady] = useState(false);
-  const [askInput, setAskInput] = useState("");
-  const [askStatus, setAskStatus] = useState<"idle" | "loading" | "error">("idle");
-  const [askError, setAskError] = useState<string | null>(null);
-  const [askResult, setAskResult] = useState<QueryAnswer | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [recentSearches, setRecentSearches] = useState<SearchHit[]>([]);
@@ -350,7 +333,6 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const [mixOpen, setMixOpen] = useState(false);
   const [openMixGroup, setOpenMixGroup] = useState<string | null>(null);
   const [pickerOpen, setPickerOpen] = useState(false);
-  const [botOpen, setBotOpen] = useState(false);
   const [infoOpen, setInfoOpen] = useState(false);
   // The layout is CSS-driven, but Leaflet paints polygons into a canvas that
   // no stylesheet can reach, so the map's own palette and its touch behaviour
@@ -363,7 +345,6 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const mapElement = useRef<HTMLDivElement>(null);
   const filterSheet = useRef<HTMLDivElement>(null);
   const mixPanel = useRef<HTMLDivElement>(null);
-  const botPanel = useRef<HTMLDivElement>(null);
   const infoPanel = useRef<HTMLDivElement>(null);
   const searchInput = useRef<HTMLInputElement>(null);
   const searchOpener = useRef<HTMLButtonElement>(null);
@@ -796,36 +777,8 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     return () => window.clearTimeout(timeout);
   }, [isNarrow, mapBounds, mapMode, mapReady, nationalBounds]);
 
-  async function submitAskQuestion() {
-    const question = askInput.trim();
-    if (!question) return;
-    setAskStatus("loading");
-    setAskError(null);
-    try {
-      const response = await fetch("/api/query", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question }),
-      });
-      const payload = (await response.json()) as QueryAnswer;
-      if (!payload.ok) {
-        setAskStatus("error");
-        setAskError(payload.reason);
-        setAskResult(null);
-        return;
-      }
-      setAskStatus("idle");
-      setAskResult(payload);
-    } catch {
-      setAskStatus("error");
-      setAskError("Couldn't reach the query service.");
-      setAskResult(null);
-    }
-  }
-
-  // One place where "point the whole app at this area" is expressed. Crime
-  // Bot's "Show on map" and the search overlay both land here, so a bot answer
-  // and a search result can never drift into selecting different things.
+  // One place where "point the whole app at this area" is expressed. Search
+  // results always land here, so place and official-area matches cannot drift.
   // Sub-category depth exists only for divisions, so any switch to station
   // geography puts the drill-down away rather than leaving it open over data
   // it cannot describe.
@@ -864,16 +817,6 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     }
   }
 
-  function jumpToAskResult() {
-    if (!askResult || !askResult.ok) return;
-    focusOn({
-      geography: askResult.geography,
-      areaId: askResult.geography === "station" ? askResult.stationId : askResult.divisionId,
-      categoryId: askResult.categoryId,
-      year: askResult.year,
-    });
-  }
-
   const searchHits = useMemo<SearchHit[]>(() => {
     const needle = normaliseQuery(searchQuery);
     if (!needle) return [];
@@ -889,7 +832,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           kind: "station",
           badge: "ST",
           title: entry.station.name,
-          subtitle: `Station area · ${entry.station.division} · ${
+          subtitle: `Dublin station area · ${entry.station.division} · ${
             entry.current === null ? "no count" : `${numberFormat.format(entry.current)} in ${selectedYear}`
           }`,
           change: entry.change,
@@ -915,7 +858,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           kind: "division",
           badge: "DV",
           title: name,
-          subtitle: `Garda Division · ${
+          subtitle: `Garda division nationwide · ${
             entry.current === null ? "no comparable count" : `${numberFormat.format(entry.current)} in ${selectedYear}`
           }`,
           change: entry.change,
@@ -1102,9 +1045,6 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const closeInfo = () => setInfoOpen(false);
   useModalBehaviour(infoOpen, closeInfo, infoPanel);
 
-  const closeBot = () => setBotOpen(false);
-  useModalBehaviour(botOpen, closeBot, botPanel);
-
   const closeFilterSheet = () => setFilterSheetOpen(false);
   useModalBehaviour(filterSheetOpen, closeFilterSheet, filterSheet);
 
@@ -1197,7 +1137,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
 
   const sheetHint =
     sheetHeight <= DETENTS[0] + 40
-      ? `Drag up for all ${areaCount}`
+      ? `Open optional comparison of all ${areaCount} areas`
       : sheetHeight >= DETENTS[2] - 40
         ? "Drag down for the map"
         : "Drag to resize";
@@ -1269,9 +1209,8 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         <div className="ns-header-actions">
           <button
             type="button"
-            ref={searchOpener}
             className="ns-icon-button"
-            aria-label="Search for a place, station or division"
+            aria-label="Search for a town, suburb or place"
             onClick={() => setSearchOpen(true)}
           >
             {SEARCH_ICON}
@@ -1291,6 +1230,19 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         </div>
       </header>
 
+      <section className="place-entry" aria-labelledby="place-entry-title">
+        <div>
+          <p>Explore official recorded-crime data</p>
+          <h1 id="place-entry-title">Start with a place you know</h1>
+          <span>Search a town, suburb, Dublin station area or Garda division.</span>
+        </div>
+        <button type="button" ref={searchOpener} onClick={() => setSearchOpen(true)}>
+          {SEARCH_ICON}
+          <span>Search for a town, suburb or place</span>
+          <kbd>Search</kbd>
+        </button>
+      </section>
+
       <div className="ns-geo" role="group" aria-label="Map geography">
         <button
           type="button"
@@ -1298,8 +1250,8 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           aria-pressed={mapMode === "station"}
           onClick={() => setGeography("station")}
         >
-          Station
-          <small>{data.stations.length} Dublin areas</small>
+          Dublin station areas
+          <small>{data.stations.length} areas · annual</small>
         </button>
         <button
           type="button"
@@ -1307,9 +1259,27 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           aria-pressed={mapMode === "division"}
           onClick={() => setGeography("division")}
         >
-          Division
-          <small>{data.divisions.length} nationwide</small>
+          Garda divisions nationwide
+          <small>{data.divisions.length} areas · quarterly</small>
         </button>
+      </div>
+
+      <div className="mobile-period-controls" aria-label="Time period">
+        <label>
+          Year
+          <select value={selectedYear} onChange={(event) => setSelectedYear(Number(event.target.value))}>
+            {[...data.meta.years].reverse().map((year) => <option value={year} key={year}>{year}</option>)}
+          </select>
+        </label>
+        <label>
+          Compare with
+          <select value={trendPeriod} onChange={(event) => setTrendPeriod(event.target.value as TrendPeriod)}>
+            <option value="year_on_year">Previous year</option>
+            <option value="three_year">Three years earlier</option>
+            <option value="since_2019">2019</option>
+          </select>
+        </label>
+        <button type="button" onClick={() => setFilterSheetOpen(true)}>All filters</button>
       </div>
 
       <div className="ns-chiprow" role="group" aria-label="Offence group">
@@ -1341,14 +1311,14 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
               className={mapMode === "station" ? "active" : ""}
               onClick={() => setGeography("station")}
             >
-              Station <small>{data.stations.length} Dublin areas</small>
+              Dublin station areas <small>{data.stations.length} areas · annual</small>
             </button>
             <button
               type="button"
               className={mapMode === "division" ? "active" : ""}
               onClick={() => setGeography("division")}
             >
-              Division <small>{data.divisions.length} areas nationwide · real boundaries</small>
+              Garda divisions nationwide <small>{data.divisions.length} official areas · quarterly</small>
             </button>
           </div>
 
@@ -1473,66 +1443,31 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         </div>
       </section>
 
-      {ASK_CRIME_BOT_ENABLED && (
-      <section className="ask-panel" aria-label="Ask Crime Bot">
-        <div className="ask-header">
-          <span className="ask-avatar" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round">
-              <path d="M12 2 5 4.5V11c0 5 3 8.5 7 10 4-1.5 7-5 7-10V4.5L12 2Z" />
-              <path d="m9.3 12 1.9 1.9 3.7-3.9" />
-            </svg>
-          </span>
-          <div>
-            <strong className="ask-title">Ask Crime Bot</strong>
-            <span className="ask-subtitle">Ask a question about the data, in plain English</span>
-          </div>
+      <section className="result-summary" aria-labelledby="result-summary-title" aria-live="polite">
+        <div className="result-summary-copy">
+          <p>{mapMode === "station" ? "Dublin station area" : "Garda division nationwide"}</p>
+          <h2 id="result-summary-title">{readoutName}</h2>
+          <span>{readoutEyebrow}</span>
         </div>
-        <form
-          onSubmit={(event) => {
-            event.preventDefault();
-            submitAskQuestion();
-          }}
-        >
-          <label htmlFor="ask-question" className="visually-hidden">Ask Crime Bot a question</label>
-          <div className="ask-row">
-            <input
-              id="ask-question"
-              type="text"
-              placeholder="e.g. how many burglaries in Dundrum in 2023?"
-              value={askInput}
-              onChange={(event) => setAskInput(event.target.value)}
-              maxLength={300}
-            />
-            <button type="submit" disabled={askStatus === "loading" || !askInput.trim()}>
-              {askStatus === "loading" ? "Asking…" : "Ask"}
-            </button>
-          </div>
-        </form>
-        {askStatus === "error" && askError && <p className="ask-error">{askError}</p>}
-        {askResult?.ok && (
-          <p className="ask-answer">
-            <strong>
-              {askResult.count === null ? "No comparable data" : numberFormat.format(askResult.count)}
-            </strong>{" "}
-            {askResult.categoryLabel} incidents in {askResult.areaLabel} in {askResult.year}
-            {askResult.compareYear !== null && askResult.changePct !== null && (
-              <> — {formatSigned(askResult.changePct)} vs {askResult.compareYear} ({askResult.compareCount === null ? "n/a" : numberFormat.format(askResult.compareCount)})</>
-            )}
-            .{" "}
-            <button type="button" className="inline-link" onClick={jumpToAskResult}>
-              Show on map
-            </button>
-          </p>
-        )}
+        <div className="result-summary-figure">
+          <strong className={`tone-${toneOf(readoutChange, readoutIsRaw)}`}>
+            {readoutChange === null ? "Not comparable" : formatSigned(readoutChange, readoutIsRaw)}
+          </strong>
+          <span>{readoutCounts}</span>
+        </div>
+        <p className="result-summary-note">
+          These are recorded incidents, not total crime or a safety score.
+          {mapMode === "station" && " Station-area cells are approximate, not official neighbourhood boundaries."}
+        </p>
+        <button type="button" onClick={() => setInfoOpen(true)}>How to read this result</button>
       </section>
-      )}
 
       <section className="dashboard-body" id="atlas">
-        <aside className="movers-rail" aria-label="Largest changes">
+        <aside className="movers-rail" aria-label="Optional area comparison">
           {mapMode === "station" ? (
             <>
               <div>
-                <p>Largest increases</p>
+                <p>Compare areas · increases</p>
                 {rankedIncreases.slice(0, 3).map((entry) => (
                   <button type="button" key={entry.station.id} onClick={() => setSelectedStationId(entry.station.id)}>
                     <span>{entry.station.name}</span><strong>{formatSigned(entry.change, entry.isRaw)}</strong>
@@ -1540,7 +1475,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
                 ))}
               </div>
               <div>
-                <p>Largest decreases</p>
+                <p>Compare areas · decreases</p>
                 {rankedDecreases.slice(0, 3).map((entry) => (
                   <button type="button" key={entry.station.id} onClick={() => setSelectedStationId(entry.station.id)}>
                     <span>{entry.station.name}</span><strong>{formatSigned(entry.change, entry.isRaw)}</strong>
@@ -1551,7 +1486,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           ) : (
             <>
               <div>
-                <p>Largest increases</p>
+                <p>Compare areas · increases</p>
                 {rankedDivisionIncreases.slice(0, 3).map((entry) => (
                   <button type="button" key={entry.division.id} onClick={() => setSelectedDivisionId(entry.division.id)}>
                     <span>{entry.division.name}</span><strong>{formatSigned(entry.change, entry.isRaw)}</strong>
@@ -1559,7 +1494,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
                 ))}
               </div>
               <div>
-                <p>Largest decreases</p>
+                <p>Compare areas · decreases</p>
                 {rankedDivisionDecreases.slice(0, 3).map((entry) => (
                   <button type="button" key={entry.division.id} onClick={() => setSelectedDivisionId(entry.division.id)}>
                     <span>{entry.division.name}</span><strong>{formatSigned(entry.change, entry.isRaw)}</strong>
@@ -1572,7 +1507,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
 
         <section
           className={`district-map-panel${mapMode === "station" ? " ns-station-view" : ""}`}
-          aria-label="Dublin recorded crime change map"
+          aria-label={mapMode === "station" ? "Dublin station-area recorded-crime map" : "Garda-division recorded-crime map of Ireland"}
         >
           <div className="map-panel-heading">
             <div>
@@ -1598,7 +1533,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           <div
             ref={mapElement}
             className="district-map"
-            aria-label="Map of Dublin recorded-crime reporting areas"
+            aria-label={mapMode === "station" ? "Map of Dublin station-area recorded-crime reporting geographies" : "Map of Garda divisions nationwide"}
           />
 
           {mapMode === "station" && availableChanges.length === 0 && (
@@ -1606,16 +1541,6 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           )}
           {mapMode === "division" && availableDivisionChanges.length === 0 && (
             <div className="map-no-data">No comparable area data for this selection.</div>
-          )}
-
-          {ASK_CRIME_BOT_ENABLED && (
-            <button type="button" className="ns-bot-pill" onClick={() => setBotOpen(true)}>
-              <span className="ns-bot-mark" aria-hidden="true">
-                {BOT_ICON}
-              </span>
-              Ask
-              <span className="ns-beta">beta</span>
-            </button>
           )}
 
           {mapMode === "station" && (
@@ -1716,7 +1641,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         className="ns-sheet"
         ref={sheet}
         style={{ height: sheetHeight }}
-        aria-label="Areas ranked by change"
+        aria-label="Optional comparison of areas by change"
         onTransitionEnd={(event) => {
           if (event.propertyName === "height") mapInstance.current?.invalidateSize({ animate: false });
         }}
@@ -1730,7 +1655,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           className="ns-handle"
           role="separator"
           aria-orientation="horizontal"
-          aria-label="Resize the movers sheet"
+          aria-label="Resize the area comparison sheet"
           aria-valuenow={sheetHeight}
           aria-valuemin={SHEET_MIN}
           aria-valuemax={SHEET_MAX}
@@ -1763,9 +1688,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           </div>
         ) : (
           <div className="ns-sheet-head">
-            <strong>Movers · {activeGroupLabel}</strong>
-            <span className="ns-count-chip up">{activeSummary.increased} up</span>
-            <span className="ns-count-chip down">{activeSummary.decreased} down</span>
+            <strong>Compare areas · {activeGroupLabel}</strong>
           </div>
         )}
 
@@ -1917,86 +1840,6 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
                 Open official dataset ↗
               </a>
             </div>
-          </div>
-        </div>
-      )}
-
-      {ASK_CRIME_BOT_ENABLED && botOpen && (
-        <div className="ns-scrim">
-          <button type="button" className="ns-scrim-dismiss" aria-label="Close Ask Crime Bot" onClick={closeBot} />
-          <div
-            className="ns-filter-sheet ns-bot-sheet"
-            ref={botPanel}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Ask Crime Bot"
-          >
-            <div className="ns-filter-head">
-              <h2>
-                Ask Crime Bot <span className="ns-beta">beta</span>
-              </h2>
-              <button type="button" className="ns-icon-button ns-icon-muted" aria-label="Close" onClick={closeBot}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" aria-hidden="true">
-                  <path d="m6 6 12 12M18 6 6 18" />
-                </svg>
-              </button>
-            </div>
-
-            <p className="ns-bot-provenance">
-              Every number is computed from CJA11/CJQ06; the model only reads your question.
-            </p>
-
-            <form
-              className="ns-bot-form"
-              onSubmit={(event) => {
-                event.preventDefault();
-                submitAskQuestion();
-              }}
-            >
-              <label htmlFor="ns-ask-question" className="visually-hidden">
-                Ask Crime Bot a question
-              </label>
-              <input
-                id="ns-ask-question"
-                type="text"
-                placeholder="e.g. how many burglaries in Dundrum in 2023?"
-                value={askInput}
-                onChange={(event) => setAskInput(event.target.value)}
-                maxLength={300}
-              />
-              <button type="submit" className="ns-primary" disabled={askStatus === "loading" || !askInput.trim()}>
-                {askStatus === "loading" ? "Asking…" : "Ask"}
-              </button>
-            </form>
-
-            {askStatus === "error" && askError && <p className="ns-note ns-note-warning">{askError}</p>}
-
-            {askResult?.ok && (
-              <p className="ns-bot-answer">
-                <strong>
-                  {askResult.count === null ? "No comparable data" : numberFormat.format(askResult.count)}
-                </strong>{" "}
-                {askResult.categoryLabel} incidents in {askResult.areaLabel} in {askResult.year}
-                {askResult.compareYear !== null && askResult.changePct !== null && (
-                  <>
-                    {" "}
-                    — {formatSigned(askResult.changePct)} vs {askResult.compareYear} (
-                    {askResult.compareCount === null ? "n/a" : numberFormat.format(askResult.compareCount)})
-                  </>
-                )}
-                .{" "}
-                <button
-                  type="button"
-                  className="ns-inline-link"
-                  onClick={() => {
-                    jumpToAskResult();
-                    closeBot();
-                  }}
-                >
-                  Show on map
-                </button>
-              </p>
-            )}
           </div>
         </div>
       )}
