@@ -340,9 +340,17 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   // need to know the breakpoint. Starts false so the server render and the
   // first client render agree.
   const [isNarrow, setIsNarrow] = useState(false);
+  // The app always has a selected area, so selection alone cannot mean "zoomed
+  // in" — the map would open tight on an arbitrary division. This tracks the
+  // separate act of a reader choosing an area, which is what earns the zoom.
+  const [areaFocused, setAreaFocused] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
   const [sheetHeight, setSheetHeight] = useState(DETENTS[0]);
   const sheet = useRef<HTMLElement | null>(null);
   const sheetDrag = useRef<{ startY: number; startHeight: number; moved: boolean; height: number } | null>(null);
+  // Leaflet handlers are bound once per render pass of the layer effects; a ref
+  // keeps them calling the current selectArea without rebinding every layer.
+  const selectAreaRef = useRef<(id: string) => void>(() => {});
   const mapElement = useRef<HTMLDivElement>(null);
   const filterSheet = useRef<HTMLDivElement>(null);
   const mixPanel = useRef<HTMLDivElement>(null);
@@ -517,6 +525,16 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     return () => query.removeEventListener("change", update);
   }, []);
 
+  // The stylesheet zeroes its own transitions under reduced motion, but the
+  // map's fly-to happens in Leaflet, where CSS cannot reach it.
+  useEffect(() => {
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReducedMotion(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
+
   useEffect(() => {
     async function updateMask() {
       if (!mapReady || !mapInstance.current) return;
@@ -622,14 +640,22 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       areaLayer.current.clearLayers();
 
       const restingOpacity = (change: number | null, selected: boolean) => {
+        // Focusing an area pushes everything else back rather than hiding it:
+        // the neighbours still carry the change scale, they just stop competing
+        // with the area being read.
+        if (areaFocused && !selected) return 0.12;
         if (change === null) return isNarrow ? 0.4 : 0.48;
         if (isNarrow) return selected ? 0.98 : 0.62;
         return 0.76;
       };
-      const restingStroke = (selected: boolean) =>
-        isNarrow
+      const restingStroke = (selected: boolean) => {
+        if (areaFocused && !selected) {
+          return { color: isNarrow ? "rgba(226,238,231,.10)" : "rgba(23,55,45,.16)", weight: 0.6 };
+        }
+        return isNarrow
           ? { color: selected ? "#e07a5f" : "rgba(226,238,231,.28)", weight: selected ? 2.6 : 0.9 }
           : { color: selected ? "#102e26" : "rgba(23,55,45,.56)", weight: selected ? 3 : 1 };
+      };
 
       areaChanges.forEach((entry) => {
         const selected = entry.station.id === selectedStationId;
@@ -664,12 +690,12 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           polygon.on("mouseover", () => polygon.setStyle({ weight: 3, fillOpacity: 0.9 }));
           polygon.on("mouseout", () =>
             polygon.setStyle({
-              weight: entry.station.id === selectedStationId ? 3 : 1,
-              fillOpacity: entry.change === null ? 0.48 : 0.76,
+              ...restingStroke(selected),
+              fillOpacity: restingOpacity(entry.change, selected),
             }),
           );
         }
-        polygon.on("click", () => setSelectedStationId(entry.station.id));
+        polygon.on("click", () => selectAreaRef.current(entry.station.id));
         polygon.addTo(areaLayer.current!);
 
         // On touch the point is a second, smaller tap target for the same
@@ -688,18 +714,35 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
             className: "change-tooltip",
           });
         }
-        stationPoint.on("click", () => setSelectedStationId(entry.station.id));
+        stationPoint.on("click", () => selectAreaRef.current(entry.station.id));
         stationPoint.addTo(areaLayer.current!);
       });
     }
     renderStationAreas();
-  }, [areaChanges, baselineYear, data.stations, isNarrow, mapBounds, mapMode, mapReady, selectedStationId, selectedYear]);
+  }, [areaChanges, areaFocused, baselineYear, data.stations, isNarrow, mapBounds, mapMode, mapReady, selectedStationId, selectedYear]);
 
   useEffect(() => {
     async function renderDivisionAreas() {
       if (!mapReady || !areaLayer.current || mapMode !== "division") return;
       const leaflet = await loadLeaflet();
       areaLayer.current.clearLayers();
+
+      // Same treatment as the station cells: a focused area pushes its
+      // neighbours back rather than removing them.
+      const restingOpacity = (change: number | null, selected: boolean) => {
+        if (areaFocused && !selected) return 0.12;
+        if (change === null) return isNarrow ? 0.4 : 0.48;
+        if (isNarrow) return selected ? 0.98 : 0.62;
+        return 0.76;
+      };
+      const restingStroke = (selected: boolean) => {
+        if (areaFocused && !selected) {
+          return { color: isNarrow ? "rgba(226,238,231,.10)" : "rgba(23,55,45,.16)", weight: 0.6 };
+        }
+        return isNarrow
+          ? { color: selected ? "#e07a5f" : "rgba(226,238,231,.28)", weight: selected ? 2.6 : 0.9 }
+          : { color: selected ? "#102e26" : "rgba(23,55,45,.56)", weight: selected ? 3 : 1.4 };
+      };
 
       divisionAreaChanges.forEach((entry) => {
         const selected = entry.division.id === selectedDivisionId;
@@ -717,24 +760,9 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           </div>`;
         const layer = leaflet.geoJSON(entry.division.boundary as never, {
           style: {
-            color: isNarrow
-              ? selected
-                ? "#e07a5f"
-                : "rgba(226,238,231,.28)"
-              : selected
-                ? "#102e26"
-                : "rgba(23,55,45,.56)",
-            weight: isNarrow ? (selected ? 2.6 : 0.9) : selected ? 3 : 1.4,
+            ...restingStroke(selected),
             fillColor: changeColour(entry.change, entry.isRaw),
-            fillOpacity: isNarrow
-              ? entry.change === null
-                ? 0.4
-                : selected
-                  ? 0.98
-                  : 0.62
-              : entry.change === null
-                ? 0.48
-                : 0.76,
+            fillOpacity: restingOpacity(entry.change, selected),
             className: "reporting-area-cell",
           },
         });
@@ -743,17 +771,17 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           layer.on("mouseover", () => layer.setStyle({ weight: 3, fillOpacity: 0.9 }));
           layer.on("mouseout", () =>
             layer.setStyle({
-              weight: entry.division.id === selectedDivisionId ? 3 : 1.4,
-              fillOpacity: entry.change === null ? 0.48 : 0.76,
+              ...restingStroke(selected),
+              fillOpacity: restingOpacity(entry.change, selected),
             }),
           );
         }
-        layer.on("click", () => setSelectedDivisionId(entry.division.id));
+        layer.on("click", () => selectAreaRef.current(entry.division.id));
         layer.addTo(areaLayer.current!);
       });
     }
     renderDivisionAreas();
-  }, [baselineYear, divisionAreaChanges, isNarrow, mapMode, mapReady, selectedDivisionId, selectedYear]);
+  }, [areaFocused, baselineYear, divisionAreaChanges, isNarrow, mapMode, mapReady, selectedDivisionId, selectedYear]);
 
   // Leaflet renders grey wherever its container grew without it noticing, so
   // every change to the map's box has to be followed by invalidateSize().
@@ -767,6 +795,10 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       // mobile (station view reserves a band for the readout), and Leaflet
       // renders grey wherever it fits bounds to a stale size.
       map.invalidateSize({ animate: false, pan: false });
+      // A focused area owns the viewport; refitting the whole geography here
+      // would yank the map back out from under the reader on a sheet drag or
+      // an orientation change.
+      if (areaFocused) return;
       const bounds = mapMode === "station" ? mapBounds : nationalBounds;
       map.fitBounds(
         [
@@ -777,7 +809,75 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       );
     }, 140);
     return () => window.clearTimeout(timeout);
-  }, [isNarrow, mapBounds, mapMode, mapReady, nationalBounds]);
+  }, [areaFocused, isNarrow, mapBounds, mapMode, mapReady, nationalBounds]);
+
+  // Zooming to the focused area. Bounds come from the same geometry the map
+  // draws — the division polygon, or the Voronoi cell built for a station —
+  // so the frame always matches what is highlighted.
+  const focusedBounds = useMemo<[[number, number], [number, number]] | null>(() => {
+    if (!areaFocused) return null;
+    if (mapMode === "station") {
+      const station = data.stations.find((entry) => entry.id === selectedStationId);
+      if (!station) return null;
+      const cell = buildAreaCell(station, data.stations, mapBounds);
+      if (cell.length === 0) return null;
+      let minLat = Infinity;
+      let minLng = Infinity;
+      let maxLat = -Infinity;
+      let maxLng = -Infinity;
+      cell.forEach(([lat, lng]) => {
+        if (lat < minLat) minLat = lat;
+        if (lat > maxLat) maxLat = lat;
+        if (lng < minLng) minLng = lng;
+        if (lng > maxLng) maxLng = lng;
+      });
+      return [
+        [minLat, minLng],
+        [maxLat, maxLng],
+      ];
+    }
+    const division = data.divisions.find((entry) => entry.id === selectedDivisionId);
+    if (!division) return null;
+    const [minLng, minLat, maxLng, maxLat] = geometryBounds(division.boundary);
+    return [
+      [minLat, minLng],
+      [maxLat, maxLng],
+    ];
+  }, [areaFocused, data.divisions, data.stations, mapBounds, mapMode, selectedDivisionId, selectedStationId]);
+
+  useEffect(() => {
+    if (!mapReady || !focusedBounds) return;
+    const map = mapInstance.current;
+    if (!map) return;
+    // The mobile readout and sheet cover the bottom of the map box, so the
+    // frame is padded away from the edges the chrome sits over.
+    const padding: [number, number] = isNarrow ? [28, 28] : [40, 40];
+    map.flyToBounds(focusedBounds, {
+      padding,
+      animate: !reducedMotion,
+      duration: 0.7,
+      maxZoom: 12,
+    });
+  }, [focusedBounds, isNarrow, mapReady, reducedMotion]);
+
+  // Leaving focus returns the map to the whole geography, by the same route it
+  // arrived, so the zoom out reads as the reverse of the zoom in.
+  const wasFocused = useRef(false);
+  useEffect(() => {
+    if (!mapReady) return;
+    const map = mapInstance.current;
+    if (map && wasFocused.current && !areaFocused) {
+      const bounds = mapMode === "station" ? mapBounds : nationalBounds;
+      map.flyToBounds(
+        [
+          [bounds[1], bounds[0]],
+          [bounds[3], bounds[2]],
+        ],
+        { padding: [10, 10], animate: !reducedMotion, duration: 0.6 },
+      );
+    }
+    wasFocused.current = areaFocused;
+  }, [areaFocused, mapBounds, mapMode, mapReady, nationalBounds, reducedMotion]);
 
   // One place where "point the whole app at this area" is expressed. Search
   // results always land here, so place and official-area matches cannot drift.
@@ -786,6 +886,10 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   // it cannot describe.
   function setGeography(mode: MapMode) {
     setMapMode(mode);
+    // The two geographies do not share an area, so a focus carried across the
+    // switch would frame whichever area happened to be selected in the one
+    // being entered. Switching starts from the whole map instead.
+    if (mode !== mapMode) setAreaFocused(false);
     if (mode !== "division") {
       setMixOpen(false);
       setPickerOpen(false);
@@ -800,6 +904,9 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   }) {
     setGeography(target.geography);
     if (target.year !== null && target.year !== undefined) setSelectedYear(target.year);
+    // Arriving from search is as deliberate as tapping the area, so it earns
+    // the same frame — set after setGeography, which clears focus on a switch.
+    if (target.areaId) setAreaFocused(true);
     if (target.geography === "station") {
       if (target.areaId) setSelectedStationId(target.areaId);
       if (target.categoryId) setSelectedCategory(target.categoryId);
@@ -1175,10 +1282,22 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     [moverRows],
   );
 
+  // Every way a reader can pick an area — a polygon, a station point, a movers
+  // row, a search result — goes through here, so the zoom is never something
+  // only one of those routes gets.
   function selectArea(id: string) {
     if (mapMode === "station") setSelectedStationId(id);
     else setSelectedDivisionId(id);
+    setAreaFocused(true);
   }
+
+  function clearAreaFocus() {
+    setAreaFocused(false);
+  }
+
+  useEffect(() => {
+    selectAreaRef.current = selectArea;
+  });
 
   function selectMobileGroup(id: string) {
     if (mapMode === "station") {
@@ -1467,7 +1586,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
               <div>
                 <p>Compare areas · increases</p>
                 {rankedIncreases.slice(0, 3).map((entry) => (
-                  <button type="button" key={entry.station.id} onClick={() => setSelectedStationId(entry.station.id)}>
+                  <button type="button" key={entry.station.id} onClick={() => selectArea(entry.station.id)}>
                     <span>{entry.station.name}</span><strong>{formatSigned(entry.change, entry.isRaw)}</strong>
                   </button>
                 ))}
@@ -1475,7 +1594,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
               <div>
                 <p>Compare areas · decreases</p>
                 {rankedDecreases.slice(0, 3).map((entry) => (
-                  <button type="button" key={entry.station.id} onClick={() => setSelectedStationId(entry.station.id)}>
+                  <button type="button" key={entry.station.id} onClick={() => selectArea(entry.station.id)}>
                     <span>{entry.station.name}</span><strong>{formatSigned(entry.change, entry.isRaw)}</strong>
                   </button>
                 ))}
@@ -1486,7 +1605,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
               <div>
                 <p>Compare areas · increases</p>
                 {rankedDivisionIncreases.slice(0, 3).map((entry) => (
-                  <button type="button" key={entry.division.id} onClick={() => setSelectedDivisionId(entry.division.id)}>
+                  <button type="button" key={entry.division.id} onClick={() => selectArea(entry.division.id)}>
                     <span>{entry.division.name}</span><strong>{formatSigned(entry.change, entry.isRaw)}</strong>
                   </button>
                 ))}
@@ -1494,7 +1613,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
               <div>
                 <p>Compare areas · decreases</p>
                 {rankedDivisionDecreases.slice(0, 3).map((entry) => (
-                  <button type="button" key={entry.division.id} onClick={() => setSelectedDivisionId(entry.division.id)}>
+                  <button type="button" key={entry.division.id} onClick={() => selectArea(entry.division.id)}>
                     <span>{entry.division.name}</span><strong>{formatSigned(entry.change, entry.isRaw)}</strong>
                   </button>
                 ))}
@@ -1543,6 +1662,28 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
 
           {mapMode === "station" && (
             <p className="ns-map-caveat">Cells approximate areas from station points — not official boundaries.</p>
+          )}
+
+          {/* The way back out of a focused area. Only rendered while a focus is
+              held, so it never occupies the map when it would do nothing. The
+              visible label shortens on a phone, where the caveat chip shares
+              this row, so the full wording lives on the button itself and stays
+              the accessible name at every width. */}
+          {areaFocused && (
+            <button
+              type="button"
+              className="area-focus-clear"
+              onClick={clearAreaFocus}
+              aria-label={`Show all ${mapMode === "station" ? "station areas" : "divisions"}`}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+                <path d="M9 3H5a2 2 0 0 0-2 2v4M15 3h4a2 2 0 0 1 2 2v4M9 21H5a2 2 0 0 1-2-2v-4M15 21h4a2 2 0 0 0 2-2v-4" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <span className="area-focus-clear-long" aria-hidden="true">
+                Show all {mapMode === "station" ? "station areas" : "divisions"}
+              </span>
+              <span className="area-focus-clear-short" aria-hidden="true">Show all</span>
+            </button>
           )}
 
           {/* Nightshift readout. The container never takes a tap — it sits over
