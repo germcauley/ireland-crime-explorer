@@ -44,6 +44,7 @@ RAW = ROOT / "data" / "processed" / "news_raw.json"
 GAZETTEER = ROOT / "data" / "geography" / "division_places.json"
 DASHBOARD = ROOT / "data" / "processed" / "dashboard.json"
 OUT = ROOT / "data" / "processed" / "news.json"
+LABELS = ROOT / "tests" / "fixtures" / "news_labelled.json"
 
 MODEL = "claude-haiku-4-5-20251001"
 API_URL = "https://api.anthropic.com/v1/messages"
@@ -270,6 +271,11 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--limit", type=int, default=None, help="classify at most N candidates")
     parser.add_argument("--no-llm", action="store_true", help="prefilter only")
+    parser.add_argument(
+        "--from-labels",
+        action="store_true",
+        help="apply the hand-reviewed labels instead of calling the model",
+    )
     args = parser.parse_args()
 
     raw = load_json(RAW)
@@ -297,16 +303,27 @@ def main() -> None:
 
     print(f"{len(articles)} articles, {len(candidates)} passed the prefilter")
 
+    # Hand-reviewed labels are the same shape as a model verdict, so they flow
+    # through the identical validation below. They cover one fetch only — new
+    # articles fall through unclassified rather than being guessed at.
+    labels = {}
+    if args.from_labels:
+        if not LABELS.exists():
+            print(f"error: {LABELS} missing", file=sys.stderr)
+            raise SystemExit(1)
+        labels = {entry["id"]: entry for entry in json.loads(LABELS.read_text())["labels"]}
+        print(f"applying {len(labels)} hand-reviewed labels")
+
     api_key = os.environ.get("ANTHROPIC_API_KEY")
-    use_llm = bool(api_key) and not args.no_llm
-    if not use_llm:
+    use_llm = bool(api_key) and not args.no_llm and not args.from_labels
+    if not use_llm and not args.from_labels:
         print("no ANTHROPIC_API_KEY (or --no-llm): every candidate stays unclassified")
 
     classified, unclassified, errors = [], 0, 0
     to_process = candidates[: args.limit] if args.limit else candidates
 
     for index, article in enumerate(to_process, 1):
-        verdict = None
+        verdict = labels.get(article["id"])
         if use_llm:
             try:
                 verdict = call_model(article, divisions_text, groups_text, api_key)
@@ -361,7 +378,7 @@ def main() -> None:
                 "meta": {
                     "generatedAt": dt.datetime.now(dt.timezone.utc).isoformat(),
                     "windowMonths": 12,
-                    "model": MODEL if use_llm else None,
+                    "model": MODEL if use_llm else ("hand-reviewed" if args.from_labels else None),
                     "articlesConsidered": len(articles),
                     "candidates": len(candidates),
                     "unclassified": unclassified,

@@ -1,11 +1,11 @@
 {
  "meta": {
-  "generatedAt": "2026-08-30T15:02:52.273329+00:00",
+  "generatedAt": "2026-08-30T15:13:40.573631+00:00",
   "windowMonths": 12,
-  "model": null,
+  "model": "hand-reviewed",
   "articlesConsidered": 407,
   "candidates": 22,
-  "unclassified": 22,
+  "unclassified": 7,
   "feeds": [
    {
     "name": "RTÉ News",
@@ -113,10 +113,10 @@
    "source": "Leinster Express",
    "publishedAt": "2026-08-30T12:44:33+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
+   "divisionId": "41",
    "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "group": "03",
+   "confidence": 0.9,
    "reasoning": null
   },
   {
@@ -130,10 +130,10 @@
     "The Journal",
     "Highland Radio"
    ],
-   "divisionId": null,
+   "divisionId": "13",
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.95,
    "reasoning": null
   },
   {
@@ -174,10 +174,10 @@
    "alsoCoveredBy": [
     "Irish Times"
    ],
-   "divisionId": null,
+   "divisionId": "42",
    "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "group": "01",
+   "confidence": 0.9,
    "reasoning": null
   },
   {
@@ -188,10 +188,10 @@
    "source": "Kilkenny People",
    "publishedAt": "2026-08-29T18:16:23+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
-   "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "divisionId": "53",
+   "town": "Kilkenny",
+   "group": "09",
+   "confidence": 0.9,
    "reasoning": null
   },
   {
@@ -232,10 +232,10 @@
    "alsoCoveredBy": [
     "Longford Leader"
    ],
-   "divisionId": null,
-   "town": null,
+   "divisionId": "24",
+   "town": "Longford",
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.95,
    "reasoning": null
   },
   {
@@ -260,10 +260,10 @@
    "source": "Irish Times",
    "publishedAt": "2026-08-28T16:14:40+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
-   "town": null,
+   "divisionId": "64",
+   "town": "Kimmage",
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.85,
    "reasoning": null
   },
   {
@@ -288,10 +288,10 @@
    "source": "Irish Times",
    "publishedAt": "2026-08-27T23:15:34+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
+   "divisionId": "53",
    "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "group": "04",
+   "confidence": 0.85,
    "reasoning": null
   },
   {
@@ -302,10 +302,10 @@
    "source": "Irish Times",
    "publishedAt": "2026-08-27T14:43:35+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
+   "divisionId": "44",
    "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "group": "15",
+   "confidence": 0.8,
    "reasoning": null
   },
   {
@@ -316,10 +316,10 @@
    "source": "Irish Times",
    "publishedAt": "2026-08-27T13:37:17+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
-   "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "divisionId": "23",
+   "town": "Galway",
+   "group": "10",
+   "confidence": 0.95,
    "reasoning": null
   },
   {
@@ -330,10 +330,10 @@
    "source": "Irish Times",
    "publishedAt": "2026-08-27T10:31:31+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
-   "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "divisionId": "23",
+   "town": "Galway",
+   "group": "10",
+   "confidence": 0.9,
    "reasoning": null
   },
   {
@@ -358,10 +358,10 @@
    "source": "Sligo Weekender",
    "publishedAt": "2026-06-18T11:00:00+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
-   "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "divisionId": "13",
+   "town": "Sligo",
+   "group": "10",
+   "confidence": 0.95,
    "reasoning": null
   }
  ]

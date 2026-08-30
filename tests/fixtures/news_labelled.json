@@ -1,0 +1,143 @@
+{
+  "note": "Ground truth for the classifier, labelled by hand from a real fetch on 2026-08-30. These are the 22 articles that passed the prefilter. Stage 2 is scored against them: a run that disagrees on division is a precision failure, which is the bar that matters — an article filed under the wrong county is a false statement about a real place.",
+  "rules": [
+    "division: where the OFFENCE happened. null when the article reports no recorded offence, names no Irish location, or the location cannot be resolved.",
+    "town: only a place the article itself names, and only when it locates the offence. A court's town is not the offence's town.",
+    "group: CJQ06 group. null when no specific recorded offence is reported — a fatal road accident with no alleged offence has a division but no group."
+  ],
+  "labels": [
+    {
+      "id": "aa66b17c2d3b48e8",
+      "title": "Man (30s) arrested after cyclist killed in Co Meath hit and run",
+      "division": "42", "town": null, "group": "01", "confidence": 0.95,
+      "why": "Co Meath named; a death caused by a vehicle sits under Homicide (012, dangerous driving leading to death). No town named, only the county."
+    },
+    {
+      "id": "02bf5074f60d1c27",
+      "title": "Over €55k raised for teen killed in Meath hit-and-run while training for Ironman event",
+      "division": "42", "town": null, "group": "01", "confidence": 0.9,
+      "why": "Same incident as the arrest report above. A fundraiser article, but it reports the offence and its county."
+    },
+    {
+      "id": "e29df53c8fff289a",
+      "title": "Electric Picnic staff member accused of assault at the festival",
+      "division": "41", "town": null, "group": "03", "confidence": 0.9,
+      "why": "Electric Picnic is at Stradbally, Co Laois — Laois/Offaly. Tullamore is named but only as the court; tagging the assault to it would place the offence in the wrong town."
+    },
+    {
+      "id": "427c0cd7920b9628",
+      "title": "Pedestrian (40s) dies after being struck by his own van in Sligo",
+      "division": "13", "town": "Grange", "group": null, "confidence": 0.95,
+      "why": "Sligo named, and the article names Grange as the location. No offence alleged, so no group — a death is not automatically a recorded crime."
+    },
+    {
+      "id": "adde2de8baa8318a",
+      "title": "Man (40s) dies following fatal road collision in Co Sligo",
+      "division": "13", "town": null, "group": null, "confidence": 0.95,
+      "why": "Same incident. Gortnaleck is named as a townland, not a town. No offence alleged."
+    },
+    {
+      "id": "aa44799ba04cc3e2",
+      "title": "Man killed after being struck by his van in tragic Sligo road crash as gardai issue witness appeal",
+      "division": "13", "town": null, "group": null, "confidence": 0.95,
+      "why": "Same incident, county only."
+    },
+    {
+      "id": "29f6be89a0292bc7",
+      "title": "ICYMI: Kilkenny gardaí issue urgent warning over vicious scam",
+      "division": "53", "town": "Kilkenny", "group": "09", "confidence": 0.9,
+      "why": "Rental scam warning from Kilkenny gardaí. Fraud."
+    },
+    {
+      "id": "99b536fa0694bd61",
+      "title": "Young man involved in Longford e-scooter crash seriously injured as two hospitalised",
+      "division": "24", "town": "Longford", "group": null, "confidence": 0.95,
+      "why": "Longford named, Battery Road given. Gardaí appealing for witnesses but no offence alleged."
+    },
+    {
+      "id": "d273464bbf49bd95",
+      "title": "Male teenager in critical condition after Longford e-scooter crash",
+      "division": "24", "town": "Longford", "group": null, "confidence": 0.95,
+      "why": "Same incident."
+    },
+    {
+      "id": "28f2a680fef0a33a",
+      "title": "Gardaí appeal for information after woman’s body discovered in Dublin park",
+      "division": "64", "town": "Kimmage", "group": null, "confidence": 0.85,
+      "why": "Kimmage is in DMR South. A body found and a postmortem carried out is not yet a stated offence, so no group."
+    },
+    {
+      "id": "45e00e7aeca42eda",
+      "title": "Wife of man crushed by stolen SUV says she does not know when he will walk again",
+      "division": "53", "town": null, "group": "04", "confidence": 0.85,
+      "why": "Co Carlow named — Kilkenny/Carlow. A stolen vehicle striking a person is a dangerous act; the theft is secondary to what is reported."
+    },
+    {
+      "id": "301807f96b90c645",
+      "title": "Sacked teacher Enoch Burke turns up outside Wilson’s Hospital School again",
+      "division": "44", "town": null, "group": "15", "confidence": 0.8,
+      "why": "Co Westmeath named. Breaching a court order falls under justice offences."
+    },
+    {
+      "id": "5d786c38f7273a37",
+      "title": "Man charged with drugs and money laundering offences at Galway escape room",
+      "division": "23", "town": "Galway", "group": "10", "confidence": 0.95,
+      "why": "Galway named, drugs charges."
+    },
+    {
+      "id": "a6a5a0d0cc1759db",
+      "title": "Man arrested as gardaí freeze $900,000 in cryptocurrency after Galway raids",
+      "division": "23", "town": "Galway", "group": "10", "confidence": 0.9,
+      "why": "Very likely the same operation as the escape-room charges. Drugs and cash found in Galway raids."
+    },
+    {
+      "id": "d000d9154c461989",
+      "title": "Gardaí seize over €20,000 worth of drugs, cash in Sligo town",
+      "division": "13", "town": "Sligo", "group": "10", "confidence": 0.95,
+      "why": "Sligo/Leitrim Drugs Unit, Sligo Town named explicitly."
+    },
+
+    {
+      "id": "f91134e88cada70f",
+      "title": "Cummins strikes twice in Limerick",
+      "division": null, "town": null, "group": null, "confidence": 0.0,
+      "why": "Greyhound racing. A prefilter false positive — the model must reject it."
+    },
+    {
+      "id": "ae219de7c29636c8",
+      "title": "Mayor's summer activities spark massive debate in Limerick",
+      "division": null, "town": null, "group": null, "confidence": 0.0,
+      "why": "Local government, no offence."
+    },
+    {
+      "id": "57a2c8f43afa1c11",
+      "title": "Editorial: Congratulations to the Kilkenny Leaving Cert Class of 2026!",
+      "division": null, "town": null, "group": null, "confidence": 0.0,
+      "why": "An editorial. Mentions a scam warning in passing but reports no offence."
+    },
+    {
+      "id": "3d2d9ed126918e50",
+      "title": "Fórsa members vote in favour of Oberstown agreement",
+      "division": null, "town": null, "group": null, "confidence": 0.0,
+      "why": "Industrial relations at a detention centre, not crime in a Division."
+    },
+    {
+      "id": "472bd5d82579ae75",
+      "title": "Agreement is reached in Oberstown staffing dispute after WRC talks",
+      "division": null, "town": null, "group": null, "confidence": 0.0,
+      "why": "Industrial relations."
+    },
+    {
+      "id": "dde1655bb074d62e",
+      "title": "GP in prescriptions probe will comply with suspension",
+      "division": null, "town": null, "group": null, "confidence": 0.0,
+      "why": "Professional regulation and a High Court order, not a recorded offence. Wicklow is named as where the doctor practises."
+    },
+    {
+      "id": "9e4ea3093b1ff94b",
+      "title": "Calls for remote health monitoring following death of prisoner in his cell",
+      "division": null, "town": null, "group": null, "confidence": 0.0,
+      "why": "A death in custody from withdrawal seizures, reported as a prison-conditions story. No offence, and 'Cork' alone is three Divisions."
+    }
+  ]
+}

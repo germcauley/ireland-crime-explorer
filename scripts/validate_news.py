@@ -31,6 +31,11 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 NEWS = ROOT / "data" / "processed" / "news.json"
 GAZETTEER = ROOT / "data" / "geography" / "division_places.json"
 FIXTURE = ROOT / "tests" / "fixtures" / "news_prefilter_cases.json"
+LABELS = ROOT / "tests" / "fixtures" / "news_labelled.json"
+
+# Precision, not recall. Missing an article costs nothing; placing one in the
+# wrong county is a false statement about a real place.
+MIN_PRECISION = 0.9
 
 MAX_UNCLASSIFIED_SHARE = 0.95
 
@@ -129,6 +134,56 @@ def report_health(news, gazetteer) -> None:
                      + (" …" if len(missing) > 6 else ""))
 
 
+def score_against_labels(news) -> None:
+    """Compare a model run against the hand-reviewed labels.
+
+    Skipped when the artifact was itself built from those labels — scoring
+    labels against themselves proves nothing.
+    """
+    if not LABELS.exists():
+        notes.append("no labelled fixture — stage 2 accuracy is unmeasured")
+        return
+    if news["meta"].get("model") in (None, "hand-reviewed"):
+        notes.append(
+            "artifact was not produced by a model run — classification accuracy not scored"
+        )
+        return
+
+    labels = {entry["id"]: entry for entry in load(LABELS)["labels"]}
+    by_id = {cluster["id"]: cluster for cluster in news["clusters"]}
+
+    judged = agreed = wrong = 0
+    for article_id, label in labels.items():
+        cluster = by_id.get(article_id)
+        if cluster is None:
+            continue
+        judged += 1
+        predicted = cluster.get("divisionId")
+        expected = label["division"]
+        if predicted == expected:
+            agreed += 1
+        elif predicted is not None:
+            # Withholding where a label expects a Division costs recall only.
+            # Asserting the wrong one is the failure that matters.
+            wrong += 1
+            failures.append(
+                f"classification: placed in {predicted}, labelled {expected or 'unclassified'}\n"
+                f"    {cluster['title'][:70]}"
+            )
+
+    if not judged:
+        notes.append("no labelled articles present in this artifact")
+        return
+
+    asserted = agreed + wrong
+    precision = agreed / asserted if asserted else 1.0
+    print(f"classification: {agreed}/{judged} agree with labels, precision {precision:.0%}")
+    if asserted and precision < MIN_PRECISION:
+        failures.append(
+            f"classification: precision {precision:.0%} is below the {MIN_PRECISION:.0%} bar"
+        )
+
+
 def main() -> None:
     news = load(NEWS)
     gazetteer = load(GAZETTEER)
@@ -136,6 +191,7 @@ def main() -> None:
 
     check_prefilter(classifier, gazetteer)
     check_structure(news, gazetteer)
+    score_against_labels(news)
     report_health(news, gazetteer)
 
     for note in notes:

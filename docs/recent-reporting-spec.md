@@ -339,14 +339,34 @@ genuine crime reporting; the rest — a Leaving Cert editorial, a mayoral debate
 are what the LLM stage exists to reject. The prefilter is deliberately broad:
 its job is discarding the obviously irrelevant, not being right.
 
-### Not yet run
+### Classification without the API
 
-**Classification has never executed.** No `ANTHROPIC_API_KEY` was available, so
-every article currently sits unclassified and the UI shows its empty state. The
-first CI run with the secret set will be the first real test of prompt quality.
+The model has still never run — no key was available. Instead the 22 candidates
+from the first fetch were **classified by hand and stored as ground truth** in
+`tests/fixtures/news_labelled.json`, which does two jobs at once:
 
-The 100-article labelled fixture in the agreed design is **not** built. What
-exists is `tests/fixtures/news_prefilter_cases.json` — 14 cases covering the
-prefilter, every rejection case being a bug that actually occurred. That guards
-stage 1 only. Stage 2 has no accuracy test until classifications exist to
-label, and until then precision is unmeasured.
+- `classify_news.py --from-labels` applies them, so the artifact is populated
+  and the UI can be seen in its real state rather than only its empty one.
+  Labels flow through the same validation a model verdict does.
+- `validate_news.py` scores any future model run against them, failing the
+  build below 90% precision on Division. Withholding a Division costs recall
+  only; asserting the wrong one is the failure that matters, and that is what
+  the check measures.
+
+Of 22 candidates, 11 were placed and 7 deliberately withheld — greyhound
+racing, a mayoral debate, a Leaving Cert editorial, two industrial-relations
+stories, a medical regulation case and a death in custody. None reports a
+recorded offence, and placing them in a Division would have implied otherwise.
+
+Some judgements worth recording, because a model will face the same ones:
+
+- **A court's town is not the offence's town.** The Electric Picnic assault was
+  heard at Tullamore but happened at Stradbally, so no town is shown.
+- **A death is not automatically a crime.** Fatal road collisions and a body
+  found in a park carry a Division but no offence group.
+- **"Cork" alone resolves to three Divisions**, so a Cork Prison story stays
+  unclassified rather than guessing between them.
+
+This is a smaller fixture than the 100 articles agreed, and it covers one
+fetch. It is ground truth, not a substitute for running the model: precision
+remains unmeasured until there is a model run to score.
