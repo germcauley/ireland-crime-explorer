@@ -1,7 +1,7 @@
 "use client";
 
 import type { LayerGroup, Map as LeafletMap, Polygon as LeafletPolygon } from "leaflet";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { annualSum, percentageChange } from "../lib/analytics";
 import type { DashboardData, Division, Station } from "../lib/dashboard-types";
 
@@ -305,6 +305,49 @@ const SEARCH_ICON = (
   </svg>
 );
 
+/* Theme store. The reader's stored choice wins; absent one, the OS preference
+   does, and the app keeps following it as it changes. Kept outside React so
+   the same value the pre-paint script in layout.tsx reads is the one rendered. */
+const THEME_EVENT = "crime-explorer-theme";
+
+function readTheme(): "light" | "dark" {
+  try {
+    const stored = window.localStorage.getItem("theme");
+    if (stored === "light" || stored === "dark") return stored;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  } catch {
+    return "dark";
+  }
+}
+
+function setStoredTheme(next: "light" | "dark") {
+  try {
+    window.localStorage.setItem("theme", next);
+  } catch {
+    // A blocked store only costs persistence, not the toggle itself.
+  }
+  window.dispatchEvent(new Event(THEME_EVENT));
+}
+
+function subscribeToTheme(onChange: () => void) {
+  const query = window.matchMedia("(prefers-color-scheme: dark)");
+  query.addEventListener("change", onChange);
+  window.addEventListener(THEME_EVENT, onChange);
+  return () => {
+    query.removeEventListener("change", onChange);
+    window.removeEventListener(THEME_EVENT, onChange);
+  };
+}
+
+// One mark for both directions: a half-filled disc reads as "theme" rather
+// than asserting which one you are about to get.
+const THEME_ICON = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+    <circle cx="12" cy="12" r="8.5" />
+    <path d="M12 3.5a8.5 8.5 0 0 0 0 17Z" fill="currentColor" stroke="none" />
+  </svg>
+);
+
 function escapeHtml(value: string) {
   return value
     .replaceAll("&", "&amp;")
@@ -345,6 +388,12 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   // separate act of a reader choosing an area, which is what earns the zoom.
   const [areaFocused, setAreaFocused] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
+  // The theme lives outside React — in localStorage and the OS preference —
+  // so it is read as an external store rather than mirrored into state. That
+  // also lets the server render a known value and the client correct it after
+  // hydration without a mismatch.
+  const theme = useSyncExternalStore(subscribeToTheme, readTheme, () => "dark" as const);
+  const isDark = theme !== "light";
   const [sheetHeight, setSheetHeight] = useState(DETENTS[0]);
   const sheet = useRef<HTMLElement | null>(null);
   const sheetDrag = useRef<{ startY: number; startHeight: number; moved: boolean; height: number } | null>(null);
@@ -525,6 +574,15 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     return () => query.removeEventListener("change", update);
   }, []);
 
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
+
+  function toggleTheme() {
+    // An explicit choice outranks the system preference from here on.
+    setStoredTheme(theme === "dark" ? "light" : "dark");
+  }
+
   // The stylesheet zeroes its own transitions under reduced motion, but the
   // map's fly-to happens in Leaflet, where CSS cannot reach it.
   useEffect(() => {
@@ -547,7 +605,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         // The land outside Ireland is water-blue on desktop and the Nightshift
         // canvas colour on mobile, so the mask is restyled when the breakpoint
         // flips rather than rebuilt.
-        maskLayer.current.setStyle({ fillColor: isNarrow ? "#0d1f19" : "#cfe1e6" });
+        maskLayer.current.setStyle({ fillColor: isDark ? "#0d1f19" : "#cfe1e6" });
         maskLayer.current.addTo(mapInstance.current);
         return;
       }
@@ -561,14 +619,14 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         .polygon([worldRing, ...irelandMaskRings], {
           pane: "ireland-mask",
           stroke: false,
-          fillColor: isNarrow ? "#0d1f19" : "#cfe1e6",
+          fillColor: isDark ? "#0d1f19" : "#cfe1e6",
           fillOpacity: 1,
           interactive: false,
         })
         .addTo(mapInstance.current);
     }
     updateMask();
-  }, [irelandMaskRings, isNarrow, mapMode, mapReady]);
+  }, [irelandMaskRings, isDark, isNarrow, mapMode, mapReady]);
 
   useEffect(() => {
     let cancelled = false;
@@ -644,15 +702,16 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         // the neighbours still carry the change scale, they just stop competing
         // with the area being read.
         if (areaFocused && !selected) return 0.12;
-        if (change === null) return isNarrow ? 0.4 : 0.48;
-        if (isNarrow) return selected ? 0.98 : 0.62;
+        // How a fill reads depends on the canvas behind it, not the width.
+        if (change === null) return isDark ? 0.4 : 0.48;
+        if (isDark) return selected ? 0.98 : 0.62;
         return 0.76;
       };
       const restingStroke = (selected: boolean) => {
         if (areaFocused && !selected) {
-          return { color: isNarrow ? "rgba(226,238,231,.10)" : "rgba(23,55,45,.16)", weight: 0.6 };
+          return { color: isDark ? "rgba(226,238,231,.10)" : "rgba(23,55,45,.16)", weight: 0.6 };
         }
-        return isNarrow
+        return isDark
           ? { color: selected ? "#e07a5f" : "rgba(226,238,231,.28)", weight: selected ? 2.6 : 0.9 }
           : { color: selected ? "#102e26" : "rgba(23,55,45,.56)", weight: selected ? 3 : 1 };
       };
@@ -704,7 +763,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           radius: isNarrow ? (selected ? 9 : 4.5) : selected ? 4.5 : 2.6,
           color: isNarrow ? "#f6f2e9" : "#f8f5ee",
           weight: isNarrow ? 1.6 : 1,
-          fillColor: isNarrow ? "#12271f" : "#17372d",
+          fillColor: isDark ? "#12271f" : "#17372d",
           fillOpacity: 0.9,
         });
         if (!isNarrow) {
@@ -719,7 +778,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       });
     }
     renderStationAreas();
-  }, [areaChanges, areaFocused, baselineYear, data.stations, isNarrow, mapBounds, mapMode, mapReady, selectedStationId, selectedYear]);
+  }, [areaChanges, areaFocused, baselineYear, data.stations, isDark, isNarrow, mapBounds, mapMode, mapReady, selectedStationId, selectedYear]);
 
   useEffect(() => {
     async function renderDivisionAreas() {
@@ -731,15 +790,16 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       // neighbours back rather than removing them.
       const restingOpacity = (change: number | null, selected: boolean) => {
         if (areaFocused && !selected) return 0.12;
-        if (change === null) return isNarrow ? 0.4 : 0.48;
-        if (isNarrow) return selected ? 0.98 : 0.62;
+        // How a fill reads depends on the canvas behind it, not the width.
+        if (change === null) return isDark ? 0.4 : 0.48;
+        if (isDark) return selected ? 0.98 : 0.62;
         return 0.76;
       };
       const restingStroke = (selected: boolean) => {
         if (areaFocused && !selected) {
-          return { color: isNarrow ? "rgba(226,238,231,.10)" : "rgba(23,55,45,.16)", weight: 0.6 };
+          return { color: isDark ? "rgba(226,238,231,.10)" : "rgba(23,55,45,.16)", weight: 0.6 };
         }
-        return isNarrow
+        return isDark
           ? { color: selected ? "#e07a5f" : "rgba(226,238,231,.28)", weight: selected ? 2.6 : 0.9 }
           : { color: selected ? "#102e26" : "rgba(23,55,45,.56)", weight: selected ? 3 : 1.4 };
       };
@@ -781,7 +841,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       });
     }
     renderDivisionAreas();
-  }, [areaFocused, baselineYear, divisionAreaChanges, isNarrow, mapMode, mapReady, selectedDivisionId, selectedYear]);
+  }, [areaFocused, baselineYear, divisionAreaChanges, isDark, isNarrow, mapMode, mapReady, selectedDivisionId, selectedYear]);
 
   // Leaflet renders grey wherever its container grew without it noticing, so
   // every change to the map's box has to be followed by invalidateSize().
@@ -1316,7 +1376,19 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           Ireland Crime Explorer
         </a>
         <p>Official CSO data · through {data.meta.latestCompleteYear}</p>
-        <a href="#source">Source &amp; limits</a>
+        <div className="site-header-end">
+          <button
+            type="button"
+            className="theme-toggle"
+            aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+            aria-pressed={theme === "dark"}
+            onClick={toggleTheme}
+          >
+            {THEME_ICON}
+            {theme === "dark" ? "Light" : "Dark"}
+          </button>
+          <a href="#source">Source &amp; limits</a>
+        </div>
       </header>
 
       {/* Nightshift header. Rendered on every viewport but shown only under the
@@ -1335,6 +1407,15 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
             onClick={() => setSearchOpen(true)}
           >
             {SEARCH_ICON}
+          </button>
+          <button
+            type="button"
+            className="ns-icon-button ns-icon-muted"
+            aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+            aria-pressed={theme === "dark"}
+            onClick={toggleTheme}
+          >
+            {THEME_ICON}
           </button>
           <button
             type="button"
