@@ -1,6 +1,9 @@
 # Recent reporting — design spec
 
-Status: agreed, not yet built. Supersedes the `news_mapper` / `news_service` draft.
+Status: **built** (branch `feat/recent-reporting`). Supersedes the
+`news_mapper` / `news_service` draft.
+
+See "Build notes" at the foot for what changed once it met real data.
 
 ## What this is
 
@@ -278,3 +281,72 @@ Deliberately out of scope for v1:
 | 21 | "Recent reporting", not "News" |
 | 22 | Daily refresh |
 | 23 | Never prune; file size is the migration trigger |
+
+
+## Build notes
+
+What the build changed or discovered, against the agreed design above.
+
+### Feed list: 19, not ~25
+
+Of 32 candidate feeds, 13 were dead or not RSS. Five replacements were found by
+probing alternatives. The survivors are 4 national and 15 regional.
+
+**Cork, Kerry, Meath, Kildare, Wexford, Carlow, Westmeath and Louth have no
+working regional feed.** Their articles arrive only through national outlets,
+so coverage there is measurably thinner. This is recorded in
+`news_feeds.json` under `meta.coverageGap` and is exactly the bias the visible
+feed list exists to expose.
+
+### Gazetteer
+
+1,402 places across 28 Divisions, no Division empty. OSM settlements placed by
+point-in-polygon against the Division boundaries the map already draws, with
+Dublin taken from the app's own reviewed place list.
+
+Two corrections were needed once it met real articles:
+
+- **Village names that are ordinary English words.** `Hospital` (Co Limerick),
+  `Street` (Co Westmeath), `Recess` (Co Galway), `Grange`, `Newmarket` and
+  `Cloghan` matched prose rather than places — "taken to hospital" made every
+  medical story a candidate. Found by counting how many articles each
+  gazetteer name matched across a real fetch, not by guesswork.
+- **County names.** `Cork City`, `Cork North` and `Cork West` are Division
+  regions; a headline says "Cork". Now normalised to 25 real counties.
+
+### Northern Ireland
+
+Not in the agreed design, and a genuine correctness gap. CJQ06 counts the
+Republic only, so a Tyrone or Belfast story has no Division it could belong to
+however clearly it reports a crime. Several were passing the prefilter. Now
+excluded explicitly.
+
+### Clustering
+
+Title *sequence* similarity failed on real syndication: five outlets carried
+one Sligo van death and none merged, because rewritten headlines share meaning
+rather than character sequences. Replaced with token-set overlap (Jaccard ≥
+0.25) plus a 3-day window.
+
+A second bug: joining only the *first* matching group left stories split when
+an article bridged two groups that did not match each other directly. Clusters
+now merge transitively.
+
+### Prefilter yield
+
+413 articles fetched, 22 candidates, 18 clusters. About half the candidates are
+genuine crime reporting; the rest — a Leaving Cert editorial, a mayoral debate —
+are what the LLM stage exists to reject. The prefilter is deliberately broad:
+its job is discarding the obviously irrelevant, not being right.
+
+### Not yet run
+
+**Classification has never executed.** No `ANTHROPIC_API_KEY` was available, so
+every article currently sits unclassified and the UI shows its empty state. The
+first CI run with the secret set will be the first real test of prompt quality.
+
+The 100-article labelled fixture in the agreed design is **not** built. What
+exists is `tests/fixtures/news_prefilter_cases.json` — 14 cases covering the
+prefilter, every rejection case being a bug that actually occurred. That guards
+stage 1 only. Stage 2 has no accuracy test until classifications exist to
+label, and until then precision is unmeasured.

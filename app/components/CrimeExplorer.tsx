@@ -4,6 +4,7 @@ import type { LayerGroup, Map as LeafletMap, Polygon as LeafletPolygon } from "l
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { annualSum, percentageChange } from "../lib/analytics";
 import type { DashboardData, Division, Station } from "../lib/dashboard-types";
+import { RecentReporting } from "./RecentReporting";
 
 type MapMode = "station" | "division";
 type Point = { x: number; y: number };
@@ -1659,6 +1660,20 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         </p>
         <button type="button" onClick={() => setInfoOpen(true)}>How to read this result</button>
       </section>
+
+      {/* Reporting sits beneath the numbers by construction: a reader has to
+          have passed the result summary to reach it. Division only — see the
+          note in RecentReporting. Articles are classified to CJQ06 groups, so
+          a selected sub-category is narrowed to its parent rather than
+          matching nothing. */}
+      {mapMode === "division" && (
+        <RecentReporting
+          divisionId={selectedDivisionArea?.division.id ?? null}
+          divisionName={selectedDivisionArea?.division.name ?? ""}
+          group={selectedDivisionGroupCopy?.id ?? null}
+          groupLabel={selectedDivisionGroupCopy?.shortLabel ?? "this offence group"}
+        />
+      )}
 
       <section className="dashboard-body" id="atlas">
         <aside className="movers-rail" aria-label="Optional area comparison">
