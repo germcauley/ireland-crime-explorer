@@ -33,7 +33,9 @@ test("server-renders the crime explorer and social metadata", async () => {
   assert.match(html, /Ireland Crime Explorer/);
   assert.match(html, /<select[^>]*id="offence-group"/i);
   assert.match(html, /All 28 Garda Divisions nationwide/);
-  assert.match(html, /Map of Dublin recorded-crime reporting areas/);
+  assert.match(html, /Garda-division recorded-crime map of Ireland/);
+  assert.match(html, /Start with a place you know/);
+  assert.doesNotMatch(html, /Crime Bot/);
   assert.match(html, /Source &amp; limits/);
   assert.match(html, /http:\/\/localhost\/og\.png/);
   assert.doesNotMatch(html, /codex-preview|SkeletonPreview|Your site is taking shape/);

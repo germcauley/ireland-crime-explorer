@@ -1,12 +1,11 @@
 "use client";
 
 import type { LayerGroup, Map as LeafletMap, Polygon as LeafletPolygon } from "leaflet";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { annualSum, percentageChange, type QueryAnswer } from "../lib/analytics";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
+import { annualSum, percentageChange } from "../lib/analytics";
 import type { DashboardData, Division, Station } from "../lib/dashboard-types";
 
 type MapMode = "station" | "division";
-type TrendPeriod = "year_on_year" | "three_year" | "since_2019";
 type Point = { x: number; y: number };
 type AreaChange = {
   station: Station;
@@ -24,12 +23,10 @@ type DivisionAreaChange = {
 };
 type GeoJSONGeometry = Division["boundary"];
 
-const ASK_CRIME_BOT_ENABLED = true;
-
 // Peek / half / full. The sheet drags to any height between MIN and MAX and
 // settles on whichever of these three is nearest.
-const DETENTS = [112, 340, 620];
-const SHEET_MIN = 96;
+const DETENTS = [86, 320, 620];
+const SHEET_MIN = 78;
 const SHEET_MAX = 660;
 
 const numberFormat = new Intl.NumberFormat("en-IE");
@@ -199,11 +196,7 @@ function exteriorRingsLatLng(geometry: GeoJSONGeometry): [number, number][][] {
   );
 }
 
-// Client-side echo of the normalise/matchTier pair in app/lib/analytics.ts.
-// The server matcher runs against an LLM's parsed filters; this one runs
-// against keystrokes, so it lives here rather than pulling the data layer
-// into the bundle — but it ranks by the same discrete tiers, so a query that
-// resolves one way in Crime Bot resolves the same way in search.
+// Lightweight matching for the place and official-area search.
 function normaliseQuery(value: string): string {
   return value
     .normalize("NFKD")
@@ -287,13 +280,6 @@ function useModalBehaviour(
   }, [container, open]);
 }
 
-const BOT_ICON = (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round" aria-hidden="true">
-    <path d="M12 2 5 4.5V11c0 5 3 8.5 7 10 4-1.5 7-5 7-10V4.5L12 2Z" />
-    <path d="m9.3 12 1.9 1.9 3.7-3.9" />
-  </svg>
-);
-
 const BACK_ICON = (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <path d="m14.5 5-7 7 7 7" />
@@ -319,6 +305,49 @@ const SEARCH_ICON = (
   </svg>
 );
 
+/* Theme store. The reader's stored choice wins; absent one, the OS preference
+   does, and the app keeps following it as it changes. Kept outside React so
+   the same value the pre-paint script in layout.tsx reads is the one rendered. */
+const THEME_EVENT = "crime-explorer-theme";
+
+function readTheme(): "light" | "dark" {
+  try {
+    const stored = window.localStorage.getItem("theme");
+    if (stored === "light" || stored === "dark") return stored;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  } catch {
+    return "dark";
+  }
+}
+
+function setStoredTheme(next: "light" | "dark") {
+  try {
+    window.localStorage.setItem("theme", next);
+  } catch {
+    // A blocked store only costs persistence, not the toggle itself.
+  }
+  window.dispatchEvent(new Event(THEME_EVENT));
+}
+
+function subscribeToTheme(onChange: () => void) {
+  const query = window.matchMedia("(prefers-color-scheme: dark)");
+  query.addEventListener("change", onChange);
+  window.addEventListener(THEME_EVENT, onChange);
+  return () => {
+    query.removeEventListener("change", onChange);
+    window.removeEventListener(THEME_EVENT, onChange);
+  };
+}
+
+// One mark for both directions: a half-filled disc reads as "theme" rather
+// than asserting which one you are about to get.
+const THEME_ICON = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+    <circle cx="12" cy="12" r="8.5" />
+    <path d="M12 3.5a8.5 8.5 0 0 0 0 17Z" fill="currentColor" stroke="none" />
+  </svg>
+);
+
 function escapeHtml(value: string) {
   return value
     .replaceAll("&", "&amp;")
@@ -334,15 +363,13 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const [selectedDivisionGroup, setSelectedDivisionGroup] = useState(data.divisionCategories[2]?.id ?? "03");
   const [selectedDivisionDetail, setSelectedDivisionDetail] = useState<string | null>(null);
   const [selectedYear, setSelectedYear] = useState(data.meta.latestCompleteYear);
-  const [trendPeriod, setTrendPeriod] = useState<TrendPeriod>("year_on_year");
+  const [selectedBaselineYear, setSelectedBaselineYear] = useState(
+    data.meta.years[Math.max(0, data.meta.years.length - 2)],
+  );
   const [selectedStationId, setSelectedStationId] = useState("65102");
   const [selectedDivisionId, setSelectedDivisionId] = useState(data.divisions[0]?.id ?? "");
   const [quarterRangeExpanded, setQuarterRangeExpanded] = useState(false);
   const [mapReady, setMapReady] = useState(false);
-  const [askInput, setAskInput] = useState("");
-  const [askStatus, setAskStatus] = useState<"idle" | "loading" | "error">("idle");
-  const [askError, setAskError] = useState<string | null>(null);
-  const [askResult, setAskResult] = useState<QueryAnswer | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [recentSearches, setRecentSearches] = useState<SearchHit[]>([]);
@@ -350,20 +377,32 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const [mixOpen, setMixOpen] = useState(false);
   const [openMixGroup, setOpenMixGroup] = useState<string | null>(null);
   const [pickerOpen, setPickerOpen] = useState(false);
-  const [botOpen, setBotOpen] = useState(false);
   const [infoOpen, setInfoOpen] = useState(false);
   // The layout is CSS-driven, but Leaflet paints polygons into a canvas that
   // no stylesheet can reach, so the map's own palette and its touch behaviour
   // need to know the breakpoint. Starts false so the server render and the
   // first client render agree.
   const [isNarrow, setIsNarrow] = useState(false);
+  // The app always has a selected area, so selection alone cannot mean "zoomed
+  // in" — the map would open tight on an arbitrary division. This tracks the
+  // separate act of a reader choosing an area, which is what earns the zoom.
+  const [areaFocused, setAreaFocused] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
+  // The theme lives outside React — in localStorage and the OS preference —
+  // so it is read as an external store rather than mirrored into state. That
+  // also lets the server render a known value and the client correct it after
+  // hydration without a mismatch.
+  const theme = useSyncExternalStore(subscribeToTheme, readTheme, () => "dark" as const);
+  const isDark = theme !== "light";
   const [sheetHeight, setSheetHeight] = useState(DETENTS[0]);
   const sheet = useRef<HTMLElement | null>(null);
   const sheetDrag = useRef<{ startY: number; startHeight: number; moved: boolean; height: number } | null>(null);
+  // Leaflet handlers are bound once per render pass of the layer effects; a ref
+  // keeps them calling the current selectArea without rebinding every layer.
+  const selectAreaRef = useRef<(id: string) => void>(() => {});
   const mapElement = useRef<HTMLDivElement>(null);
   const filterSheet = useRef<HTMLDivElement>(null);
   const mixPanel = useRef<HTMLDivElement>(null);
-  const botPanel = useRef<HTMLDivElement>(null);
   const infoPanel = useRef<HTMLDivElement>(null);
   const searchInput = useRef<HTMLInputElement>(null);
   const searchOpener = useRef<HTMLButtonElement>(null);
@@ -380,14 +419,15 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     : undefined;
 
   const yearIndex = data.meta.years.indexOf(selectedYear);
-  const baselineIndex =
-    trendPeriod === "year_on_year"
-      ? Math.max(0, yearIndex - 1)
-      : trendPeriod === "three_year"
-        ? Math.max(0, yearIndex - 3)
-        : 0;
-  const baselineYear = data.meta.years[baselineIndex];
-  const hasBaseline = baselineIndex < yearIndex;
+  const comparisonYears = useMemo(
+    () => [...data.meta.years].filter((year) => year < selectedYear).reverse(),
+    [data.meta.years, selectedYear],
+  );
+  const baselineYear = comparisonYears.includes(selectedBaselineYear)
+    ? selectedBaselineYear
+    : comparisonYears[0] ?? selectedYear;
+  const baselineIndex = data.meta.years.indexOf(baselineYear);
+  const hasBaseline = baselineIndex >= 0 && baselineIndex < yearIndex;
   const selectedCategoryCopy =
     data.categories.find((category) => category.id === selectedCategory) ?? data.categories[0];
 
@@ -535,6 +575,25 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   }, []);
 
   useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
+
+  function toggleTheme() {
+    // An explicit choice outranks the system preference from here on.
+    setStoredTheme(theme === "dark" ? "light" : "dark");
+  }
+
+  // The stylesheet zeroes its own transitions under reduced motion, but the
+  // map's fly-to happens in Leaflet, where CSS cannot reach it.
+  useEffect(() => {
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReducedMotion(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
     async function updateMask() {
       if (!mapReady || !mapInstance.current) return;
       const leaflet = await loadLeaflet();
@@ -546,7 +605,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         // The land outside Ireland is water-blue on desktop and the Nightshift
         // canvas colour on mobile, so the mask is restyled when the breakpoint
         // flips rather than rebuilt.
-        maskLayer.current.setStyle({ fillColor: isNarrow ? "#0d1f19" : "#cfe1e6" });
+        maskLayer.current.setStyle({ fillColor: isDark ? "#0d1f19" : "#cfe1e6" });
         maskLayer.current.addTo(mapInstance.current);
         return;
       }
@@ -560,14 +619,14 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         .polygon([worldRing, ...irelandMaskRings], {
           pane: "ireland-mask",
           stroke: false,
-          fillColor: isNarrow ? "#0d1f19" : "#cfe1e6",
+          fillColor: isDark ? "#0d1f19" : "#cfe1e6",
           fillOpacity: 1,
           interactive: false,
         })
         .addTo(mapInstance.current);
     }
     updateMask();
-  }, [irelandMaskRings, isNarrow, mapMode, mapReady]);
+  }, [irelandMaskRings, isDark, isNarrow, mapMode, mapReady]);
 
   useEffect(() => {
     let cancelled = false;
@@ -639,14 +698,23 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       areaLayer.current.clearLayers();
 
       const restingOpacity = (change: number | null, selected: boolean) => {
-        if (change === null) return isNarrow ? 0.4 : 0.48;
-        if (isNarrow) return selected ? 0.98 : 0.62;
+        // Focusing an area pushes everything else back rather than hiding it:
+        // the neighbours still carry the change scale, they just stop competing
+        // with the area being read.
+        if (areaFocused && !selected) return 0.12;
+        // How a fill reads depends on the canvas behind it, not the width.
+        if (change === null) return isDark ? 0.4 : 0.48;
+        if (isDark) return selected ? 0.98 : 0.62;
         return 0.76;
       };
-      const restingStroke = (selected: boolean) =>
-        isNarrow
+      const restingStroke = (selected: boolean) => {
+        if (areaFocused && !selected) {
+          return { color: isDark ? "rgba(226,238,231,.10)" : "rgba(23,55,45,.16)", weight: 0.6 };
+        }
+        return isDark
           ? { color: selected ? "#e07a5f" : "rgba(226,238,231,.28)", weight: selected ? 2.6 : 0.9 }
           : { color: selected ? "#102e26" : "rgba(23,55,45,.56)", weight: selected ? 3 : 1 };
+      };
 
       areaChanges.forEach((entry) => {
         const selected = entry.station.id === selectedStationId;
@@ -681,12 +749,12 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           polygon.on("mouseover", () => polygon.setStyle({ weight: 3, fillOpacity: 0.9 }));
           polygon.on("mouseout", () =>
             polygon.setStyle({
-              weight: entry.station.id === selectedStationId ? 3 : 1,
-              fillOpacity: entry.change === null ? 0.48 : 0.76,
+              ...restingStroke(selected),
+              fillOpacity: restingOpacity(entry.change, selected),
             }),
           );
         }
-        polygon.on("click", () => setSelectedStationId(entry.station.id));
+        polygon.on("click", () => selectAreaRef.current(entry.station.id));
         polygon.addTo(areaLayer.current!);
 
         // On touch the point is a second, smaller tap target for the same
@@ -695,7 +763,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           radius: isNarrow ? (selected ? 9 : 4.5) : selected ? 4.5 : 2.6,
           color: isNarrow ? "#f6f2e9" : "#f8f5ee",
           weight: isNarrow ? 1.6 : 1,
-          fillColor: isNarrow ? "#12271f" : "#17372d",
+          fillColor: isDark ? "#12271f" : "#17372d",
           fillOpacity: 0.9,
         });
         if (!isNarrow) {
@@ -705,18 +773,36 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
             className: "change-tooltip",
           });
         }
-        stationPoint.on("click", () => setSelectedStationId(entry.station.id));
+        stationPoint.on("click", () => selectAreaRef.current(entry.station.id));
         stationPoint.addTo(areaLayer.current!);
       });
     }
     renderStationAreas();
-  }, [areaChanges, baselineYear, data.stations, isNarrow, mapBounds, mapMode, mapReady, selectedStationId, selectedYear]);
+  }, [areaChanges, areaFocused, baselineYear, data.stations, isDark, isNarrow, mapBounds, mapMode, mapReady, selectedStationId, selectedYear]);
 
   useEffect(() => {
     async function renderDivisionAreas() {
       if (!mapReady || !areaLayer.current || mapMode !== "division") return;
       const leaflet = await loadLeaflet();
       areaLayer.current.clearLayers();
+
+      // Same treatment as the station cells: a focused area pushes its
+      // neighbours back rather than removing them.
+      const restingOpacity = (change: number | null, selected: boolean) => {
+        if (areaFocused && !selected) return 0.12;
+        // How a fill reads depends on the canvas behind it, not the width.
+        if (change === null) return isDark ? 0.4 : 0.48;
+        if (isDark) return selected ? 0.98 : 0.62;
+        return 0.76;
+      };
+      const restingStroke = (selected: boolean) => {
+        if (areaFocused && !selected) {
+          return { color: isDark ? "rgba(226,238,231,.10)" : "rgba(23,55,45,.16)", weight: 0.6 };
+        }
+        return isDark
+          ? { color: selected ? "#e07a5f" : "rgba(226,238,231,.28)", weight: selected ? 2.6 : 0.9 }
+          : { color: selected ? "#102e26" : "rgba(23,55,45,.56)", weight: selected ? 3 : 1.4 };
+      };
 
       divisionAreaChanges.forEach((entry) => {
         const selected = entry.division.id === selectedDivisionId;
@@ -734,24 +820,9 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           </div>`;
         const layer = leaflet.geoJSON(entry.division.boundary as never, {
           style: {
-            color: isNarrow
-              ? selected
-                ? "#e07a5f"
-                : "rgba(226,238,231,.28)"
-              : selected
-                ? "#102e26"
-                : "rgba(23,55,45,.56)",
-            weight: isNarrow ? (selected ? 2.6 : 0.9) : selected ? 3 : 1.4,
+            ...restingStroke(selected),
             fillColor: changeColour(entry.change, entry.isRaw),
-            fillOpacity: isNarrow
-              ? entry.change === null
-                ? 0.4
-                : selected
-                  ? 0.98
-                  : 0.62
-              : entry.change === null
-                ? 0.48
-                : 0.76,
+            fillOpacity: restingOpacity(entry.change, selected),
             className: "reporting-area-cell",
           },
         });
@@ -760,17 +831,17 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           layer.on("mouseover", () => layer.setStyle({ weight: 3, fillOpacity: 0.9 }));
           layer.on("mouseout", () =>
             layer.setStyle({
-              weight: entry.division.id === selectedDivisionId ? 3 : 1.4,
-              fillOpacity: entry.change === null ? 0.48 : 0.76,
+              ...restingStroke(selected),
+              fillOpacity: restingOpacity(entry.change, selected),
             }),
           );
         }
-        layer.on("click", () => setSelectedDivisionId(entry.division.id));
+        layer.on("click", () => selectAreaRef.current(entry.division.id));
         layer.addTo(areaLayer.current!);
       });
     }
     renderDivisionAreas();
-  }, [baselineYear, divisionAreaChanges, isNarrow, mapMode, mapReady, selectedDivisionId, selectedYear]);
+  }, [areaFocused, baselineYear, divisionAreaChanges, isDark, isNarrow, mapMode, mapReady, selectedDivisionId, selectedYear]);
 
   // Leaflet renders grey wherever its container grew without it noticing, so
   // every change to the map's box has to be followed by invalidateSize().
@@ -784,6 +855,10 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       // mobile (station view reserves a band for the readout), and Leaflet
       // renders grey wherever it fits bounds to a stale size.
       map.invalidateSize({ animate: false, pan: false });
+      // A focused area owns the viewport; refitting the whole geography here
+      // would yank the map back out from under the reader on a sheet drag or
+      // an orientation change.
+      if (areaFocused) return;
       const bounds = mapMode === "station" ? mapBounds : nationalBounds;
       map.fitBounds(
         [
@@ -794,43 +869,87 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       );
     }, 140);
     return () => window.clearTimeout(timeout);
-  }, [isNarrow, mapBounds, mapMode, mapReady, nationalBounds]);
+  }, [areaFocused, isNarrow, mapBounds, mapMode, mapReady, nationalBounds]);
 
-  async function submitAskQuestion() {
-    const question = askInput.trim();
-    if (!question) return;
-    setAskStatus("loading");
-    setAskError(null);
-    try {
-      const response = await fetch("/api/query", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question }),
+  // Zooming to the focused area. Bounds come from the same geometry the map
+  // draws — the division polygon, or the Voronoi cell built for a station —
+  // so the frame always matches what is highlighted.
+  const focusedBounds = useMemo<[[number, number], [number, number]] | null>(() => {
+    if (!areaFocused) return null;
+    if (mapMode === "station") {
+      const station = data.stations.find((entry) => entry.id === selectedStationId);
+      if (!station) return null;
+      const cell = buildAreaCell(station, data.stations, mapBounds);
+      if (cell.length === 0) return null;
+      let minLat = Infinity;
+      let minLng = Infinity;
+      let maxLat = -Infinity;
+      let maxLng = -Infinity;
+      cell.forEach(([lat, lng]) => {
+        if (lat < minLat) minLat = lat;
+        if (lat > maxLat) maxLat = lat;
+        if (lng < minLng) minLng = lng;
+        if (lng > maxLng) maxLng = lng;
       });
-      const payload = (await response.json()) as QueryAnswer;
-      if (!payload.ok) {
-        setAskStatus("error");
-        setAskError(payload.reason);
-        setAskResult(null);
-        return;
-      }
-      setAskStatus("idle");
-      setAskResult(payload);
-    } catch {
-      setAskStatus("error");
-      setAskError("Couldn't reach the query service.");
-      setAskResult(null);
+      return [
+        [minLat, minLng],
+        [maxLat, maxLng],
+      ];
     }
-  }
+    const division = data.divisions.find((entry) => entry.id === selectedDivisionId);
+    if (!division) return null;
+    const [minLng, minLat, maxLng, maxLat] = geometryBounds(division.boundary);
+    return [
+      [minLat, minLng],
+      [maxLat, maxLng],
+    ];
+  }, [areaFocused, data.divisions, data.stations, mapBounds, mapMode, selectedDivisionId, selectedStationId]);
 
-  // One place where "point the whole app at this area" is expressed. Crime
-  // Bot's "Show on map" and the search overlay both land here, so a bot answer
-  // and a search result can never drift into selecting different things.
+  useEffect(() => {
+    if (!mapReady || !focusedBounds) return;
+    const map = mapInstance.current;
+    if (!map) return;
+    // The mobile readout and sheet cover the bottom of the map box, so the
+    // frame is padded away from the edges the chrome sits over.
+    const padding: [number, number] = isNarrow ? [28, 28] : [40, 40];
+    map.flyToBounds(focusedBounds, {
+      padding,
+      animate: !reducedMotion,
+      duration: 0.7,
+      maxZoom: 12,
+    });
+  }, [focusedBounds, isNarrow, mapReady, reducedMotion]);
+
+  // Leaving focus returns the map to the whole geography, by the same route it
+  // arrived, so the zoom out reads as the reverse of the zoom in.
+  const wasFocused = useRef(false);
+  useEffect(() => {
+    if (!mapReady) return;
+    const map = mapInstance.current;
+    if (map && wasFocused.current && !areaFocused) {
+      const bounds = mapMode === "station" ? mapBounds : nationalBounds;
+      map.flyToBounds(
+        [
+          [bounds[1], bounds[0]],
+          [bounds[3], bounds[2]],
+        ],
+        { padding: [10, 10], animate: !reducedMotion, duration: 0.6 },
+      );
+    }
+    wasFocused.current = areaFocused;
+  }, [areaFocused, mapBounds, mapMode, mapReady, nationalBounds, reducedMotion]);
+
+  // One place where "point the whole app at this area" is expressed. Search
+  // results always land here, so place and official-area matches cannot drift.
   // Sub-category depth exists only for divisions, so any switch to station
   // geography puts the drill-down away rather than leaving it open over data
   // it cannot describe.
   function setGeography(mode: MapMode) {
     setMapMode(mode);
+    // The two geographies do not share an area, so a focus carried across the
+    // switch would frame whichever area happened to be selected in the one
+    // being entered. Switching starts from the whole map instead.
+    if (mode !== mapMode) setAreaFocused(false);
     if (mode !== "division") {
       setMixOpen(false);
       setPickerOpen(false);
@@ -845,6 +964,9 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   }) {
     setGeography(target.geography);
     if (target.year !== null && target.year !== undefined) setSelectedYear(target.year);
+    // Arriving from search is as deliberate as tapping the area, so it earns
+    // the same frame — set after setGeography, which clears focus on a switch.
+    if (target.areaId) setAreaFocused(true);
     if (target.geography === "station") {
       if (target.areaId) setSelectedStationId(target.areaId);
       if (target.categoryId) setSelectedCategory(target.categoryId);
@@ -864,16 +986,6 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     }
   }
 
-  function jumpToAskResult() {
-    if (!askResult || !askResult.ok) return;
-    focusOn({
-      geography: askResult.geography,
-      areaId: askResult.geography === "station" ? askResult.stationId : askResult.divisionId,
-      categoryId: askResult.categoryId,
-      year: askResult.year,
-    });
-  }
-
   const searchHits = useMemo<SearchHit[]>(() => {
     const needle = normaliseQuery(searchQuery);
     if (!needle) return [];
@@ -889,7 +1001,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           kind: "station",
           badge: "ST",
           title: entry.station.name,
-          subtitle: `Station area · ${entry.station.division} · ${
+          subtitle: `Dublin station area · ${entry.station.division} · ${
             entry.current === null ? "no count" : `${numberFormat.format(entry.current)} in ${selectedYear}`
           }`,
           change: entry.change,
@@ -915,7 +1027,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           kind: "division",
           badge: "DV",
           title: name,
-          subtitle: `Garda Division · ${
+          subtitle: `Garda division nationwide · ${
             entry.current === null ? "no comparable count" : `${numberFormat.format(entry.current)} in ${selectedYear}`
           }`,
           change: entry.change,
@@ -1102,9 +1214,6 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const closeInfo = () => setInfoOpen(false);
   useModalBehaviour(infoOpen, closeInfo, infoPanel);
 
-  const closeBot = () => setBotOpen(false);
-  useModalBehaviour(botOpen, closeBot, botPanel);
-
   const closeFilterSheet = () => setFilterSheetOpen(false);
   useModalBehaviour(filterSheetOpen, closeFilterSheet, filterSheet);
 
@@ -1197,7 +1306,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
 
   const sheetHint =
     sheetHeight <= DETENTS[0] + 40
-      ? `Drag up for all ${areaCount}`
+      ? `Open optional comparison of all ${areaCount} areas`
       : sheetHeight >= DETENTS[2] - 40
         ? "Drag down for the map"
         : "Drag to resize";
@@ -1233,10 +1342,22 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     [moverRows],
   );
 
+  // Every way a reader can pick an area — a polygon, a station point, a movers
+  // row, a search result — goes through here, so the zoom is never something
+  // only one of those routes gets.
   function selectArea(id: string) {
     if (mapMode === "station") setSelectedStationId(id);
     else setSelectedDivisionId(id);
+    setAreaFocused(true);
   }
+
+  function clearAreaFocus() {
+    setAreaFocused(false);
+  }
+
+  useEffect(() => {
+    selectAreaRef.current = selectArea;
+  });
 
   function selectMobileGroup(id: string) {
     if (mapMode === "station") {
@@ -1255,7 +1376,19 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           Ireland Crime Explorer
         </a>
         <p>Official CSO data · through {data.meta.latestCompleteYear}</p>
-        <a href="#source">Source &amp; limits</a>
+        <div className="site-header-end">
+          <button
+            type="button"
+            className="theme-toggle"
+            aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+            aria-pressed={theme === "dark"}
+            onClick={toggleTheme}
+          >
+            {THEME_ICON}
+            {theme === "dark" ? "Light" : "Dark"}
+          </button>
+          <a href="#source">Source &amp; limits</a>
+        </div>
       </header>
 
       {/* Nightshift header. Rendered on every viewport but shown only under the
@@ -1269,12 +1402,20 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         <div className="ns-header-actions">
           <button
             type="button"
-            ref={searchOpener}
             className="ns-icon-button"
-            aria-label="Search for a place, station or division"
+            aria-label="Search for a town, suburb or place"
             onClick={() => setSearchOpen(true)}
           >
             {SEARCH_ICON}
+          </button>
+          <button
+            type="button"
+            className="ns-icon-button ns-icon-muted"
+            aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+            aria-pressed={theme === "dark"}
+            onClick={toggleTheme}
+          >
+            {THEME_ICON}
           </button>
           <button
             type="button"
@@ -1291,6 +1432,19 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         </div>
       </header>
 
+      <section className="place-entry" aria-labelledby="place-entry-title">
+        <div>
+          <p>Explore official recorded-crime data</p>
+          <h1 id="place-entry-title">Start with a place you know</h1>
+          <span>Search a town, suburb, Dublin station area or Garda division.</span>
+        </div>
+        <button type="button" ref={searchOpener} onClick={() => setSearchOpen(true)}>
+          {SEARCH_ICON}
+          <span>Search for a town, suburb or place</span>
+          <kbd>Search</kbd>
+        </button>
+      </section>
+
       <div className="ns-geo" role="group" aria-label="Map geography">
         <button
           type="button"
@@ -1298,8 +1452,8 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           aria-pressed={mapMode === "station"}
           onClick={() => setGeography("station")}
         >
-          Station
-          <small>{data.stations.length} Dublin areas</small>
+          Dublin station areas
+          <small>{data.stations.length} areas · annual</small>
         </button>
         <button
           type="button"
@@ -1307,9 +1461,25 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           aria-pressed={mapMode === "division"}
           onClick={() => setGeography("division")}
         >
-          Division
-          <small>{data.divisions.length} nationwide</small>
+          Garda divisions nationwide
+          <small>{data.divisions.length} areas · quarterly</small>
         </button>
+      </div>
+
+      <div className="mobile-period-controls" aria-label="Time period">
+        <label>
+          Year
+          <select value={selectedYear} onChange={(event) => setSelectedYear(Number(event.target.value))}>
+            {[...data.meta.years].reverse().map((year) => <option value={year} key={year}>{year}</option>)}
+          </select>
+        </label>
+        <label>
+          Compare with
+          <select value={baselineYear} onChange={(event) => setSelectedBaselineYear(Number(event.target.value))}>
+            {comparisonYears.map((year) => <option value={year} key={year}>{year}</option>)}
+          </select>
+        </label>
+        <button type="button" onClick={() => setFilterSheetOpen(true)}>All filters</button>
       </div>
 
       <div className="ns-chiprow" role="group" aria-label="Offence group">
@@ -1341,14 +1511,14 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
               className={mapMode === "station" ? "active" : ""}
               onClick={() => setGeography("station")}
             >
-              Station <small>{data.stations.length} Dublin areas</small>
+              Dublin station areas <small>{data.stations.length} areas · annual</small>
             </button>
             <button
               type="button"
               className={mapMode === "division" ? "active" : ""}
               onClick={() => setGeography("division")}
             >
-              Division <small>{data.divisions.length} areas nationwide · real boundaries</small>
+              Garda divisions nationwide <small>{data.divisions.length} official areas · quarterly</small>
             </button>
           </div>
 
@@ -1425,12 +1595,10 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
             Compare with
             <select
               id="comparison-period"
-              value={trendPeriod}
-              onChange={(event) => setTrendPeriod(event.target.value as TrendPeriod)}
+              value={baselineYear}
+              onChange={(event) => setSelectedBaselineYear(Number(event.target.value))}
             >
-              <option value="year_on_year">Previous year</option>
-              <option value="three_year">Three years earlier</option>
-              <option value="since_2019">2019</option>
+              {comparisonYears.map((year) => <option value={year} key={year}>{year}</option>)}
             </select>
           </label>
 
@@ -1473,76 +1641,41 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         </div>
       </section>
 
-      {ASK_CRIME_BOT_ENABLED && (
-      <section className="ask-panel" aria-label="Ask Crime Bot">
-        <div className="ask-header">
-          <span className="ask-avatar" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round">
-              <path d="M12 2 5 4.5V11c0 5 3 8.5 7 10 4-1.5 7-5 7-10V4.5L12 2Z" />
-              <path d="m9.3 12 1.9 1.9 3.7-3.9" />
-            </svg>
-          </span>
-          <div>
-            <strong className="ask-title">Ask Crime Bot</strong>
-            <span className="ask-subtitle">Ask a question about the data, in plain English</span>
-          </div>
+      <section className="result-summary" aria-labelledby="result-summary-title" aria-live="polite">
+        <div className="result-summary-copy">
+          <p>{mapMode === "station" ? "Dublin station area" : "Garda division nationwide"}</p>
+          <h2 id="result-summary-title">{readoutName}</h2>
+          <span>{readoutEyebrow}</span>
         </div>
-        <form
-          onSubmit={(event) => {
-            event.preventDefault();
-            submitAskQuestion();
-          }}
-        >
-          <label htmlFor="ask-question" className="visually-hidden">Ask Crime Bot a question</label>
-          <div className="ask-row">
-            <input
-              id="ask-question"
-              type="text"
-              placeholder="e.g. how many burglaries in Dundrum in 2023?"
-              value={askInput}
-              onChange={(event) => setAskInput(event.target.value)}
-              maxLength={300}
-            />
-            <button type="submit" disabled={askStatus === "loading" || !askInput.trim()}>
-              {askStatus === "loading" ? "Asking…" : "Ask"}
-            </button>
-          </div>
-        </form>
-        {askStatus === "error" && askError && <p className="ask-error">{askError}</p>}
-        {askResult?.ok && (
-          <p className="ask-answer">
-            <strong>
-              {askResult.count === null ? "No comparable data" : numberFormat.format(askResult.count)}
-            </strong>{" "}
-            {askResult.categoryLabel} incidents in {askResult.areaLabel} in {askResult.year}
-            {askResult.compareYear !== null && askResult.changePct !== null && (
-              <> — {formatSigned(askResult.changePct)} vs {askResult.compareYear} ({askResult.compareCount === null ? "n/a" : numberFormat.format(askResult.compareCount)})</>
-            )}
-            .{" "}
-            <button type="button" className="inline-link" onClick={jumpToAskResult}>
-              Show on map
-            </button>
-          </p>
-        )}
+        <div className="result-summary-figure">
+          <strong className={`tone-${toneOf(readoutChange, readoutIsRaw)}`}>
+            {readoutChange === null ? "Not comparable" : formatSigned(readoutChange, readoutIsRaw)}
+          </strong>
+          <span>{readoutCounts}</span>
+        </div>
+        <p className="result-summary-note">
+          These are recorded incidents, not total crime or a safety score.
+          {mapMode === "station" && " Station-area cells are approximate, not official neighbourhood boundaries."}
+        </p>
+        <button type="button" onClick={() => setInfoOpen(true)}>How to read this result</button>
       </section>
-      )}
 
       <section className="dashboard-body" id="atlas">
-        <aside className="movers-rail" aria-label="Largest changes">
+        <aside className="movers-rail" aria-label="Optional area comparison">
           {mapMode === "station" ? (
             <>
               <div>
-                <p>Largest increases</p>
+                <p>Compare areas · increases</p>
                 {rankedIncreases.slice(0, 3).map((entry) => (
-                  <button type="button" key={entry.station.id} onClick={() => setSelectedStationId(entry.station.id)}>
+                  <button type="button" key={entry.station.id} onClick={() => selectArea(entry.station.id)}>
                     <span>{entry.station.name}</span><strong>{formatSigned(entry.change, entry.isRaw)}</strong>
                   </button>
                 ))}
               </div>
               <div>
-                <p>Largest decreases</p>
+                <p>Compare areas · decreases</p>
                 {rankedDecreases.slice(0, 3).map((entry) => (
-                  <button type="button" key={entry.station.id} onClick={() => setSelectedStationId(entry.station.id)}>
+                  <button type="button" key={entry.station.id} onClick={() => selectArea(entry.station.id)}>
                     <span>{entry.station.name}</span><strong>{formatSigned(entry.change, entry.isRaw)}</strong>
                   </button>
                 ))}
@@ -1551,17 +1684,17 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           ) : (
             <>
               <div>
-                <p>Largest increases</p>
+                <p>Compare areas · increases</p>
                 {rankedDivisionIncreases.slice(0, 3).map((entry) => (
-                  <button type="button" key={entry.division.id} onClick={() => setSelectedDivisionId(entry.division.id)}>
+                  <button type="button" key={entry.division.id} onClick={() => selectArea(entry.division.id)}>
                     <span>{entry.division.name}</span><strong>{formatSigned(entry.change, entry.isRaw)}</strong>
                   </button>
                 ))}
               </div>
               <div>
-                <p>Largest decreases</p>
+                <p>Compare areas · decreases</p>
                 {rankedDivisionDecreases.slice(0, 3).map((entry) => (
-                  <button type="button" key={entry.division.id} onClick={() => setSelectedDivisionId(entry.division.id)}>
+                  <button type="button" key={entry.division.id} onClick={() => selectArea(entry.division.id)}>
                     <span>{entry.division.name}</span><strong>{formatSigned(entry.change, entry.isRaw)}</strong>
                   </button>
                 ))}
@@ -1572,7 +1705,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
 
         <section
           className={`district-map-panel${mapMode === "station" ? " ns-station-view" : ""}`}
-          aria-label="Dublin recorded crime change map"
+          aria-label={mapMode === "station" ? "Dublin station-area recorded-crime map" : "Garda-division recorded-crime map of Ireland"}
         >
           <div className="map-panel-heading">
             <div>
@@ -1598,7 +1731,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           <div
             ref={mapElement}
             className="district-map"
-            aria-label="Map of Dublin recorded-crime reporting areas"
+            aria-label={mapMode === "station" ? "Map of Dublin station-area recorded-crime reporting geographies" : "Map of Garda divisions nationwide"}
           />
 
           {mapMode === "station" && availableChanges.length === 0 && (
@@ -1608,18 +1741,30 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
             <div className="map-no-data">No comparable area data for this selection.</div>
           )}
 
-          {ASK_CRIME_BOT_ENABLED && (
-            <button type="button" className="ns-bot-pill" onClick={() => setBotOpen(true)}>
-              <span className="ns-bot-mark" aria-hidden="true">
-                {BOT_ICON}
-              </span>
-              Ask
-              <span className="ns-beta">beta</span>
-            </button>
-          )}
-
           {mapMode === "station" && (
             <p className="ns-map-caveat">Cells approximate areas from station points — not official boundaries.</p>
+          )}
+
+          {/* The way back out of a focused area. Only rendered while a focus is
+              held, so it never occupies the map when it would do nothing. The
+              visible label shortens on a phone, where the caveat chip shares
+              this row, so the full wording lives on the button itself and stays
+              the accessible name at every width. */}
+          {areaFocused && (
+            <button
+              type="button"
+              className="area-focus-clear"
+              onClick={clearAreaFocus}
+              aria-label={`Show all ${mapMode === "station" ? "station areas" : "divisions"}`}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+                <path d="M9 3H5a2 2 0 0 0-2 2v4M15 3h4a2 2 0 0 1 2 2v4M9 21H5a2 2 0 0 1-2-2v-4M15 21h4a2 2 0 0 0 2-2v-4" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <span className="area-focus-clear-long" aria-hidden="true">
+                Show all {mapMode === "station" ? "station areas" : "divisions"}
+              </span>
+              <span className="area-focus-clear-short" aria-hidden="true">Show all</span>
+            </button>
           )}
 
           {/* Nightshift readout. The container never takes a tap — it sits over
@@ -1716,7 +1861,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         className="ns-sheet"
         ref={sheet}
         style={{ height: sheetHeight }}
-        aria-label="Areas ranked by change"
+        aria-label="Optional comparison of areas by change"
         onTransitionEnd={(event) => {
           if (event.propertyName === "height") mapInstance.current?.invalidateSize({ animate: false });
         }}
@@ -1730,7 +1875,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           className="ns-handle"
           role="separator"
           aria-orientation="horizontal"
-          aria-label="Resize the movers sheet"
+          aria-label="Resize the area comparison sheet"
           aria-valuenow={sheetHeight}
           aria-valuemin={SHEET_MIN}
           aria-valuemax={SHEET_MAX}
@@ -1763,9 +1908,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           </div>
         ) : (
           <div className="ns-sheet-head">
-            <strong>Movers · {activeGroupLabel}</strong>
-            <span className="ns-count-chip up">{activeSummary.increased} up</span>
-            <span className="ns-count-chip down">{activeSummary.decreased} down</span>
+            <strong>Compare areas · {activeGroupLabel}</strong>
           </div>
         )}
 
@@ -1917,86 +2060,6 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
                 Open official dataset ↗
               </a>
             </div>
-          </div>
-        </div>
-      )}
-
-      {ASK_CRIME_BOT_ENABLED && botOpen && (
-        <div className="ns-scrim">
-          <button type="button" className="ns-scrim-dismiss" aria-label="Close Ask Crime Bot" onClick={closeBot} />
-          <div
-            className="ns-filter-sheet ns-bot-sheet"
-            ref={botPanel}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Ask Crime Bot"
-          >
-            <div className="ns-filter-head">
-              <h2>
-                Ask Crime Bot <span className="ns-beta">beta</span>
-              </h2>
-              <button type="button" className="ns-icon-button ns-icon-muted" aria-label="Close" onClick={closeBot}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" aria-hidden="true">
-                  <path d="m6 6 12 12M18 6 6 18" />
-                </svg>
-              </button>
-            </div>
-
-            <p className="ns-bot-provenance">
-              Every number is computed from CJA11/CJQ06; the model only reads your question.
-            </p>
-
-            <form
-              className="ns-bot-form"
-              onSubmit={(event) => {
-                event.preventDefault();
-                submitAskQuestion();
-              }}
-            >
-              <label htmlFor="ns-ask-question" className="visually-hidden">
-                Ask Crime Bot a question
-              </label>
-              <input
-                id="ns-ask-question"
-                type="text"
-                placeholder="e.g. how many burglaries in Dundrum in 2023?"
-                value={askInput}
-                onChange={(event) => setAskInput(event.target.value)}
-                maxLength={300}
-              />
-              <button type="submit" className="ns-primary" disabled={askStatus === "loading" || !askInput.trim()}>
-                {askStatus === "loading" ? "Asking…" : "Ask"}
-              </button>
-            </form>
-
-            {askStatus === "error" && askError && <p className="ns-note ns-note-warning">{askError}</p>}
-
-            {askResult?.ok && (
-              <p className="ns-bot-answer">
-                <strong>
-                  {askResult.count === null ? "No comparable data" : numberFormat.format(askResult.count)}
-                </strong>{" "}
-                {askResult.categoryLabel} incidents in {askResult.areaLabel} in {askResult.year}
-                {askResult.compareYear !== null && askResult.changePct !== null && (
-                  <>
-                    {" "}
-                    — {formatSigned(askResult.changePct)} vs {askResult.compareYear} (
-                    {askResult.compareCount === null ? "n/a" : numberFormat.format(askResult.compareCount)})
-                  </>
-                )}
-                .{" "}
-                <button
-                  type="button"
-                  className="ns-inline-link"
-                  onClick={() => {
-                    jumpToAskResult();
-                    closeBot();
-                  }}
-                >
-                  Show on map
-                </button>
-              </p>
-            )}
           </div>
         </div>
       )}
@@ -2204,21 +2267,15 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
 
               <p className="ns-eyebrow">{selectedYear} compared with</p>
               <div className="ns-period-row">
-                {(
-                  [
-                    ["year_on_year", "Previous year"],
-                    ["three_year", "Three years earlier"],
-                    ["since_2019", String(data.meta.years[0])],
-                  ] as Array<[TrendPeriod, string]>
-                ).map(([period, label]) => (
+                {comparisonYears.map((year) => (
                   <button
-                    key={period}
+                    key={year}
                     type="button"
-                    className={`ns-period${trendPeriod === period ? " is-selected" : ""}`}
-                    aria-pressed={trendPeriod === period}
-                    onClick={() => setTrendPeriod(period)}
+                    className={`ns-period${baselineYear === year ? " is-selected" : ""}`}
+                    aria-pressed={baselineYear === year}
+                    onClick={() => setSelectedBaselineYear(year)}
                   >
-                    {label}
+                    {year}
                   </button>
                 ))}
               </div>
