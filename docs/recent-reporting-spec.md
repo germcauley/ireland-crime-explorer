@@ -119,10 +119,8 @@ scripts/validate_news.py    assert quality against a labelled fixture
 data/processed/news.json    committed artifact
 ```
 
-A GitHub Action runs the pipeline **daily**, commits the artifact, and the commit
-triggers a Vercel deploy. Nothing in the feature is time-critical: the crime data
-updates quarterly, and a day-old article inside a 12-month window is
-indistinguishable from a fresh one.
+A GitHub Action runs **fetch only**, daily, and commits the raw archive. It needs
+no secrets. Classification is done by hand in batches — see "Running it" below.
 
 No database. `db/index.ts` requires a Cloudflare D1 binding via `cloudflare:workers`;
 `.openai/hosting.json` has `"d1": null`, and deployment is Vercel, where that import
@@ -370,3 +368,53 @@ Some judgements worth recording, because a model will face the same ones:
 This is a smaller fixture than the 100 articles agreed, and it covers one
 fetch. It is ground truth, not a substitute for running the model: precision
 remains unmeasured until there is a model run to score.
+
+
+## Running it
+
+Classification is done by hand, in batches, rather than by calling an API.
+
+At this volume — roughly twenty candidates a day after the prefilter — a person
+reading them is more accurate than a small model, costs nothing, and keeps an
+API key out of CI entirely. The API path stays in `classify_news.py` for when
+volume outgrows that.
+
+### Daily, automatically
+
+The Action fetches the feeds and commits `news_raw.json`. Nothing else. It
+cannot change what the site shows, because it never touches `news.json`.
+
+This matters because most publisher feeds expose only 30-90 days. Without a
+daily fetch the archive could never grow past that window, and a batch
+classified monthly would have nothing older than a month to work with.
+
+### Every so often, by hand
+
+```bash
+python3 scripts/classify_news.py --pending       # the review queue
+# read them, add entries to tests/fixtures/news_labelled.json
+python3 scripts/classify_news.py --from-labels   # apply
+python3 scripts/validate_news.py                 # check
+```
+
+Then commit. The commit triggers the deploy.
+
+`--pending` lists only candidates with no label yet, so re-running never
+re-presents work already done. Labels accumulate; the file is the permanent
+record of every judgement made.
+
+### What this costs
+
+**The section is only as fresh as the last batch.** Articles fetched but not
+yet classified are invisible to readers — they sit in the archive as
+candidates, not as anything the site displays. Leave it a month and the
+section shows month-old reporting.
+
+That is a deliberate trade: staleness is visible and harmless, whereas a
+mis-classified article is a false statement about a real place. The fetch
+continuing automatically means no reporting is *lost* in the meantime, only
+delayed.
+
+**It does not scale.** If the feed list grows or the prefilter widens, hand
+classification stops being reasonable. The API path is the exit, and the
+labelled fixture is what will prove it accurate enough to hand over to.

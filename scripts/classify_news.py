@@ -17,13 +17,16 @@ unavailable or unsure, the article lands in the unclassified bucket rather
 than being forced into a Division. An unplaced article costs nothing; one
 placed in the wrong county is a false statement about a real place.
 
-Set ANTHROPIC_API_KEY to run stage 2. Without it the script still runs and
-writes its output, marking every candidate unclassified — useful for
-iterating on the prefilter, not for publishing.
+Stage 2 is normally done by hand rather than by the API. At this volume — tens
+of candidates a day — a person reading them in batches is both more accurate
+than a small model and free, and it keeps a key out of CI entirely. The API
+path remains for when volume outgrows that.
+
+    python3 scripts/classify_news.py --pending       # what needs labelling
+    python3 scripts/classify_news.py --from-labels   # apply reviewed labels
+    python3 scripts/classify_news.py                 # use the API (needs a key)
 
 Output: data/processed/news.json, committed.
-
-    python3 scripts/classify_news.py [--limit N] [--no-llm]
 """
 
 from __future__ import annotations
@@ -276,6 +279,11 @@ def main() -> None:
         action="store_true",
         help="apply the hand-reviewed labels instead of calling the model",
     )
+    parser.add_argument(
+        "--pending",
+        action="store_true",
+        help="list candidates that have no label yet, then exit",
+    )
     args = parser.parse_args()
 
     raw = load_json(RAW)
@@ -302,6 +310,23 @@ def main() -> None:
             candidates.append(article)
 
     print(f"{len(articles)} articles, {len(candidates)} passed the prefilter")
+
+    # Review queue. The archive is fetched automatically but classified by
+    # hand, so this is the list of what is waiting — printed in a shape that
+    # can be read and labelled directly.
+    if args.pending:
+        known = set()
+        if LABELS.exists():
+            known = {entry["id"] for entry in json.loads(LABELS.read_text())["labels"]}
+        pending = [a for a in candidates if a["id"] not in known]
+        print(f"{len(pending)} awaiting a label\n")
+        for article in pending:
+            print(f"[{article['id']}] {article['source']} | {(article['publishedAt'] or '')[:10]}")
+            print(f"  T: {article['title']}")
+            print(f"  D: {article['description'][:240]}")
+            print(f"  places={article['_placeHits'][:6]} divisions={article['_divisionHits']}")
+            print()
+        return
 
     # Hand-reviewed labels are the same shape as a model verdict, so they flow
     # through the identical validation below. They cover one fetch only — new

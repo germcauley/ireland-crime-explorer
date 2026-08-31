@@ -1,8 +1,14 @@
-name: Refresh recent reporting
+name: Fetch news archive
 
-# Daily. Nothing here is time-critical: the crime data updates quarterly and
-# the section is framed as recent reporting, not breaking news. Each run
-# commits the artifact, and that commit is what triggers the Vercel deploy.
+# Fetch only — no API key, no secrets, no classification.
+#
+# Classification is done by hand in batches (see docs/recent-reporting-spec.md,
+# "Running it"). This job's whole job is to keep the raw archive growing, so
+# that when a batch is classified there is a backlog to classify rather than
+# only whatever the feeds happen to expose that day. Most publisher feeds show
+# 30-90 days, so without this the archive could never deepen past that.
+#
+# It never touches news.json, so it cannot change what the site displays.
 on:
   schedule:
     - cron: "0 5 * * *"
@@ -12,11 +18,11 @@ permissions:
   contents: write
 
 concurrency:
-  group: news-refresh
+  group: news-fetch
   cancel-in-progress: false
 
 jobs:
-  refresh:
+  fetch:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -28,25 +34,22 @@ jobs:
       - name: Fetch feeds
         run: python3 scripts/fetch_news.py
 
-      - name: Classify
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: python3 scripts/classify_news.py
+      - name: Report the review queue
+        run: python3 scripts/classify_news.py --pending
 
-      # Runs before the commit, so a bad classifier run fails the job rather
-      # than reaching the site. The bar is precision: a wrongly placed article
-      # is a false statement about a real place.
-      - name: Validate
+      # Guards what is already published. The artifact is untouched by this
+      # job, so a failure here means something else broke it.
+      - name: Validate published artifact
         run: python3 scripts/validate_news.py
 
-      - name: Commit if changed
+      - name: Commit the archive if it grew
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/processed/news.json data/processed/news_raw.json
+          git add data/processed/news_raw.json
           if git diff --staged --quiet; then
-            echo "no change"
+            echo "no new articles"
           else
-            git commit -m "Refresh recent reporting"
+            git commit -m "Fetch news archive"
             git push
           fi
