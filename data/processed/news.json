@@ -1,11 +1,11 @@
 {
  "meta": {
-  "generatedAt": "2026-08-31T05:25:18.119523+00:00",
+  "generatedAt": "2026-08-31T05:38:45.612054+00:00",
   "windowMonths": 12,
   "model": "hand-reviewed",
-  "articlesConsidered": 407,
-  "candidates": 22,
-  "unclassified": 7,
+  "articlesConsidered": 582,
+  "candidates": 28,
+  "unclassified": 9,
   "feeds": [
    {
     "name": "RTÉ News",
@@ -106,6 +106,76 @@
  },
  "clusters": [
   {
+   "id": "69b65ca6f869291d",
+   "title": "Man rushed to hospital after Galway village discovery as gardai launch investigation",
+   "description": "Gardai have launched an investigation into alleged false imprisonment and assault",
+   "url": "https://www.connachttribune.ie/news/galway-gardai-discovery-hospital-8950441",
+   "source": "Connacht Tribune",
+   "publishedAt": "2026-08-31T04:42:33+00:00",
+   "alsoCoveredBy": [],
+   "divisionId": "23",
+   "town": null,
+   "group": "05",
+   "confidence": 0.9,
+   "reasoning": null
+  },
+  {
+   "id": "49617bda7530e34e",
+   "title": "Members of the public restrain suspect on Limerick street",
+   "description": "Two gardai responded and arrested the man in Limerick city centre",
+   "url": "https://www.limerickleader.ie/news/crime-courts/members-of-the-public-restrain-suspect-on-limerick-street-8950464",
+   "source": "Limerick Leader",
+   "publishedAt": "2026-08-30T19:15:34+00:00",
+   "alsoCoveredBy": [],
+   "divisionId": "35",
+   "town": "Limerick",
+   "group": "03",
+   "confidence": 0.95,
+   "reasoning": null
+  },
+  {
+   "id": "0f90d0cbe458987e",
+   "title": "High Court dismisses Limerick man's legal challenge against prison detention",
+   "description": "High Court rules Jonathan Kelly was given a meaningful opportunity to understand, test and answer the bail objections",
+   "url": "https://www.limerickleader.ie/news/crime-courts/high-court-dismisses-limerick-mans-legal-challenge-against-prison-detention-8943788",
+   "source": "Limerick Leader",
+   "publishedAt": "2026-08-30T19:00:41+00:00",
+   "alsoCoveredBy": [],
+   "divisionId": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "reasoning": null
+  },
+  {
+   "id": "d697c313ef5f91f7",
+   "title": "ALERT: Gardaí and emergency services attend scene of Kilkenny crash",
+   "description": "Gardaí and emergency services attended the scene of a crash in Kilkenny on Sunday",
+   "url": "https://www.kilkennypeople.ie/news/alert-gardai-and-emergency-services-attend-scene-of-kilkenny-crash-8950359",
+   "source": "Kilkenny People",
+   "publishedAt": "2026-08-30T16:49:35+00:00",
+   "alsoCoveredBy": [],
+   "divisionId": "53",
+   "town": "Kilkenny",
+   "group": null,
+   "confidence": 0.9,
+   "reasoning": null
+  },
+  {
+   "id": "3ea291559d0e07b7",
+   "title": "Laois Gardaí say weather won't alter Electric Picnic traffic plans",
+   "description": "Gardaí are warning that the roads around the festival carparks could be slippery",
+   "url": "https://www.leinsterexpress.ie/whats-on/electric-picnic/laois-gardai-say-weather-wont-alter-electric-picnic-traffic-plans-8950244",
+   "source": "Leinster Express",
+   "publishedAt": "2026-08-30T15:30:39+00:00",
+   "alsoCoveredBy": [],
+   "divisionId": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "reasoning": null
+  },
+  {
    "id": "e29df53c8fff289a",
    "title": "Electric Picnic staff member accused of assault at the festival",
    "description": "The man was brought before a special sitting of Tullamore District Court",
@@ -172,7 +242,8 @@
    "source": "Irish Mirror",
    "publishedAt": "2026-08-29T19:07:52+00:00",
    "alsoCoveredBy": [
-    "Irish Times"
+    "Irish Times",
+    "The Journal"
    ],
    "divisionId": "42",
    "town": null,
