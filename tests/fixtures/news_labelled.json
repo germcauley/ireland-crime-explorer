@@ -257,6 +257,294 @@
    "group": null,
    "confidence": 0.0,
    "why": "Traffic and weather advice ahead of a festival. No offence reported."
+  },
+  {
+   "id": "0e87b5ad21e389e8",
+   "title": "Road safety advice issued ahead of hedge cutting season",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Garda road-safety advice ahead of hedge cutting. Advisory, not a reported offence."
+  },
+  {
+   "id": "5d17a9f544010a23",
+   "title": "Irishwoman and husband found dead in jacuzzi in Spain",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Deaths in Spain. Monaghan is the victim's birthplace, not where anything happened."
+  },
+  {
+   "id": "5900cc5dc5de9ad6",
+   "title": "Arrest at Carrigaline supermarket after man allegedly 'locks himself in safe'",
+   "division": "31",
+   "town": "Carrigaline",
+   "group": "07",
+   "confidence": 0.85,
+   "why": "Carrigaline sits in Cork City Division. Entering premises to steal is burglary."
+  },
+  {
+   "id": "307fb8e99792c73e",
+   "title": "Over €55k raised for family of Meath teen killed in hit-and-run",
+   "division": "42",
+   "town": null,
+   "group": "01",
+   "confidence": 0.9,
+   "why": "Same Meath hit-and-run already labelled; this is a second outlet."
+  },
+  {
+   "id": "fd332589e089b78d",
+   "title": "Louth businessman yet to pay €79k award to migrant worker",
+   "division": "14",
+   "town": null,
+   "group": null,
+   "confidence": 0.85,
+   "why": "Co Louth named and gardaí are investigating, but the offence under investigation is not stated clearly enough to assign a group."
+  },
+  {
+   "id": "185902181f4b22b0",
+   "title": "Tributes pour in for young woman killed in Dublin crash",
+   "division": "66",
+   "town": null,
+   "group": null,
+   "confidence": 0.75,
+   "why": "Ballycoolin is in DMR West. A single-vehicle collision with no offence alleged. The prefilter matched on the victim's surname 'Carrick', not a place."
+  },
+  {
+   "id": "753fb0efc2d96cb0",
+   "title": "Cryptocurrency accounts frozen as Gardai seize cash and drugs",
+   "division": "23",
+   "town": "Galway",
+   "group": "10",
+   "confidence": 0.95,
+   "why": "Search warrants at two properties in Galway city."
+  },
+  {
+   "id": "67f3b553a0d339e2",
+   "title": "Senior local government figure sues Cork City Council",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "An employment dispute in the High Court. No offence."
+  },
+  {
+   "id": "23285e560c09c62b",
+   "title": "Boy (16) charged over assault and serious e-scooter incident in Coolock",
+   "division": "63",
+   "town": "Coolock",
+   "group": "03",
+   "confidence": 0.95,
+   "why": "Coolock is in DMR North."
+  },
+  {
+   "id": "a7185b0c9a2379bc",
+   "title": "Teen charged with attacking youth who came off e-scooter",
+   "division": "63",
+   "town": "Coolock",
+   "group": "03",
+   "confidence": 0.95,
+   "why": "Same incident, second outlet."
+  },
+  {
+   "id": "5aed39a0d1c65b1c",
+   "title": "Beloved Irish mum of three murdered in Australia",
+   "division": "53",
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "The murder happened in Australia. Kilkenny is where the funeral is held."
+  },
+  {
+   "id": "f47c3dfd97fb4c85",
+   "title": "Two 14-year-old boys among suspected burglary gang arrested in Cork",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "'Cork' alone spans three Divisions and no town is named, so it cannot be placed."
+  },
+  {
+   "id": "b764913b3fe26525",
+   "title": "Men accused of rape at Ceannt Station to apply for bail",
+   "division": "23",
+   "town": "Galway",
+   "group": "02",
+   "confidence": 0.95,
+   "why": "Ceannt Station is in Galway city."
+  },
+  {
+   "id": "345797519030baa1",
+   "title": "Mother of M9 crash teen apologises to injured family at Kildare funeral",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "About a funeral in Kildare; the crash was on the M9 and the related offence was in Carlow."
+  },
+  {
+   "id": "2cf6430dbbe28348",
+   "title": "Three charged over stolen car hitting garda car in Cork",
+   "division": "33",
+   "town": "Ballinhassig",
+   "group": "04",
+   "confidence": 0.85,
+   "why": "Ballinhassig is named and sits in Cork West Division, which resolves the otherwise ambiguous 'Cork'."
+  },
+  {
+   "id": "e2e77621daf7c3a8",
+   "title": "New York lawyer's case over fall at Kerry Airbnb thrown out by US court",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "A civil personal-injury case decided in a US court."
+  },
+  {
+   "id": "80a2102976281a24",
+   "title": "Woman appears in Dundalk court on six firearms and ammunition charges",
+   "division": "14",
+   "town": "Dundalk",
+   "group": "11",
+   "confidence": 0.95,
+   "why": "Search operation in Dundalk, Co Louth. Firearms and ammunition."
+  },
+  {
+   "id": "8fe8f51e651a4258",
+   "title": "Murder investigation after woman found dead in Limerick",
+   "division": "35",
+   "town": "Limerick",
+   "group": "01",
+   "confidence": 0.95,
+   "why": "Murder investigation in Limerick city."
+  },
+  {
+   "id": "2f568ef8e7c2da70",
+   "title": "Two teenage boys accused of attacking Dublin man will now face murder charge",
+   "division": "66",
+   "town": "Blanchardstown",
+   "group": "01",
+   "confidence": 0.95,
+   "why": "Assaulted in Blanchardstown, DMR West; charge upgraded to murder."
+  },
+  {
+   "id": "cbdab7fdf4273ac1",
+   "title": "National Museum employee lodges fresh High Court bail application",
+   "division": "11",
+   "town": null,
+   "group": "11",
+   "confidence": 0.85,
+   "why": "Alleged explosive device found in a car in County Monaghan."
+  },
+  {
+   "id": "e2d79597e3572c72",
+   "title": "Wexford man returned to prison after breaching suspended sentence",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "'Wexford man' describes the person. Where the original offences occurred is not stated."
+  },
+  {
+   "id": "9c0c5fe9f1dff28c",
+   "title": "Woman seriously injured after stabbing at Tramore church",
+   "division": "54",
+   "town": "Tramore",
+   "group": "03",
+   "confidence": 0.95,
+   "why": "Tramore, Co Waterford."
+  },
+  {
+   "id": "505116d960b57f4c",
+   "title": "Man, 60s, injured in Limerick city shooting",
+   "division": "35",
+   "town": "Limerick",
+   "group": "03",
+   "confidence": 0.9,
+   "why": "Shooting causing injury in Limerick city."
+  },
+  {
+   "id": "18f491120ed6e0aa",
+   "title": "Man sought by gardaí over Kerry murder arrested in Jordan",
+   "division": "34",
+   "town": null,
+   "group": "01",
+   "confidence": 0.9,
+   "why": "The murder under investigation happened in Kerry; the arrest abroad does not move it."
+  },
+  {
+   "id": "e072a2f56b181b4d",
+   "title": "Woman who died in Laois assault named",
+   "division": "41",
+   "town": "Portlaoise",
+   "group": "01",
+   "confidence": 0.95,
+   "why": "Fatal assault in Portlaoise."
+  },
+  {
+   "id": "41127c96b67a4878",
+   "title": "Man arrested in relation to fatal Dún Laoghaire shooting",
+   "division": "65",
+   "town": "Dún Laoghaire",
+   "group": "01",
+   "confidence": 0.95,
+   "why": "Dún Laoghaire is in DMR East."
+  },
+  {
+   "id": "6bc4f548439a647d",
+   "title": "€700k in cash seized in Limerick prostitution operation",
+   "division": "35",
+   "town": "Limerick",
+   "group": "15",
+   "confidence": 0.9,
+   "why": "Organised prostitution operation in Limerick."
+  },
+  {
+   "id": "6772db2012e35f57",
+   "title": "Man charged with murder of Masumeh Manojan found dead",
+   "division": "23",
+   "town": null,
+   "group": "01",
+   "confidence": 0.75,
+   "why": "The murder charge relates to Co Galway. He died in Castlerea Prison, which is where the article's event happened but not the offence."
+  },
+  {
+   "id": "465f32b7edeae32c",
+   "title": "Two men who ran 'online drugs supermarket' jailed",
+   "division": "14",
+   "town": "Drogheda",
+   "group": "10",
+   "confidence": 0.85,
+   "why": "Tied to the Drogheda feud, Co Louth."
+  },
+  {
+   "id": "60b692905862525f",
+   "title": "Man charged with murder of Noreen Daly in Waterford",
+   "division": "54",
+   "town": null,
+   "group": "01",
+   "confidence": 0.95,
+   "why": "Co Waterford named."
+  },
+  {
+   "id": "0b7f5fff8adafcc6",
+   "title": "Several people in court charged with shoplifting offences",
+   "division": "65",
+   "town": null,
+   "group": "08",
+   "confidence": 0.7,
+   "why": "Offences 'across south east Dublin', heard at Dún Laoghaire District Court — DMR East. Lower confidence because the area given is loose."
+  },
+  {
+   "id": "3d9cffd3236750e3",
+   "title": "Man charged in investigation into Dublin fatal stabbing",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "'Dublin city centre' spans DMR South Central and North Central; no specific area is named."
   }
  ]
 }

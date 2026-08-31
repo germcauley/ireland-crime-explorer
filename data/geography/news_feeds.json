@@ -1,30 +1,135 @@
 {
   "meta": {
-    "note": "Curated allowlist of Irish publisher RSS feeds. Shown in the UI so that an absence of coverage reads as a gap in this list rather than an absence of crime.",
+    "note": "Curated allowlist of Irish publisher RSS feeds, shown in the UI so that an absence of coverage reads as a gap in this list rather than an absence of crime. Includes dedicated crime and courts sections, which carry far more relevant reporting per item than general news feeds.",
     "licence": "Headline, outlet, date and the feed's own description only, each linking to the publisher. No images.",
-    "verified": "2026-08-30",
-    "coverageGap": "Cork, Kerry, Meath, Kildare, Wexford, Carlow, Westmeath and Louth have no working regional feed in this list. Their articles arrive only via national outlets, so local coverage there is thinner than elsewhere."
+    "verified": "2026-08-31",
+    "coverageGap": "Kerry, Meath, Kildare, Wexford, Carlow, Westmeath and Louth have no working regional feed in this list. Their articles arrive only via national outlets, so local coverage there is thinner than elsewhere."
   },
   "feeds": [
-    { "name": "RTÉ News", "scope": "national", "url": "https://www.rte.ie/feeds/rss/?index=/news/" },
-    { "name": "The Journal", "scope": "national", "url": "https://www.thejournal.ie/feed/" },
-    { "name": "Irish Times", "scope": "national", "url": "https://www.irishtimes.com/arc/outboundfeeds/feed-irish-news/?outputType=xml" },
-    { "name": "Irish Mirror", "scope": "national", "url": "https://www.irishmirror.ie/news/?service=rss" },
-
-    { "name": "Connacht Tribune", "scope": "regional", "url": "https://connachttribune.ie/rss/" },
-    { "name": "Mayo News", "scope": "regional", "url": "https://www.mayonews.ie/rss" },
-    { "name": "Clare Echo", "scope": "regional", "url": "https://www.clareecho.ie/feed/" },
-    { "name": "Limerick Leader", "scope": "regional", "url": "https://www.limerickleader.ie/rss/" },
-    { "name": "Limerick Post", "scope": "regional", "url": "https://www.limerickpost.ie/feed/" },
-    { "name": "Munster Express", "scope": "regional", "url": "https://munster-express.ie/feed/" },
-    { "name": "Kilkenny People", "scope": "regional", "url": "https://www.kilkennypeople.ie/rss/" },
-    { "name": "Leinster Express", "scope": "regional", "url": "https://www.leinsterexpress.ie/rss/" },
-    { "name": "Offaly Express", "scope": "regional", "url": "https://www.offalyexpress.ie/rss/" },
-    { "name": "Longford Leader", "scope": "regional", "url": "https://www.longfordleader.ie/rss/" },
-    { "name": "Leitrim Observer", "scope": "regional", "url": "https://www.leitrimobserver.ie/rss/" },
-    { "name": "Tipperary Live", "scope": "regional", "url": "https://www.tipperarylive.ie/rss/" },
-    { "name": "Sligo Weekender", "scope": "regional", "url": "https://www.sligoweekender.ie/feed/" },
-    { "name": "Donegal Daily", "scope": "regional", "url": "https://www.donegaldaily.com/feed/" },
-    { "name": "Highland Radio", "scope": "regional", "url": "https://highlandradio.com/feed/" }
+    {
+      "name": "RTÉ News",
+      "scope": "national",
+      "url": "https://www.rte.ie/feeds/rss/?index=/news/"
+    },
+    {
+      "name": "The Journal",
+      "scope": "national",
+      "url": "https://www.thejournal.ie/feed/"
+    },
+    {
+      "name": "Irish Times",
+      "scope": "national",
+      "url": "https://www.irishtimes.com/arc/outboundfeeds/feed-irish-news/?outputType=xml"
+    },
+    {
+      "name": "Irish Mirror",
+      "scope": "national",
+      "url": "https://www.irishmirror.ie/news/?service=rss"
+    },
+    {
+      "name": "Connacht Tribune",
+      "scope": "regional",
+      "url": "https://connachttribune.ie/rss/"
+    },
+    {
+      "name": "Mayo News",
+      "scope": "regional",
+      "url": "https://www.mayonews.ie/rss"
+    },
+    {
+      "name": "Clare Echo",
+      "scope": "regional",
+      "url": "https://www.clareecho.ie/feed/"
+    },
+    {
+      "name": "Limerick Leader",
+      "scope": "regional",
+      "url": "https://www.limerickleader.ie/rss/"
+    },
+    {
+      "name": "Limerick Post",
+      "scope": "regional",
+      "url": "https://www.limerickpost.ie/feed/"
+    },
+    {
+      "name": "WLR FM",
+      "scope": "regional",
+      "url": "https://wlrfm.com/feed/"
+    },
+    {
+      "name": "Kilkenny People",
+      "scope": "regional",
+      "url": "https://www.kilkennypeople.ie/rss/"
+    },
+    {
+      "name": "Leinster Express",
+      "scope": "regional",
+      "url": "https://www.leinsterexpress.ie/rss/"
+    },
+    {
+      "name": "Offaly Express",
+      "scope": "regional",
+      "url": "https://www.offalyexpress.ie/rss/"
+    },
+    {
+      "name": "Longford Leader",
+      "scope": "regional",
+      "url": "https://www.longfordleader.ie/rss/"
+    },
+    {
+      "name": "Leitrim Observer",
+      "scope": "regional",
+      "url": "https://www.leitrimobserver.ie/rss/"
+    },
+    {
+      "name": "Tipperary Live",
+      "scope": "regional",
+      "url": "https://www.tipperarylive.ie/rss/"
+    },
+    {
+      "name": "Sligo Weekender",
+      "scope": "regional",
+      "url": "https://www.sligoweekender.ie/feed/"
+    },
+    {
+      "name": "Donegal Daily",
+      "scope": "regional",
+      "url": "https://www.donegaldaily.com/feed/"
+    },
+    {
+      "name": "Highland Radio",
+      "scope": "regional",
+      "url": "https://highlandradio.com/feed/"
+    },
+    {
+      "name": "RTÉ · Crime",
+      "scope": "national",
+      "url": "https://www.rte.ie/feeds/rss/?index=/news/crime/"
+    },
+    {
+      "name": "RTÉ · Courts",
+      "scope": "national",
+      "url": "https://www.rte.ie/feeds/rss/?index=/news/courts/"
+    },
+    {
+      "name": "Irish Independent · Courts",
+      "scope": "national",
+      "url": "https://www.independent.ie/irish-news/courts/rss"
+    },
+    {
+      "name": "Irish Mirror · Crime",
+      "scope": "national",
+      "url": "https://www.irishmirror.ie/news/irish-news/crime/?service=rss"
+    },
+    {
+      "name": "Cork Beo",
+      "scope": "regional",
+      "url": "https://www.corkbeo.ie/?service=rss"
+    },
+    {
+      "name": "Dublin Live",
+      "scope": "regional",
+      "url": "https://www.dublinlive.ie/?service=rss"
+    }
   ]
 }
