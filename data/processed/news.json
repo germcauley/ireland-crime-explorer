@@ -1,0 +1,368 @@
+{
+ "meta": {
+  "generatedAt": "2026-08-31T05:25:18.119523+00:00",
+  "windowMonths": 12,
+  "model": "hand-reviewed",
+  "articlesConsidered": 407,
+  "candidates": 22,
+  "unclassified": 7,
+  "feeds": [
+   {
+    "name": "RTÉ News",
+    "scope": "national",
+    "url": "https://www.rte.ie/feeds/rss/?index=/news/"
+   },
+   {
+    "name": "The Journal",
+    "scope": "national",
+    "url": "https://www.thejournal.ie/feed/"
+   },
+   {
+    "name": "Irish Times",
+    "scope": "national",
+    "url": "https://www.irishtimes.com/arc/outboundfeeds/feed-irish-news/?outputType=xml"
+   },
+   {
+    "name": "Irish Mirror",
+    "scope": "national",
+    "url": "https://www.irishmirror.ie/news/?service=rss"
+   },
+   {
+    "name": "Connacht Tribune",
+    "scope": "regional",
+    "url": "https://connachttribune.ie/rss/"
+   },
+   {
+    "name": "Mayo News",
+    "scope": "regional",
+    "url": "https://www.mayonews.ie/rss"
+   },
+   {
+    "name": "Clare Echo",
+    "scope": "regional",
+    "url": "https://www.clareecho.ie/feed/"
+   },
+   {
+    "name": "Limerick Leader",
+    "scope": "regional",
+    "url": "https://www.limerickleader.ie/rss/"
+   },
+   {
+    "name": "Limerick Post",
+    "scope": "regional",
+    "url": "https://www.limerickpost.ie/feed/"
+   },
+   {
+    "name": "Munster Express",
+    "scope": "regional",
+    "url": "https://munster-express.ie/feed/"
+   },
+   {
+    "name": "Kilkenny People",
+    "scope": "regional",
+    "url": "https://www.kilkennypeople.ie/rss/"
+   },
+   {
+    "name": "Leinster Express",
+    "scope": "regional",
+    "url": "https://www.leinsterexpress.ie/rss/"
+   },
+   {
+    "name": "Offaly Express",
+    "scope": "regional",
+    "url": "https://www.offalyexpress.ie/rss/"
+   },
+   {
+    "name": "Longford Leader",
+    "scope": "regional",
+    "url": "https://www.longfordleader.ie/rss/"
+   },
+   {
+    "name": "Leitrim Observer",
+    "scope": "regional",
+    "url": "https://www.leitrimobserver.ie/rss/"
+   },
+   {
+    "name": "Tipperary Live",
+    "scope": "regional",
+    "url": "https://www.tipperarylive.ie/rss/"
+   },
+   {
+    "name": "Sligo Weekender",
+    "scope": "regional",
+    "url": "https://www.sligoweekender.ie/feed/"
+   },
+   {
+    "name": "Donegal Daily",
+    "scope": "regional",
+    "url": "https://www.donegaldaily.com/feed/"
+   },
+   {
+    "name": "Highland Radio",
+    "scope": "regional",
+    "url": "https://highlandradio.com/feed/"
+   }
+  ]
+ },
+ "clusters": [
+  {
+   "id": "e29df53c8fff289a",
+   "title": "Electric Picnic staff member accused of assault at the festival",
+   "description": "The man was brought before a special sitting of Tullamore District Court",
+   "url": "https://www.leinsterexpress.ie/news/crime-courts/electric-picnic-staff-member-accused-of-assault-at-the-festival-8950103",
+   "source": "Leinster Express",
+   "publishedAt": "2026-08-30T12:44:33+00:00",
+   "alsoCoveredBy": [],
+   "divisionId": "41",
+   "town": null,
+   "group": "03",
+   "confidence": 0.9,
+   "reasoning": null
+  },
+  {
+   "id": "aa44799ba04cc3e2",
+   "title": "Man killed after being struck by his van in tragic Sligo road crash as gardai issue witness appeal",
+   "description": "The tragic incident involved a van and a pedestrian, the owner of the vehicle",
+   "url": "https://www.irishmirror.ie/news/irish-news/man-killed-after-horror-road-37607898",
+   "source": "Irish Mirror",
+   "publishedAt": "2026-08-30T07:54:35+00:00",
+   "alsoCoveredBy": [
+    "The Journal",
+    "Highland Radio"
+   ],
+   "divisionId": "13",
+   "town": null,
+   "group": null,
+   "confidence": 0.95,
+   "reasoning": null
+  },
+  {
+   "id": "f91134e88cada70f",
+   "title": "Cummins strikes twice in Limerick",
+   "description": "A ten-race card featured at Limerick Greyhound Stadium on Saturday night last with the highlight been a double for the Myles Cummins kennel of Newmarket-on-Fergus as both Snuggie Rhino and Snuggie Carson landed their respective contests. By Michael Maher Snuggie Rhino was the first to strike in an A3 525. Donning the striped jacket, the … Cummins strikes twice in Limerick",
+   "url": "https://www.clareecho.ie/cummins-strikes-twice-in-limerick/?utm_source=rss&utm_medium=rss&utm_campaign=cummins-strikes-twice-in-limerick",
+   "source": "Clare Echo",
+   "publishedAt": "2026-08-30T07:15:19+00:00",
+   "alsoCoveredBy": [],
+   "divisionId": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "reasoning": null
+  },
+  {
+   "id": "ae219de7c29636c8",
+   "title": "Mayor's summer activities spark massive debate in Limerick",
+   "description": "In what has been one of the biggest initiatives of John Moran’s term as executive mayor so far, a variety of new projects have been trialled to keep people in the city. Here, we explore the impact it has had across the city",
+   "url": "https://www.limerickleader.ie/news/politics/mayors-summer-activities-spark-massive-debate-in-limerick-8946583",
+   "source": "Limerick Leader",
+   "publishedAt": "2026-08-29T20:00:20+00:00",
+   "alsoCoveredBy": [],
+   "divisionId": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "reasoning": null
+  },
+  {
+   "id": "02bf5074f60d1c27",
+   "title": "Over €55k raised for teen killed in Meath hit-and-run while training for Ironman event",
+   "description": "The 19-year-old's \"life was heartbreakingly cut short\" in a hit-and-run collision while he was out cycling with a friend on Tuesday",
+   "url": "https://www.irishmirror.ie/news/irish-news/over-55k-raised-teen-killed-37607516",
+   "source": "Irish Mirror",
+   "publishedAt": "2026-08-29T19:07:52+00:00",
+   "alsoCoveredBy": [
+    "Irish Times"
+   ],
+   "divisionId": "42",
+   "town": null,
+   "group": "01",
+   "confidence": 0.9,
+   "reasoning": null
+  },
+  {
+   "id": "29f6be89a0292bc7",
+   "title": "ICYMI: Kilkenny gardaí issue urgent warning over vicious scam",
+   "description": "Gardaí are urging students to be alert to potential rental scams and to stop, think and talk before handing over money.",
+   "url": "https://www.kilkennypeople.ie/news/icymi-kilkenny-gardai-issue-urgent-warning-over-vicious-scam-8949651",
+   "source": "Kilkenny People",
+   "publishedAt": "2026-08-29T18:16:23+00:00",
+   "alsoCoveredBy": [],
+   "divisionId": "53",
+   "town": "Kilkenny",
+   "group": "09",
+   "confidence": 0.9,
+   "reasoning": null
+  },
+  {
+   "id": "3d2d9ed126918e50",
+   "title": "Fórsa members vote in favour of Oberstown agreement",
+   "description": "Members of the Fórsa trade union at the Oberstown Children Detention Campus in Dublin are to pause industrial action after voting to accept proposals to resolve a dispute over staffing levels.",
+   "url": "https://www.rte.ie/news/ireland/2026/0829/1589683-oberstown-forsa-industrial-action/",
+   "source": "RTÉ News",
+   "publishedAt": "2026-08-29T17:19:58+00:00",
+   "alsoCoveredBy": [],
+   "divisionId": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "reasoning": null
+  },
+  {
+   "id": "57a2c8f43afa1c11",
+   "title": "Editorial: Congratulations to the Kilkenny Leaving Cert Class of 2026!",
+   "description": "Garda warning issue over scams following Leaving Cert place offers",
+   "url": "https://www.kilkennypeople.ie/news/editorial-8941307",
+   "source": "Kilkenny People",
+   "publishedAt": "2026-08-29T17:00:26+00:00",
+   "alsoCoveredBy": [],
+   "divisionId": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "reasoning": null
+  },
+  {
+   "id": "d273464bbf49bd95",
+   "title": "Male teenager in critical condition after Longford e-scooter crash",
+   "description": "Gardaí in Longford appeal for witnesses to incident which also left female teenager in hospital",
+   "url": "https://www.irishtimes.com/ireland/2026/08/29/male-teenager-critical-after-e-scooter-crash/",
+   "source": "Irish Times",
+   "publishedAt": "2026-08-29T07:59:18+00:00",
+   "alsoCoveredBy": [
+    "Longford Leader"
+   ],
+   "divisionId": "24",
+   "town": "Longford",
+   "group": null,
+   "confidence": 0.95,
+   "reasoning": null
+  },
+  {
+   "id": "dde1655bb074d62e",
+   "title": "GP in prescriptions probe will comply with suspension",
+   "description": "A Co Wicklow-based doctor has promised under oath to comply with a High Court order prohibiting her from practising as a GP until a fitness-to-practise process by the Irish Medical Council concludes.",
+   "url": "https://www.rte.ie/news/leinster/2026/0828/1589620-prescriptions-probe/",
+   "source": "RTÉ News",
+   "publishedAt": "2026-08-28T16:46:56+00:00",
+   "alsoCoveredBy": [],
+   "divisionId": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "reasoning": null
+  },
+  {
+   "id": "28f2a680fef0a33a",
+   "title": "Gardaí appeal for information after woman’s body discovered in Dublin park",
+   "description": "Postmortem carried out after remains found in Kimmage on Tuesday",
+   "url": "https://www.irishtimes.com/crime-law/2026/08/28/gardai-appeal-for-information-over-discovery-of-womans-body-in-dublin-park/",
+   "source": "Irish Times",
+   "publishedAt": "2026-08-28T16:14:40+00:00",
+   "alsoCoveredBy": [],
+   "divisionId": "64",
+   "town": "Kimmage",
+   "group": null,
+   "confidence": 0.85,
+   "reasoning": null
+  },
+  {
+   "id": "472bd5d82579ae75",
+   "title": "Agreement is reached in Oberstown staffing dispute after WRC talks",
+   "description": "Industrial action at child detention centre planned for next week is paused until outcome of union ballot",
+   "url": "https://www.irishtimes.com/ireland/social-affairs/2026/08/28/agreement-is-reached-in-oberstown-staffing-dispute-after-wrc-talks/",
+   "source": "Irish Times",
+   "publishedAt": "2026-08-28T06:59:19+00:00",
+   "alsoCoveredBy": [],
+   "divisionId": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "reasoning": null
+  },
+  {
+   "id": "45e00e7aeca42eda",
+   "title": "Wife of man crushed by stolen SUV says she does not know when he will walk again",
+   "description": "Jackson Singh (32) was hit by vehicle in Co Carlow in July, with one teen arrested in connection later killed in M9 crash",
+   "url": "https://www.irishtimes.com/crime-law/2026/08/28/wife-of-man-crushed-by-stolen-suv-says-she-does-not-know-when-he-will-walk-again/",
+   "source": "Irish Times",
+   "publishedAt": "2026-08-27T23:15:34+00:00",
+   "alsoCoveredBy": [],
+   "divisionId": "53",
+   "town": null,
+   "group": "04",
+   "confidence": 0.85,
+   "reasoning": null
+  },
+  {
+   "id": "301807f96b90c645",
+   "title": "Sacked teacher Enoch Burke turns up outside Wilson’s Hospital School again",
+   "description": "Burke has repeatedly been jailed for breaching court orders banning him from Co Westmeath premises",
+   "url": "https://www.irishtimes.com/crime-law/courts/2026/08/27/sacked-teacher-enoch-burke-turns-up-outside-wilsons-hospital-school-again/",
+   "source": "Irish Times",
+   "publishedAt": "2026-08-27T14:43:35+00:00",
+   "alsoCoveredBy": [],
+   "divisionId": "44",
+   "town": null,
+   "group": "15",
+   "confidence": 0.8,
+   "reasoning": null
+  },
+  {
+   "id": "5d786c38f7273a37",
+   "title": "Man charged with drugs and money laundering offences at Galway escape room",
+   "description": "Gardaí consent to bail but court remands accused in custody pending proof of €5,000 surety",
+   "url": "https://www.irishtimes.com/crime-law/courts/2026/08/27/man-charged-with-drugs-and-money-laundering-offences-at-galway-escape-room/",
+   "source": "Irish Times",
+   "publishedAt": "2026-08-27T13:37:17+00:00",
+   "alsoCoveredBy": [],
+   "divisionId": "23",
+   "town": "Galway",
+   "group": "10",
+   "confidence": 0.95,
+   "reasoning": null
+  },
+  {
+   "id": "a6a5a0d0cc1759db",
+   "title": "Man arrested as gardaí freeze $900,000 in cryptocurrency after Galway raids",
+   "description": "Gardaí also find drugs and cash in raids on Galway premises",
+   "url": "https://www.irishtimes.com/crime-law/2026/08/27/man-arrested-as-gardai-freeze-900000-in-cryptocurrency-in-organised-crime-raids/",
+   "source": "Irish Times",
+   "publishedAt": "2026-08-27T10:31:31+00:00",
+   "alsoCoveredBy": [],
+   "divisionId": "23",
+   "town": "Galway",
+   "group": "10",
+   "confidence": 0.9,
+   "reasoning": null
+  },
+  {
+   "id": "9e4ea3093b1ff94b",
+   "title": "Calls for remote health monitoring following death of prisoner in his cell",
+   "description": "‘My son should still be here’, says mother of man (27) who died from withdrawal seizures in Cork Prison",
+   "url": "https://www.irishtimes.com/crime-law/courts/2026/08/26/calls-for-remote-health-monitoring-following-death-of-prisoner-in-his-cell/",
+   "source": "Irish Times",
+   "publishedAt": "2026-08-26T18:07:00+00:00",
+   "alsoCoveredBy": [],
+   "divisionId": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "reasoning": null
+  },
+  {
+   "id": "d000d9154c461989",
+   "title": "Gardaí seize over €20,000 worth of drugs, cash in Sligo town",
+   "description": "Gardaí target drug trafficking network in the North West as drugs, cash and a replica firearm are seized in operation By Cara McHugh Members of the Sligo/Leitrim Drugs Unit searched a number of residential properties in the Cranmore and Cairns Road areas of Sligo Town on Friday, 12th of June last week. Suspected cocaine with […]",
+   "url": "https://sligoweekender.ie/2026/06/18/gardai-seize-over-e20000-worth-of-drugs-cash-in-sligo-town/?utm_source=rss&utm_medium=rss&utm_campaign=gardai-seize-over-e20000-worth-of-drugs-cash-in-sligo-town",
+   "source": "Sligo Weekender",
+   "publishedAt": "2026-06-18T11:00:00+00:00",
+   "alsoCoveredBy": [],
+   "divisionId": "13",
+   "town": "Sligo",
+   "group": "10",
+   "confidence": 0.95,
+   "reasoning": null
+  }
+ ]
+}

@@ -1,0 +1,5861 @@
+{
+ "meta": {
+  "source": "OpenStreetMap contributors (ODbL) + CSO station geography",
+  "note": "Towns are assigned to the Division polygon containing them."
+ },
+ "divisions": [
+  {
+   "id": "11",
+   "name": "Cavan/Monaghan Division",
+   "counties": [
+    "Cavan",
+    "Monaghan"
+   ],
+   "places": [
+    {
+     "name": "Aghaloora",
+     "kind": "village"
+    },
+    {
+     "name": "Annayalla",
+     "kind": "village"
+    },
+    {
+     "name": "Arvagh",
+     "kind": "village"
+    },
+    {
+     "name": "Bailieborough",
+     "kind": "town"
+    },
+    {
+     "name": "Ballybay",
+     "kind": "town"
+    },
+    {
+     "name": "Ballyconnell",
+     "kind": "town"
+    },
+    {
+     "name": "Ballyhaise",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyheelan",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyjamesduff",
+     "kind": "town"
+    },
+    {
+     "name": "Bawnboy",
+     "kind": "village"
+    },
+    {
+     "name": "Bellananagh",
+     "kind": "village"
+    },
+    {
+     "name": "Bellanode",
+     "kind": "village"
+    },
+    {
+     "name": "Belturbet",
+     "kind": "town"
+    },
+    {
+     "name": "Blacklion",
+     "kind": "village"
+    },
+    {
+     "name": "Butlers Bridge",
+     "kind": "village"
+    },
+    {
+     "name": "Carrickmacross",
+     "kind": "town"
+    },
+    {
+     "name": "Carrickroe",
+     "kind": "village"
+    },
+    {
+     "name": "Castleblayney",
+     "kind": "town"
+    },
+    {
+     "name": "Cavan",
+     "kind": "town"
+    },
+    {
+     "name": "Clones",
+     "kind": "town"
+    },
+    {
+     "name": "Clontibret",
+     "kind": "village"
+    },
+    {
+     "name": "Cootehill",
+     "kind": "town"
+    },
+    {
+     "name": "Corcaghan",
+     "kind": "village"
+    },
+    {
+     "name": "Corlismore",
+     "kind": "village"
+    },
+    {
+     "name": "Cornafean",
+     "kind": "village"
+    },
+    {
+     "name": "Crossdoney",
+     "kind": "village"
+    },
+    {
+     "name": "Crosskeys",
+     "kind": "village"
+    },
+    {
+     "name": "Doohamlet",
+     "kind": "village"
+    },
+    {
+     "name": "Dowra",
+     "kind": "village"
+    },
+    {
+     "name": "Drumkilly",
+     "kind": "village"
+    },
+    {
+     "name": "Emyvale",
+     "kind": "village"
+    },
+    {
+     "name": "Glangevlin",
+     "kind": "village"
+    },
+    {
+     "name": "Glaslough",
+     "kind": "village"
+    },
+    {
+     "name": "Inniskeen",
+     "kind": "village"
+    },
+    {
+     "name": "Kilcogy",
+     "kind": "village"
+    },
+    {
+     "name": "Killashandra",
+     "kind": "village"
+    },
+    {
+     "name": "Killinkere",
+     "kind": "village"
+    },
+    {
+     "name": "Kilnaleck",
+     "kind": "village"
+    },
+    {
+     "name": "Kingscourt",
+     "kind": "town"
+    },
+    {
+     "name": "Knockatallan",
+     "kind": "village"
+    },
+    {
+     "name": "Lavey",
+     "kind": "village"
+    },
+    {
+     "name": "Loch Gowna",
+     "kind": "village"
+    },
+    {
+     "name": "Lough Egish",
+     "kind": "village"
+    },
+    {
+     "name": "Loughduff",
+     "kind": "village"
+    },
+    {
+     "name": "Maghera",
+     "kind": "village"
+    },
+    {
+     "name": "Milltown",
+     "kind": "village"
+    },
+    {
+     "name": "Monaghan",
+     "kind": "town"
+    },
+    {
+     "name": "Mount Nugent",
+     "kind": "village"
+    },
+    {
+     "name": "Mullagh",
+     "kind": "village"
+    },
+    {
+     "name": "Newbliss",
+     "kind": "village"
+    },
+    {
+     "name": "Redhills",
+     "kind": "village"
+    },
+    {
+     "name": "Rockcorry",
+     "kind": "village"
+    },
+    {
+     "name": "Ryefield",
+     "kind": "village"
+    },
+    {
+     "name": "Scotshouse",
+     "kind": "village"
+    },
+    {
+     "name": "Scotstown",
+     "kind": "village"
+    },
+    {
+     "name": "Shercock",
+     "kind": "village"
+    },
+    {
+     "name": "Smithborough",
+     "kind": "village"
+    },
+    {
+     "name": "Stradone",
+     "kind": "village"
+    },
+    {
+     "name": "Swanlinbar",
+     "kind": "village"
+    },
+    {
+     "name": "Threemilehouse",
+     "kind": "village"
+    },
+    {
+     "name": "Tydavnet",
+     "kind": "village"
+    },
+    {
+     "name": "Virginia",
+     "kind": "town"
+    }
+   ]
+  },
+  {
+   "id": "12",
+   "name": "Donegal Division",
+   "counties": [
+    "Donegal"
+   ],
+   "places": [
+    {
+     "name": "An Charraig",
+     "kind": "village"
+    },
+    {
+     "name": "An Ghlaisigh",
+     "kind": "village"
+    },
+    {
+     "name": "Annagry",
+     "kind": "village"
+    },
+    {
+     "name": "Ardara",
+     "kind": "town"
+    },
+    {
+     "name": "Ballindrait",
+     "kind": "village"
+    },
+    {
+     "name": "Ballintra",
+     "kind": "village"
+    },
+    {
+     "name": "Ballybofey",
+     "kind": "town"
+    },
+    {
+     "name": "Ballyliffin",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyshannon",
+     "kind": "town"
+    },
+    {
+     "name": "Bridgend",
+     "kind": "village"
+    },
+    {
+     "name": "Brinlack",
+     "kind": "village"
+    },
+    {
+     "name": "Bunbeg",
+     "kind": "village"
+    },
+    {
+     "name": "Buncrana",
+     "kind": "town"
+    },
+    {
+     "name": "Bundoran",
+     "kind": "town"
+    },
+    {
+     "name": "Burnfoot",
+     "kind": "village"
+    },
+    {
+     "name": "Burtonport",
+     "kind": "village"
+    },
+    {
+     "name": "Carndonagh",
+     "kind": "town"
+    },
+    {
+     "name": "Carrick",
+     "kind": "village"
+    },
+    {
+     "name": "Carrigans",
+     "kind": "village"
+    },
+    {
+     "name": "Carrigart",
+     "kind": "village"
+    },
+    {
+     "name": "Carrowkeel",
+     "kind": "village"
+    },
+    {
+     "name": "Cashel",
+     "kind": "village"
+    },
+    {
+     "name": "Castlefinn",
+     "kind": "town"
+    },
+    {
+     "name": "Clonmany",
+     "kind": "village"
+    },
+    {
+     "name": "Convoy",
+     "kind": "village"
+    },
+    {
+     "name": "Creeslough",
+     "kind": "village"
+    },
+    {
+     "name": "Creevy",
+     "kind": "village"
+    },
+    {
+     "name": "Crolly",
+     "kind": "village"
+    },
+    {
+     "name": "Culdaff",
+     "kind": "village"
+    },
+    {
+     "name": "Derrybeg",
+     "kind": "village"
+    },
+    {
+     "name": "Donegal",
+     "kind": "town"
+    },
+    {
+     "name": "Doocharry",
+     "kind": "village"
+    },
+    {
+     "name": "Downings",
+     "kind": "village"
+    },
+    {
+     "name": "Drumfries",
+     "kind": "village"
+    },
+    {
+     "name": "Drumkeen",
+     "kind": "village"
+    },
+    {
+     "name": "Dunfanaghy",
+     "kind": "town"
+    },
+    {
+     "name": "Dungloe",
+     "kind": "town"
+    },
+    {
+     "name": "Dunkineely",
+     "kind": "village"
+    },
+    {
+     "name": "Fahan",
+     "kind": "village"
+    },
+    {
+     "name": "Falcarragh",
+     "kind": "town"
+    },
+    {
+     "name": "Fintown",
+     "kind": "village"
+    },
+    {
+     "name": "Frosses",
+     "kind": "village"
+    },
+    {
+     "name": "Glenties",
+     "kind": "village"
+    },
+    {
+     "name": "Gortahork",
+     "kind": "village"
+    },
+    {
+     "name": "Greencastle",
+     "kind": "village"
+    },
+    {
+     "name": "Gweedore",
+     "kind": "village"
+    },
+    {
+     "name": "Kilcar",
+     "kind": "village"
+    },
+    {
+     "name": "Killea",
+     "kind": "village"
+    },
+    {
+     "name": "Killybegs",
+     "kind": "town"
+    },
+    {
+     "name": "Killygordon",
+     "kind": "village"
+    },
+    {
+     "name": "Kilmacrennan",
+     "kind": "village"
+    },
+    {
+     "name": "Laghy",
+     "kind": "village"
+    },
+    {
+     "name": "Leabgarrow",
+     "kind": "village"
+    },
+    {
+     "name": "Leckemy",
+     "kind": "village"
+    },
+    {
+     "name": "Letterkenny",
+     "kind": "town"
+    },
+    {
+     "name": "Lettermacaward",
+     "kind": "village"
+    },
+    {
+     "name": "Lifford",
+     "kind": "town"
+    },
+    {
+     "name": "Loughanure",
+     "kind": "village"
+    },
+    {
+     "name": "Maghery",
+     "kind": "village"
+    },
+    {
+     "name": "Malin Beg",
+     "kind": "village"
+    },
+    {
+     "name": "Malin More",
+     "kind": "village"
+    },
+    {
+     "name": "Manorcunningham",
+     "kind": "village"
+    },
+    {
+     "name": "Meenlaragh",
+     "kind": "village"
+    },
+    {
+     "name": "Milford",
+     "kind": "town"
+    },
+    {
+     "name": "Mountcharles",
+     "kind": "village"
+    },
+    {
+     "name": "Moville",
+     "kind": "town"
+    },
+    {
+     "name": "Newtown Cunningham",
+     "kind": "village"
+    },
+    {
+     "name": "Pettigo",
+     "kind": "village"
+    },
+    {
+     "name": "Portahack",
+     "kind": "village"
+    },
+    {
+     "name": "Portnablagh",
+     "kind": "village"
+    },
+    {
+     "name": "Portsalon",
+     "kind": "village"
+    },
+    {
+     "name": "Quigley's Point",
+     "kind": "village"
+    },
+    {
+     "name": "Ramelton",
+     "kind": "town"
+    },
+    {
+     "name": "Raphoe",
+     "kind": "town"
+    },
+    {
+     "name": "Rathmullan",
+     "kind": "village"
+    },
+    {
+     "name": "Rinnafarset",
+     "kind": "village"
+    },
+    {
+     "name": "Rosnakill",
+     "kind": "village"
+    },
+    {
+     "name": "Rossnowlagh",
+     "kind": "village"
+    },
+    {
+     "name": "Saint Johnston",
+     "kind": "village"
+    },
+    {
+     "name": "Stranorlar",
+     "kind": "town"
+    },
+    {
+     "name": "Tawny",
+     "kind": "village"
+    },
+    {
+     "name": "Teelin",
+     "kind": "village"
+    },
+    {
+     "name": "Termon",
+     "kind": "village"
+    },
+    {
+     "name": "West Town",
+     "kind": "village"
+    }
+   ]
+  },
+  {
+   "id": "13",
+   "name": "Sligo/Leitrim Division",
+   "counties": [
+    "Sligo",
+    "Leitrim"
+   ],
+   "places": [
+    {
+     "name": "Aclare",
+     "kind": "village"
+    },
+    {
+     "name": "Aghamore",
+     "kind": "village"
+    },
+    {
+     "name": "Aughavas",
+     "kind": "village"
+    },
+    {
+     "name": "Ballinafad",
+     "kind": "village"
+    },
+    {
+     "name": "Ballinagleragh",
+     "kind": "village"
+    },
+    {
+     "name": "Ballinamore",
+     "kind": "town"
+    },
+    {
+     "name": "Ballintogher",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyfarnan",
+     "kind": "village"
+    },
+    {
+     "name": "Ballygawley",
+     "kind": "village"
+    },
+    {
+     "name": "Ballymote",
+     "kind": "town"
+    },
+    {
+     "name": "Ballynacarrow",
+     "kind": "village"
+    },
+    {
+     "name": "Ballysadare",
+     "kind": "village"
+    },
+    {
+     "name": "Bornacoola",
+     "kind": "village"
+    },
+    {
+     "name": "Bunnanaddan",
+     "kind": "village"
+    },
+    {
+     "name": "Carrick-on-Shannon",
+     "kind": "town"
+    },
+    {
+     "name": "Carrigallen",
+     "kind": "village"
+    },
+    {
+     "name": "Castlebaldwin",
+     "kind": "village"
+    },
+    {
+     "name": "Cliffoney",
+     "kind": "village"
+    },
+    {
+     "name": "Cloonacool",
+     "kind": "village"
+    },
+    {
+     "name": "Cloone",
+     "kind": "village"
+    },
+    {
+     "name": "Collooney",
+     "kind": "town"
+    },
+    {
+     "name": "Coolaney",
+     "kind": "village"
+    },
+    {
+     "name": "Curry",
+     "kind": "village"
+    },
+    {
+     "name": "Dromahair",
+     "kind": "town"
+    },
+    {
+     "name": "Dromod",
+     "kind": "village"
+    },
+    {
+     "name": "Dromore West",
+     "kind": "village"
+    },
+    {
+     "name": "Drumcliff",
+     "kind": "village"
+    },
+    {
+     "name": "Drumcong",
+     "kind": "village"
+    },
+    {
+     "name": "Drumcoura",
+     "kind": "village"
+    },
+    {
+     "name": "Drumkeeran",
+     "kind": "village"
+    },
+    {
+     "name": "Drumshanbo",
+     "kind": "town"
+    },
+    {
+     "name": "Drumsna",
+     "kind": "village"
+    },
+    {
+     "name": "Easky",
+     "kind": "village"
+    },
+    {
+     "name": "Effrinagh",
+     "kind": "village"
+    },
+    {
+     "name": "Eslinbridge",
+     "kind": "village"
+    },
+    {
+     "name": "Fenagh",
+     "kind": "village"
+    },
+    {
+     "name": "Foxfield",
+     "kind": "village"
+    },
+    {
+     "name": "Garvagh",
+     "kind": "village"
+    },
+    {
+     "name": "Gorteen",
+     "kind": "village"
+    },
+    {
+     "name": "Gortletteragh",
+     "kind": "village"
+    },
+    {
+     "name": "Gowel",
+     "kind": "village"
+    },
+    {
+     "name": "Inishcrone",
+     "kind": "town"
+    },
+    {
+     "name": "Jamestown",
+     "kind": "village"
+    },
+    {
+     "name": "Keshcarrigan",
+     "kind": "village"
+    },
+    {
+     "name": "Kilarga",
+     "kind": "village"
+    },
+    {
+     "name": "Kilclare",
+     "kind": "village"
+    },
+    {
+     "name": "Kilnagross",
+     "kind": "village"
+    },
+    {
+     "name": "Kiltyclogher",
+     "kind": "village"
+    },
+    {
+     "name": "Kinlough",
+     "kind": "village"
+    },
+    {
+     "name": "Leitrim",
+     "kind": "village"
+    },
+    {
+     "name": "Lurganboy",
+     "kind": "village"
+    },
+    {
+     "name": "Manorhamilton",
+     "kind": "town"
+    },
+    {
+     "name": "Mohill",
+     "kind": "town"
+    },
+    {
+     "name": "Monasteraden",
+     "kind": "village"
+    },
+    {
+     "name": "Mullaghmore",
+     "kind": "village"
+    },
+    {
+     "name": "Munninane",
+     "kind": "village"
+    },
+    {
+     "name": "Newtown Gore",
+     "kind": "village"
+    },
+    {
+     "name": "Riverstown",
+     "kind": "village"
+    },
+    {
+     "name": "Rosses Point",
+     "kind": "village"
+    },
+    {
+     "name": "Rossinver",
+     "kind": "village"
+    },
+    {
+     "name": "Sligo",
+     "kind": "town"
+    },
+    {
+     "name": "Strandhill",
+     "kind": "town"
+    },
+    {
+     "name": "Tobercurry",
+     "kind": "town"
+    },
+    {
+     "name": "Toorlestraun",
+     "kind": "village"
+    },
+    {
+     "name": "Tullaghan",
+     "kind": "village"
+    }
+   ]
+  },
+  {
+   "id": "14",
+   "name": "Louth Division",
+   "counties": [
+    "Louth"
+   ],
+   "places": [
+    {
+     "name": "Annagassan",
+     "kind": "village"
+    },
+    {
+     "name": "Ardee",
+     "kind": "town"
+    },
+    {
+     "name": "Ballymascanlan",
+     "kind": "village"
+    },
+    {
+     "name": "Baltray",
+     "kind": "village"
+    },
+    {
+     "name": "Carlingford",
+     "kind": "town"
+    },
+    {
+     "name": "Castlebellingham",
+     "kind": "village"
+    },
+    {
+     "name": "Clogherhead",
+     "kind": "village"
+    },
+    {
+     "name": "Collon",
+     "kind": "village"
+    },
+    {
+     "name": "Darver",
+     "kind": "village"
+    },
+    {
+     "name": "Drogheda",
+     "kind": "town"
+    },
+    {
+     "name": "Dromin",
+     "kind": "village"
+    },
+    {
+     "name": "Dromiskin",
+     "kind": "village"
+    },
+    {
+     "name": "Dundalk",
+     "kind": "town"
+    },
+    {
+     "name": "Dunleer",
+     "kind": "town"
+    },
+    {
+     "name": "Flurrybridge",
+     "kind": "village"
+    },
+    {
+     "name": "Greenore",
+     "kind": "village"
+    },
+    {
+     "name": "Kilsaran",
+     "kind": "village"
+    },
+    {
+     "name": "Knockbridge",
+     "kind": "village"
+    },
+    {
+     "name": "Louth",
+     "kind": "village"
+    },
+    {
+     "name": "Mansfieldstown",
+     "kind": "village"
+    },
+    {
+     "name": "Omeath",
+     "kind": "village"
+    },
+    {
+     "name": "Philipstown",
+     "kind": "village"
+    },
+    {
+     "name": "Sandpit",
+     "kind": "village"
+    },
+    {
+     "name": "Stabannan",
+     "kind": "village"
+    },
+    {
+     "name": "Tallanstown",
+     "kind": "village"
+    },
+    {
+     "name": "Termonfeckin",
+     "kind": "village"
+    },
+    {
+     "name": "Tinure",
+     "kind": "village"
+    },
+    {
+     "name": "Tullyallen",
+     "kind": "village"
+    }
+   ]
+  },
+  {
+   "id": "21",
+   "name": "Clare Division",
+   "counties": [
+    "Clare"
+   ],
+   "places": [
+    {
+     "name": "Ballina",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyvaughan",
+     "kind": "village"
+    },
+    {
+     "name": "Bridgetown",
+     "kind": "village"
+    },
+    {
+     "name": "Broadford",
+     "kind": "village"
+    },
+    {
+     "name": "Bunratty",
+     "kind": "village"
+    },
+    {
+     "name": "Carrigaholt",
+     "kind": "village"
+    },
+    {
+     "name": "Clarecastle",
+     "kind": "village"
+    },
+    {
+     "name": "Clooney",
+     "kind": "village"
+    },
+    {
+     "name": "Cooraclare",
+     "kind": "village"
+    },
+    {
+     "name": "Corofin",
+     "kind": "village"
+    },
+    {
+     "name": "Cratloe",
+     "kind": "village"
+    },
+    {
+     "name": "Crusheen",
+     "kind": "village"
+    },
+    {
+     "name": "Doolin",
+     "kind": "village"
+    },
+    {
+     "name": "Doonbeg",
+     "kind": "village"
+    },
+    {
+     "name": "Ennis",
+     "kind": "town"
+    },
+    {
+     "name": "Ennistimon",
+     "kind": "town"
+    },
+    {
+     "name": "Fanore",
+     "kind": "village"
+    },
+    {
+     "name": "Feakle",
+     "kind": "village"
+    },
+    {
+     "name": "Inagh",
+     "kind": "village"
+    },
+    {
+     "name": "Kilfenora",
+     "kind": "village"
+    },
+    {
+     "name": "Kilkee",
+     "kind": "town"
+    },
+    {
+     "name": "Kilkishen",
+     "kind": "village"
+    },
+    {
+     "name": "Killadysert",
+     "kind": "village"
+    },
+    {
+     "name": "Killaloe",
+     "kind": "village"
+    },
+    {
+     "name": "Killinaboy",
+     "kind": "village"
+    },
+    {
+     "name": "Kilmihil",
+     "kind": "village"
+    },
+    {
+     "name": "Kilmurry",
+     "kind": "village"
+    },
+    {
+     "name": "Kilrush",
+     "kind": "town"
+    },
+    {
+     "name": "Labasheeda",
+     "kind": "village"
+    },
+    {
+     "name": "Lahinch",
+     "kind": "village"
+    },
+    {
+     "name": "Liscannor",
+     "kind": "village"
+    },
+    {
+     "name": "Lisdoonvarna",
+     "kind": "town"
+    },
+    {
+     "name": "Lissycasey",
+     "kind": "village"
+    },
+    {
+     "name": "Milltown Malbay",
+     "kind": "town"
+    },
+    {
+     "name": "Mountshannon",
+     "kind": "village"
+    },
+    {
+     "name": "Mullagh",
+     "kind": "village"
+    },
+    {
+     "name": "Newmarket on Fergus",
+     "kind": "town"
+    },
+    {
+     "name": "O'Callaghansmills",
+     "kind": "village"
+    },
+    {
+     "name": "Ogonnelloe",
+     "kind": "village"
+    },
+    {
+     "name": "Quilty",
+     "kind": "village"
+    },
+    {
+     "name": "Scarriff",
+     "kind": "village"
+    },
+    {
+     "name": "Sixmilebridge",
+     "kind": "village"
+    },
+    {
+     "name": "Spanish Point",
+     "kind": "village"
+    },
+    {
+     "name": "Tuamgraney",
+     "kind": "village"
+    },
+    {
+     "name": "Tulla",
+     "kind": "village"
+    }
+   ]
+  },
+  {
+   "id": "22",
+   "name": "Mayo Division",
+   "counties": [
+    "Mayo"
+   ],
+   "places": [
+    {
+     "name": "Achill Sound",
+     "kind": "town"
+    },
+    {
+     "name": "Aghamore",
+     "kind": "village"
+    },
+    {
+     "name": "Aghleam",
+     "kind": "village"
+    },
+    {
+     "name": "Attymass",
+     "kind": "village"
+    },
+    {
+     "name": "Aughagower",
+     "kind": "village"
+    },
+    {
+     "name": "Balla",
+     "kind": "village"
+    },
+    {
+     "name": "Ballina",
+     "kind": "town"
+    },
+    {
+     "name": "Ballindine",
+     "kind": "village"
+    },
+    {
+     "name": "Ballinrobe",
+     "kind": "town"
+    },
+    {
+     "name": "Ballintober",
+     "kind": "village"
+    },
+    {
+     "name": "Ballycastle",
+     "kind": "town"
+    },
+    {
+     "name": "Ballycroy",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyglass",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyhaunis",
+     "kind": "town"
+    },
+    {
+     "name": "Ballyhean",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyvary",
+     "kind": "village"
+    },
+    {
+     "name": "Bangor Erris",
+     "kind": "town"
+    },
+    {
+     "name": "Bekan",
+     "kind": "village"
+    },
+    {
+     "name": "Belcarra",
+     "kind": "village"
+    },
+    {
+     "name": "Belderg",
+     "kind": "village"
+    },
+    {
+     "name": "Belmullet",
+     "kind": "town"
+    },
+    {
+     "name": "Binghamstown",
+     "kind": "village"
+    },
+    {
+     "name": "Bofeenaun",
+     "kind": "village"
+    },
+    {
+     "name": "Bogtown",
+     "kind": "village"
+    },
+    {
+     "name": "Bohola",
+     "kind": "village"
+    },
+    {
+     "name": "Breaghwy",
+     "kind": "village"
+    },
+    {
+     "name": "Bunacurry",
+     "kind": "village"
+    },
+    {
+     "name": "Bunnahowen",
+     "kind": "village"
+    },
+    {
+     "name": "Bunnyconnellan",
+     "kind": "village"
+    },
+    {
+     "name": "Burren",
+     "kind": "village"
+    },
+    {
+     "name": "Carnacon",
+     "kind": "village"
+    },
+    {
+     "name": "Carracastle",
+     "kind": "village"
+    },
+    {
+     "name": "Carraholly",
+     "kind": "village"
+    },
+    {
+     "name": "Carrowteige",
+     "kind": "village"
+    },
+    {
+     "name": "Cashel",
+     "kind": "village"
+    },
+    {
+     "name": "Castlebar",
+     "kind": "town"
+    },
+    {
+     "name": "Charlestown",
+     "kind": "town"
+    },
+    {
+     "name": "Claremorris",
+     "kind": "town"
+    },
+    {
+     "name": "Clogher",
+     "kind": "village"
+    },
+    {
+     "name": "Coogue",
+     "kind": "village"
+    },
+    {
+     "name": "Crossmolina",
+     "kind": "town"
+    },
+    {
+     "name": "Dooagh",
+     "kind": "village"
+    },
+    {
+     "name": "Dooega",
+     "kind": "village"
+    },
+    {
+     "name": "Doogort",
+     "kind": "village"
+    },
+    {
+     "name": "Doohooma",
+     "kind": "town"
+    },
+    {
+     "name": "Dooniver",
+     "kind": "village"
+    },
+    {
+     "name": "Errew",
+     "kind": "village"
+    },
+    {
+     "name": "Fotish Village",
+     "kind": "village"
+    },
+    {
+     "name": "Foxford",
+     "kind": "town"
+    },
+    {
+     "name": "Glenamoy",
+     "kind": "village"
+    },
+    {
+     "name": "Glencorrib",
+     "kind": "village"
+    },
+    {
+     "name": "Glenisland",
+     "kind": "village"
+    },
+    {
+     "name": "Gweesalia",
+     "kind": "village"
+    },
+    {
+     "name": "Hollymount",
+     "kind": "village"
+    },
+    {
+     "name": "Inver",
+     "kind": "village"
+    },
+    {
+     "name": "Irishtown",
+     "kind": "village"
+    },
+    {
+     "name": "Islandeady",
+     "kind": "village"
+    },
+    {
+     "name": "Keeloges",
+     "kind": "village"
+    },
+    {
+     "name": "Kilgalligan",
+     "kind": "village"
+    },
+    {
+     "name": "Kilkelly",
+     "kind": "village"
+    },
+    {
+     "name": "Killala",
+     "kind": "town"
+    },
+    {
+     "name": "Killawalla",
+     "kind": "village"
+    },
+    {
+     "name": "Kilmaine",
+     "kind": "town"
+    },
+    {
+     "name": "Kilmovee",
+     "kind": "village"
+    },
+    {
+     "name": "Kiltimagh",
+     "kind": "town"
+    },
+    {
+     "name": "Knock",
+     "kind": "town"
+    },
+    {
+     "name": "Lahardane",
+     "kind": "village"
+    },
+    {
+     "name": "Lecanvey",
+     "kind": "village"
+    },
+    {
+     "name": "Louisburgh",
+     "kind": "town"
+    },
+    {
+     "name": "Manulla",
+     "kind": "village"
+    },
+    {
+     "name": "Mayo Abbey",
+     "kind": "village"
+    },
+    {
+     "name": "Mulranny",
+     "kind": "town"
+    },
+    {
+     "name": "Murrisk",
+     "kind": "village"
+    },
+    {
+     "name": "Neale",
+     "kind": "village"
+    },
+    {
+     "name": "Newport",
+     "kind": "town"
+    },
+    {
+     "name": "Partry",
+     "kind": "village"
+    },
+    {
+     "name": "Pollagh",
+     "kind": "village"
+    },
+    {
+     "name": "Pollatomish",
+     "kind": "village"
+    },
+    {
+     "name": "Polranny",
+     "kind": "village"
+    },
+    {
+     "name": "Rossport",
+     "kind": "village"
+    },
+    {
+     "name": "Shrule",
+     "kind": "town"
+    },
+    {
+     "name": "Snugboro",
+     "kind": "village"
+    },
+    {
+     "name": "Strade",
+     "kind": "village"
+    },
+    {
+     "name": "Swinford",
+     "kind": "town"
+    },
+    {
+     "name": "Taugheen",
+     "kind": "village"
+    },
+    {
+     "name": "Tonatanvally",
+     "kind": "village"
+    },
+    {
+     "name": "Tonragee",
+     "kind": "village"
+    },
+    {
+     "name": "Tooreen",
+     "kind": "village"
+    },
+    {
+     "name": "Tourmakeady",
+     "kind": "village"
+    },
+    {
+     "name": "Turlough",
+     "kind": "village"
+    },
+    {
+     "name": "Urlaur",
+     "kind": "village"
+    },
+    {
+     "name": "Westport",
+     "kind": "town"
+    }
+   ]
+  },
+  {
+   "id": "23",
+   "name": "Galway Division",
+   "counties": [
+    "Galway"
+   ],
+   "places": [
+    {
+     "name": "Abbeyknockmoy",
+     "kind": "village"
+    },
+    {
+     "name": "Ahascragh",
+     "kind": "village"
+    },
+    {
+     "name": "Annaghdown",
+     "kind": "village"
+    },
+    {
+     "name": "Ardrahan",
+     "kind": "village"
+    },
+    {
+     "name": "Athenry",
+     "kind": "town"
+    },
+    {
+     "name": "Attymon",
+     "kind": "village"
+    },
+    {
+     "name": "Aughrim",
+     "kind": "village"
+    },
+    {
+     "name": "Baile na hAbhann",
+     "kind": "village"
+    },
+    {
+     "name": "Ballinasloe",
+     "kind": "town"
+    },
+    {
+     "name": "Ballinderreen",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyconneely",
+     "kind": "village"
+    },
+    {
+     "name": "Ballygar",
+     "kind": "village"
+    },
+    {
+     "name": "Ballymoe",
+     "kind": "village"
+    },
+    {
+     "name": "Barna",
+     "kind": "town"
+    },
+    {
+     "name": "Béal an Daingin",
+     "kind": "village"
+    },
+    {
+     "name": "Caltra",
+     "kind": "village"
+    },
+    {
+     "name": "Camus",
+     "kind": "village"
+    },
+    {
+     "name": "Carna",
+     "kind": "village"
+    },
+    {
+     "name": "Carraroe",
+     "kind": "town"
+    },
+    {
+     "name": "Castleblakeney",
+     "kind": "village"
+    },
+    {
+     "name": "Castlegar",
+     "kind": "village"
+    },
+    {
+     "name": "Claddaghduff",
+     "kind": "village"
+    },
+    {
+     "name": "Claregalway",
+     "kind": "town"
+    },
+    {
+     "name": "Clarinbridge",
+     "kind": "village"
+    },
+    {
+     "name": "Cleggan",
+     "kind": "village"
+    },
+    {
+     "name": "Clifden",
+     "kind": "town"
+    },
+    {
+     "name": "Clonbur",
+     "kind": "village"
+    },
+    {
+     "name": "Cloonboo",
+     "kind": "village"
+    },
+    {
+     "name": "Cornamona",
+     "kind": "village"
+    },
+    {
+     "name": "Corrandulla",
+     "kind": "village"
+    },
+    {
+     "name": "Costelloe",
+     "kind": "village"
+    },
+    {
+     "name": "Craughwell",
+     "kind": "village"
+    },
+    {
+     "name": "Creagh",
+     "kind": "village"
+    },
+    {
+     "name": "Creggs",
+     "kind": "village"
+    },
+    {
+     "name": "Dunmore",
+     "kind": "village"
+    },
+    {
+     "name": "Eyrecourt",
+     "kind": "village"
+    },
+    {
+     "name": "Furbo",
+     "kind": "town"
+    },
+    {
+     "name": "Galway",
+     "kind": "city"
+    },
+    {
+     "name": "Garrafrauns",
+     "kind": "village"
+    },
+    {
+     "name": "Glenamaddy",
+     "kind": "village"
+    },
+    {
+     "name": "Headford",
+     "kind": "town"
+    },
+    {
+     "name": "Inverin",
+     "kind": "village"
+    },
+    {
+     "name": "Kilchreest",
+     "kind": "village"
+    },
+    {
+     "name": "Kilcolgan",
+     "kind": "village"
+    },
+    {
+     "name": "Kilkieran",
+     "kind": "village"
+    },
+    {
+     "name": "Killimor",
+     "kind": "village"
+    },
+    {
+     "name": "Kilreekil",
+     "kind": "village"
+    },
+    {
+     "name": "Kilronan",
+     "kind": "village"
+    },
+    {
+     "name": "Kiltormer",
+     "kind": "village"
+    },
+    {
+     "name": "Kinvarra",
+     "kind": "village"
+    },
+    {
+     "name": "Kylemore",
+     "kind": "village"
+    },
+    {
+     "name": "Lackagh",
+     "kind": "village"
+    },
+    {
+     "name": "Laurencetown",
+     "kind": "village"
+    },
+    {
+     "name": "Leenaun",
+     "kind": "village"
+    },
+    {
+     "name": "Leitir Móir",
+     "kind": "village"
+    },
+    {
+     "name": "Letterfrack",
+     "kind": "village"
+    },
+    {
+     "name": "Lettermullan",
+     "kind": "village"
+    },
+    {
+     "name": "Loughrea",
+     "kind": "town"
+    },
+    {
+     "name": "Maam Cross",
+     "kind": "village"
+    },
+    {
+     "name": "Menlo",
+     "kind": "village"
+    },
+    {
+     "name": "Milltown",
+     "kind": "village"
+    },
+    {
+     "name": "Monivea",
+     "kind": "village"
+    },
+    {
+     "name": "Mountbellew",
+     "kind": "town"
+    },
+    {
+     "name": "Moycullen",
+     "kind": "town"
+    },
+    {
+     "name": "Moylough",
+     "kind": "village"
+    },
+    {
+     "name": "Oranmore",
+     "kind": "town"
+    },
+    {
+     "name": "Oughterard",
+     "kind": "town"
+    },
+    {
+     "name": "Portumna",
+     "kind": "town"
+    },
+    {
+     "name": "Rosmuc",
+     "kind": "village"
+    },
+    {
+     "name": "Rossaveel",
+     "kind": "village"
+    },
+    {
+     "name": "Rosscahill",
+     "kind": "town"
+    },
+    {
+     "name": "Roundstone",
+     "kind": "town"
+    },
+    {
+     "name": "Shanaglish",
+     "kind": "village"
+    },
+    {
+     "name": "Spiddal",
+     "kind": "town"
+    },
+    {
+     "name": "Tully",
+     "kind": "village"
+    },
+    {
+     "name": "Tully Cross",
+     "kind": "village"
+    },
+    {
+     "name": "Tynagh",
+     "kind": "village"
+    },
+    {
+     "name": "Tír an Fhia",
+     "kind": "village"
+    },
+    {
+     "name": "Williamstown",
+     "kind": "village"
+    },
+    {
+     "name": "Woodford",
+     "kind": "village"
+    }
+   ]
+  },
+  {
+   "id": "24",
+   "name": "Roscommon/Longford Division",
+   "counties": [
+    "Roscommon",
+    "Longford"
+   ],
+   "places": [
+    {
+     "name": "Abbeylara",
+     "kind": "village"
+    },
+    {
+     "name": "Abbeyshrule",
+     "kind": "village"
+    },
+    {
+     "name": "Ardagh",
+     "kind": "village"
+    },
+    {
+     "name": "Arigna",
+     "kind": "village"
+    },
+    {
+     "name": "Athleague",
+     "kind": "village"
+    },
+    {
+     "name": "Aughnacliffe",
+     "kind": "village"
+    },
+    {
+     "name": "Ballaghaderreen",
+     "kind": "town"
+    },
+    {
+     "name": "Ballinalee",
+     "kind": "village"
+    },
+    {
+     "name": "Ballinameen",
+     "kind": "village"
+    },
+    {
+     "name": "Ballinamuck",
+     "kind": "village"
+    },
+    {
+     "name": "Ballinlough",
+     "kind": "village"
+    },
+    {
+     "name": "Ballintober",
+     "kind": "village"
+    },
+    {
+     "name": "Ballycloghan",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyforan",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyleague",
+     "kind": "village"
+    },
+    {
+     "name": "Ballymahon",
+     "kind": "town"
+    },
+    {
+     "name": "Barry",
+     "kind": "village"
+    },
+    {
+     "name": "Bellanagare",
+     "kind": "village"
+    },
+    {
+     "name": "Boyle",
+     "kind": "town"
+    },
+    {
+     "name": "Brusna",
+     "kind": "village"
+    },
+    {
+     "name": "Castleplunket",
+     "kind": "village"
+    },
+    {
+     "name": "Castlerea",
+     "kind": "town"
+    },
+    {
+     "name": "Cloondara",
+     "kind": "village"
+    },
+    {
+     "name": "Cloonfad",
+     "kind": "village"
+    },
+    {
+     "name": "Cloontuskert",
+     "kind": "village"
+    },
+    {
+     "name": "Colehill",
+     "kind": "village"
+    },
+    {
+     "name": "Cootehall",
+     "kind": "village"
+    },
+    {
+     "name": "Croghan",
+     "kind": "village"
+    },
+    {
+     "name": "Cullyfad",
+     "kind": "village"
+    },
+    {
+     "name": "Dernacartha",
+     "kind": "village"
+    },
+    {
+     "name": "Derryhaun",
+     "kind": "village"
+    },
+    {
+     "name": "Drumlish",
+     "kind": "village"
+    },
+    {
+     "name": "Dysart",
+     "kind": "village"
+    },
+    {
+     "name": "Edgeworthstown",
+     "kind": "town"
+    },
+    {
+     "name": "Elphin",
+     "kind": "town"
+    },
+    {
+     "name": "Ennybegs",
+     "kind": "village"
+    },
+    {
+     "name": "Frenchpark",
+     "kind": "village"
+    },
+    {
+     "name": "Granard",
+     "kind": "town"
+    },
+    {
+     "name": "Keadue",
+     "kind": "village"
+    },
+    {
+     "name": "Keenagh",
+     "kind": "village"
+    },
+    {
+     "name": "Killashee",
+     "kind": "village"
+    },
+    {
+     "name": "Knockcroghery",
+     "kind": "village"
+    },
+    {
+     "name": "Lanesborough",
+     "kind": "village"
+    },
+    {
+     "name": "Legan",
+     "kind": "village"
+    },
+    {
+     "name": "Legga",
+     "kind": "village"
+    },
+    {
+     "name": "Lisacul",
+     "kind": "village"
+    },
+    {
+     "name": "Lisryan",
+     "kind": "village"
+    },
+    {
+     "name": "Longford",
+     "kind": "town"
+    },
+    {
+     "name": "Loughglinn",
+     "kind": "village"
+    },
+    {
+     "name": "Melview",
+     "kind": "village"
+    },
+    {
+     "name": "Moydow",
+     "kind": "village"
+    },
+    {
+     "name": "Moyne",
+     "kind": "village"
+    },
+    {
+     "name": "Mullinalaghta",
+     "kind": "village"
+    },
+    {
+     "name": "Newtown Forbes",
+     "kind": "town"
+    },
+    {
+     "name": "Newtowncashel",
+     "kind": "village"
+    },
+    {
+     "name": "Rahara",
+     "kind": "village"
+    },
+    {
+     "name": "Roosky",
+     "kind": "village"
+    },
+    {
+     "name": "Roscommon",
+     "kind": "town"
+    },
+    {
+     "name": "Scramoge",
+     "kind": "village"
+    },
+    {
+     "name": "Slatta",
+     "kind": "village"
+    },
+    {
+     "name": "Stonepark",
+     "kind": "village"
+    },
+    {
+     "name": "Strokestown",
+     "kind": "town"
+    },
+    {
+     "name": "Tashinny",
+     "kind": "village"
+    },
+    {
+     "name": "Termonbarry",
+     "kind": "village"
+    },
+    {
+     "name": "Tulsk",
+     "kind": "village"
+    },
+    {
+     "name": "Whitehall",
+     "kind": "village"
+    }
+   ]
+  },
+  {
+   "id": "31",
+   "name": "Cork City Division",
+   "counties": [
+    "Cork"
+   ],
+   "places": [
+    {
+     "name": "Ballygarvan",
+     "kind": "village"
+    },
+    {
+     "name": "Carrigaline",
+     "kind": "town"
+    },
+    {
+     "name": "Carrignavar",
+     "kind": "village"
+    },
+    {
+     "name": "Carrigrohane",
+     "kind": "village"
+    },
+    {
+     "name": "Cloghroe",
+     "kind": "village"
+    },
+    {
+     "name": "Crosshaven",
+     "kind": "village"
+    },
+    {
+     "name": "Glenbrook",
+     "kind": "village"
+    },
+    {
+     "name": "Glounthaune",
+     "kind": "village"
+    },
+    {
+     "name": "Grenagh",
+     "kind": "village"
+    },
+    {
+     "name": "Knockraha",
+     "kind": "village"
+    },
+    {
+     "name": "Little Island",
+     "kind": "village"
+    },
+    {
+     "name": "Minane Bridge",
+     "kind": "village"
+    },
+    {
+     "name": "Monkstown",
+     "kind": "village"
+    },
+    {
+     "name": "Passage West",
+     "kind": "town"
+    },
+    {
+     "name": "Ringaskiddy",
+     "kind": "village"
+    },
+    {
+     "name": "Robert's Cove",
+     "kind": "village"
+    },
+    {
+     "name": "Shanbally",
+     "kind": "village"
+    },
+    {
+     "name": "Tower",
+     "kind": "village"
+    },
+    {
+     "name": "Whitechurch",
+     "kind": "village"
+    }
+   ]
+  },
+  {
+   "id": "32",
+   "name": "Cork North Division",
+   "counties": [
+    "Cork"
+   ],
+   "places": [
+    {
+     "name": "Aghada Lower",
+     "kind": "village"
+    },
+    {
+     "name": "Aghada Upper",
+     "kind": "village"
+    },
+    {
+     "name": "Araglin",
+     "kind": "village"
+    },
+    {
+     "name": "Ballinacurra",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyclogh",
+     "kind": "village"
+    },
+    {
+     "name": "Ballycotton",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyhea",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyhooly",
+     "kind": "village"
+    },
+    {
+     "name": "Ballymacoda",
+     "kind": "village"
+    },
+    {
+     "name": "Ballynoe",
+     "kind": "village"
+    },
+    {
+     "name": "Banteer",
+     "kind": "village"
+    },
+    {
+     "name": "Bartlemy",
+     "kind": "village"
+    },
+    {
+     "name": "Buttevant",
+     "kind": "town"
+    },
+    {
+     "name": "Bweeng",
+     "kind": "village"
+    },
+    {
+     "name": "Carrigtwohill",
+     "kind": "town"
+    },
+    {
+     "name": "Castlelyons",
+     "kind": "village"
+    },
+    {
+     "name": "Castlemagner",
+     "kind": "village"
+    },
+    {
+     "name": "Castlemartyr",
+     "kind": "village"
+    },
+    {
+     "name": "Castletownroche",
+     "kind": "village"
+    },
+    {
+     "name": "Cecilstown",
+     "kind": "village"
+    },
+    {
+     "name": "Charleville",
+     "kind": "town"
+    },
+    {
+     "name": "Churchtown",
+     "kind": "village"
+    },
+    {
+     "name": "Clonmult",
+     "kind": "village"
+    },
+    {
+     "name": "Cloyne",
+     "kind": "town"
+    },
+    {
+     "name": "Conna",
+     "kind": "village"
+    },
+    {
+     "name": "Coolagowan",
+     "kind": "village"
+    },
+    {
+     "name": "Doneraile",
+     "kind": "village"
+    },
+    {
+     "name": "Dromina",
+     "kind": "village"
+    },
+    {
+     "name": "Drommahane",
+     "kind": "village"
+    },
+    {
+     "name": "Dungourney",
+     "kind": "village"
+    },
+    {
+     "name": "Farsid-Rostellan",
+     "kind": "village"
+    },
+    {
+     "name": "Fermoy",
+     "kind": "town"
+    },
+    {
+     "name": "Freemount",
+     "kind": "village"
+    },
+    {
+     "name": "Garryvoe",
+     "kind": "village"
+    },
+    {
+     "name": "Glanworth",
+     "kind": "village"
+    },
+    {
+     "name": "Glenville",
+     "kind": "village"
+    },
+    {
+     "name": "Kanturk",
+     "kind": "town"
+    },
+    {
+     "name": "Kilbehenny",
+     "kind": "village"
+    },
+    {
+     "name": "Kilbrin",
+     "kind": "village"
+    },
+    {
+     "name": "Kildorrery",
+     "kind": "village"
+    },
+    {
+     "name": "Killavullen",
+     "kind": "village"
+    },
+    {
+     "name": "Killeagh",
+     "kind": "village"
+    },
+    {
+     "name": "Kilworth",
+     "kind": "village"
+    },
+    {
+     "name": "Ladysbridge",
+     "kind": "village"
+    },
+    {
+     "name": "Liscarroll",
+     "kind": "village"
+    },
+    {
+     "name": "Lisgoold",
+     "kind": "village"
+    },
+    {
+     "name": "Lombardstown",
+     "kind": "village"
+    },
+    {
+     "name": "Mallow",
+     "kind": "town"
+    },
+    {
+     "name": "Meelin",
+     "kind": "village"
+    },
+    {
+     "name": "Midleton",
+     "kind": "town"
+    },
+    {
+     "name": "Milford",
+     "kind": "village"
+    },
+    {
+     "name": "Mitchelstown",
+     "kind": "town"
+    },
+    {
+     "name": "Mogeely",
+     "kind": "village"
+    },
+    {
+     "name": "New Twopothouse",
+     "kind": "village"
+    },
+    {
+     "name": "Rathcormack",
+     "kind": "village"
+    },
+    {
+     "name": "Rockchapel",
+     "kind": "village"
+    },
+    {
+     "name": "Shanagarry",
+     "kind": "village"
+    },
+    {
+     "name": "Shanballymore",
+     "kind": "village"
+    },
+    {
+     "name": "Watergrasshill",
+     "kind": "town"
+    },
+    {
+     "name": "Whitegate",
+     "kind": "village"
+    },
+    {
+     "name": "Youghal",
+     "kind": "town"
+    }
+   ]
+  },
+  {
+   "id": "33",
+   "name": "Cork West Division",
+   "counties": [
+    "Cork"
+   ],
+   "places": [
+    {
+     "name": "Adrigole",
+     "kind": "village"
+    },
+    {
+     "name": "Aghabullogue",
+     "kind": "village"
+    },
+    {
+     "name": "Aherla",
+     "kind": "village"
+    },
+    {
+     "name": "Allihies",
+     "kind": "village"
+    },
+    {
+     "name": "Ardgroom",
+     "kind": "village"
+    },
+    {
+     "name": "Ballinadee",
+     "kind": "village"
+    },
+    {
+     "name": "Ballinascarty",
+     "kind": "village"
+    },
+    {
+     "name": "Ballineen",
+     "kind": "village"
+    },
+    {
+     "name": "Ballingeary",
+     "kind": "village"
+    },
+    {
+     "name": "Ballinhassig",
+     "kind": "village"
+    },
+    {
+     "name": "Ballinspittle",
+     "kind": "village"
+    },
+    {
+     "name": "Ballydehob",
+     "kind": "village"
+    },
+    {
+     "name": "Ballydesmond",
+     "kind": "village"
+    },
+    {
+     "name": "Ballydonegan",
+     "kind": "village"
+    },
+    {
+     "name": "Ballylickey",
+     "kind": "village"
+    },
+    {
+     "name": "Ballymakeera",
+     "kind": "village"
+    },
+    {
+     "name": "Ballynakilla",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyvourney",
+     "kind": "village"
+    },
+    {
+     "name": "Baltimore",
+     "kind": "village"
+    },
+    {
+     "name": "Bandon",
+     "kind": "town"
+    },
+    {
+     "name": "Bantry",
+     "kind": "town"
+    },
+    {
+     "name": "Belgooly",
+     "kind": "village"
+    },
+    {
+     "name": "Boherbue",
+     "kind": "village"
+    },
+    {
+     "name": "Butlerstown",
+     "kind": "village"
+    },
+    {
+     "name": "Carriganimmy",
+     "kind": "village"
+    },
+    {
+     "name": "Castletown",
+     "kind": "village"
+    },
+    {
+     "name": "Castletownbere",
+     "kind": "town"
+    },
+    {
+     "name": "Castletownshend",
+     "kind": "village"
+    },
+    {
+     "name": "Cill na Martra",
+     "kind": "village"
+    },
+    {
+     "name": "Clonakilty",
+     "kind": "town"
+    },
+    {
+     "name": "Coachford",
+     "kind": "village"
+    },
+    {
+     "name": "Coolea",
+     "kind": "village"
+    },
+    {
+     "name": "Courtmacsherry",
+     "kind": "village"
+    },
+    {
+     "name": "Crookhaven",
+     "kind": "village"
+    },
+    {
+     "name": "Crookstown",
+     "kind": "village"
+    },
+    {
+     "name": "Crosreagh",
+     "kind": "village"
+    },
+    {
+     "name": "Crossbarry",
+     "kind": "village"
+    },
+    {
+     "name": "Donoughmore",
+     "kind": "village"
+    },
+    {
+     "name": "Drimoleague",
+     "kind": "village"
+    },
+    {
+     "name": "Drinagh",
+     "kind": "village"
+    },
+    {
+     "name": "Dripsey",
+     "kind": "village"
+    },
+    {
+     "name": "Dunmanway",
+     "kind": "town"
+    },
+    {
+     "name": "Durrus",
+     "kind": "village"
+    },
+    {
+     "name": "Enniskean",
+     "kind": "village"
+    },
+    {
+     "name": "Eyeries",
+     "kind": "village"
+    },
+    {
+     "name": "Glandore",
+     "kind": "village"
+    },
+    {
+     "name": "Glengarriff",
+     "kind": "village"
+    },
+    {
+     "name": "Gneevgullia",
+     "kind": "village"
+    },
+    {
+     "name": "Goleen",
+     "kind": "village"
+    },
+    {
+     "name": "Inchigeelagh",
+     "kind": "village"
+    },
+    {
+     "name": "Innishannon",
+     "kind": "village"
+    },
+    {
+     "name": "Kealkill",
+     "kind": "village"
+    },
+    {
+     "name": "Kilbrittain",
+     "kind": "village"
+    },
+    {
+     "name": "Kilcoe",
+     "kind": "village"
+    },
+    {
+     "name": "Kilcrohane",
+     "kind": "village"
+    },
+    {
+     "name": "Kilmurry",
+     "kind": "village"
+    },
+    {
+     "name": "Kinsale",
+     "kind": "town"
+    },
+    {
+     "name": "Kiskeam",
+     "kind": "village"
+    },
+    {
+     "name": "Knocknagree",
+     "kind": "village"
+    },
+    {
+     "name": "Lislevane",
+     "kind": "village"
+    },
+    {
+     "name": "Macroom",
+     "kind": "town"
+    },
+    {
+     "name": "Millstreet",
+     "kind": "town"
+    },
+    {
+     "name": "Newcestown",
+     "kind": "village"
+    },
+    {
+     "name": "Nohoval",
+     "kind": "village"
+    },
+    {
+     "name": "Rathbarry",
+     "kind": "village"
+    },
+    {
+     "name": "Rathmore",
+     "kind": "village"
+    },
+    {
+     "name": "Rerrin",
+     "kind": "village"
+    },
+    {
+     "name": "Riverstick",
+     "kind": "village"
+    },
+    {
+     "name": "Rosscarbery",
+     "kind": "village"
+    },
+    {
+     "name": "Rylane Cross",
+     "kind": "village"
+    },
+    {
+     "name": "Schull",
+     "kind": "village"
+    },
+    {
+     "name": "Shannonvale",
+     "kind": "village"
+    },
+    {
+     "name": "Skibbereen",
+     "kind": "town"
+    },
+    {
+     "name": "Stuake",
+     "kind": "village"
+    },
+    {
+     "name": "Timoleague",
+     "kind": "village"
+    },
+    {
+     "name": "Unionhall",
+     "kind": "village"
+    }
+   ]
+  },
+  {
+   "id": "34",
+   "name": "Kerry Division",
+   "counties": [
+    "Kerry"
+   ],
+   "places": [
+    {
+     "name": "Abbeydorney",
+     "kind": "village"
+    },
+    {
+     "name": "Annascaul",
+     "kind": "village"
+    },
+    {
+     "name": "Ardfert",
+     "kind": "village"
+    },
+    {
+     "name": "Asdee",
+     "kind": "village"
+    },
+    {
+     "name": "Aughacasla",
+     "kind": "village"
+    },
+    {
+     "name": "Ballinskelligs",
+     "kind": "village"
+    },
+    {
+     "name": "Ballybunion",
+     "kind": "town"
+    },
+    {
+     "name": "Ballydavid",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyduff",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyferriter",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyheigue",
+     "kind": "village"
+    },
+    {
+     "name": "Ballylongford",
+     "kind": "village"
+    },
+    {
+     "name": "Barraduff",
+     "kind": "village"
+    },
+    {
+     "name": "Beaufort",
+     "kind": "village"
+    },
+    {
+     "name": "Blennerville",
+     "kind": "village"
+    },
+    {
+     "name": "Boherboy",
+     "kind": "village"
+    },
+    {
+     "name": "Boolteens",
+     "kind": "village"
+    },
+    {
+     "name": "Brandon",
+     "kind": "village"
+    },
+    {
+     "name": "Brosna",
+     "kind": "village"
+    },
+    {
+     "name": "Caherdaniel",
+     "kind": "village"
+    },
+    {
+     "name": "Cahersiveen",
+     "kind": "town"
+    },
+    {
+     "name": "Castlegregory",
+     "kind": "village"
+    },
+    {
+     "name": "Castleisland",
+     "kind": "town"
+    },
+    {
+     "name": "Castlemaine",
+     "kind": "town"
+    },
+    {
+     "name": "Chapeltown",
+     "kind": "village"
+    },
+    {
+     "name": "Cloghane",
+     "kind": "village"
+    },
+    {
+     "name": "Clonkeen",
+     "kind": "village"
+    },
+    {
+     "name": "Coumduffmore",
+     "kind": "village"
+    },
+    {
+     "name": "Dingle",
+     "kind": "town"
+    },
+    {
+     "name": "Duagh",
+     "kind": "village"
+    },
+    {
+     "name": "Dunquin",
+     "kind": "village"
+    },
+    {
+     "name": "Farranfore",
+     "kind": "village"
+    },
+    {
+     "name": "Fenit",
+     "kind": "village"
+    },
+    {
+     "name": "Finuge",
+     "kind": "village"
+    },
+    {
+     "name": "Fionntrá",
+     "kind": "village"
+    },
+    {
+     "name": "Firies",
+     "kind": "village"
+    },
+    {
+     "name": "Glenbeigh",
+     "kind": "village"
+    },
+    {
+     "name": "Glencar",
+     "kind": "village"
+    },
+    {
+     "name": "Gortadoo",
+     "kind": "village"
+    },
+    {
+     "name": "Kenmare",
+     "kind": "town"
+    },
+    {
+     "name": "Kilcummin",
+     "kind": "village"
+    },
+    {
+     "name": "Kilflynn",
+     "kind": "village"
+    },
+    {
+     "name": "Kilgarvan",
+     "kind": "village"
+    },
+    {
+     "name": "Killarney",
+     "kind": "town"
+    },
+    {
+     "name": "Killeenleagh",
+     "kind": "village"
+    },
+    {
+     "name": "Killorglin",
+     "kind": "town"
+    },
+    {
+     "name": "Knightstown",
+     "kind": "village"
+    },
+    {
+     "name": "Knocknagashel",
+     "kind": "village"
+    },
+    {
+     "name": "Lauragh",
+     "kind": "village"
+    },
+    {
+     "name": "Lispole",
+     "kind": "village"
+    },
+    {
+     "name": "Lisselton",
+     "kind": "village"
+    },
+    {
+     "name": "Listowel",
+     "kind": "town"
+    },
+    {
+     "name": "Lixnaw",
+     "kind": "village"
+    },
+    {
+     "name": "Milltown",
+     "kind": "town"
+    },
+    {
+     "name": "Moyvane",
+     "kind": "village"
+    },
+    {
+     "name": "Murreagh",
+     "kind": "village"
+    },
+    {
+     "name": "Portmagee",
+     "kind": "village"
+    },
+    {
+     "name": "Scartaglen",
+     "kind": "village"
+    },
+    {
+     "name": "Sneem",
+     "kind": "village"
+    },
+    {
+     "name": "Tarbert",
+     "kind": "town"
+    },
+    {
+     "name": "Templenoe",
+     "kind": "village"
+    },
+    {
+     "name": "Tralee",
+     "kind": "town"
+    },
+    {
+     "name": "Tuosist",
+     "kind": "village"
+    },
+    {
+     "name": "Ventry",
+     "kind": "village"
+    },
+    {
+     "name": "Waterville",
+     "kind": "village"
+    }
+   ]
+  },
+  {
+   "id": "35",
+   "name": "Limerick Division",
+   "counties": [
+    "Limerick"
+   ],
+   "places": [
+    {
+     "name": "Abbeyfeale",
+     "kind": "town"
+    },
+    {
+     "name": "Adare",
+     "kind": "village"
+    },
+    {
+     "name": "Ardagh",
+     "kind": "village"
+    },
+    {
+     "name": "Ardpatrick",
+     "kind": "village"
+    },
+    {
+     "name": "Askeaton",
+     "kind": "town"
+    },
+    {
+     "name": "Athea",
+     "kind": "village"
+    },
+    {
+     "name": "Athlacca",
+     "kind": "village"
+    },
+    {
+     "name": "Ballingarry",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyagran",
+     "kind": "village"
+    },
+    {
+     "name": "Ballybrown",
+     "kind": "village"
+    },
+    {
+     "name": "Ballycannan",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyhahill",
+     "kind": "village"
+    },
+    {
+     "name": "Ballylanders",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyneety",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyorgan",
+     "kind": "village"
+    },
+    {
+     "name": "Banoge",
+     "kind": "village"
+    },
+    {
+     "name": "Broadford",
+     "kind": "village"
+    },
+    {
+     "name": "Bruff",
+     "kind": "village"
+    },
+    {
+     "name": "Bruree",
+     "kind": "village"
+    },
+    {
+     "name": "Caherconlish",
+     "kind": "village"
+    },
+    {
+     "name": "Caherline",
+     "kind": "village"
+    },
+    {
+     "name": "Cappamore",
+     "kind": "village"
+    },
+    {
+     "name": "Carrigkerry",
+     "kind": "village"
+    },
+    {
+     "name": "Castleconnell",
+     "kind": "village"
+    },
+    {
+     "name": "Chapel Hill",
+     "kind": "village"
+    },
+    {
+     "name": "Clarina",
+     "kind": "village"
+    },
+    {
+     "name": "Cloonlara",
+     "kind": "village"
+    },
+    {
+     "name": "Crecora",
+     "kind": "village"
+    },
+    {
+     "name": "Croagh",
+     "kind": "village"
+    },
+    {
+     "name": "Croom",
+     "kind": "town"
+    },
+    {
+     "name": "Dromcollogher",
+     "kind": "town"
+    },
+    {
+     "name": "Effin",
+     "kind": "village"
+    },
+    {
+     "name": "Elton",
+     "kind": "village"
+    },
+    {
+     "name": "Fedamore",
+     "kind": "village"
+    },
+    {
+     "name": "Feenagh",
+     "kind": "village"
+    },
+    {
+     "name": "Foynes",
+     "kind": "town"
+    },
+    {
+     "name": "Galbally",
+     "kind": "village"
+    },
+    {
+     "name": "Garryspillane",
+     "kind": "village"
+    },
+    {
+     "name": "Herbertstown",
+     "kind": "village"
+    },
+    {
+     "name": "Kildimo",
+     "kind": "village"
+    },
+    {
+     "name": "Kilfinnane",
+     "kind": "village"
+    },
+    {
+     "name": "Kilmallock",
+     "kind": "town"
+    },
+    {
+     "name": "Kilmeedy",
+     "kind": "village"
+    },
+    {
+     "name": "Kilteely",
+     "kind": "village"
+    },
+    {
+     "name": "Knockainey",
+     "kind": "village"
+    },
+    {
+     "name": "Knocklong",
+     "kind": "village"
+    },
+    {
+     "name": "Limerick",
+     "kind": "city"
+    },
+    {
+     "name": "Meanus",
+     "kind": "village"
+    },
+    {
+     "name": "Meelick",
+     "kind": "village"
+    },
+    {
+     "name": "Montpelier",
+     "kind": "village"
+    },
+    {
+     "name": "Mountcollins",
+     "kind": "village"
+    },
+    {
+     "name": "Mungret",
+     "kind": "village"
+    },
+    {
+     "name": "Murroe",
+     "kind": "village"
+    },
+    {
+     "name": "New Garden",
+     "kind": "village"
+    },
+    {
+     "name": "Newcastle West",
+     "kind": "town"
+    },
+    {
+     "name": "Old Pallas",
+     "kind": "village"
+    },
+    {
+     "name": "Pallasgreen",
+     "kind": "village"
+    },
+    {
+     "name": "Pallaskenry",
+     "kind": "village"
+    },
+    {
+     "name": "Parteen",
+     "kind": "village"
+    },
+    {
+     "name": "Patrickswell",
+     "kind": "village"
+    },
+    {
+     "name": "Rathkeale",
+     "kind": "town"
+    },
+    {
+     "name": "Shanagolden",
+     "kind": "village"
+    },
+    {
+     "name": "Templeglantine",
+     "kind": "village"
+    },
+    {
+     "name": "Toornafulla",
+     "kind": "village"
+    }
+   ]
+  },
+  {
+   "id": "41",
+   "name": "Laois/Offaly Division",
+   "counties": [
+    "Laois",
+    "Offaly"
+   ],
+   "places": [
+    {
+     "name": "Abbeyleix",
+     "kind": "town"
+    },
+    {
+     "name": "Arles",
+     "kind": "village"
+    },
+    {
+     "name": "Attanagh",
+     "kind": "village"
+    },
+    {
+     "name": "Ballacolla",
+     "kind": "village"
+    },
+    {
+     "name": "Ballinagar",
+     "kind": "village"
+    },
+    {
+     "name": "Ballinakill",
+     "kind": "village"
+    },
+    {
+     "name": "Ballintubbert",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyboy",
+     "kind": "village"
+    },
+    {
+     "name": "Ballybrittas",
+     "kind": "village"
+    },
+    {
+     "name": "Ballybrittas Old",
+     "kind": "village"
+    },
+    {
+     "name": "Ballybrophy",
+     "kind": "village"
+    },
+    {
+     "name": "Ballycuddahy",
+     "kind": "village"
+    },
+    {
+     "name": "Ballycumber",
+     "kind": "village"
+    },
+    {
+     "name": "Ballylynan",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyroan",
+     "kind": "village"
+    },
+    {
+     "name": "Banagher",
+     "kind": "town"
+    },
+    {
+     "name": "Belmont",
+     "kind": "village"
+    },
+    {
+     "name": "Blue Ball",
+     "kind": "village"
+    },
+    {
+     "name": "Borris-in-Ossory",
+     "kind": "village"
+    },
+    {
+     "name": "Bracknagh",
+     "kind": "village"
+    },
+    {
+     "name": "Cadamstown",
+     "kind": "village"
+    },
+    {
+     "name": "Castletown",
+     "kind": "village"
+    },
+    {
+     "name": "Clara",
+     "kind": "town"
+    },
+    {
+     "name": "Clonaslee",
+     "kind": "village"
+    },
+    {
+     "name": "Clonbulloge",
+     "kind": "village"
+    },
+    {
+     "name": "Clonygowan",
+     "kind": "village"
+    },
+    {
+     "name": "Coolderry",
+     "kind": "village"
+    },
+    {
+     "name": "Crinkill",
+     "kind": "village"
+    },
+    {
+     "name": "Croghan",
+     "kind": "village"
+    },
+    {
+     "name": "Cullahill",
+     "kind": "village"
+    },
+    {
+     "name": "Daingean",
+     "kind": "village"
+    },
+    {
+     "name": "Durrow",
+     "kind": "town"
+    },
+    {
+     "name": "Durrow",
+     "kind": "village"
+    },
+    {
+     "name": "Edenderry",
+     "kind": "town"
+    },
+    {
+     "name": "Errill",
+     "kind": "village"
+    },
+    {
+     "name": "Ferbane",
+     "kind": "town"
+    },
+    {
+     "name": "Fisherstown",
+     "kind": "village"
+    },
+    {
+     "name": "Geashill",
+     "kind": "village"
+    },
+    {
+     "name": "Kilcormac",
+     "kind": "town"
+    },
+    {
+     "name": "Killeen",
+     "kind": "village"
+    },
+    {
+     "name": "Killeigh",
+     "kind": "village"
+    },
+    {
+     "name": "Killenard",
+     "kind": "village"
+    },
+    {
+     "name": "Killeshin",
+     "kind": "village"
+    },
+    {
+     "name": "Killyon",
+     "kind": "village"
+    },
+    {
+     "name": "Kinnitty",
+     "kind": "village"
+    },
+    {
+     "name": "Monavea",
+     "kind": "village"
+    },
+    {
+     "name": "Mountbolus",
+     "kind": "village"
+    },
+    {
+     "name": "Mountmellick",
+     "kind": "town"
+    },
+    {
+     "name": "Mountrath",
+     "kind": "town"
+    },
+    {
+     "name": "Mucklagh",
+     "kind": "village"
+    },
+    {
+     "name": "Pollagh",
+     "kind": "village"
+    },
+    {
+     "name": "Portarlington",
+     "kind": "town"
+    },
+    {
+     "name": "Portlaoise",
+     "kind": "town"
+    },
+    {
+     "name": "Rahan",
+     "kind": "village"
+    },
+    {
+     "name": "Raheen",
+     "kind": "village"
+    },
+    {
+     "name": "Rathdowney",
+     "kind": "town"
+    },
+    {
+     "name": "Rhode",
+     "kind": "village"
+    },
+    {
+     "name": "Riverstown",
+     "kind": "village"
+    },
+    {
+     "name": "Rosenallis",
+     "kind": "village"
+    },
+    {
+     "name": "Shannon Harbour",
+     "kind": "village"
+    },
+    {
+     "name": "Shannonbridge",
+     "kind": "village"
+    },
+    {
+     "name": "Shinrone",
+     "kind": "village"
+    },
+    {
+     "name": "Stradbally",
+     "kind": "town"
+    },
+    {
+     "name": "The Swan",
+     "kind": "village"
+    },
+    {
+     "name": "Timahoe",
+     "kind": "village"
+    },
+    {
+     "name": "Tullamore",
+     "kind": "town"
+    },
+    {
+     "name": "Vicarstown",
+     "kind": "village"
+    },
+    {
+     "name": "Walshisland",
+     "kind": "village"
+    }
+   ]
+  },
+  {
+   "id": "42",
+   "name": "Meath Division",
+   "counties": [
+    "Meath"
+   ],
+   "places": [
+    {
+     "name": "Ashbourne",
+     "kind": "town"
+    },
+    {
+     "name": "Athboy",
+     "kind": "town"
+    },
+    {
+     "name": "Baconstown",
+     "kind": "village"
+    },
+    {
+     "name": "Ballivor",
+     "kind": "village"
+    },
+    {
+     "name": "Batterstown",
+     "kind": "village"
+    },
+    {
+     "name": "Bellewstown",
+     "kind": "village"
+    },
+    {
+     "name": "Bettystown",
+     "kind": "village"
+    },
+    {
+     "name": "Bohermeen",
+     "kind": "village"
+    },
+    {
+     "name": "Carlanstown",
+     "kind": "village"
+    },
+    {
+     "name": "Carnaross",
+     "kind": "village"
+    },
+    {
+     "name": "Castlecor",
+     "kind": "village"
+    },
+    {
+     "name": "Castletown",
+     "kind": "village"
+    },
+    {
+     "name": "Clonard",
+     "kind": "village"
+    },
+    {
+     "name": "Clonee",
+     "kind": "village"
+    },
+    {
+     "name": "Coole",
+     "kind": "village"
+    },
+    {
+     "name": "Crossakeel",
+     "kind": "village"
+    },
+    {
+     "name": "Curragha",
+     "kind": "village"
+    },
+    {
+     "name": "Donacarney",
+     "kind": "village"
+    },
+    {
+     "name": "Donore",
+     "kind": "village"
+    },
+    {
+     "name": "Drumconrath",
+     "kind": "village"
+    },
+    {
+     "name": "Duleek",
+     "kind": "village"
+    },
+    {
+     "name": "Dunboyne",
+     "kind": "town"
+    },
+    {
+     "name": "Dunderry",
+     "kind": "village"
+    },
+    {
+     "name": "Dunshaughlin",
+     "kind": "town"
+    },
+    {
+     "name": "Enfield",
+     "kind": "town"
+    },
+    {
+     "name": "Julianstown",
+     "kind": "village"
+    },
+    {
+     "name": "Kells",
+     "kind": "town"
+    },
+    {
+     "name": "Kentstown",
+     "kind": "village"
+    },
+    {
+     "name": "Kilbride",
+     "kind": "village"
+    },
+    {
+     "name": "Kildalkey",
+     "kind": "village"
+    },
+    {
+     "name": "Kilmainhamwood",
+     "kind": "village"
+    },
+    {
+     "name": "Kilmessan",
+     "kind": "village"
+    },
+    {
+     "name": "Kilskeer",
+     "kind": "village"
+    },
+    {
+     "name": "Laytown",
+     "kind": "village"
+    },
+    {
+     "name": "Longwood",
+     "kind": "village"
+    },
+    {
+     "name": "Mornington",
+     "kind": "village"
+    },
+    {
+     "name": "Moynalty",
+     "kind": "village"
+    },
+    {
+     "name": "Moynalvy",
+     "kind": "village"
+    },
+    {
+     "name": "Navan",
+     "kind": "town"
+    },
+    {
+     "name": "Nobber",
+     "kind": "village"
+    },
+    {
+     "name": "Oberstown",
+     "kind": "village"
+    },
+    {
+     "name": "Oldcastle",
+     "kind": "town"
+    },
+    {
+     "name": "Rathbeggan",
+     "kind": "village"
+    },
+    {
+     "name": "Rathcairn",
+     "kind": "village"
+    },
+    {
+     "name": "Rathmolyon",
+     "kind": "village"
+    },
+    {
+     "name": "Ratoath",
+     "kind": "town"
+    },
+    {
+     "name": "Robinstown",
+     "kind": "village"
+    },
+    {
+     "name": "Slane",
+     "kind": "village"
+    },
+    {
+     "name": "Stamullen",
+     "kind": "village"
+    },
+    {
+     "name": "Summerhill",
+     "kind": "village"
+    },
+    {
+     "name": "Walterstown",
+     "kind": "village"
+    }
+   ]
+  },
+  {
+   "id": "43",
+   "name": "Wicklow Division",
+   "counties": [
+    "Wicklow"
+   ],
+   "places": [
+    {
+     "name": "Arklow",
+     "kind": "town"
+    },
+    {
+     "name": "Ashford",
+     "kind": "village"
+    },
+    {
+     "name": "Askanagap",
+     "kind": "village"
+    },
+    {
+     "name": "Aughrim",
+     "kind": "town"
+    },
+    {
+     "name": "Avoca",
+     "kind": "village"
+    },
+    {
+     "name": "Ballinaclash",
+     "kind": "village"
+    },
+    {
+     "name": "Ballincoog",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyknockan",
+     "kind": "village"
+    },
+    {
+     "name": "Baltinglass",
+     "kind": "town"
+    },
+    {
+     "name": "Barndarrig",
+     "kind": "village"
+    },
+    {
+     "name": "Blessington",
+     "kind": "town"
+    },
+    {
+     "name": "Carnew",
+     "kind": "village"
+    },
+    {
+     "name": "Coolboy",
+     "kind": "village"
+    },
+    {
+     "name": "Crosspatrick",
+     "kind": "village"
+    },
+    {
+     "name": "Delgany",
+     "kind": "village"
+    },
+    {
+     "name": "Donard",
+     "kind": "village"
+    },
+    {
+     "name": "Dunlavin",
+     "kind": "village"
+    },
+    {
+     "name": "Enniskerry",
+     "kind": "village"
+    },
+    {
+     "name": "Glendalough",
+     "kind": "village"
+    },
+    {
+     "name": "Glenealy",
+     "kind": "village"
+    },
+    {
+     "name": "Glenmalure",
+     "kind": "village"
+    },
+    {
+     "name": "Grange Con",
+     "kind": "village"
+    },
+    {
+     "name": "Greystones",
+     "kind": "town"
+    },
+    {
+     "name": "Hollywood",
+     "kind": "village"
+    },
+    {
+     "name": "Kilbride",
+     "kind": "village"
+    },
+    {
+     "name": "Kilcoole",
+     "kind": "village"
+    },
+    {
+     "name": "Kilmacanogue",
+     "kind": "village"
+    },
+    {
+     "name": "Kilpedder",
+     "kind": "village"
+    },
+    {
+     "name": "Kiltegan",
+     "kind": "village"
+    },
+    {
+     "name": "Knockananna",
+     "kind": "village"
+    },
+    {
+     "name": "Laragh",
+     "kind": "village"
+    },
+    {
+     "name": "Newcastle",
+     "kind": "village"
+    },
+    {
+     "name": "Newtown Mount Kennedy",
+     "kind": "village"
+    },
+    {
+     "name": "Rathdangan",
+     "kind": "village"
+    },
+    {
+     "name": "Rathdrum",
+     "kind": "town"
+    },
+    {
+     "name": "Rathnew",
+     "kind": "village"
+    },
+    {
+     "name": "Redcross",
+     "kind": "village"
+    },
+    {
+     "name": "Roundwood",
+     "kind": "village"
+    },
+    {
+     "name": "Shillelagh",
+     "kind": "village"
+    },
+    {
+     "name": "Stratford",
+     "kind": "village"
+    },
+    {
+     "name": "Tinahely",
+     "kind": "town"
+    },
+    {
+     "name": "Valleymount",
+     "kind": "village"
+    },
+    {
+     "name": "Wicklow",
+     "kind": "town"
+    },
+    {
+     "name": "Woodenbridge",
+     "kind": "village"
+    }
+   ]
+  },
+  {
+   "id": "44",
+   "name": "Westmeath Division",
+   "counties": [
+    "Westmeath"
+   ],
+   "places": [
+    {
+     "name": "Athlone",
+     "kind": "town"
+    },
+    {
+     "name": "Ballinahown",
+     "kind": "village"
+    },
+    {
+     "name": "Ballinalack",
+     "kind": "village"
+    },
+    {
+     "name": "Ballinea",
+     "kind": "village"
+    },
+    {
+     "name": "Ballykeeran",
+     "kind": "village"
+    },
+    {
+     "name": "Ballymore",
+     "kind": "village"
+    },
+    {
+     "name": "Ballynacarrigy",
+     "kind": "village"
+    },
+    {
+     "name": "Baylin",
+     "kind": "village"
+    },
+    {
+     "name": "Castledaly",
+     "kind": "village"
+    },
+    {
+     "name": "Castlepollard",
+     "kind": "town"
+    },
+    {
+     "name": "Castletown Geoghegan",
+     "kind": "village"
+    },
+    {
+     "name": "Clonmellon",
+     "kind": "village"
+    },
+    {
+     "name": "Collinstown",
+     "kind": "village"
+    },
+    {
+     "name": "Coole",
+     "kind": "village"
+    },
+    {
+     "name": "Crookedwood",
+     "kind": "village"
+    },
+    {
+     "name": "Delvin",
+     "kind": "town"
+    },
+    {
+     "name": "Drumcree",
+     "kind": "village"
+    },
+    {
+     "name": "Finea",
+     "kind": "village"
+    },
+    {
+     "name": "Glassan",
+     "kind": "village"
+    },
+    {
+     "name": "Horseleap",
+     "kind": "village"
+    },
+    {
+     "name": "Kilbeggan",
+     "kind": "town"
+    },
+    {
+     "name": "Killucan",
+     "kind": "village"
+    },
+    {
+     "name": "Kinnegad",
+     "kind": "town"
+    },
+    {
+     "name": "Milltownpass",
+     "kind": "village"
+    },
+    {
+     "name": "Moate",
+     "kind": "town"
+    },
+    {
+     "name": "Mount Temple",
+     "kind": "village"
+    },
+    {
+     "name": "Moyvore",
+     "kind": "village"
+    },
+    {
+     "name": "Mullingar",
+     "kind": "town"
+    },
+    {
+     "name": "Multyfarnham",
+     "kind": "village"
+    },
+    {
+     "name": "Raharney",
+     "kind": "village"
+    },
+    {
+     "name": "Rathowen",
+     "kind": "village"
+    },
+    {
+     "name": "Rathwire",
+     "kind": "village"
+    },
+    {
+     "name": "Rochfortbridge",
+     "kind": "village"
+    },
+    {
+     "name": "Rosemount",
+     "kind": "village"
+    },
+    {
+     "name": "Streamstown",
+     "kind": "village"
+    },
+    {
+     "name": "Tubberclare",
+     "kind": "village"
+    },
+    {
+     "name": "Tyrrellspass",
+     "kind": "village"
+    }
+   ]
+  },
+  {
+   "id": "45",
+   "name": "Kildare Division",
+   "counties": [
+    "Kildare"
+   ],
+   "places": [
+    {
+     "name": "Allen",
+     "kind": "village"
+    },
+    {
+     "name": "Allenwood",
+     "kind": "village"
+    },
+    {
+     "name": "Ardclough",
+     "kind": "village"
+    },
+    {
+     "name": "Athgarvan",
+     "kind": "village"
+    },
+    {
+     "name": "Ballitore",
+     "kind": "village"
+    },
+    {
+     "name": "Ballymore Eustace",
+     "kind": "town"
+    },
+    {
+     "name": "Ballyroe",
+     "kind": "village"
+    },
+    {
+     "name": "Blackwood",
+     "kind": "village"
+    },
+    {
+     "name": "Brownstown",
+     "kind": "village"
+    },
+    {
+     "name": "Calverstown",
+     "kind": "village"
+    },
+    {
+     "name": "Carbury",
+     "kind": "village"
+    },
+    {
+     "name": "Carragh",
+     "kind": "village"
+    },
+    {
+     "name": "Castledermot",
+     "kind": "town"
+    },
+    {
+     "name": "Celbridge",
+     "kind": "town"
+    },
+    {
+     "name": "Clane",
+     "kind": "town"
+    },
+    {
+     "name": "Clogharinka",
+     "kind": "village"
+    },
+    {
+     "name": "Cut Bush",
+     "kind": "village"
+    },
+    {
+     "name": "Derrinturn",
+     "kind": "village"
+    },
+    {
+     "name": "Johnstown",
+     "kind": "village"
+    },
+    {
+     "name": "Johnstown Bridge",
+     "kind": "village"
+    },
+    {
+     "name": "Kilberry",
+     "kind": "village"
+    },
+    {
+     "name": "Kilcock",
+     "kind": "town"
+    },
+    {
+     "name": "Kilcullen",
+     "kind": "town"
+    },
+    {
+     "name": "Kildangan",
+     "kind": "village"
+    },
+    {
+     "name": "Kildare",
+     "kind": "town"
+    },
+    {
+     "name": "Kildoon",
+     "kind": "village"
+    },
+    {
+     "name": "Kilkea",
+     "kind": "village"
+    },
+    {
+     "name": "Kilmead",
+     "kind": "village"
+    },
+    {
+     "name": "Kilmeague",
+     "kind": "village"
+    },
+    {
+     "name": "Kilrathmurry",
+     "kind": "village"
+    },
+    {
+     "name": "Kilshanchoe",
+     "kind": "village"
+    },
+    {
+     "name": "Leixlip",
+     "kind": "town"
+    },
+    {
+     "name": "Maynooth",
+     "kind": "town"
+    },
+    {
+     "name": "Milltown",
+     "kind": "village"
+    },
+    {
+     "name": "Monasterevin",
+     "kind": "town"
+    },
+    {
+     "name": "Moone",
+     "kind": "village"
+    },
+    {
+     "name": "Moyvalley",
+     "kind": "village"
+    },
+    {
+     "name": "Narraghmore",
+     "kind": "village"
+    },
+    {
+     "name": "Newbridge",
+     "kind": "town"
+    },
+    {
+     "name": "Nurney",
+     "kind": "village"
+    },
+    {
+     "name": "Prosperous",
+     "kind": "town"
+    },
+    {
+     "name": "Rathangan",
+     "kind": "village"
+    },
+    {
+     "name": "Rathcoffey",
+     "kind": "village"
+    },
+    {
+     "name": "Robertstown",
+     "kind": "village"
+    },
+    {
+     "name": "Sallins",
+     "kind": "town"
+    },
+    {
+     "name": "Straffan",
+     "kind": "village"
+    },
+    {
+     "name": "Suncroft",
+     "kind": "village"
+    },
+    {
+     "name": "Ticknevin",
+     "kind": "village"
+    },
+    {
+     "name": "Timolin",
+     "kind": "village"
+    },
+    {
+     "name": "Tirmoghan",
+     "kind": "village"
+    },
+    {
+     "name": "Two Mile House",
+     "kind": "village"
+    }
+   ]
+  },
+  {
+   "id": "51",
+   "name": "Tipperary Division",
+   "counties": [
+    "Tipperary"
+   ],
+   "places": [
+    {
+     "name": "Ardcrony",
+     "kind": "village"
+    },
+    {
+     "name": "Ardfinnan",
+     "kind": "village"
+    },
+    {
+     "name": "Ballinahinch",
+     "kind": "village"
+    },
+    {
+     "name": "Ballingarry",
+     "kind": "village"
+    },
+    {
+     "name": "Ballingarry",
+     "kind": "village"
+    },
+    {
+     "name": "Ballinure",
+     "kind": "village"
+    },
+    {
+     "name": "Ballycommon",
+     "kind": "village"
+    },
+    {
+     "name": "Ballylooby",
+     "kind": "village"
+    },
+    {
+     "name": "Ballynonty",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyporeen",
+     "kind": "village"
+    },
+    {
+     "name": "Bansha",
+     "kind": "village"
+    },
+    {
+     "name": "Birdhill",
+     "kind": "village"
+    },
+    {
+     "name": "Boherlahan",
+     "kind": "village"
+    },
+    {
+     "name": "Borrisokane",
+     "kind": "town"
+    },
+    {
+     "name": "Borrisoleigh",
+     "kind": "village"
+    },
+    {
+     "name": "Burncourt",
+     "kind": "village"
+    },
+    {
+     "name": "Cahir",
+     "kind": "town"
+    },
+    {
+     "name": "Cappagh White",
+     "kind": "village"
+    },
+    {
+     "name": "Carrick-on-Suir",
+     "kind": "town"
+    },
+    {
+     "name": "Cashel",
+     "kind": "town"
+    },
+    {
+     "name": "Clerihan",
+     "kind": "village"
+    },
+    {
+     "name": "Clogheen",
+     "kind": "village"
+    },
+    {
+     "name": "Clonakenny",
+     "kind": "village"
+    },
+    {
+     "name": "Cloneen",
+     "kind": "village"
+    },
+    {
+     "name": "Clonmel",
+     "kind": "town"
+    },
+    {
+     "name": "Clonoulty",
+     "kind": "village"
+    },
+    {
+     "name": "Cloughjordan",
+     "kind": "town"
+    },
+    {
+     "name": "Dolla",
+     "kind": "village"
+    },
+    {
+     "name": "Drangan",
+     "kind": "village"
+    },
+    {
+     "name": "Dromineer",
+     "kind": "village"
+    },
+    {
+     "name": "Dualla",
+     "kind": "village"
+    },
+    {
+     "name": "Dundrum",
+     "kind": "village"
+    },
+    {
+     "name": "Fethard",
+     "kind": "town"
+    },
+    {
+     "name": "Garrykennedy",
+     "kind": "village"
+    },
+    {
+     "name": "Goatenbridge",
+     "kind": "village"
+    },
+    {
+     "name": "Golden",
+     "kind": "village"
+    },
+    {
+     "name": "Gortnahoe",
+     "kind": "village"
+    },
+    {
+     "name": "Grangemockler",
+     "kind": "village"
+    },
+    {
+     "name": "Hollyford",
+     "kind": "village"
+    },
+    {
+     "name": "Holycross",
+     "kind": "village"
+    },
+    {
+     "name": "Horse and Jockey",
+     "kind": "village"
+    },
+    {
+     "name": "Kilcash",
+     "kind": "village"
+    },
+    {
+     "name": "Kilcommon",
+     "kind": "village"
+    },
+    {
+     "name": "Killenaule",
+     "kind": "town"
+    },
+    {
+     "name": "Killoscully",
+     "kind": "village"
+    },
+    {
+     "name": "Kilruane",
+     "kind": "village"
+    },
+    {
+     "name": "Kilsheelan",
+     "kind": "village"
+    },
+    {
+     "name": "Knockavilla",
+     "kind": "village"
+    },
+    {
+     "name": "Lisronagh",
+     "kind": "village"
+    },
+    {
+     "name": "Lisvarrinane",
+     "kind": "village"
+    },
+    {
+     "name": "Littleton",
+     "kind": "village"
+    },
+    {
+     "name": "Lorrha",
+     "kind": "village"
+    },
+    {
+     "name": "Loughmore",
+     "kind": "village"
+    },
+    {
+     "name": "Monard",
+     "kind": "village"
+    },
+    {
+     "name": "Moneygall",
+     "kind": "village"
+    },
+    {
+     "name": "Moycarky",
+     "kind": "village"
+    },
+    {
+     "name": "Moyglass",
+     "kind": "village"
+    },
+    {
+     "name": "Moyne",
+     "kind": "village"
+    },
+    {
+     "name": "Mullinahone",
+     "kind": "village"
+    },
+    {
+     "name": "Nenagh",
+     "kind": "town"
+    },
+    {
+     "name": "New Birmingham",
+     "kind": "village"
+    },
+    {
+     "name": "New Inn",
+     "kind": "village"
+    },
+    {
+     "name": "Newcastle",
+     "kind": "village"
+    },
+    {
+     "name": "Newport",
+     "kind": "village"
+    },
+    {
+     "name": "Portroe",
+     "kind": "village"
+    },
+    {
+     "name": "Puckaun",
+     "kind": "village"
+    },
+    {
+     "name": "Rear Cross",
+     "kind": "village"
+    },
+    {
+     "name": "Roscrea",
+     "kind": "town"
+    },
+    {
+     "name": "Rosegreen",
+     "kind": "village"
+    },
+    {
+     "name": "Silvermines",
+     "kind": "village"
+    },
+    {
+     "name": "Templederry",
+     "kind": "village"
+    },
+    {
+     "name": "Templemore",
+     "kind": "town"
+    },
+    {
+     "name": "Templetouhy",
+     "kind": "village"
+    },
+    {
+     "name": "Terryglass",
+     "kind": "village"
+    },
+    {
+     "name": "The Commons",
+     "kind": "village"
+    },
+    {
+     "name": "Thurles",
+     "kind": "town"
+    },
+    {
+     "name": "Tipperary",
+     "kind": "town"
+    },
+    {
+     "name": "Toomevara",
+     "kind": "village"
+    },
+    {
+     "name": "Twomileborris",
+     "kind": "village"
+    }
+   ]
+  },
+  {
+   "id": "52",
+   "name": "Wexford Division",
+   "counties": [
+    "Wexford"
+   ],
+   "places": [
+    {
+     "name": "Adamstown",
+     "kind": "village"
+    },
+    {
+     "name": "Arthurstown",
+     "kind": "village"
+    },
+    {
+     "name": "Askamore",
+     "kind": "village"
+    },
+    {
+     "name": "Baldwinstown",
+     "kind": "village"
+    },
+    {
+     "name": "Ballaghkeen",
+     "kind": "village"
+    },
+    {
+     "name": "Ballinaboola",
+     "kind": "village"
+    },
+    {
+     "name": "Ballindaggan",
+     "kind": "village"
+    },
+    {
+     "name": "Ballycanew",
+     "kind": "village"
+    },
+    {
+     "name": "Ballycarney",
+     "kind": "village"
+    },
+    {
+     "name": "Ballycullane",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyduff",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyedmond",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyfad",
+     "kind": "village"
+    },
+    {
+     "name": "Ballygarrett",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyhack",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyhoge Cross Roads",
+     "kind": "village"
+    },
+    {
+     "name": "Ballymoney",
+     "kind": "village"
+    },
+    {
+     "name": "Ballymurn",
+     "kind": "village"
+    },
+    {
+     "name": "Ballywilliam",
+     "kind": "village"
+    },
+    {
+     "name": "Barntown",
+     "kind": "village"
+    },
+    {
+     "name": "Blackwater",
+     "kind": "village"
+    },
+    {
+     "name": "Boolavogue",
+     "kind": "village"
+    },
+    {
+     "name": "Bridgetown",
+     "kind": "village"
+    },
+    {
+     "name": "Broadway",
+     "kind": "village"
+    },
+    {
+     "name": "Bunclody",
+     "kind": "town"
+    },
+    {
+     "name": "Cahore",
+     "kind": "village"
+    },
+    {
+     "name": "Camolin",
+     "kind": "village"
+    },
+    {
+     "name": "Campile",
+     "kind": "village"
+    },
+    {
+     "name": "Carrick",
+     "kind": "village"
+    },
+    {
+     "name": "Castlebridge",
+     "kind": "village"
+    },
+    {
+     "name": "Castledockrell",
+     "kind": "village"
+    },
+    {
+     "name": "Castletown",
+     "kind": "village"
+    },
+    {
+     "name": "Cleristown",
+     "kind": "village"
+    },
+    {
+     "name": "Clohamon",
+     "kind": "village"
+    },
+    {
+     "name": "Clologe",
+     "kind": "village"
+    },
+    {
+     "name": "Clongeen",
+     "kind": "village"
+    },
+    {
+     "name": "Clonroche",
+     "kind": "village"
+    },
+    {
+     "name": "Clough",
+     "kind": "village"
+    },
+    {
+     "name": "Coolgreany",
+     "kind": "village"
+    },
+    {
+     "name": "Courtnacuddy",
+     "kind": "village"
+    },
+    {
+     "name": "Courtown",
+     "kind": "village"
+    },
+    {
+     "name": "Craanford",
+     "kind": "village"
+    },
+    {
+     "name": "Crossabeg",
+     "kind": "village"
+    },
+    {
+     "name": "Cullenstown",
+     "kind": "village"
+    },
+    {
+     "name": "Curracloe",
+     "kind": "village"
+    },
+    {
+     "name": "Davidstown",
+     "kind": "village"
+    },
+    {
+     "name": "Duncannon",
+     "kind": "village"
+    },
+    {
+     "name": "Duncormick",
+     "kind": "village"
+    },
+    {
+     "name": "Enniscorthy",
+     "kind": "town"
+    },
+    {
+     "name": "Ferns",
+     "kind": "town"
+    },
+    {
+     "name": "Fethard",
+     "kind": "village"
+    },
+    {
+     "name": "Foulksmills",
+     "kind": "village"
+    },
+    {
+     "name": "Galbally",
+     "kind": "village"
+    },
+    {
+     "name": "Glenbrien",
+     "kind": "village"
+    },
+    {
+     "name": "Glynn",
+     "kind": "village"
+    },
+    {
+     "name": "Gorey",
+     "kind": "town"
+    },
+    {
+     "name": "Gusserane",
+     "kind": "village"
+    },
+    {
+     "name": "Hollyfort",
+     "kind": "village"
+    },
+    {
+     "name": "Killann",
+     "kind": "village"
+    },
+    {
+     "name": "Killinick",
+     "kind": "village"
+    },
+    {
+     "name": "Killinierin",
+     "kind": "village"
+    },
+    {
+     "name": "Killurin",
+     "kind": "village"
+    },
+    {
+     "name": "Kilmore",
+     "kind": "village"
+    },
+    {
+     "name": "Kilmore Quay",
+     "kind": "village"
+    },
+    {
+     "name": "Kilmuckridge",
+     "kind": "village"
+    },
+    {
+     "name": "Kilmyshall",
+     "kind": "village"
+    },
+    {
+     "name": "Kilrane",
+     "kind": "village"
+    },
+    {
+     "name": "Kiltealy",
+     "kind": "village"
+    },
+    {
+     "name": "Lady's Island",
+     "kind": "village"
+    },
+    {
+     "name": "Marshalstown",
+     "kind": "village"
+    },
+    {
+     "name": "Mayglass",
+     "kind": "village"
+    },
+    {
+     "name": "Monageer",
+     "kind": "village"
+    },
+    {
+     "name": "Monamolin",
+     "kind": "village"
+    },
+    {
+     "name": "Monaseed",
+     "kind": "village"
+    },
+    {
+     "name": "Murrintown",
+     "kind": "village"
+    },
+    {
+     "name": "New Ross",
+     "kind": "town"
+    },
+    {
+     "name": "Newbawn",
+     "kind": "village"
+    },
+    {
+     "name": "Oilgate",
+     "kind": "village"
+    },
+    {
+     "name": "Old Ross",
+     "kind": "village"
+    },
+    {
+     "name": "Oulart",
+     "kind": "village"
+    },
+    {
+     "name": "Piercetown",
+     "kind": "village"
+    },
+    {
+     "name": "Raheen",
+     "kind": "village"
+    },
+    {
+     "name": "Ramsgrange",
+     "kind": "village"
+    },
+    {
+     "name": "Rathgarogue",
+     "kind": "village"
+    },
+    {
+     "name": "Rathnure",
+     "kind": "village"
+    },
+    {
+     "name": "Riverchapel",
+     "kind": "village"
+    },
+    {
+     "name": "Rosbercon",
+     "kind": "village"
+    },
+    {
+     "name": "Rosslare Harbour",
+     "kind": "village"
+    },
+    {
+     "name": "Saltmills",
+     "kind": "village"
+    },
+    {
+     "name": "Screen",
+     "kind": "village"
+    },
+    {
+     "name": "Slade",
+     "kind": "village"
+    },
+    {
+     "name": "Tacumshane",
+     "kind": "village"
+    },
+    {
+     "name": "Taghmon",
+     "kind": "village"
+    },
+    {
+     "name": "Tagoat",
+     "kind": "village"
+    },
+    {
+     "name": "Templeshanbo",
+     "kind": "village"
+    },
+    {
+     "name": "The Harrow",
+     "kind": "village"
+    },
+    {
+     "name": "Tombrack",
+     "kind": "village"
+    },
+    {
+     "name": "Tomhaggard",
+     "kind": "village"
+    },
+    {
+     "name": "Watch House Village",
+     "kind": "village"
+    },
+    {
+     "name": "Wellingtonbridge",
+     "kind": "village"
+    },
+    {
+     "name": "Wexford",
+     "kind": "town"
+    },
+    {
+     "name": "Whitechurch",
+     "kind": "village"
+    }
+   ]
+  },
+  {
+   "id": "53",
+   "name": "Kilkenny/Carlow Division",
+   "counties": [
+    "Kilkenny",
+    "Carlow"
+   ],
+   "places": [
+    {
+     "name": "Ardattin",
+     "kind": "village"
+    },
+    {
+     "name": "Bagenalstown",
+     "kind": "town"
+    },
+    {
+     "name": "Ballinabrannagh",
+     "kind": "village"
+    },
+    {
+     "name": "Ballon",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyfoyle",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyhale",
+     "kind": "village"
+    },
+    {
+     "name": "Ballymurphy",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyouskill",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyragget",
+     "kind": "village"
+    },
+    {
+     "name": "Bennettsbridge",
+     "kind": "village"
+    },
+    {
+     "name": "Borris",
+     "kind": "village"
+    },
+    {
+     "name": "Callan",
+     "kind": "town"
+    },
+    {
+     "name": "Carlow",
+     "kind": "town"
+    },
+    {
+     "name": "Carrigeen",
+     "kind": "village"
+    },
+    {
+     "name": "Castlecomer",
+     "kind": "town"
+    },
+    {
+     "name": "Castlewarren",
+     "kind": "village"
+    },
+    {
+     "name": "Clogh",
+     "kind": "village"
+    },
+    {
+     "name": "Clonegal",
+     "kind": "village"
+    },
+    {
+     "name": "Clonmore",
+     "kind": "village"
+    },
+    {
+     "name": "Crosspatrick",
+     "kind": "village"
+    },
+    {
+     "name": "Dunbell",
+     "kind": "village"
+    },
+    {
+     "name": "Dunnamaggan",
+     "kind": "village"
+    },
+    {
+     "name": "Fennagh",
+     "kind": "village"
+    },
+    {
+     "name": "Fiddown",
+     "kind": "village"
+    },
+    {
+     "name": "Freshford",
+     "kind": "village"
+    },
+    {
+     "name": "Glynn",
+     "kind": "village"
+    },
+    {
+     "name": "Goresbridge",
+     "kind": "village"
+    },
+    {
+     "name": "Gowran",
+     "kind": "village"
+    },
+    {
+     "name": "Graiguenamanagh",
+     "kind": "town"
+    },
+    {
+     "name": "Hacketstown",
+     "kind": "village"
+    },
+    {
+     "name": "Hugginstown",
+     "kind": "village"
+    },
+    {
+     "name": "Inistioge",
+     "kind": "village"
+    },
+    {
+     "name": "Johnstown",
+     "kind": "village"
+    },
+    {
+     "name": "Kells",
+     "kind": "village"
+    },
+    {
+     "name": "Kildavin",
+     "kind": "village"
+    },
+    {
+     "name": "Kilkenny",
+     "kind": "city"
+    },
+    {
+     "name": "Kilmacow",
+     "kind": "village"
+    },
+    {
+     "name": "Kilmaganny",
+     "kind": "village"
+    },
+    {
+     "name": "Kilmanagh",
+     "kind": "village"
+    },
+    {
+     "name": "Knocktopher",
+     "kind": "village"
+    },
+    {
+     "name": "Leighlinbridge",
+     "kind": "village"
+    },
+    {
+     "name": "Lukeswell",
+     "kind": "village"
+    },
+    {
+     "name": "Mooncoin",
+     "kind": "town"
+    },
+    {
+     "name": "Muckalee",
+     "kind": "village"
+    },
+    {
+     "name": "Mullinavat",
+     "kind": "town"
+    },
+    {
+     "name": "Myshall",
+     "kind": "village"
+    },
+    {
+     "name": "Nurney",
+     "kind": "village"
+    },
+    {
+     "name": "Oldleighlin",
+     "kind": "village"
+    },
+    {
+     "name": "Owning",
+     "kind": "village"
+    },
+    {
+     "name": "Paulstown",
+     "kind": "village"
+    },
+    {
+     "name": "Piltown",
+     "kind": "village"
+    },
+    {
+     "name": "Rathoe",
+     "kind": "village"
+    },
+    {
+     "name": "Rathvilly",
+     "kind": "village"
+    },
+    {
+     "name": "Royaloak",
+     "kind": "village"
+    },
+    {
+     "name": "Saint Mullin's",
+     "kind": "village"
+    },
+    {
+     "name": "Stonyford",
+     "kind": "village"
+    },
+    {
+     "name": "Thomastown",
+     "kind": "town"
+    },
+    {
+     "name": "Tinryland",
+     "kind": "village"
+    },
+    {
+     "name": "Tullaroan",
+     "kind": "village"
+    },
+    {
+     "name": "Tullow",
+     "kind": "town"
+    },
+    {
+     "name": "Urlingford",
+     "kind": "town"
+    },
+    {
+     "name": "Windgap",
+     "kind": "village"
+    }
+   ]
+  },
+  {
+   "id": "54",
+   "name": "Waterford Division",
+   "counties": [
+    "Waterford"
+   ],
+   "places": [
+    {
+     "name": "Aglish",
+     "kind": "village"
+    },
+    {
+     "name": "Annestown",
+     "kind": "village"
+    },
+    {
+     "name": "Ardmore",
+     "kind": "village"
+    },
+    {
+     "name": "Ballinroad",
+     "kind": "village"
+    },
+    {
+     "name": "Ballyduff",
+     "kind": "village"
+    },
+    {
+     "name": "Ballymacarbry",
+     "kind": "village"
+    },
+    {
+     "name": "Ballysaggart",
+     "kind": "village"
+    },
+    {
+     "name": "Bunmahon",
+     "kind": "village"
+    },
+    {
+     "name": "Cappoquin",
+     "kind": "town"
+    },
+    {
+     "name": "Cheekpoint",
+     "kind": "village"
+    },
+    {
+     "name": "Clashmore",
+     "kind": "village"
+    },
+    {
+     "name": "Clonea",
+     "kind": "village"
+    },
+    {
+     "name": "Crooke",
+     "kind": "village"
+    },
+    {
+     "name": "Dungarvan",
+     "kind": "town"
+    },
+    {
+     "name": "Dunhill",
+     "kind": "village"
+    },
+    {
+     "name": "Dunmore East",
+     "kind": "village"
+    },
+    {
+     "name": "Kilmacthomas",
+     "kind": "town"
+    },
+    {
+     "name": "Kilmeadan",
+     "kind": "village"
+    },
+    {
+     "name": "Kilrossanty",
+     "kind": "village"
+    },
+    {
+     "name": "Lismore",
+     "kind": "town"
+    },
+    {
+     "name": "Old Parish",
+     "kind": "village"
+    },
+    {
+     "name": "Passage East",
+     "kind": "village"
+    },
+    {
+     "name": "Portlaw",
+     "kind": "town"
+    },
+    {
+     "name": "Rathgormack",
+     "kind": "village"
+    },
+    {
+     "name": "Slieverue",
+     "kind": "village"
+    },
+    {
+     "name": "Stradbally",
+     "kind": "village"
+    },
+    {
+     "name": "Tallow",
+     "kind": "town"
+    },
+    {
+     "name": "Touraneena",
+     "kind": "village"
+    },
+    {
+     "name": "Tramore",
+     "kind": "town"
+    },
+    {
+     "name": "Villierstown",
+     "kind": "village"
+    },
+    {
+     "name": "Waterford",
+     "kind": "city"
+    }
+   ]
+  },
+  {
+   "id": "61",
+   "name": "DMR South Central Division",
+   "counties": [],
+   "places": [
+    {
+     "name": "Ballsbridge",
+     "kind": "dublin"
+    },
+    {
+     "name": "Docklands",
+     "kind": "dublin"
+    },
+    {
+     "name": "Donnybrook",
+     "kind": "dublin"
+    },
+    {
+     "name": "Dublin city centre",
+     "kind": "dublin"
+    },
+    {
+     "name": "Inchicore",
+     "kind": "dublin"
+    },
+    {
+     "name": "Irishtown",
+     "kind": "dublin"
+    },
+    {
+     "name": "Kilmainham",
+     "kind": "dublin"
+    },
+    {
+     "name": "Liberties",
+     "kind": "dublin"
+    },
+    {
+     "name": "Ringsend",
+     "kind": "dublin"
+    },
+    {
+     "name": "Temple Bar",
+     "kind": "dublin"
+    }
+   ]
+  },
+  {
+   "id": "62",
+   "name": "DMR North Central Division",
+   "counties": [],
+   "places": [
+    {
+     "name": "Docklands",
+     "kind": "dublin"
+    },
+    {
+     "name": "Drumcondra",
+     "kind": "dublin"
+    },
+    {
+     "name": "Dublin city centre",
+     "kind": "dublin"
+    },
+    {
+     "name": "Glasnevin",
+     "kind": "dublin"
+    },
+    {
+     "name": "O'Connell Street",
+     "kind": "dublin"
+    },
+    {
+     "name": "Phibsborough",
+     "kind": "dublin"
+    },
+    {
+     "name": "Temple Bar",
+     "kind": "dublin"
+    }
+   ]
+  },
+  {
+   "id": "63",
+   "name": "DMR North Division",
+   "counties": [],
+   "places": [
+    {
+     "name": "Artane",
+     "kind": "dublin"
+    },
+    {
+     "name": "Ballymun",
+     "kind": "dublin"
+    },
+    {
+     "name": "Beaumont",
+     "kind": "dublin"
+    },
+    {
+     "name": "Clontarf",
+     "kind": "dublin"
+    },
+    {
+     "name": "Coolock",
+     "kind": "dublin"
+    },
+    {
+     "name": "Dublin Airport",
+     "kind": "dublin"
+    },
+    {
+     "name": "Glasnevin",
+     "kind": "dublin"
+    },
+    {
+     "name": "Howth",
+     "kind": "dublin"
+    },
+    {
+     "name": "Malahide",
+     "kind": "dublin"
+    },
+    {
+     "name": "Portmarnock",
+     "kind": "dublin"
+    },
+    {
+     "name": "Raheny",
+     "kind": "dublin"
+    },
+    {
+     "name": "Santry",
+     "kind": "dublin"
+    },
+    {
+     "name": "Sutton",
+     "kind": "dublin"
+    },
+    {
+     "name": "Swords",
+     "kind": "dublin"
+    }
+   ]
+  },
+  {
+   "id": "64",
+   "name": "DMR South Division",
+   "counties": [],
+   "places": [
+    {
+     "name": "Citywest",
+     "kind": "dublin"
+    },
+    {
+     "name": "Crumlin",
+     "kind": "dublin"
+    },
+    {
+     "name": "Drimnagh",
+     "kind": "dublin"
+    },
+    {
+     "name": "Kimmage",
+     "kind": "dublin"
+    },
+    {
+     "name": "Knocklyon",
+     "kind": "dublin"
+    },
+    {
+     "name": "Rathfarnham",
+     "kind": "dublin"
+    },
+    {
+     "name": "Rathgar",
+     "kind": "dublin"
+    },
+    {
+     "name": "Rathmines",
+     "kind": "dublin"
+    },
+    {
+     "name": "Tallaght",
+     "kind": "dublin"
+    },
+    {
+     "name": "Templeogue",
+     "kind": "dublin"
+    },
+    {
+     "name": "Terenure",
+     "kind": "dublin"
+    },
+    {
+     "name": "Walkinstown",
+     "kind": "dublin"
+    }
+   ]
+  },
+  {
+   "id": "65",
+   "name": "DMR East Division",
+   "counties": [],
+   "places": [
+    {
+     "name": "Blackrock",
+     "kind": "dublin"
+    },
+    {
+     "name": "Cabinteely",
+     "kind": "dublin"
+    },
+    {
+     "name": "Dalkey",
+     "kind": "dublin"
+    },
+    {
+     "name": "Dundrum",
+     "kind": "dublin"
+    },
+    {
+     "name": "Dún Laoghaire",
+     "kind": "dublin"
+    },
+    {
+     "name": "Killiney",
+     "kind": "dublin"
+    },
+    {
+     "name": "Monkstown",
+     "kind": "dublin"
+    },
+    {
+     "name": "Sandyford",
+     "kind": "dublin"
+    },
+    {
+     "name": "Shankill",
+     "kind": "dublin"
+    },
+    {
+     "name": "Stepaside",
+     "kind": "dublin"
+    },
+    {
+     "name": "Stillorgan",
+     "kind": "dublin"
+    }
+   ]
+  },
+  {
+   "id": "66",
+   "name": "DMR West Division",
+   "counties": [],
+   "places": [
+    {
+     "name": "Ballyfermot",
+     "kind": "dublin"
+    },
+    {
+     "name": "Blanchardstown",
+     "kind": "dublin"
+    },
+    {
+     "name": "Cabra",
+     "kind": "dublin"
+    },
+    {
+     "name": "Carpenterstown",
+     "kind": "dublin"
+    },
+    {
+     "name": "Castleknock",
+     "kind": "dublin"
+    },
+    {
+     "name": "Citywest",
+     "kind": "dublin"
+    },
+    {
+     "name": "Clondalkin",
+     "kind": "dublin"
+    },
+    {
+     "name": "Clonsilla",
+     "kind": "dublin"
+    },
+    {
+     "name": "Finglas",
+     "kind": "dublin"
+    },
+    {
+     "name": "Glasnevin",
+     "kind": "dublin"
+    },
+    {
+     "name": "Lucan",
+     "kind": "dublin"
+    },
+    {
+     "name": "Mulhuddart",
+     "kind": "dublin"
+    },
+    {
+     "name": "Ongar",
+     "kind": "dublin"
+    },
+    {
+     "name": "Palmerstown",
+     "kind": "dublin"
+    },
+    {
+     "name": "Phibsborough",
+     "kind": "dublin"
+    },
+    {
+     "name": "Rathcoole",
+     "kind": "dublin"
+    }
+   ]
+  }
+ ]
+}

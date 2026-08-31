@@ -44,3 +44,7 @@ yarn-error.log*
 
 # typescript incremental build cache
 tsconfig.tsbuildinfo
+
+# python
+__pycache__/
+*.pyc

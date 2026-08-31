@@ -1,0 +1,103 @@
+{
+ "note": "Regression cases for the news prefilter, taken from a real fetch on 2026-08-30. Every 'expectCandidate: false' entry is a bug that occurred during development.",
+ "cases": [
+  {
+   "title": "Dungannon murder: Police urge public not to speculate as girl fights for life",
+   "description": "A man has been arrested on suspicion of murder and attempted murder, while a young girl remains in a critical condition in Belfast's Children's Hospital.",
+   "source": "Irish Mirror",
+   "expectCandidate": false,
+   "why": "Northern Ireland — no CJQ06 Division exists"
+  },
+  {
+   "title": "Child remains in hospital after fatal Tyrone attack",
+   "description": "A young child remains critically ill in hospital following an attack in a house in Dungannon in Co Tyrone in which a man was killed.",
+   "source": "RTÉ News",
+   "expectCandidate": false,
+   "why": "Northern Ireland"
+  },
+  {
+   "title": "Manhunt in Switzerland after one killed and five injured in shooting at rave",
+   "description": "The incident happened in the northern Swiss canton of Aarau, around 46km west of Zurich.",
+   "source": "The Journal",
+   "expectCandidate": false,
+   "why": "foreign incident"
+  },
+  {
+   "title": "Sitdown Sunday: The crime writer who believes he has finally identified the Zodiac Killer",
+   "description": "Settle down in a comfy chair with some of the week’s best longreads.",
+   "source": "The Journal",
+   "expectCandidate": false,
+   "why": "foreign, historical"
+  },
+  {
+   "title": "Film street photographer capturing candid snapshots across Dublin says shooting analogue is 'more rewarding'",
+   "description": "Taylor Doak initially began snapping Dublin digitally but swapped to the old-fashioned way and said it helped him hone his craft",
+   "source": "Irish Mirror",
+   "expectCandidate": false,
+   "why": "'Street' is a Westmeath village; matched prose"
+  },
+  {
+   "title": "UHW parking revenue up 158% in four years",
+   "description": "The parking at UHW is an ongoing complaint, as the numbers attending the hospital seem to increase steadily while the parking capacity remains much as is has been for years. From those arriving on time for an appointment",
+   "source": "Munster Express",
+   "expectCandidate": false,
+   "why": "'Hospital' is a Limerick village; matched prose"
+  },
+  {
+   "title": "Gardaí seize over €20,000 worth of drugs, cash in Sligo town",
+   "description": "Gardaí target drug trafficking network in the North West as drugs, cash and a replica firearm are seized in operation By Cara McHugh Members of the Sligo/Leitrim Drugs Unit searched a number of residential properties in ",
+   "source": "Sligo Weekender",
+   "expectCandidate": true,
+   "why": "drugs seizure, Sligo named"
+  },
+  {
+   "title": "ICYMI: Kilkenny gardaí issue urgent warning over vicious scam",
+   "description": "Gardaí are urging students to be alert to potential rental scams and to stop, think and talk before handing over money.",
+   "source": "Kilkenny People",
+   "expectCandidate": true,
+   "why": "scam warning, Kilkenny named"
+  },
+  {
+   "title": "Man charged with drugs and money laundering offences at Galway escape room",
+   "description": "Gardaí consent to bail but court remands accused in custody pending proof of €5,000 surety",
+   "source": "Irish Times",
+   "expectCandidate": true,
+   "why": "charges, Galway named"
+  },
+  {
+   "title": "Gardaí appeal for information after woman’s body discovered in Dublin park",
+   "description": "Postmortem carried out after remains found in Kimmage on Tuesday",
+   "source": "Irish Times",
+   "expectCandidate": true,
+   "why": "Garda appeal, Dublin area named"
+  },
+  {
+   "title": "Man killed after being struck by his van in tragic Sligo road crash as gardai issue witness appeal",
+   "description": "The tragic incident involved a van and a pedestrian, the owner of the vehicle",
+   "source": "Irish Mirror",
+   "expectCandidate": true,
+   "why": "fatal collision, Sligo named"
+  },
+  {
+   "title": "Electric Picnic staff member accused of assault at the festival",
+   "description": "The man was brought before a special sitting of Tullamore District Court",
+   "source": "Leinster Express",
+   "expectCandidate": true,
+   "why": "assault, Stradbally named"
+  },
+  {
+   "title": "Editorial: Congratulations to the Kilkenny Leaving Cert Class of 2026!",
+   "description": "Garda warning issue over scams following Leaving Cert place offers",
+   "source": "Kilkenny People",
+   "expectCandidate": true,
+   "why": "passes prefilter; model should return null"
+  },
+  {
+   "title": "Mayor's summer activities spark massive debate in Limerick",
+   "description": "In what has been one of the biggest initiatives of John Moran’s term as executive mayor so far, a variety of new projects have been trialled to keep people in the city. Here, we explore the impact it has had across the c",
+   "source": "Limerick Leader",
+   "expectCandidate": true,
+   "why": "passes prefilter; model should return null"
+  }
+ ]
+}

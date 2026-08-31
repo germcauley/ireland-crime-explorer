@@ -384,6 +384,114 @@ a { color: inherit; }
 }
 .map-no-data { position: absolute; z-index: 550; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 13px 16px; background: var(--paper); border: 1px solid var(--line); font-size: 10px; }
 
+/* Recent reporting -----------------------------------------------------------
+   Subordinate to the statistics by construction: collapsed by default, no
+   article counts, no ranking of areas by coverage. Theme tokens throughout, so
+   it follows the light/dark toggle like everything else. */
+.reporting {
+  border-top: 1px solid var(--line);
+  background: var(--cream);
+}
+.reporting-toggle {
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: 700 13px var(--sans);
+  letter-spacing: -.01em;
+  text-align: left;
+  cursor: pointer;
+}
+.reporting-chevron svg { width: 17px; height: 17px; display: block; transition: transform .18s ease; }
+.reporting-chevron[data-open="true"] svg { transform: rotate(180deg); }
+.reporting-body { padding: 0 28px 22px; }
+.reporting-lede {
+  max-width: 62ch;
+  margin: 0 0 14px;
+  color: var(--text-secondary);
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+.reporting-filters { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 14px; }
+.reporting-filters > button {
+  min-height: 32px;
+  padding: 0 13px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-secondary);
+  font: 600 11px var(--sans);
+  cursor: pointer;
+}
+.reporting-filters > button.is-active { background: var(--ink); border-color: var(--ink); color: var(--cream); }
+.reporting-town select {
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 11px var(--body);
+}
+.reporting-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; }
+.reporting-list li { padding-bottom: 13px; border-bottom: 1px solid var(--line-soft); }
+.reporting-list li:last-child { border-bottom: 0; padding-bottom: 0; }
+.reporting-list a {
+  font: 600 13.5px/1.4 var(--sans);
+  color: var(--ink);
+  text-decoration: none;
+}
+.reporting-list a:hover { text-decoration: underline; }
+.reporting-meta { margin: 5px 0 0; color: var(--text-faint); font-size: 10.5px; }
+.reporting-snippet {
+  max-width: 74ch;
+  margin: 6px 0 0;
+  color: var(--text-secondary);
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+.reporting-empty {
+  max-width: 62ch;
+  margin: 0;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--text-secondary);
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+/* Deliberately set apart: these articles did not match what the reader chose. */
+.reporting-wider { margin-top: 20px; padding-top: 16px; border-top: 1px dashed var(--line-strong); }
+.reporting-wider h3 { margin: 0; font: 700 12px var(--sans); }
+.reporting-wider-note { margin: 4px 0 12px; color: var(--text-faint); font-size: 10.5px; }
+.reporting-feeds-toggle {
+  margin-top: 18px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 10.5px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.reporting-feeds { margin-top: 10px; }
+.reporting-feeds p { max-width: 62ch; margin: 0 0 8px; color: var(--text-faint); font-size: 10.5px; line-height: 1.5; }
+.reporting-feeds ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
+.reporting-feeds li {
+  padding: 4px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--text-secondary);
+  font-size: 10px;
+}
+.reporting-feeds li span { color: var(--text-faint); }
+
 /* Returns a focused area to the whole geography. Sits over the map because
    that is what it acts on, and only exists while a focus is held. */
 .area-focus-clear {
@@ -708,6 +816,13 @@ a { color: inherit; }
   .area-focus-clear svg { width: 15px; height: 15px; }
   .area-focus-clear-long { display: none; }
   .area-focus-clear-short { display: inline; }
+  .reporting { flex: 0 0 auto; border-color: var(--ns-border); background: var(--ns-page); }
+  .reporting-toggle { min-height: 48px; padding: 12px 16px; color: var(--ns-text); }
+  .reporting-body { padding: 0 16px 18px; }
+  .reporting-list a { color: var(--ns-text); }
+  .reporting-town select { background: var(--ns-raised-soft); color: var(--ns-text); border-color: var(--ns-border-strong); }
+  .reporting-filters > button { border-color: var(--ns-border-strong); color: var(--ns-text-tertiary); }
+  .reporting-filters > button.is-active { background: var(--ns-text); border-color: var(--ns-text); color: var(--ns-page); }
   .ns-sheet-note { margin: 14px 0 0; }
   .ns-inline-link {
     padding: 0;

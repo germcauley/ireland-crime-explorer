@@ -1,6 +1,9 @@
 # Recent reporting — design spec
 
-Status: agreed, not yet built. Supersedes the `news_mapper` / `news_service` draft.
+Status: **built** (branch `feat/recent-reporting`). Supersedes the
+`news_mapper` / `news_service` draft.
+
+See "Build notes" at the foot for what changed once it met real data.
 
 ## What this is
 
@@ -116,10 +119,8 @@ scripts/validate_news.py    assert quality against a labelled fixture
 data/processed/news.json    committed artifact
 ```
 
-A GitHub Action runs the pipeline **daily**, commits the artifact, and the commit
-triggers a Vercel deploy. Nothing in the feature is time-critical: the crime data
-updates quarterly, and a day-old article inside a 12-month window is
-indistinguishable from a fresh one.
+A GitHub Action runs **fetch only**, daily, and commits the raw archive. It needs
+no secrets. Classification is done by hand in batches — see "Running it" below.
 
 No database. `db/index.ts` requires a Cloudflare D1 binding via `cloudflare:workers`;
 `.openai/hosting.json` has `"d1": null`, and deployment is Vercel, where that import
@@ -278,3 +279,142 @@ Deliberately out of scope for v1:
 | 21 | "Recent reporting", not "News" |
 | 22 | Daily refresh |
 | 23 | Never prune; file size is the migration trigger |
+
+
+## Build notes
+
+What the build changed or discovered, against the agreed design above.
+
+### Feed list: 19, not ~25
+
+Of 32 candidate feeds, 13 were dead or not RSS. Five replacements were found by
+probing alternatives. The survivors are 4 national and 15 regional.
+
+**Cork, Kerry, Meath, Kildare, Wexford, Carlow, Westmeath and Louth have no
+working regional feed.** Their articles arrive only through national outlets,
+so coverage there is measurably thinner. This is recorded in
+`news_feeds.json` under `meta.coverageGap` and is exactly the bias the visible
+feed list exists to expose.
+
+### Gazetteer
+
+1,402 places across 28 Divisions, no Division empty. OSM settlements placed by
+point-in-polygon against the Division boundaries the map already draws, with
+Dublin taken from the app's own reviewed place list.
+
+Two corrections were needed once it met real articles:
+
+- **Village names that are ordinary English words.** `Hospital` (Co Limerick),
+  `Street` (Co Westmeath), `Recess` (Co Galway), `Grange`, `Newmarket` and
+  `Cloghan` matched prose rather than places — "taken to hospital" made every
+  medical story a candidate. Found by counting how many articles each
+  gazetteer name matched across a real fetch, not by guesswork.
+- **County names.** `Cork City`, `Cork North` and `Cork West` are Division
+  regions; a headline says "Cork". Now normalised to 25 real counties.
+
+### Northern Ireland
+
+Not in the agreed design, and a genuine correctness gap. CJQ06 counts the
+Republic only, so a Tyrone or Belfast story has no Division it could belong to
+however clearly it reports a crime. Several were passing the prefilter. Now
+excluded explicitly.
+
+### Clustering
+
+Title *sequence* similarity failed on real syndication: five outlets carried
+one Sligo van death and none merged, because rewritten headlines share meaning
+rather than character sequences. Replaced with token-set overlap (Jaccard ≥
+0.25) plus a 3-day window.
+
+A second bug: joining only the *first* matching group left stories split when
+an article bridged two groups that did not match each other directly. Clusters
+now merge transitively.
+
+### Prefilter yield
+
+413 articles fetched, 22 candidates, 18 clusters. About half the candidates are
+genuine crime reporting; the rest — a Leaving Cert editorial, a mayoral debate —
+are what the LLM stage exists to reject. The prefilter is deliberately broad:
+its job is discarding the obviously irrelevant, not being right.
+
+### Classification without the API
+
+The model has still never run — no key was available. Instead the 22 candidates
+from the first fetch were **classified by hand and stored as ground truth** in
+`tests/fixtures/news_labelled.json`, which does two jobs at once:
+
+- `classify_news.py --from-labels` applies them, so the artifact is populated
+  and the UI can be seen in its real state rather than only its empty one.
+  Labels flow through the same validation a model verdict does.
+- `validate_news.py` scores any future model run against them, failing the
+  build below 90% precision on Division. Withholding a Division costs recall
+  only; asserting the wrong one is the failure that matters, and that is what
+  the check measures.
+
+Of 22 candidates, 11 were placed and 7 deliberately withheld — greyhound
+racing, a mayoral debate, a Leaving Cert editorial, two industrial-relations
+stories, a medical regulation case and a death in custody. None reports a
+recorded offence, and placing them in a Division would have implied otherwise.
+
+Some judgements worth recording, because a model will face the same ones:
+
+- **A court's town is not the offence's town.** The Electric Picnic assault was
+  heard at Tullamore but happened at Stradbally, so no town is shown.
+- **A death is not automatically a crime.** Fatal road collisions and a body
+  found in a park carry a Division but no offence group.
+- **"Cork" alone resolves to three Divisions**, so a Cork Prison story stays
+  unclassified rather than guessing between them.
+
+This is a smaller fixture than the 100 articles agreed, and it covers one
+fetch. It is ground truth, not a substitute for running the model: precision
+remains unmeasured until there is a model run to score.
+
+
+## Running it
+
+Classification is done by hand, in batches, rather than by calling an API.
+
+At this volume — roughly twenty candidates a day after the prefilter — a person
+reading them is more accurate than a small model, costs nothing, and keeps an
+API key out of CI entirely. The API path stays in `classify_news.py` for when
+volume outgrows that.
+
+### Daily, automatically
+
+The Action fetches the feeds and commits `news_raw.json`. Nothing else. It
+cannot change what the site shows, because it never touches `news.json`.
+
+This matters because most publisher feeds expose only 30-90 days. Without a
+daily fetch the archive could never grow past that window, and a batch
+classified monthly would have nothing older than a month to work with.
+
+### Every so often, by hand
+
+```bash
+python3 scripts/classify_news.py --pending       # the review queue
+# read them, add entries to tests/fixtures/news_labelled.json
+python3 scripts/classify_news.py --from-labels   # apply
+python3 scripts/validate_news.py                 # check
+```
+
+Then commit. The commit triggers the deploy.
+
+`--pending` lists only candidates with no label yet, so re-running never
+re-presents work already done. Labels accumulate; the file is the permanent
+record of every judgement made.
+
+### What this costs
+
+**The section is only as fresh as the last batch.** Articles fetched but not
+yet classified are invisible to readers — they sit in the archive as
+candidates, not as anything the site displays. Leave it a month and the
+section shows month-old reporting.
+
+That is a deliberate trade: staleness is visible and harmless, whereas a
+mis-classified article is a false statement about a real place. The fetch
+continuing automatically means no reporting is *lost* in the meantime, only
+delayed.
+
+**It does not scale.** If the feed list grows or the prefilter widens, hand
+classification stops being reasonable. The API path is the exit, and the
+labelled fixture is what will prove it accurate enough to hand over to.
