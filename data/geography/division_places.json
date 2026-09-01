@@ -5538,7 +5538,9 @@
   {
    "id": "61",
    "name": "DMR South Central Division",
-   "counties": [],
+   "counties": [
+    "Dublin"
+   ],
    "places": [
     {
      "name": "Ballsbridge",
@@ -5585,7 +5587,9 @@
   {
    "id": "62",
    "name": "DMR North Central Division",
-   "counties": [],
+   "counties": [
+    "Dublin"
+   ],
    "places": [
     {
      "name": "Docklands",
@@ -5620,7 +5624,9 @@
   {
    "id": "63",
    "name": "DMR North Division",
-   "counties": [],
+   "counties": [
+    "Dublin"
+   ],
    "places": [
     {
      "name": "Artane",
@@ -5683,7 +5689,9 @@
   {
    "id": "64",
    "name": "DMR South Division",
-   "counties": [],
+   "counties": [
+    "Dublin"
+   ],
    "places": [
     {
      "name": "Citywest",
@@ -5738,7 +5746,9 @@
   {
    "id": "65",
    "name": "DMR East Division",
-   "counties": [],
+   "counties": [
+    "Dublin"
+   ],
    "places": [
     {
      "name": "Blackrock",
@@ -5789,7 +5799,9 @@
   {
    "id": "66",
    "name": "DMR West Division",
-   "counties": [],
+   "counties": [
+    "Dublin"
+   ],
    "places": [
     {
      "name": "Ballyfermot",

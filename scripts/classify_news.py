@@ -67,9 +67,13 @@ CRIME_TERMS = {
 }
 
 # Sport dominates local papers and is full of words like "attack" and "shot".
+# Photography shares "shooting" and "shot" outright, and film and music
+# writing borrows most of the rest.
 EXCLUDE_TERMS = {
     "gaa", "hurling", "camogie", "football final", "championship", "league match",
     "transfer window", "kick-off", "half-time", "penalty shootout",
+    "photographer", "photography", "shooting analogue", "shooting film",
+    "box office", "film festival", "new album", "greyhound", "racecourse",
 }
 
 # CJQ06 counts the Republic only. Northern Ireland is policed by the PSNI and

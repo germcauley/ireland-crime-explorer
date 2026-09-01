@@ -181,7 +181,14 @@ def main() -> None:
         # that a headline would name.
         stem = division["name"].replace(" Division", "")
         if stem.startswith("DMR"):
-            counties[division["id"]] = []
+            # "Dublin" is what a headline actually says — "man charged over
+            # disorder in south Dublin", never "DMR South". Without it, Dublin
+            # crime reporting has no place name to match on at all and is
+            # discarded before anyone sees it. It maps to all six DMR
+            # Divisions, which makes it ambiguous rather than placeable: the
+            # article becomes a candidate, and the labelling step decides
+            # whether it names an area specific enough to pin down.
+            counties[division["id"]] = ["Dublin"]
         else:
             # "Cork City", "Cork North" and "Cork West" are Division regions,
             # not counties; a headline says "Cork".

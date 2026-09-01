@@ -545,6 +545,771 @@
    "group": null,
    "confidence": 0.0,
    "why": "'Dublin city centre' spans DMR South Central and North Central; no specific area is named."
+  },
+  {
+   "id": "88fba9248b9a3b49",
+   "title": "Appeal for witnesses to violent Bridgend robbery",
+   "division": "12",
+   "town": "Bridgend",
+   "group": "06",
+   "confidence": 0.95,
+   "why": "Bridgend, Co Donegal. Robbery."
+  },
+  {
+   "id": "409167666a28d482",
+   "title": "Two staff members assaulted during Bridgend robbery",
+   "division": "12",
+   "town": "Bridgend",
+   "group": "06",
+   "confidence": 0.95,
+   "why": "Same Bridgend robbery, staff assaulted during it."
+  },
+  {
+   "id": "e912723c41aadd97",
+   "title": "Man hospitalised following Buncrana assault",
+   "division": "12",
+   "town": "Buncrana",
+   "group": "03",
+   "confidence": 0.95,
+   "why": "Assault on Main Street, Buncrana."
+  },
+  {
+   "id": "168ce3e7b4524de8",
+   "title": "Gardaí investigating theft of an e-scooter in Letterkenny",
+   "division": "12",
+   "town": "Letterkenny",
+   "group": "08",
+   "confidence": 0.95,
+   "why": "E-scooter stolen from Letterkenny Shopping Centre."
+  },
+  {
+   "id": "b6712af6521ce6f5",
+   "title": "Pedestrian taken to LUH following Letterkenny road traffic collision",
+   "division": "12",
+   "town": "Letterkenny",
+   "group": null,
+   "confidence": 0.9,
+   "why": "Road traffic collision in Letterkenny. No offence alleged, so no group."
+  },
+  {
+   "id": "4979486b991d6a58",
+   "title": "Appeal for information after damage at Bundoran Church",
+   "division": "12",
+   "town": "Bundoran",
+   "group": "12",
+   "confidence": 0.95,
+   "why": "Criminal damage and graffiti at a Bundoran church."
+  },
+  {
+   "id": "1e8c7e05db8eccaa",
+   "title": "Arrest warrant for 'offshore' Donegal reality TV star after no-show in Australia court",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Arrest warrant issued by an Australian court. Donegal is the person's origin."
+  },
+  {
+   "id": "1b912fa96d189e7e",
+   "title": "The wait for justice: Donegal court delays laid bare",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "A story about court delays, not about an offence."
+  },
+  {
+   "id": "3ceb737cc20bc0dc",
+   "title": "Donegal motorists targeted in alarming fake Garda ‘hit-and-run’ calls",
+   "division": "12",
+   "town": null,
+   "group": "09",
+   "confidence": 0.85,
+   "why": "Fake Garda calls targeting Donegal motorists. Fraud."
+  },
+  {
+   "id": "6f830a6d72ffe060",
+   "title": "Donegal people warned over latest HSE medical card scam text",
+   "division": "12",
+   "town": null,
+   "group": "09",
+   "confidence": 0.85,
+   "why": "HSE medical card scam texts in Donegal. Fraud."
+  },
+  {
+   "id": "8ab87cb4f9b2ce50",
+   "title": "Man charged over violent disorder at business park in south Dublin",
+   "division": "65",
+   "town": "Leopardstown",
+   "group": "13",
+   "confidence": 0.9,
+   "why": "Large-scale disturbance in Leopardstown, which is DMR East."
+  },
+  {
+   "id": "e0b6ee992d89c1dc",
+   "title": "Man due in court after violent brawl in south Dublin",
+   "division": "65",
+   "town": "Leopardstown",
+   "group": "13",
+   "confidence": 0.9,
+   "why": "Industrial estate in Leopardstown."
+  },
+  {
+   "id": "3cbb110c288e0f4f",
+   "title": "Construction worker claims self-defence in confrontation that left man with ‘catastrophic’ injuries",
+   "division": "65",
+   "town": "Leopardstown",
+   "group": "03",
+   "confidence": 0.85,
+   "why": "South County Business Park is in Leopardstown."
+  },
+  {
+   "id": "020fdd4fe3230288",
+   "title": "Construction worker charged over violent brawl in Dublin business park that left man in critical condition",
+   "division": "65",
+   "town": "Leopardstown",
+   "group": "03",
+   "confidence": 0.8,
+   "why": "Same business-park brawl; the area is named across the coverage."
+  },
+  {
+   "id": "3f5fda3d00353384",
+   "title": "Two men (20s) set to appear in court in relation to Dublin business park brawl",
+   "division": "65",
+   "town": "Leopardstown",
+   "group": "03",
+   "confidence": 0.75,
+   "why": "Same incident, though this report names only 'Dublin business park'."
+  },
+  {
+   "id": "50c96e37b0cd0f1a",
+   "title": "Man in court over large ‘violent disorder’ in Dublin",
+   "division": "65",
+   "town": "Leopardstown",
+   "group": "13",
+   "confidence": 0.85,
+   "why": "Syndicated: names Leopardstown in the description."
+  },
+  {
+   "id": "ce42eaaf40b3a989",
+   "title": "Man in court over large ‘violent disorder’ in Dublin",
+   "division": "65",
+   "town": "Leopardstown",
+   "group": "13",
+   "confidence": 0.85,
+   "why": "Syndicated: names Leopardstown."
+  },
+  {
+   "id": "a67200eebb2091ff",
+   "title": "Man in court over large ‘violent disorder’ in Dublin",
+   "division": "65",
+   "town": "Leopardstown",
+   "group": "13",
+   "confidence": 0.85,
+   "why": "Syndicated: names Leopardstown."
+  },
+  {
+   "id": "e47c2c7253b749f5",
+   "title": "Man in court over large ‘violent disorder’ in Dublin",
+   "division": "65",
+   "town": "Leopardstown",
+   "group": "13",
+   "confidence": 0.85,
+   "why": "Syndicated: names Leopardstown."
+  },
+  {
+   "id": "b9976fe91dfe8bd5",
+   "title": "Man in court over large ‘violent disorder’ in Dublin",
+   "division": "65",
+   "town": "Leopardstown",
+   "group": "13",
+   "confidence": 0.85,
+   "why": "Syndicated: names Leopardstown."
+  },
+  {
+   "id": "712dd871297e7df3",
+   "title": "Man in court over large ‘violent disorder’ in Dublin",
+   "division": "65",
+   "town": "Leopardstown",
+   "group": "13",
+   "confidence": 0.85,
+   "why": "Syndicated: names Leopardstown."
+  },
+  {
+   "id": "2f40e45861b21827",
+   "title": "Man in court over large ‘violent disorder’ in Dublin",
+   "division": "65",
+   "town": "Leopardstown",
+   "group": "13",
+   "confidence": 0.85,
+   "why": "Syndicated: names Leopardstown."
+  },
+  {
+   "id": "5c3d6221f013967a",
+   "title": "Man arrested following violent incident as man remains in critical condition",
+   "division": "65",
+   "town": null,
+   "group": "13",
+   "confidence": 0.7,
+   "why": "Same weekend disorder, but this wire copy names only 'Dublin'."
+  },
+  {
+   "id": "92699671c67d3646",
+   "title": "Man arrested following violent incident as man remains in critical condition",
+   "division": "65",
+   "town": null,
+   "group": "13",
+   "confidence": 0.7,
+   "why": "Same wire copy."
+  },
+  {
+   "id": "ee0ff249efb3301d",
+   "title": "Man arrested following violent incident as man remains in critical condition",
+   "division": "65",
+   "town": null,
+   "group": "13",
+   "confidence": 0.7,
+   "why": "Same wire copy."
+  },
+  {
+   "id": "22acd1e4563f650d",
+   "title": "Man arrested following violent incident as man remains in critical condition",
+   "division": "65",
+   "town": null,
+   "group": "13",
+   "confidence": 0.7,
+   "why": "Same wire copy."
+  },
+  {
+   "id": "b26da58210d72402",
+   "title": "Man arrested following violent incident as man remains in critical condition",
+   "division": "65",
+   "town": null,
+   "group": "13",
+   "confidence": 0.7,
+   "why": "Same wire copy."
+  },
+  {
+   "id": "a3ab8642482ff4fb",
+   "title": "Man arrested following violent incident as man remains in critical condition",
+   "division": "65",
+   "town": null,
+   "group": "13",
+   "confidence": 0.7,
+   "why": "Same wire copy."
+  },
+  {
+   "id": "24f6117ea5ddc9ab",
+   "title": "Man arrested following violent incident as man remains in critical condition",
+   "division": "65",
+   "town": null,
+   "group": "13",
+   "confidence": 0.7,
+   "why": "Same wire copy."
+  },
+  {
+   "id": "36e6c828107208a9",
+   "title": "Man arrested following violent incident as man remains in critical condition",
+   "division": "65",
+   "town": null,
+   "group": "13",
+   "confidence": 0.7,
+   "why": "Same wire copy."
+  },
+  {
+   "id": "b98f2501c034320a",
+   "title": "Man arrested following violent incident as man remains in critical condition",
+   "division": "65",
+   "town": null,
+   "group": "13",
+   "confidence": 0.7,
+   "why": "Same wire copy."
+  },
+  {
+   "id": "c97cfb49cfe5401f",
+   "title": "Two women hospitalised following assault at house in Dublin",
+   "division": "65",
+   "town": "Deansgrange",
+   "group": "03",
+   "confidence": 0.9,
+   "why": "Arrest at a property in Deansgrange, DMR East."
+  },
+  {
+   "id": "41e14c5d8fe7a26d",
+   "title": "Two women taken to hospital following assault at house in Dublin",
+   "division": "65",
+   "town": "Ballyogan",
+   "group": "03",
+   "confidence": 0.9,
+   "why": "House in Ballyogan, DMR East."
+  },
+  {
+   "id": "37af15ac4064533f",
+   "title": "'Serious assault' of two women 'involving multiple individuals' at south Dublin home",
+   "division": "65",
+   "town": null,
+   "group": "03",
+   "confidence": 0.8,
+   "why": "Same assault, given as a south Dublin home."
+  },
+  {
+   "id": "591603fc581df9ad",
+   "title": "Man (30s) arrested in connection with assault of two women in Dublin",
+   "division": "65",
+   "town": null,
+   "group": "03",
+   "confidence": 0.75,
+   "why": "Same assault on two women."
+  },
+  {
+   "id": "7bc11ec4e73ad2ef",
+   "title": "Two arrests after major €2.3m drugs haul in west Dublin",
+   "division": "66",
+   "town": null,
+   "group": "10",
+   "confidence": 0.8,
+   "why": "Seizure in west Dublin, which is DMR West."
+  },
+  {
+   "id": "7ed2273627730cbc",
+   "title": "Gardaí bid to 'vindicate' Daniel Aruebose's human rights",
+   "division": "63",
+   "town": "Donabate",
+   "group": "01",
+   "confidence": 0.9,
+   "why": "Remains found buried in Donabate, north Co Dublin — DMR North."
+  },
+  {
+   "id": "87705c27c2d0bbae",
+   "title": "Man who swam across Liffey after alleged assault dies",
+   "division": "61",
+   "town": null,
+   "group": "03",
+   "confidence": 0.8,
+   "why": "War Memorial Gardens is at Islandbridge, DMR South Central."
+  },
+  {
+   "id": "6f7932db55b464ec",
+   "title": "Dublin criminal defence solicitors to protest against new legal aid fee structure",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Solicitors' industrial action, not an offence."
+  },
+  {
+   "id": "400bd5a7aab52bbc",
+   "title": "Dublin solicitors to continue withdrawal of services as courts prepare to return",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Continuation of the same withdrawal of services."
+  },
+  {
+   "id": "b806cc7bde511571",
+   "title": "IT worker 'sorry I got caught' after €1.9m drug haul in Dublin",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Drug haul reported only as 'in Dublin', which spans six Divisions."
+  },
+  {
+   "id": "6c60c915e93b95ac",
+   "title": "Pair charged over €1.9m cocaine ‘handover’ in Dublin car park",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Cocaine handover in an unnamed Dublin car park."
+  },
+  {
+   "id": "e3278f190a67e394",
+   "title": "Men arrested after €2.3m worth of drugs seized in Dublin operation",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Seizure given only as a Dublin operation."
+  },
+  {
+   "id": "8849d6286b3badf8",
+   "title": "Gardai scuffle with protestors over NATO Deputy Secretary General's Dublin visit",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "A scuffle at a protest; no offence reported."
+  },
+  {
+   "id": "a9e9620ffdca65aa",
+   "title": "Man (60s) charged after entering house in Dublin armed with knife",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "House entry with a knife, but no Dublin area named."
+  },
+  {
+   "id": "6d4f85c1a91717fd",
+   "title": "Concern for welfare of missing 16-year-old boy who may have travelled to Dublin 8",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Missing person appeal, not an offence."
+  },
+  {
+   "id": "5e324b5ba0b21876",
+   "title": "Terrifying Dublin carjacking as taxi driver attacked on break before dramatic Garda chase",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Carjacking given as 'Dublin city' — DMR South Central or North Central."
+  },
+  {
+   "id": "ad0cb91102f3a651",
+   "title": "Taxi ‘carjacked as driver took a break in back seat’ in central Dublin",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Same carjacking, 'central Dublin'."
+  },
+  {
+   "id": "35fd2ec3c335fa2c",
+   "title": "Civil servant charged with breaking Official Secrets Act",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Official Secrets Act charges; where the offence occurred is not stated."
+  },
+  {
+   "id": "39949940e556f802",
+   "title": "Gardaí recover major haul of stolen electronic devices in Dublin city operation",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Recovery operation across 'Dublin city'."
+  },
+  {
+   "id": "d44ce36b5c05fd1a",
+   "title": "Man suffers ‘life-altering injuries’ in alleged slash attack after phone stolen in Dublin",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Slash attack after a phone theft, no area named."
+  },
+  {
+   "id": "42734ff7805c4f5d",
+   "title": "Four men charged in connection with spate of burglaries",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Burglaries 'across several counties'; the court is in Dublin."
+  },
+  {
+   "id": "fc89d640adb418da",
+   "title": "Four arrests over burglaries as gardaí contain car on M50",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Containment on the M50, which runs through several Divisions."
+  },
+  {
+   "id": "7b5b0eef302613cb",
+   "title": "Man sent forward for trial over Dublin mosque arson",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Mosque arson; the mosque is not located in the report."
+  },
+  {
+   "id": "6c76995c122e691c",
+   "title": "Trial go-ahead for self-described anti-Islam activist over Dublin mosque arson",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Same arson trial."
+  },
+  {
+   "id": "f2a434f2c3161d9e",
+   "title": "Garda charged with soliciting murder of woman, 3 children",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Soliciting murder; where the offence occurred is not stated."
+  },
+  {
+   "id": "064e199725a53aab",
+   "title": "Man allegedly stabbed in heart at his Dublin home not expected to survive",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Stabbing at a Dublin home, no area named."
+  },
+  {
+   "id": "b6a8941bc5c90606",
+   "title": "Woman (20s) charged after man is seriously injured in Dublin assault",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Assault given only as 'Dublin'."
+  },
+  {
+   "id": "dad711eb658165bd",
+   "title": "Student led '14-man pack' chasing Balogun, court hears",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Fatal stabbing reported as 'in Dublin'."
+  },
+  {
+   "id": "a4316f690e70fea6",
+   "title": "One in custody in connection with fatal Dublin assault",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Same fatal assault, no area."
+  },
+  {
+   "id": "81769ff5d1600f13",
+   "title": "'We want justice', says family of Dublin assault victim",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Family statement about the same case."
+  },
+  {
+   "id": "e7e43dabd4597615",
+   "title": "Dublin safe despite 'disturbing' fatal assault, says cllr",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Councillor commentary on policing, not a report of an offence."
+  },
+  {
+   "id": "3c116e14570b61ef",
+   "title": "Limerick students offered ‘easy money’ in money mule scam warning",
+   "division": "35",
+   "town": "Limerick",
+   "group": "09",
+   "confidence": 0.8,
+   "why": "Money mule scam warning to Limerick students. Fraud."
+  },
+  {
+   "id": "8220855be0667e9b",
+   "title": "Man came to Ireland for the ‘sole purpose of committing crime’, Limerick court hears",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Limerick is where the court sits; where the offences occurred is not stated."
+  },
+  {
+   "id": "775a5a79be8344e3",
+   "title": "Aughinish Alumina’s exports to Russia continue to rise",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Exports and sanctions, not a recorded offence."
+  },
+  {
+   "id": "5190d39d2ca800f3",
+   "title": "Girl (16) missing in Limerick as Gardaí issue urgent appeal for info",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Missing person appeal."
+  },
+  {
+   "id": "cbbc391fc5315011",
+   "title": "Gardaí issue appeal for missing Limerick teen",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Same missing person appeal."
+  },
+  {
+   "id": "d180e1df976476e9",
+   "title": "Gardai issue missing person appeal for Limerick teenager (16)",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Same missing person appeal."
+  },
+  {
+   "id": "7941349cb8b0edbc",
+   "title": "Hunger striker grandmother organising meeting for fellow survivors",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "A public meeting for institutional abuse survivors, not a current offence."
+  },
+  {
+   "id": "8f5a2990c242bc70",
+   "title": "Laois Gardaí issue appeal following armed robbery",
+   "division": "41",
+   "town": null,
+   "group": "06",
+   "confidence": 0.9,
+   "why": "Armed robbery of a fast food premises in Laois."
+  },
+  {
+   "id": "afa1cf1ad2f874f5",
+   "title": "New book on life and times of Brian Cowen to be launched in Tullamore",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "A book launch. 'Court Hotel' is a venue name."
+  },
+  {
+   "id": "c6acea9d219ce78a",
+   "title": "Gardaí say traffic remains light around the Electric Picnic in Stradbally",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "Festival traffic advice, not an offence."
+  },
+  {
+   "id": "d798c3dd7e292d10",
+   "title": "Man jailed for life for murder of Cork postman who was brutally attacked with golf club",
+   "division": "32",
+   "town": "Doneraile",
+   "group": "01",
+   "confidence": 0.9,
+   "why": "Murder outside the victim's home in Doneraile, Cork North."
+  },
+  {
+   "id": "131cc47f5832241f",
+   "title": "Man (21) jailed for murder of father of five in Cork golf-club attack",
+   "division": "32",
+   "town": "Doneraile",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "Same Doneraile murder."
+  },
+  {
+   "id": "d012cc30e3917654",
+   "title": "Man jailed for life over murder of Cork father of five Barry Daly",
+   "division": "32",
+   "town": "Doneraile",
+   "group": "01",
+   "confidence": 0.9,
+   "why": "Same, names Doneraile explicitly."
+  },
+  {
+   "id": "6b7aa44985219e44",
+   "title": "Man (21) jailed for life for murder of Cork postman who was attacked with golf club outside his home",
+   "division": "32",
+   "town": "Doneraile",
+   "group": "01",
+   "confidence": 0.9,
+   "why": "Same, names Doneraile."
+  },
+  {
+   "id": "90399cfefa420769",
+   "title": "Man (21) jailed for life for murder of Cork postman who was beaten to death with golf club",
+   "division": "32",
+   "town": "Doneraile",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "Same case."
+  },
+  {
+   "id": "efd1357b509105a3",
+   "title": "Man, 21, jailed over 'brutal' murder of Cork postman",
+   "division": "32",
+   "town": "Doneraile",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "Same case."
+  },
+  {
+   "id": "66d83510ccfa6a4d",
+   "title": "Man arrested after €1.2m worth of cocaine found in luggage at Cork Airport",
+   "division": "31",
+   "town": null,
+   "group": "10",
+   "confidence": 0.85,
+   "why": "Cork Airport is in Cork City Division."
+  },
+  {
+   "id": "3a026454407d241b",
+   "title": "Passenger arrested after cocaine worth €1.2 million found concealed in baggage at Cork Airport",
+   "division": "31",
+   "town": null,
+   "group": "10",
+   "confidence": 0.85,
+   "why": "Same Cork Airport seizure."
+  },
+  {
+   "id": "751e2d7096901a9c",
+   "title": "Man arrested as €1.2m cocaine found in baggage at Cork Airport",
+   "division": "31",
+   "town": null,
+   "group": "10",
+   "confidence": 0.85,
+   "why": "Same Cork Airport seizure."
+  },
+  {
+   "id": "c51c4d6bc49129a6",
+   "title": "Two Galway drivers facing court after 195km/h speeding spree",
+   "division": "23",
+   "town": null,
+   "group": "14",
+   "confidence": 0.85,
+   "why": "Speeding prosecutions in Co Galway."
+  },
+  {
+   "id": "e5079f46969a3045",
+   "title": "People around Galway told watch out for this car as gardai investigate burglar gang",
+   "division": "23",
+   "town": null,
+   "group": "07",
+   "confidence": 0.85,
+   "why": "Community alerts about a burglary gang around Galway."
+  },
+  {
+   "id": "6c442340e456ffc4",
+   "title": "Man accused of assaulting person with hurley at Galway Shopping Centre",
+   "division": "23",
+   "town": "Galway",
+   "group": "03",
+   "confidence": 0.9,
+   "why": "Assault with a hurley at Galway Shopping Centre."
+  },
+  {
+   "id": "669757df3ff40e5b",
+   "title": "Dungarvan to Host Suicide Awareness Event",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.0,
+   "why": "A Garda-hosted suicide awareness event, not an offence."
   }
  ]
 }
