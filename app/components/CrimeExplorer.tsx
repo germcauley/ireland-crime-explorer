@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "reac
 import { annualSum, percentageChange } from "../lib/analytics";
 import type { DashboardData, Division, Station } from "../lib/dashboard-types";
 import { RecentReporting } from "./RecentReporting";
+import { ReportingView } from "./ReportingView";
 
 type MapMode = "station" | "division";
 type Point = { x: number; y: number };
@@ -413,6 +414,9 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   // The app always has a selected area, so selection alone cannot mean "zoomed
   // in" — the map would open tight on an arbitrary division. This tracks the
   // separate act of a reader choosing an area, which is what earns the zoom.
+  // Reporting is a peer of the map rather than a third geography: mapMode
+  // drives every layer, bound and legend, and must keep meaning a geography.
+  const [view, setView] = useState<"map" | "reporting">("map");
   const [areaFocused, setAreaFocused] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   // The theme lives outside React — in localStorage and the OS preference —
@@ -1386,11 +1390,37 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   // Every way a reader can pick an area — a polygon, a station point, a movers
   // row, a search result — goes through here, so the zoom is never something
   // only one of those routes gets.
-  // id -> name, so the nationwide reporting list can name each item's Division.
+  // id -> name, so a reporting item can name the Division it belongs to.
   const divisionNames = useMemo(
     () => Object.fromEntries(data.divisions.map((d) => [d.id, d.name])),
     [data.divisions],
   );
+  const divisionCounties = useMemo(
+    () =>
+      Object.fromEntries(
+        data.divisions.map((d) => {
+          const stem = d.name.replace(" Division", "");
+          // The DMR Divisions cover no county a headline would name.
+          const counties = stem.startsWith("DMR")
+            ? ["Dublin"]
+            : stem.split("/").map((part) => part.replace(/\s+(City|North|South|East|West)$/, ""));
+          return [d.id, counties];
+        }),
+      ),
+    [data.divisions],
+  );
+  const groupLabels = useMemo(
+    () => Object.fromEntries(data.divisionCategories.map((g) => [g.id, g.shortLabel])),
+    [data.divisionCategories],
+  );
+
+  // Selecting a Division from an article returns to the map showing it.
+  function focusDivisionFromReporting(id: string) {
+    setView("map");
+    setGeography("division");
+    setSelectedDivisionId(id);
+    setAreaFocused(true);
+  }
 
   function selectArea(id: string) {
     if (mapMode === "station") setSelectedStationId(id);
@@ -1495,21 +1525,30 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       <div className="ns-geo" role="group" aria-label="Map geography">
         <button
           type="button"
-          className={mapMode === "station" ? "is-active" : ""}
-          aria-pressed={mapMode === "station"}
-          onClick={() => setGeography("station")}
+          className={view === "map" && mapMode === "station" ? "is-active" : ""}
+          aria-pressed={view === "map" && mapMode === "station"}
+          onClick={() => { setView("map"); setGeography("station"); }}
         >
           Dublin station areas
           <small>{data.stations.length} areas · annual</small>
         </button>
         <button
           type="button"
-          className={mapMode === "division" ? "is-active" : ""}
-          aria-pressed={mapMode === "division"}
-          onClick={() => setGeography("division")}
+          className={view === "map" && mapMode === "division" ? "is-active" : ""}
+          aria-pressed={view === "map" && mapMode === "division"}
+          onClick={() => { setView("map"); setGeography("division"); }}
         >
           Garda divisions nationwide
           <small>{data.divisions.length} areas · quarterly</small>
+        </button>
+        <button
+          type="button"
+          className={view === "reporting" ? "is-active" : ""}
+          aria-pressed={view === "reporting"}
+          onClick={() => setView("reporting")}
+        >
+          Recent reporting
+          <small>what outlets published</small>
         </button>
       </div>
 
@@ -1555,17 +1594,24 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           <div className="mode-toggle" role="group" aria-label="Map geography">
             <button
               type="button"
-              className={mapMode === "station" ? "active" : ""}
-              onClick={() => setGeography("station")}
+              className={view === "map" && mapMode === "station" ? "active" : ""}
+              onClick={() => { setView("map"); setGeography("station"); }}
             >
               Dublin station areas <small>{data.stations.length} areas · annual</small>
             </button>
             <button
               type="button"
-              className={mapMode === "division" ? "active" : ""}
-              onClick={() => setGeography("division")}
+              className={view === "map" && mapMode === "division" ? "active" : ""}
+              onClick={() => { setView("map"); setGeography("division"); }}
             >
               Garda divisions nationwide <small>{data.divisions.length} official areas · quarterly</small>
+            </button>
+            <button
+              type="button"
+              className={view === "reporting" ? "active" : ""}
+              onClick={() => setView("reporting")}
+            >
+              Recent reporting <small>what outlets published</small>
             </button>
           </div>
 
@@ -1688,769 +1734,779 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         </div>
       </section>
 
-      <section className="result-summary" aria-labelledby="result-summary-title" aria-live="polite">
-        <div className="result-summary-copy">
-          <p>{mapMode === "station" ? "Dublin station area" : "Garda division nationwide"}</p>
-          <h2 id="result-summary-title">{readoutName}</h2>
-          <span>{readoutEyebrow}</span>
-        </div>
-        <div className="result-summary-figure">
-          <strong className={`tone-${toneOf(readoutChange, readoutIsRaw)}`}>
-            {readoutChange === null ? "Not comparable" : formatSigned(readoutChange, readoutIsRaw)}
-          </strong>
-          <span>{readoutCounts}</span>
-        </div>
-        <p className="result-summary-note">
-          These are recorded incidents, not total crime or a safety score.
-          {mapMode === "station" && " Station-area cells are approximate, not official neighbourhood boundaries."}
-        </p>
-        <button type="button" onClick={() => setInfoOpen(true)}>How to read this result</button>
-      </section>
-
-      {/* Reporting sits beneath the numbers by construction: a reader has to
-          have passed the result summary to reach it. Division only — see the
-          note in RecentReporting. Articles are classified to CJQ06 groups, so
-          a selected sub-category is narrowed to its parent rather than
-          matching nothing. */}
-      {mapMode === "division" && (
-        <RecentReporting
-          divisionId={selectedDivisionArea?.division.id ?? null}
-          divisionName={selectedDivisionArea?.division.name ?? ""}
+      {view === "reporting" ? (
+        <ReportingView
           divisionNames={divisionNames}
-          onSelectDivision={selectArea}
-          group={selectedDivisionGroupCopy?.id ?? null}
-          groupLabel={selectedDivisionGroupCopy?.shortLabel ?? "this offence group"}
+          divisionCounties={divisionCounties}
+          groupLabels={groupLabels}
+          onSelectDivision={focusDivisionFromReporting}
         />
-      )}
-
-      <section className="dashboard-body" id="atlas">
-        <aside className="movers-rail" aria-label="Optional area comparison">
-          {mapMode === "station" ? (
-            <>
-              <div>
-                <p>Compare areas · increases</p>
-                {rankedIncreases.slice(0, 3).map((entry) => (
-                  <button type="button" key={entry.station.id} onClick={() => selectArea(entry.station.id)}>
-                    <span>{entry.station.name}</span><strong>{formatSigned(entry.change, entry.isRaw)}</strong>
-                  </button>
-                ))}
-              </div>
-              <div>
-                <p>Compare areas · decreases</p>
-                {rankedDecreases.slice(0, 3).map((entry) => (
-                  <button type="button" key={entry.station.id} onClick={() => selectArea(entry.station.id)}>
-                    <span>{entry.station.name}</span><strong>{formatSigned(entry.change, entry.isRaw)}</strong>
-                  </button>
-                ))}
-              </div>
-            </>
-          ) : (
-            <>
-              <div>
-                <p>Compare areas · increases</p>
-                {rankedDivisionIncreases.slice(0, 3).map((entry) => (
-                  <button type="button" key={entry.division.id} onClick={() => selectArea(entry.division.id)}>
-                    <span>{entry.division.name}</span><strong>{formatSigned(entry.change, entry.isRaw)}</strong>
-                  </button>
-                ))}
-              </div>
-              <div>
-                <p>Compare areas · decreases</p>
-                {rankedDivisionDecreases.slice(0, 3).map((entry) => (
-                  <button type="button" key={entry.division.id} onClick={() => selectArea(entry.division.id)}>
-                    <span>{entry.division.name}</span><strong>{formatSigned(entry.change, entry.isRaw)}</strong>
-                  </button>
-                ))}
-              </div>
-            </>
-          )}
-        </aside>
-
-        <section
-          className={`district-map-panel${mapMode === "station" ? " ns-station-view" : ""}`}
-          aria-label={mapMode === "station" ? "Dublin station-area recorded-crime map" : "Garda-division recorded-crime map of Ireland"}
-        >
-          <div className="map-panel-heading">
-            <div>
-              <span>
-                {mapMode === "station"
-                  ? `All ${data.stations.length} Dublin reporting areas`
-                  : `All ${data.divisions.length} Garda Divisions nationwide`}
-              </span>
-              <strong>
-                {mapMode === "station"
-                  ? selectedCategoryCopy.shortLabel
-                  : selectedDivisionDetailCopy?.label ?? selectedDivisionGroupCopy?.shortLabel}{" "}
-                · {baselineYear}–{selectedYear}
-              </strong>
-            </div>
-            <div className="change-legend" aria-label="Percentage-change colour scale">
-              <span>Decreased</span>
-              <i /><i /><i /><i /><i /><i /><i />
-              <span>Increased</span>
-            </div>
+      ) : (
+        <>
+        <section className="result-summary" aria-labelledby="result-summary-title" aria-live="polite">
+          <div className="result-summary-copy">
+            <p>{mapMode === "station" ? "Dublin station area" : "Garda division nationwide"}</p>
+            <h2 id="result-summary-title">{readoutName}</h2>
+            <span>{readoutEyebrow}</span>
           </div>
-
-          <div
-            ref={mapElement}
-            className="district-map"
-            aria-label={mapMode === "station" ? "Map of Dublin station-area recorded-crime reporting geographies" : "Map of Garda divisions nationwide"}
-          />
-
-          {mapMode === "station" && availableChanges.length === 0 && (
-            <div className="map-no-data">No comparable area data for this selection.</div>
-          )}
-          {mapMode === "division" && availableDivisionChanges.length === 0 && (
-            <div className="map-no-data">No comparable area data for this selection.</div>
-          )}
-
-          {mapMode === "station" && (
-            <p className="ns-map-caveat">Cells approximate areas from station points — not official boundaries.</p>
-          )}
-
-          {/* The way back out of a focused area. Only rendered while a focus is
-              held, so it never occupies the map when it would do nothing. The
-              visible label shortens on a phone, where the caveat chip shares
-              this row, so the full wording lives on the button itself and stays
-              the accessible name at every width. */}
-          {areaFocused && (
-            <button
-              type="button"
-              className="area-focus-clear"
-              onClick={clearAreaFocus}
-              aria-label="Return to full map"
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
-                <path d="M9 3H5a2 2 0 0 0-2 2v4M15 3h4a2 2 0 0 1 2 2v4M9 21H5a2 2 0 0 1-2-2v-4M15 21h4a2 2 0 0 0 2-2v-4" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <span aria-hidden="true">Return to full map</span>
-            </button>
-          )}
-
-          {/* Nightshift readout. The container never takes a tap — it sits over
-              live geography — so it is pointer-events:none and only the
-              controls inside it opt back in. */}
-          {/* Past the half detent there is too little map left for the full
-              readout, so it collapses to the one-line label the sub-category
-              screen uses. */}
-          <div className={`ns-readout${sheetHeight > DETENTS[1] + 40 ? " is-compact" : ""}`} aria-live="polite">
-            <p className="ns-readout-eyebrow">{readoutEyebrow}</p>
-            <h2 className="ns-readout-name">{readoutName}</h2>
-            <div className="ns-readout-figure">
-              <strong className={`tone-${toneOf(readoutChange, readoutIsRaw)}`}>
-                {readoutChange === null ? "n/a" : formatSigned(readoutChange, readoutIsRaw)}
-              </strong>
-              <p>{readoutCounts}</p>
-            </div>
-            {mapMode === "division" && (
-              <button type="button" className="ns-readout-push" onClick={() => setMixOpen(true)}>
-                Full offence mix
-                <span aria-hidden="true">→</span>
-              </button>
-            )}
-          </div>
-
-          {mapMode === "station" ? (
-            <article className="selected-area-card" aria-live="polite">
-              <span>{selectedArea.station.division}</span>
-              <h2>{selectedArea.station.name}</h2>
-              <div>
-                <strong>{selectedArea.change === null ? "n/a" : formatSigned(selectedArea.change, selectedArea.isRaw)}</strong>
-                <p>from {baselineYear} to {selectedYear}</p>
-              </div>
-              <small>
-                {selectedArea.current === null || selectedArea.baseline === null
-                  ? "Comparable counts unavailable"
-                  : `${numberFormat.format(selectedArea.baseline)} → ${numberFormat.format(selectedArea.current)} recorded incidents`}
-              </small>
-            </article>
-          ) : (
-            <article className="selected-area-card division-card" aria-live="polite">
-              <span>Garda Division</span>
-              <h2>{selectedDivisionArea?.division.name}</h2>
-              <div>
-                <strong>
-                  {selectedDivisionArea?.change === null || selectedDivisionArea?.change === undefined
-                    ? "n/a"
-                    : formatSigned(selectedDivisionArea.change, selectedDivisionArea.isRaw)}
-                </strong>
-                <p>from {baselineYear} to {selectedYear}</p>
-              </div>
-              <small>
-                {selectedDivisionArea?.current === null || selectedDivisionArea?.baseline === null
-                  ? "Comparable counts unavailable"
-                  : `${numberFormat.format(selectedDivisionArea!.baseline!)} → ${numberFormat.format(selectedDivisionArea!.current!)} recorded incidents`}
-              </small>
-
-              <div className="quarter-chart">
-                <div className="quarter-chart-heading">
-                  <span>Quarterly trend</span>
-                  <button type="button" onClick={() => setQuarterRangeExpanded((value) => !value)}>
-                    {quarterRangeExpanded ? "Show 2019–present" : "Show full history (2003–)"}
-                  </button>
-                </div>
-                {(() => {
-                  const { segments, dots } = buildSparkline(divisionQuarterSeries, 100, 34);
-                  return segments.length === 0 ? (
-                    <p className="quarter-chart-empty">Not enough comparable quarters to chart.</p>
-                  ) : (
-                    <svg viewBox="0 0 100 34" preserveAspectRatio="none" className="quarter-chart-svg">
-                      {segments.map((points, index) => (
-                        <polyline key={index} points={points} fill="none" />
-                      ))}
-                      {dots.map((dot, index) => (
-                        <circle key={index} cx={dot.x} cy={dot.y} r={0.9} />
-                      ))}
-                    </svg>
-                  );
-                })()}
-                <small>
-                  {data.meta.quarters[quarterRangeExpanded ? 0 : data.meta.defaultQuarterStartIndex]}
-                  {" – "}
-                  {data.meta.quarters[data.meta.quarters.length - 1]}
-                </small>
-              </div>
-            </article>
-          )}
-
-          <p className="map-guidance">Hover over an area for its exact change · click to pin details</p>
-        </section>
-      </section>
-
-      <section
-        className="ns-sheet"
-        ref={sheet}
-        style={{ height: sheetHeight }}
-        aria-label="Optional comparison of areas by change"
-        onTransitionEnd={(event) => {
-          if (event.propertyName === "height") mapInstance.current?.invalidateSize({ animate: false });
-        }}
-      >
-        {/* A resize grip is a separator, not a button: it has a value (the
-            height) rather than an action. That is what ARIA's separator role
-            is for, and it has to be focusable to be operable by keyboard, so
-            the two rules below are answered by the role itself. */}
-        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
-        <div
-          className="ns-handle"
-          role="separator"
-          aria-orientation="horizontal"
-          aria-label="Resize the area comparison sheet"
-          aria-valuenow={sheetHeight}
-          aria-valuemin={SHEET_MIN}
-          aria-valuemax={SHEET_MAX}
-          // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-          tabIndex={0}
-          onPointerDown={onSheetPointerDown}
-          onPointerMove={onSheetPointerMove}
-          onPointerUp={onSheetPointerUp}
-          onPointerCancel={onSheetPointerUp}
-          onKeyDown={onSheetKeyDown}
-        >
-          <i aria-hidden="true" />
-          <span>{sheetHint}</span>
-        </div>
-
-        {pickerOpen ? (
-          <div className="ns-sheet-head">
-            <button
-              type="button"
-              className="ns-icon-button"
-              aria-label="Back to the movers list"
-              onClick={() => setPickerOpen(false)}
-            >
-              {BACK_ICON}
-            </button>
-            <strong>
-              <span className="ns-crumb">{selectedDivisionGroupCopy?.shortLabel}</span>
-              {selectedDivisionDetailCopy ? ` › ${selectedDivisionDetailCopy.label}` : " › All of this group"}
+          <div className="result-summary-figure">
+            <strong className={`tone-${toneOf(readoutChange, readoutIsRaw)}`}>
+              {readoutChange === null ? "Not comparable" : formatSigned(readoutChange, readoutIsRaw)}
             </strong>
+            <span>{readoutCounts}</span>
           </div>
-        ) : (
-          <div className="ns-sheet-head">
-            <strong>Compare areas · {activeGroupLabel}</strong>
-          </div>
+          <p className="result-summary-note">
+            These are recorded incidents, not total crime or a safety score.
+            {mapMode === "station" && " Station-area cells are approximate, not official neighbourhood boundaries."}
+          </p>
+          <button type="button" onClick={() => setInfoOpen(true)}>How to read this result</button>
+        </section>
+
+        {/* Reporting sits beneath the numbers by construction: a reader has to
+            have passed the result summary to reach it. Division only — see the
+            note in RecentReporting. Articles are classified to CJQ06 groups, so
+            a selected sub-category is narrowed to its parent rather than
+            matching nothing. */}
+        {mapMode === "division" && (
+          <RecentReporting
+            divisionId={selectedDivisionArea?.division.id ?? null}
+            divisionName={selectedDivisionArea?.division.name ?? ""}
+            group={selectedDivisionGroupCopy?.id ?? null}
+            groupLabel={selectedDivisionGroupCopy?.shortLabel ?? "this offence group"}
+          />
         )}
 
-        {pickerOpen && (
-          <div className="ns-sheet-body">
-            <p className="ns-eyebrow">Sub-categories · nationwide {selectedYear}</p>
-            {subCategoryRows.map((row) => {
-              const selected = selectedDivisionDetail === row.id;
-              const share =
-                row.count === null || !row.groupTotal ? 0 : Math.min(100, (row.count / row.groupTotal) * 100);
-              return (
-                <button
-                  key={row.id ?? "all"}
-                  type="button"
-                  className={`ns-pick${selected ? " is-selected" : ""}`}
-                  role="radio"
-                  aria-checked={selected}
-                  onClick={() => setSelectedDivisionDetail(row.id)}
-                >
-                  <span className={`ns-radio${selected ? " is-selected" : ""}`} aria-hidden="true" />
-                  <span className="ns-pick-label">
-                    {row.label}
-                    <i aria-hidden="true" style={{ width: `${Math.max(3, share)}%` }} />
-                  </span>
-                  <span className="ns-pick-value">
-                    <b>{row.count === null ? "n/a" : numberFormat.format(row.count)}</b>
-                    <small>{row.count === null || !row.groupTotal ? "—" : `${Math.round(share)}%`}</small>
-                  </span>
-                </button>
-              );
-            })}
-            {selectedDivisionGroupCopy?.children.length === 0 && (
-              <p className="ns-note ns-sheet-note">
-                The CSO publishes no sub-categories for this group — {selectedDivisionGroupCopy.label} is the
-                finest level available.
-              </p>
-            )}
-            {selectedDivisionGroup === "09" && <p className="ns-note ns-note-warning">{data.meta.fraudNote}</p>}
-            <p className="ns-note ns-sheet-note">
-              Where the earlier count is too small for a percentage to carry meaning, the change is reported as a
-              raw difference — +3 rather than +150%.
-            </p>
-          </div>
-        )}
-
-        <div className="ns-sheet-body" hidden={pickerOpen}>
-          {moverRows.map((row, index) => (
-            <button
-              key={row.id}
-              type="button"
-              className="ns-mover"
-              onClick={() => selectArea(row.id)}
-            >
-              <span className="ns-mover-rank">{index + 1}</span>
-              <span className="ns-mover-name">
-                {row.name}
-                <i
-                  aria-hidden="true"
-                  style={{
-                    width:
-                      largestMove === 0 || row.change === null
-                        ? 0
-                        : `${Math.max(4, (Math.abs(row.change) / largestMove) * 100)}%`,
-                    background: changeColour(row.change, row.isRaw),
-                  }}
-                />
-              </span>
-              <span className="ns-mover-value">
-                <b className={`tone-${toneOf(row.change, row.isRaw)}`}>
-                  {row.change === null ? "n/a" : formatSigned(row.change, row.isRaw)}
-                </b>
-                <small>{row.current === null ? "no count" : numberFormat.format(row.current)}</small>
-              </span>
-            </button>
-          ))}
-
-          {mapMode === "station" && (
-            <p className="ns-note ns-sheet-note">
-              CJA11 publishes 14 broad groups per station area and no finer detail — sub-categories, and homicide
-              and sexual-offence figures, are Division-only.{" "}
-              <button
-                type="button"
-                className="ns-inline-link"
-                onClick={() => {
-                  setGeography("division");
-                  setSelectedDivisionGroup("01");
-                  setSelectedDivisionDetail(null);
-                }}
-              >
-                See them in Division view
-              </button>
-              .
-            </p>
-          )}
-        </div>
-      </section>
-
-      {infoOpen && (
-        <div
-          className="ns-overlay ns-info"
-          ref={infoPanel}
-          role="dialog"
-          aria-modal="true"
-          aria-label="What this data is, and is not"
-        >
-          <div className="ns-mix-head">
-            <button type="button" className="ns-icon-button" aria-label="Back to the map" onClick={closeInfo}>
-              {BACK_ICON}
-            </button>
-            <div>
-              <strong>What this shows</strong>
-              <small>Official CSO data · through {data.meta.latestCompleteYear}</small>
-            </div>
-          </div>
-
-          <div className="ns-mix-body">
-            <p className="ns-eyebrow">Read this first</p>
-            <p className="ns-note ns-note-warning">{data.meta.dataNote}</p>
-            <p className="ns-note">{data.meta.geographyNote}</p>
-            <p className="ns-note">{data.meta.divisionGeographyNote}</p>
-            <p className="ns-note">{data.meta.fraudNote}</p>
-            <p className="ns-note">{data.meta.vehicleNote}</p>
-            <p className="ns-note">
-              Homicide and sexual-offence detail, and the 84 official sub-categories, are published for Garda
-              Divisions only — never for a station area.
-            </p>
-
-            <p className="ns-eyebrow">Data source</p>
-            <div className="ns-source">
-              <strong>
-                {mapMode === "station"
-                  ? "Central Statistics Office · CJA11"
-                  : "Central Statistics Office · CJQ06"}
-              </strong>
-              <p>
-                {mapMode === "station"
-                  ? "Values are exact station/sub-district records. Filled cells are approximate areas derived from station locations — not official boundary polygons."
-                  : "Division boundaries are official CSO polygons; offence counts are exact quarterly records."}
-              </p>
-              <a
-                href={
-                  mapMode === "station"
-                    ? "https://data.gov.ie/en_GB/dataset/cja11-recorded-crime-incidents-new-garda-operating-model"
-                    : "https://data.gov.ie/en_GB/dataset/cjq06-recorded-crime-offences-by-type-of-offence-garda-division-and-quarter"
-                }
-                target="_blank"
-                rel="noreferrer"
-              >
-                Open official dataset ↗
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {mixOpen && (
-        <div className="ns-overlay ns-mix" ref={mixPanel} role="dialog" aria-modal="true" aria-label="Offence mix">
-          <div className="ns-mix-head">
-            <button type="button" className="ns-icon-button" aria-label="Back to the map" onClick={closeMix}>
-              {BACK_ICON}
-            </button>
-            <div>
-              <strong>{selectedDivisionArea?.division.name}</strong>
-              <small>
-                {offenceMixTotal === 0
-                  ? "No comparable counts for this year"
-                  : `${numberFormat.format(offenceMixTotal)} recorded incidents`}{" "}
-                · {selectedYear} vs {baselineYear}
-              </small>
-            </div>
-          </div>
-
-          <div className="ns-mix-body">
-            <p className="ns-eyebrow">Offence mix · official CJQ06 groups</p>
-            {offenceMix.map((entry) => {
-              const open = openMixGroup === entry.group.id;
-              const share = offenceMixTotal === 0 ? 0 : ((entry.current ?? 0) / offenceMixTotal) * 100;
-              const barWidth = offenceMixLargest === 0 ? 0 : ((entry.current ?? 0) / offenceMixLargest) * 100;
-              return (
-                <div key={entry.group.id} className={`ns-mix-group${open ? " is-open" : ""}`}>
-                  <button
-                    type="button"
-                    className="ns-mix-row"
-                    aria-expanded={open}
-                    onClick={() => setOpenMixGroup(open ? null : entry.group.id)}
-                  >
-                    <span className="ns-mix-label">
-                      {entry.group.shortLabel}
-                      <i
-                        aria-hidden="true"
-                        style={{ width: `${Math.max(3, barWidth)}%`, background: changeColour(entry.change, entry.isRaw) }}
-                      />
-                      <small>{offenceMixTotal === 0 ? "no share" : `${Math.round(share)}% of all recorded`}</small>
-                    </span>
-                    <span className="ns-mix-value">
-                      <b>{entry.current === null ? "n/a" : numberFormat.format(entry.current)}</b>
-                      <em className={`tone-${toneOf(entry.change, entry.isRaw)}`}>
-                        {entry.change === null ? "n/a" : formatSigned(entry.change, entry.isRaw)}
-                      </em>
-                    </span>
-                    <span className="ns-mix-chevron" aria-hidden="true">
-                      {CHEVRON_ICON}
-                    </span>
-                  </button>
-
-                  {open &&
-                    (entry.children.length === 0 ? (
-                      <p className="ns-note">
-                        The CSO publishes no sub-categories for this group — {entry.group.label} is the finest
-                        level available.
-                      </p>
-                    ) : (
-                      entry.children.map((child) => (
-                        <button
-                          key={child.child.id}
-                          type="button"
-                          className="ns-mix-child"
-                          onClick={() => {
-                            // Picking a child both filters the map and takes
-                            // the reader to the picker, so the recolouring is
-                            // visible rather than happening behind a screen.
-                            setSelectedDivisionGroup(entry.group.id);
-                            setSelectedDivisionDetail(child.child.id);
-                            setMixOpen(false);
-                            setPickerOpen(true);
-                            applySheetHeight(Math.min(DETENTS[1], sheetLimit()));
-                          }}
-                        >
-                          <span className="ns-mix-label">
-                            {child.child.label}
-                            <i
-                              aria-hidden="true"
-                              style={{
-                                width: `${
-                                  entry.current
-                                    ? Math.max(3, ((child.current ?? 0) / entry.current) * 100)
-                                    : 3
-                                }%`,
-                                background: changeColour(child.change, child.isRaw),
-                              }}
-                            />
-                          </span>
-                          <span className="ns-mix-value">
-                            <b>{child.current === null ? "n/a" : numberFormat.format(child.current)}</b>
-                            <em className={`tone-${toneOf(child.change, child.isRaw)}`}>
-                              {child.change === null ? "n/a" : formatSigned(child.change, child.isRaw)}
-                            </em>
-                          </span>
-                        </button>
-                      ))
-                    ))}
+        <section className="dashboard-body" id="atlas">
+          <aside className="movers-rail" aria-label="Optional area comparison">
+            {mapMode === "station" ? (
+              <>
+                <div>
+                  <p>Compare areas · increases</p>
+                  {rankedIncreases.slice(0, 3).map((entry) => (
+                    <button type="button" key={entry.station.id} onClick={() => selectArea(entry.station.id)}>
+                      <span>{entry.station.name}</span><strong>{formatSigned(entry.change, entry.isRaw)}</strong>
+                    </button>
+                  ))}
                 </div>
-              );
-            })}
-
-            <p className="ns-note">
-              This depth is Division-only. CJA11 publishes 14 broad groups per Dublin station area and never
-              splits them, so the same breakdown cannot be shown for a station.
-            </p>
-            <p className="ns-note">{data.meta.fraudNote}</p>
-          </div>
-        </div>
-      )}
-
-      {filterSheetOpen && (
-        <div className="ns-scrim">
-          <button type="button" className="ns-scrim-dismiss" aria-label="Close the filter sheet" onClick={closeFilterSheet} />
-          <div className="ns-filter-sheet" ref={filterSheet} role="dialog" aria-modal="true" aria-label="Filter">
-            <div className="ns-filter-head">
-              <h2>Filter</h2>
-              <span className="ns-summary-pill">
-                {activeSummary.increased} up · {activeSummary.decreased} down
-              </span>
-            </div>
-
-            <div className="ns-filter-body">
-              <p className="ns-eyebrow">Offence group</p>
-              <div className="ns-group-rows">
-                {(mapMode === "station" ? stationGroupCategories : data.divisionCategories).map((group) => {
-                  const active =
-                    mapMode === "station" ? group.id === selectedCategory : group.id === selectedDivisionGroup;
-                  return (
-                    <button
-                      key={group.id}
-                      type="button"
-                      className={`ns-group-row${active ? " is-selected" : ""}`}
-                      aria-pressed={active}
-                      onClick={() => selectMobileGroup(group.id)}
-                    >
-                      <span>{group.shortLabel}</span>
-                      {active && <i aria-hidden="true">{CHECK_ICON}</i>}
+                <div>
+                  <p>Compare areas · decreases</p>
+                  {rankedDecreases.slice(0, 3).map((entry) => (
+                    <button type="button" key={entry.station.id} onClick={() => selectArea(entry.station.id)}>
+                      <span>{entry.station.name}</span><strong>{formatSigned(entry.change, entry.isRaw)}</strong>
                     </button>
-                  );
-                })}
-              </div>
-
-              <p className="ns-eyebrow">Detail</p>
-              <div className="ns-pill-wrap">
-                {mapMode === "division" ? (
-                  <>
-                    <button
-                      type="button"
-                      className={`ns-pill${selectedDivisionDetail === null ? " is-selected" : ""}`}
-                      aria-pressed={selectedDivisionDetail === null}
-                      onClick={() => setSelectedDivisionDetail(null)}
-                    >
-                      All of this group
-                    </button>
-                    {selectedDivisionGroupCopy?.children.length === 0 && (
-                      <p className="ns-note">
-                        The CSO publishes no sub-categories for {selectedDivisionGroupCopy?.label} — this group is
-                        the finest level available.
-                      </p>
-                    )}
-                    {selectedDivisionGroupCopy?.children.map((child) => (
-                      <button
-                        key={child.id}
-                        type="button"
-                        className={`ns-pill${selectedDivisionDetail === child.id ? " is-selected" : ""}`}
-                        aria-pressed={selectedDivisionDetail === child.id}
-                        onClick={() => setSelectedDivisionDetail(child.id)}
-                      >
-                        {child.label}
-                      </button>
-                    ))}
-                  </>
-                ) : (
-                  stationDetailCategories.map((category) => (
-                    <button
-                      key={category.id}
-                      type="button"
-                      className={`ns-pill${selectedCategory === category.id ? " is-selected" : ""}`}
-                      aria-pressed={selectedCategory === category.id}
-                      onClick={() => setSelectedCategory(category.id)}
-                    >
-                      {category.shortLabel}
-                    </button>
-                  ))
-                )}
-              </div>
-
-              <p className="ns-eyebrow">Latest year</p>
-              <div className="ns-pill-wrap">
-                {[...data.meta.years].reverse().map((year) => (
-                  <button
-                    key={year}
-                    type="button"
-                    className={`ns-pill${year === selectedYear ? " is-selected" : ""}`}
-                    aria-pressed={year === selectedYear}
-                    onClick={() => setSelectedYear(year)}
-                  >
-                    {year}
-                  </button>
-                ))}
-              </div>
-
-              <p className="ns-eyebrow">{selectedYear} compared with</p>
-              <div className="ns-period-row">
-                {comparisonYears.map((year) => (
-                  <button
-                    key={year}
-                    type="button"
-                    className={`ns-period${baselineYear === year ? " is-selected" : ""}`}
-                    aria-pressed={baselineYear === year}
-                    onClick={() => setSelectedBaselineYear(year)}
-                  >
-                    {year}
-                  </button>
-                ))}
-              </div>
-
-              {mapMode === "station" && selectedCategoryCopy.availabilityNote && (
-                <p className="ns-note ns-note-warning">{selectedCategoryCopy.availabilityNote}</p>
-              )}
-            </div>
-
-            <div className="ns-filter-foot">
-              <div>
-                <span>
-                  {activeGroupLabel} · {selectedYear} vs {baselineYear}
-                </span>
-                <strong>
-                  {nationalTotal === null
-                    ? "No comparable counts for this selection"
-                    : `${numberFormat.format(nationalTotal)} incidents ${
-                        mapMode === "station" ? "across the 41 Dublin areas" : "nationwide"
-                      }`}
-                </strong>
-              </div>
-              <button type="button" className="ns-primary" onClick={closeFilterSheet}>
-                Show map
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {searchOpen && (
-        <div className="ns-overlay ns-search" role="dialog" aria-modal="true" aria-label="Search areas">
-          <div className="ns-search-row">
-            <div className="ns-search-field">
-              {SEARCH_ICON}
-              <label htmlFor="ns-search-input" className="visually-hidden">
-                Search for a place, station or division
-              </label>
-              <input
-                id="ns-search-input"
-                ref={searchInput}
-                type="text"
-                inputMode="search"
-                enterKeyHint="search"
-                autoComplete="off"
-                placeholder="Place, station or division"
-                value={searchQuery}
-                onChange={(event) => setSearchQuery(event.target.value)}
-                onKeyDown={(event) => {
-                  if (event.key === "Enter" && searchHits[0]) {
-                    event.preventDefault();
-                    applySearchHit(searchHits[0]);
-                  }
-                }}
-              />
-            </div>
-            <button type="button" className="ns-search-cancel" onClick={closeSearch}>
-              Cancel
-            </button>
-          </div>
-
-          <div className="ns-search-body">
-            {searchQuery.trim() !== "" && (
-              <>
-                <p className="ns-eyebrow">Matches</p>
-                {searchHits.length === 0 ? (
-                  <p className="ns-search-empty">
-                    Nothing matches “{searchQuery.trim()}”. Try a station, a Garda Division or a Dublin place name.
-                  </p>
-                ) : (
-                  searchHits.map((hit) => (
-                    <button key={hit.key} type="button" className="ns-match" onClick={() => applySearchHit(hit)}>
-                      <span className="ns-match-badge">{hit.badge}</span>
-                      <span className="ns-match-copy">
-                        <strong>{hit.title}</strong>
-                        <small>{hit.subtitle}</small>
-                      </span>
-                      {hit.approximate ? (
-                        <span className="ns-approx">approx</span>
-                      ) : hit.change === null ? (
-                        // Places have no series of their own, and an area with
-                        // no comparable baseline has no figure to show. Neither
-                        // gets a number invented for it.
-                        <span className="ns-match-change tone-flat" aria-hidden="true">
-                          →
-                        </span>
-                      ) : (
-                        <span className={`ns-match-change tone-${toneOf(hit.change, hit.isRaw)}`}>
-                          {formatSigned(hit.change, hit.isRaw)}
-                        </span>
-                      )}
-                    </button>
-                  ))
-                )}
+                  ))}
+                </div>
               </>
-            )}
-
-            {recentSearches.length > 0 && (
+            ) : (
               <>
-                <p className="ns-eyebrow">Recent</p>
-                <div className="ns-recents">
-                  {recentSearches.map((hit) => (
-                    <button key={`recent-${hit.key}`} type="button" onClick={() => applySearchHit(hit)}>
-                      {hit.title}
+                <div>
+                  <p>Compare areas · increases</p>
+                  {rankedDivisionIncreases.slice(0, 3).map((entry) => (
+                    <button type="button" key={entry.division.id} onClick={() => selectArea(entry.division.id)}>
+                      <span>{entry.division.name}</span><strong>{formatSigned(entry.change, entry.isRaw)}</strong>
+                    </button>
+                  ))}
+                </div>
+                <div>
+                  <p>Compare areas · decreases</p>
+                  {rankedDivisionDecreases.slice(0, 3).map((entry) => (
+                    <button type="button" key={entry.division.id} onClick={() => selectArea(entry.division.id)}>
+                      <span>{entry.division.name}</span><strong>{formatSigned(entry.change, entry.isRaw)}</strong>
                     </button>
                   ))}
                 </div>
               </>
             )}
+          </aside>
 
-            <p className="ns-search-footnote">
-              A station name is not a suburb boundary — matches say which official area they belong to.
-            </p>
+          <section
+            className={`district-map-panel${mapMode === "station" ? " ns-station-view" : ""}`}
+            aria-label={mapMode === "station" ? "Dublin station-area recorded-crime map" : "Garda-division recorded-crime map of Ireland"}
+          >
+            <div className="map-panel-heading">
+              <div>
+                <span>
+                  {mapMode === "station"
+                    ? `All ${data.stations.length} Dublin reporting areas`
+                    : `All ${data.divisions.length} Garda Divisions nationwide`}
+                </span>
+                <strong>
+                  {mapMode === "station"
+                    ? selectedCategoryCopy.shortLabel
+                    : selectedDivisionDetailCopy?.label ?? selectedDivisionGroupCopy?.shortLabel}{" "}
+                  · {baselineYear}–{selectedYear}
+                </strong>
+              </div>
+              <div className="change-legend" aria-label="Percentage-change colour scale">
+                <span>Decreased</span>
+                <i /><i /><i /><i /><i /><i /><i />
+                <span>Increased</span>
+              </div>
+            </div>
+
+            <div
+              ref={mapElement}
+              className="district-map"
+              aria-label={mapMode === "station" ? "Map of Dublin station-area recorded-crime reporting geographies" : "Map of Garda divisions nationwide"}
+            />
+
+            {mapMode === "station" && availableChanges.length === 0 && (
+              <div className="map-no-data">No comparable area data for this selection.</div>
+            )}
+            {mapMode === "division" && availableDivisionChanges.length === 0 && (
+              <div className="map-no-data">No comparable area data for this selection.</div>
+            )}
+
+            {mapMode === "station" && (
+              <p className="ns-map-caveat">Cells approximate areas from station points — not official boundaries.</p>
+            )}
+
+            {/* The way back out of a focused area. Only rendered while a focus is
+                held, so it never occupies the map when it would do nothing. The
+                visible label shortens on a phone, where the caveat chip shares
+                this row, so the full wording lives on the button itself and stays
+                the accessible name at every width. */}
+            {areaFocused && (
+              <button
+                type="button"
+                className="area-focus-clear"
+                onClick={clearAreaFocus}
+                aria-label="Return to full map"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+                  <path d="M9 3H5a2 2 0 0 0-2 2v4M15 3h4a2 2 0 0 1 2 2v4M9 21H5a2 2 0 0 1-2-2v-4M15 21h4a2 2 0 0 0 2-2v-4" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span aria-hidden="true">Return to full map</span>
+              </button>
+            )}
+
+            {/* Nightshift readout. The container never takes a tap — it sits over
+                live geography — so it is pointer-events:none and only the
+                controls inside it opt back in. */}
+            {/* Past the half detent there is too little map left for the full
+                readout, so it collapses to the one-line label the sub-category
+                screen uses. */}
+            <div className={`ns-readout${sheetHeight > DETENTS[1] + 40 ? " is-compact" : ""}`} aria-live="polite">
+              <p className="ns-readout-eyebrow">{readoutEyebrow}</p>
+              <h2 className="ns-readout-name">{readoutName}</h2>
+              <div className="ns-readout-figure">
+                <strong className={`tone-${toneOf(readoutChange, readoutIsRaw)}`}>
+                  {readoutChange === null ? "n/a" : formatSigned(readoutChange, readoutIsRaw)}
+                </strong>
+                <p>{readoutCounts}</p>
+              </div>
+              {mapMode === "division" && (
+                <button type="button" className="ns-readout-push" onClick={() => setMixOpen(true)}>
+                  Full offence mix
+                  <span aria-hidden="true">→</span>
+                </button>
+              )}
+            </div>
+
+            {mapMode === "station" ? (
+              <article className="selected-area-card" aria-live="polite">
+                <span>{selectedArea.station.division}</span>
+                <h2>{selectedArea.station.name}</h2>
+                <div>
+                  <strong>{selectedArea.change === null ? "n/a" : formatSigned(selectedArea.change, selectedArea.isRaw)}</strong>
+                  <p>from {baselineYear} to {selectedYear}</p>
+                </div>
+                <small>
+                  {selectedArea.current === null || selectedArea.baseline === null
+                    ? "Comparable counts unavailable"
+                    : `${numberFormat.format(selectedArea.baseline)} → ${numberFormat.format(selectedArea.current)} recorded incidents`}
+                </small>
+              </article>
+            ) : (
+              <article className="selected-area-card division-card" aria-live="polite">
+                <span>Garda Division</span>
+                <h2>{selectedDivisionArea?.division.name}</h2>
+                <div>
+                  <strong>
+                    {selectedDivisionArea?.change === null || selectedDivisionArea?.change === undefined
+                      ? "n/a"
+                      : formatSigned(selectedDivisionArea.change, selectedDivisionArea.isRaw)}
+                  </strong>
+                  <p>from {baselineYear} to {selectedYear}</p>
+                </div>
+                <small>
+                  {selectedDivisionArea?.current === null || selectedDivisionArea?.baseline === null
+                    ? "Comparable counts unavailable"
+                    : `${numberFormat.format(selectedDivisionArea!.baseline!)} → ${numberFormat.format(selectedDivisionArea!.current!)} recorded incidents`}
+                </small>
+
+                <div className="quarter-chart">
+                  <div className="quarter-chart-heading">
+                    <span>Quarterly trend</span>
+                    <button type="button" onClick={() => setQuarterRangeExpanded((value) => !value)}>
+                      {quarterRangeExpanded ? "Show 2019–present" : "Show full history (2003–)"}
+                    </button>
+                  </div>
+                  {(() => {
+                    const { segments, dots } = buildSparkline(divisionQuarterSeries, 100, 34);
+                    return segments.length === 0 ? (
+                      <p className="quarter-chart-empty">Not enough comparable quarters to chart.</p>
+                    ) : (
+                      <svg viewBox="0 0 100 34" preserveAspectRatio="none" className="quarter-chart-svg">
+                        {segments.map((points, index) => (
+                          <polyline key={index} points={points} fill="none" />
+                        ))}
+                        {dots.map((dot, index) => (
+                          <circle key={index} cx={dot.x} cy={dot.y} r={0.9} />
+                        ))}
+                      </svg>
+                    );
+                  })()}
+                  <small>
+                    {data.meta.quarters[quarterRangeExpanded ? 0 : data.meta.defaultQuarterStartIndex]}
+                    {" – "}
+                    {data.meta.quarters[data.meta.quarters.length - 1]}
+                  </small>
+                </div>
+              </article>
+            )}
+
+            <p className="map-guidance">Hover over an area for its exact change · click to pin details</p>
+          </section>
+        </section>
+
+        <section
+          className="ns-sheet"
+          ref={sheet}
+          style={{ height: sheetHeight }}
+          aria-label="Optional comparison of areas by change"
+          onTransitionEnd={(event) => {
+            if (event.propertyName === "height") mapInstance.current?.invalidateSize({ animate: false });
+          }}
+        >
+          {/* A resize grip is a separator, not a button: it has a value (the
+              height) rather than an action. That is what ARIA's separator role
+              is for, and it has to be focusable to be operable by keyboard, so
+              the two rules below are answered by the role itself. */}
+          {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
+          <div
+            className="ns-handle"
+            role="separator"
+            aria-orientation="horizontal"
+            aria-label="Resize the area comparison sheet"
+            aria-valuenow={sheetHeight}
+            aria-valuemin={SHEET_MIN}
+            aria-valuemax={SHEET_MAX}
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+            tabIndex={0}
+            onPointerDown={onSheetPointerDown}
+            onPointerMove={onSheetPointerMove}
+            onPointerUp={onSheetPointerUp}
+            onPointerCancel={onSheetPointerUp}
+            onKeyDown={onSheetKeyDown}
+          >
+            <i aria-hidden="true" />
+            <span>{sheetHint}</span>
           </div>
-        </div>
+
+          {pickerOpen ? (
+            <div className="ns-sheet-head">
+              <button
+                type="button"
+                className="ns-icon-button"
+                aria-label="Back to the movers list"
+                onClick={() => setPickerOpen(false)}
+              >
+                {BACK_ICON}
+              </button>
+              <strong>
+                <span className="ns-crumb">{selectedDivisionGroupCopy?.shortLabel}</span>
+                {selectedDivisionDetailCopy ? ` › ${selectedDivisionDetailCopy.label}` : " › All of this group"}
+              </strong>
+            </div>
+          ) : (
+            <div className="ns-sheet-head">
+              <strong>Compare areas · {activeGroupLabel}</strong>
+            </div>
+          )}
+
+          {pickerOpen && (
+            <div className="ns-sheet-body">
+              <p className="ns-eyebrow">Sub-categories · nationwide {selectedYear}</p>
+              {subCategoryRows.map((row) => {
+                const selected = selectedDivisionDetail === row.id;
+                const share =
+                  row.count === null || !row.groupTotal ? 0 : Math.min(100, (row.count / row.groupTotal) * 100);
+                return (
+                  <button
+                    key={row.id ?? "all"}
+                    type="button"
+                    className={`ns-pick${selected ? " is-selected" : ""}`}
+                    role="radio"
+                    aria-checked={selected}
+                    onClick={() => setSelectedDivisionDetail(row.id)}
+                  >
+                    <span className={`ns-radio${selected ? " is-selected" : ""}`} aria-hidden="true" />
+                    <span className="ns-pick-label">
+                      {row.label}
+                      <i aria-hidden="true" style={{ width: `${Math.max(3, share)}%` }} />
+                    </span>
+                    <span className="ns-pick-value">
+                      <b>{row.count === null ? "n/a" : numberFormat.format(row.count)}</b>
+                      <small>{row.count === null || !row.groupTotal ? "—" : `${Math.round(share)}%`}</small>
+                    </span>
+                  </button>
+                );
+              })}
+              {selectedDivisionGroupCopy?.children.length === 0 && (
+                <p className="ns-note ns-sheet-note">
+                  The CSO publishes no sub-categories for this group — {selectedDivisionGroupCopy.label} is the
+                  finest level available.
+                </p>
+              )}
+              {selectedDivisionGroup === "09" && <p className="ns-note ns-note-warning">{data.meta.fraudNote}</p>}
+              <p className="ns-note ns-sheet-note">
+                Where the earlier count is too small for a percentage to carry meaning, the change is reported as a
+                raw difference — +3 rather than +150%.
+              </p>
+            </div>
+          )}
+
+          <div className="ns-sheet-body" hidden={pickerOpen}>
+            {moverRows.map((row, index) => (
+              <button
+                key={row.id}
+                type="button"
+                className="ns-mover"
+                onClick={() => selectArea(row.id)}
+              >
+                <span className="ns-mover-rank">{index + 1}</span>
+                <span className="ns-mover-name">
+                  {row.name}
+                  <i
+                    aria-hidden="true"
+                    style={{
+                      width:
+                        largestMove === 0 || row.change === null
+                          ? 0
+                          : `${Math.max(4, (Math.abs(row.change) / largestMove) * 100)}%`,
+                      background: changeColour(row.change, row.isRaw),
+                    }}
+                  />
+                </span>
+                <span className="ns-mover-value">
+                  <b className={`tone-${toneOf(row.change, row.isRaw)}`}>
+                    {row.change === null ? "n/a" : formatSigned(row.change, row.isRaw)}
+                  </b>
+                  <small>{row.current === null ? "no count" : numberFormat.format(row.current)}</small>
+                </span>
+              </button>
+            ))}
+
+            {mapMode === "station" && (
+              <p className="ns-note ns-sheet-note">
+                CJA11 publishes 14 broad groups per station area and no finer detail — sub-categories, and homicide
+                and sexual-offence figures, are Division-only.{" "}
+                <button
+                  type="button"
+                  className="ns-inline-link"
+                  onClick={() => {
+                    setGeography("division");
+                    setSelectedDivisionGroup("01");
+                    setSelectedDivisionDetail(null);
+                  }}
+                >
+                  See them in Division view
+                </button>
+                .
+              </p>
+            )}
+          </div>
+        </section>
+
+        {infoOpen && (
+          <div
+            className="ns-overlay ns-info"
+            ref={infoPanel}
+            role="dialog"
+            aria-modal="true"
+            aria-label="What this data is, and is not"
+          >
+            <div className="ns-mix-head">
+              <button type="button" className="ns-icon-button" aria-label="Back to the map" onClick={closeInfo}>
+                {BACK_ICON}
+              </button>
+              <div>
+                <strong>What this shows</strong>
+                <small>Official CSO data · through {data.meta.latestCompleteYear}</small>
+              </div>
+            </div>
+
+            <div className="ns-mix-body">
+              <p className="ns-eyebrow">Read this first</p>
+              <p className="ns-note ns-note-warning">{data.meta.dataNote}</p>
+              <p className="ns-note">{data.meta.geographyNote}</p>
+              <p className="ns-note">{data.meta.divisionGeographyNote}</p>
+              <p className="ns-note">{data.meta.fraudNote}</p>
+              <p className="ns-note">{data.meta.vehicleNote}</p>
+              <p className="ns-note">
+                Homicide and sexual-offence detail, and the 84 official sub-categories, are published for Garda
+                Divisions only — never for a station area.
+              </p>
+
+              <p className="ns-eyebrow">Data source</p>
+              <div className="ns-source">
+                <strong>
+                  {mapMode === "station"
+                    ? "Central Statistics Office · CJA11"
+                    : "Central Statistics Office · CJQ06"}
+                </strong>
+                <p>
+                  {mapMode === "station"
+                    ? "Values are exact station/sub-district records. Filled cells are approximate areas derived from station locations — not official boundary polygons."
+                    : "Division boundaries are official CSO polygons; offence counts are exact quarterly records."}
+                </p>
+                <a
+                  href={
+                    mapMode === "station"
+                      ? "https://data.gov.ie/en_GB/dataset/cja11-recorded-crime-incidents-new-garda-operating-model"
+                      : "https://data.gov.ie/en_GB/dataset/cjq06-recorded-crime-offences-by-type-of-offence-garda-division-and-quarter"
+                  }
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Open official dataset ↗
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {mixOpen && (
+          <div className="ns-overlay ns-mix" ref={mixPanel} role="dialog" aria-modal="true" aria-label="Offence mix">
+            <div className="ns-mix-head">
+              <button type="button" className="ns-icon-button" aria-label="Back to the map" onClick={closeMix}>
+                {BACK_ICON}
+              </button>
+              <div>
+                <strong>{selectedDivisionArea?.division.name}</strong>
+                <small>
+                  {offenceMixTotal === 0
+                    ? "No comparable counts for this year"
+                    : `${numberFormat.format(offenceMixTotal)} recorded incidents`}{" "}
+                  · {selectedYear} vs {baselineYear}
+                </small>
+              </div>
+            </div>
+
+            <div className="ns-mix-body">
+              <p className="ns-eyebrow">Offence mix · official CJQ06 groups</p>
+              {offenceMix.map((entry) => {
+                const open = openMixGroup === entry.group.id;
+                const share = offenceMixTotal === 0 ? 0 : ((entry.current ?? 0) / offenceMixTotal) * 100;
+                const barWidth = offenceMixLargest === 0 ? 0 : ((entry.current ?? 0) / offenceMixLargest) * 100;
+                return (
+                  <div key={entry.group.id} className={`ns-mix-group${open ? " is-open" : ""}`}>
+                    <button
+                      type="button"
+                      className="ns-mix-row"
+                      aria-expanded={open}
+                      onClick={() => setOpenMixGroup(open ? null : entry.group.id)}
+                    >
+                      <span className="ns-mix-label">
+                        {entry.group.shortLabel}
+                        <i
+                          aria-hidden="true"
+                          style={{ width: `${Math.max(3, barWidth)}%`, background: changeColour(entry.change, entry.isRaw) }}
+                        />
+                        <small>{offenceMixTotal === 0 ? "no share" : `${Math.round(share)}% of all recorded`}</small>
+                      </span>
+                      <span className="ns-mix-value">
+                        <b>{entry.current === null ? "n/a" : numberFormat.format(entry.current)}</b>
+                        <em className={`tone-${toneOf(entry.change, entry.isRaw)}`}>
+                          {entry.change === null ? "n/a" : formatSigned(entry.change, entry.isRaw)}
+                        </em>
+                      </span>
+                      <span className="ns-mix-chevron" aria-hidden="true">
+                        {CHEVRON_ICON}
+                      </span>
+                    </button>
+
+                    {open &&
+                      (entry.children.length === 0 ? (
+                        <p className="ns-note">
+                          The CSO publishes no sub-categories for this group — {entry.group.label} is the finest
+                          level available.
+                        </p>
+                      ) : (
+                        entry.children.map((child) => (
+                          <button
+                            key={child.child.id}
+                            type="button"
+                            className="ns-mix-child"
+                            onClick={() => {
+                              // Picking a child both filters the map and takes
+                              // the reader to the picker, so the recolouring is
+                              // visible rather than happening behind a screen.
+                              setSelectedDivisionGroup(entry.group.id);
+                              setSelectedDivisionDetail(child.child.id);
+                              setMixOpen(false);
+                              setPickerOpen(true);
+                              applySheetHeight(Math.min(DETENTS[1], sheetLimit()));
+                            }}
+                          >
+                            <span className="ns-mix-label">
+                              {child.child.label}
+                              <i
+                                aria-hidden="true"
+                                style={{
+                                  width: `${
+                                    entry.current
+                                      ? Math.max(3, ((child.current ?? 0) / entry.current) * 100)
+                                      : 3
+                                  }%`,
+                                  background: changeColour(child.change, child.isRaw),
+                                }}
+                              />
+                            </span>
+                            <span className="ns-mix-value">
+                              <b>{child.current === null ? "n/a" : numberFormat.format(child.current)}</b>
+                              <em className={`tone-${toneOf(child.change, child.isRaw)}`}>
+                                {child.change === null ? "n/a" : formatSigned(child.change, child.isRaw)}
+                              </em>
+                            </span>
+                          </button>
+                        ))
+                      ))}
+                  </div>
+                );
+              })}
+
+              <p className="ns-note">
+                This depth is Division-only. CJA11 publishes 14 broad groups per Dublin station area and never
+                splits them, so the same breakdown cannot be shown for a station.
+              </p>
+              <p className="ns-note">{data.meta.fraudNote}</p>
+            </div>
+          </div>
+        )}
+
+        {filterSheetOpen && (
+          <div className="ns-scrim">
+            <button type="button" className="ns-scrim-dismiss" aria-label="Close the filter sheet" onClick={closeFilterSheet} />
+            <div className="ns-filter-sheet" ref={filterSheet} role="dialog" aria-modal="true" aria-label="Filter">
+              <div className="ns-filter-head">
+                <h2>Filter</h2>
+                <span className="ns-summary-pill">
+                  {activeSummary.increased} up · {activeSummary.decreased} down
+                </span>
+              </div>
+
+              <div className="ns-filter-body">
+                <p className="ns-eyebrow">Offence group</p>
+                <div className="ns-group-rows">
+                  {(mapMode === "station" ? stationGroupCategories : data.divisionCategories).map((group) => {
+                    const active =
+                      mapMode === "station" ? group.id === selectedCategory : group.id === selectedDivisionGroup;
+                    return (
+                      <button
+                        key={group.id}
+                        type="button"
+                        className={`ns-group-row${active ? " is-selected" : ""}`}
+                        aria-pressed={active}
+                        onClick={() => selectMobileGroup(group.id)}
+                      >
+                        <span>{group.shortLabel}</span>
+                        {active && <i aria-hidden="true">{CHECK_ICON}</i>}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <p className="ns-eyebrow">Detail</p>
+                <div className="ns-pill-wrap">
+                  {mapMode === "division" ? (
+                    <>
+                      <button
+                        type="button"
+                        className={`ns-pill${selectedDivisionDetail === null ? " is-selected" : ""}`}
+                        aria-pressed={selectedDivisionDetail === null}
+                        onClick={() => setSelectedDivisionDetail(null)}
+                      >
+                        All of this group
+                      </button>
+                      {selectedDivisionGroupCopy?.children.length === 0 && (
+                        <p className="ns-note">
+                          The CSO publishes no sub-categories for {selectedDivisionGroupCopy?.label} — this group is
+                          the finest level available.
+                        </p>
+                      )}
+                      {selectedDivisionGroupCopy?.children.map((child) => (
+                        <button
+                          key={child.id}
+                          type="button"
+                          className={`ns-pill${selectedDivisionDetail === child.id ? " is-selected" : ""}`}
+                          aria-pressed={selectedDivisionDetail === child.id}
+                          onClick={() => setSelectedDivisionDetail(child.id)}
+                        >
+                          {child.label}
+                        </button>
+                      ))}
+                    </>
+                  ) : (
+                    stationDetailCategories.map((category) => (
+                      <button
+                        key={category.id}
+                        type="button"
+                        className={`ns-pill${selectedCategory === category.id ? " is-selected" : ""}`}
+                        aria-pressed={selectedCategory === category.id}
+                        onClick={() => setSelectedCategory(category.id)}
+                      >
+                        {category.shortLabel}
+                      </button>
+                    ))
+                  )}
+                </div>
+
+                <p className="ns-eyebrow">Latest year</p>
+                <div className="ns-pill-wrap">
+                  {[...data.meta.years].reverse().map((year) => (
+                    <button
+                      key={year}
+                      type="button"
+                      className={`ns-pill${year === selectedYear ? " is-selected" : ""}`}
+                      aria-pressed={year === selectedYear}
+                      onClick={() => setSelectedYear(year)}
+                    >
+                      {year}
+                    </button>
+                  ))}
+                </div>
+
+                <p className="ns-eyebrow">{selectedYear} compared with</p>
+                <div className="ns-period-row">
+                  {comparisonYears.map((year) => (
+                    <button
+                      key={year}
+                      type="button"
+                      className={`ns-period${baselineYear === year ? " is-selected" : ""}`}
+                      aria-pressed={baselineYear === year}
+                      onClick={() => setSelectedBaselineYear(year)}
+                    >
+                      {year}
+                    </button>
+                  ))}
+                </div>
+
+                {mapMode === "station" && selectedCategoryCopy.availabilityNote && (
+                  <p className="ns-note ns-note-warning">{selectedCategoryCopy.availabilityNote}</p>
+                )}
+              </div>
+
+              <div className="ns-filter-foot">
+                <div>
+                  <span>
+                    {activeGroupLabel} · {selectedYear} vs {baselineYear}
+                  </span>
+                  <strong>
+                    {nationalTotal === null
+                      ? "No comparable counts for this selection"
+                      : `${numberFormat.format(nationalTotal)} incidents ${
+                          mapMode === "station" ? "across the 41 Dublin areas" : "nationwide"
+                        }`}
+                  </strong>
+                </div>
+                <button type="button" className="ns-primary" onClick={closeFilterSheet}>
+                  Show map
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {searchOpen && (
+          <div className="ns-overlay ns-search" role="dialog" aria-modal="true" aria-label="Search areas">
+            <div className="ns-search-row">
+              <div className="ns-search-field">
+                {SEARCH_ICON}
+                <label htmlFor="ns-search-input" className="visually-hidden">
+                  Search for a place, station or division
+                </label>
+                <input
+                  id="ns-search-input"
+                  ref={searchInput}
+                  type="text"
+                  inputMode="search"
+                  enterKeyHint="search"
+                  autoComplete="off"
+                  placeholder="Place, station or division"
+                  value={searchQuery}
+                  onChange={(event) => setSearchQuery(event.target.value)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" && searchHits[0]) {
+                      event.preventDefault();
+                      applySearchHit(searchHits[0]);
+                    }
+                  }}
+                />
+              </div>
+              <button type="button" className="ns-search-cancel" onClick={closeSearch}>
+                Cancel
+              </button>
+            </div>
+
+            <div className="ns-search-body">
+              {searchQuery.trim() !== "" && (
+                <>
+                  <p className="ns-eyebrow">Matches</p>
+                  {searchHits.length === 0 ? (
+                    <p className="ns-search-empty">
+                      Nothing matches “{searchQuery.trim()}”. Try a station, a Garda Division or a Dublin place name.
+                    </p>
+                  ) : (
+                    searchHits.map((hit) => (
+                      <button key={hit.key} type="button" className="ns-match" onClick={() => applySearchHit(hit)}>
+                        <span className="ns-match-badge">{hit.badge}</span>
+                        <span className="ns-match-copy">
+                          <strong>{hit.title}</strong>
+                          <small>{hit.subtitle}</small>
+                        </span>
+                        {hit.approximate ? (
+                          <span className="ns-approx">approx</span>
+                        ) : hit.change === null ? (
+                          // Places have no series of their own, and an area with
+                          // no comparable baseline has no figure to show. Neither
+                          // gets a number invented for it.
+                          <span className="ns-match-change tone-flat" aria-hidden="true">
+                            →
+                          </span>
+                        ) : (
+                          <span className={`ns-match-change tone-${toneOf(hit.change, hit.isRaw)}`}>
+                            {formatSigned(hit.change, hit.isRaw)}
+                          </span>
+                        )}
+                      </button>
+                    ))
+                  )}
+                </>
+              )}
+
+              {recentSearches.length > 0 && (
+                <>
+                  <p className="ns-eyebrow">Recent</p>
+                  <div className="ns-recents">
+                    {recentSearches.map((hit) => (
+                      <button key={`recent-${hit.key}`} type="button" onClick={() => applySearchHit(hit)}>
+                        {hit.title}
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
+
+              <p className="ns-search-footnote">
+                A station name is not a suburb boundary — matches say which official area they belong to.
+              </p>
+            </div>
+          </div>
+        )}
+
+        </>
       )}
 
       <footer id="source" className="map-source-footer">

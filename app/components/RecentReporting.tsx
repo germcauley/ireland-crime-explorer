@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { getAllNews, getNews, getNewsMeta, getNewsTowns } from "../lib/news";
+import { getNews, getNewsMeta, getNewsTowns } from "../lib/news";
 
 /**
  * Recent reporting.
@@ -31,14 +31,9 @@ export function RecentReporting({
   divisionName,
   group,
   groupLabel,
-  divisionNames,
-  onSelectDivision,
 }: {
   divisionId: string | null;
   divisionName: string;
-  /** id -> name, so a nationwide item can name the Division it belongs to. */
-  divisionNames: Record<string, string>;
-  onSelectDivision: (id: string) => void;
   /** CJQ06 group. Sub-categories are narrowed to their parent before arriving here. */
   group: string | null;
   groupLabel: string;
@@ -51,17 +46,11 @@ export function RecentReporting({
   // Divisions and 17 groups leaves most combinations with nothing in them.
   const [narrowToGroup, setNarrowToGroup] = useState(false);
   const [feedsOpen, setFeedsOpen] = useState(false);
-  // Ten of 28 Divisions have no coverage, so a reader hunting for reporting
-  // would otherwise have to guess which ones do. This is chronological and
-  // every item names its own Division — never a ranking of areas by how much
-  // press they attract.
-  const [nationwide, setNationwide] = useState(false);
 
   const meta = getNewsMeta();
   const towns = useMemo(() => getNewsTowns(divisionId), [divisionId]);
 
   const all = useMemo(() => getNews({ divisionId }), [divisionId]);
-  const everywhere = useMemo(() => getAllNews(), []);
   const matching = useMemo(
     () => getNews({ divisionId, group: narrowToGroup ? group : null, town }),
     [divisionId, group, town, narrowToGroup],
@@ -75,7 +64,7 @@ export function RecentReporting({
     [all, matching.length, narrowToGroup, town],
   );
 
-  const shown = nationwide ? everywhere : matching;
+  const shown = matching;
 
   if (!divisionId) return null;
 
@@ -102,30 +91,16 @@ export function RecentReporting({
       {open && (
         <div className="reporting-body">
           <p className="reporting-lede">
-            {nationwide ? (
-              <>All reporting from the last {meta.windowMonths} months, everywhere in the State.</>
+            {narrowToGroup ? (
+              <>Reporting on {divisionName}, narrowed to {groupLabel.toLowerCase()}.</>
             ) : (
-              <>
-                All reporting from the last {meta.windowMonths} months on {divisionName}
-                {narrowToGroup && <>, narrowed to {groupLabel.toLowerCase()}</>}.
-              </>
+              <>Reporting on {divisionName} from the last {meta.windowMonths} months.</>
             )}{" "}
-            Not a record of the incidents counted above — news coverage follows
-            what is newsworthy and where newsrooms are, not where crime happens.
+            Coverage is not crime.
           </p>
 
-          <div className="reporting-filters">
-            <button
-              type="button"
-              className={nationwide ? "is-active" : ""}
-              aria-pressed={nationwide}
-              onClick={() => setNationwide((value) => !value)}
-            >
-              Everywhere
-            </button>
-          </div>
 
-          {!nationwide && (towns.length > 0 || group) && (
+          {(towns.length > 0 || group) && (
             <div className="reporting-filters">
               {group && (
                 <button
@@ -162,20 +137,6 @@ export function RecentReporting({
                     {cluster.title}
                   </a>
                   <p className="reporting-meta">
-                    {/* Nationwide items name their Division, so no headline ever
-                        appears detached from the geography it belongs to. */}
-                    {nationwide && cluster.divisionId && (
-                      <>
-                        <button
-                          type="button"
-                          className="reporting-jump"
-                          onClick={() => onSelectDivision(cluster.divisionId as string)}
-                        >
-                          {divisionNames[cluster.divisionId] ?? "Unknown Division"}
-                        </button>
-                        {" · "}
-                      </>
-                    )}
                     {cluster.source}
                     {cluster.publishedAt && <> · {formatDate(cluster.publishedAt)}</>}
                     {cluster.town && <> · {cluster.town}</>}
@@ -190,12 +151,12 @@ export function RecentReporting({
           ) : (
             <p className="reporting-empty">
               {narrowToGroup || town
-                ? "Nothing matched that narrowing. The full list for this Division is below."
-                : "No reporting from the outlets below covered this Division in the window. That is often the honest answer: most incidents are never reported, and local coverage is uneven."}
+                ? "Nothing matched that narrowing. The full list is below."
+                : "No outlet in our list covered this Division in the window."}
             </p>
           )}
 
-          {!nationwide && widerInDivision.length > 0 && (
+          {widerInDivision.length > 0 && (
             <div className="reporting-wider">
               <h3>Other reporting from {divisionName}</h3>
               <p className="reporting-wider-note">
