@@ -1386,6 +1386,12 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   // Every way a reader can pick an area — a polygon, a station point, a movers
   // row, a search result — goes through here, so the zoom is never something
   // only one of those routes gets.
+  // id -> name, so the nationwide reporting list can name each item's Division.
+  const divisionNames = useMemo(
+    () => Object.fromEntries(data.divisions.map((d) => [d.id, d.name])),
+    [data.divisions],
+  );
+
   function selectArea(id: string) {
     if (mapMode === "station") setSelectedStationId(id);
     else setSelectedDivisionId(id);
@@ -1710,6 +1716,8 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         <RecentReporting
           divisionId={selectedDivisionArea?.division.id ?? null}
           divisionName={selectedDivisionArea?.division.name ?? ""}
+          divisionNames={divisionNames}
+          onSelectDivision={selectArea}
           group={selectedDivisionGroupCopy?.id ?? null}
           groupLabel={selectedDivisionGroupCopy?.shortLabel ?? "this offence group"}
         />
@@ -1810,15 +1818,12 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
               type="button"
               className="area-focus-clear"
               onClick={clearAreaFocus}
-              aria-label={`Show all ${mapMode === "station" ? "station areas" : "divisions"}`}
+              aria-label="Return to full map"
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
                 <path d="M9 3H5a2 2 0 0 0-2 2v4M15 3h4a2 2 0 0 1 2 2v4M9 21H5a2 2 0 0 1-2-2v-4M15 21h4a2 2 0 0 0 2-2v-4" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              <span className="area-focus-clear-long" aria-hidden="true">
-                Show all {mapMode === "station" ? "station areas" : "divisions"}
-              </span>
-              <span className="area-focus-clear-short" aria-hidden="true">Show all</span>
+              <span aria-hidden="true">Return to full map</span>
             </button>
           )}
 

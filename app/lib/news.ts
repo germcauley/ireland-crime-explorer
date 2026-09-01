@@ -98,3 +98,25 @@ export function getNewsTowns(divisionId: string | null): string[] {
   }
   return Array.from(towns).sort((a, b) => a.localeCompare(b));
 }
+
+/**
+ * Every placed article, newest first, regardless of Division.
+ *
+ * The browse case: a reader who wants to know what has been reported cannot be
+ * expected to guess which of 28 Divisions has coverage. Each item still names
+ * its own Division, so nothing appears without the geography it belongs to,
+ * and the list is chronological — never ranked by how much coverage an area
+ * attracts, which would turn press attention into an apparent crime measure.
+ */
+export function getAllNews(windowMonths?: number): NewsCluster[] {
+  return getNews({ windowMonths });
+}
+
+/** Division ids that have at least one placed article, for labelling. */
+export function getNewsDivisionIds(): Set<string> {
+  const ids = new Set<string>();
+  for (const cluster of artifact.clusters) {
+    if (cluster.divisionId) ids.add(cluster.divisionId);
+  }
+  return ids;
+}
