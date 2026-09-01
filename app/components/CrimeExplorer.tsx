@@ -417,6 +417,10 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   // Reporting is a peer of the map rather than a third geography: mapMode
   // drives every layer, bound and legend, and must keep meaning a geography.
   const [view, setView] = useState<"map" | "reporting">("map");
+  // The county chosen in the reporting filter. A county is not a Garda
+  // geography — Cork is three Divisions, Dublin is six — so it highlights a
+  // set rather than selecting one area.
+  const [reportingCounty, setReportingCounty] = useState("");
   const [areaFocused, setAreaFocused] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   // The theme lives outside React — in localStorage and the OS preference —
@@ -562,6 +566,38 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       value: series[startIndex + index] ?? null,
     }));
   }, [data.meta.defaultQuarterStartIndex, data.meta.quarters, quarterRangeExpanded, selectedDivisionArea, selectedDivisionCode]);
+
+  const divisionNames = useMemo(
+    () => Object.fromEntries(data.divisions.map((d) => [d.id, d.name])),
+    [data.divisions],
+  );
+  const divisionCounties = useMemo(
+    () =>
+      Object.fromEntries(
+        data.divisions.map((d) => {
+          const stem = d.name.replace(" Division", "");
+          // The DMR Divisions cover no county a headline would name.
+          const counties = stem.startsWith("DMR")
+            ? ["Dublin"]
+            : stem.split("/").map((part) => part.replace(/\s+(City|North|South|East|West)$/, ""));
+          return [d.id, counties];
+        }),
+      ),
+    [data.divisions],
+  );
+  const groupLabels = useMemo(
+    () => Object.fromEntries(data.divisionCategories.map((g) => [g.id, g.shortLabel])),
+    [data.divisionCategories],
+  );
+
+  const highlightedDivisions = useMemo(() => {
+    if (view !== "reporting" || !reportingCounty) return new Set<string>();
+    return new Set(
+      data.divisions
+        .filter((d) => (divisionCounties[d.id] ?? []).includes(reportingCounty))
+        .map((d) => d.id),
+    );
+  }, [data.divisions, divisionCounties, reportingCounty, view]);
 
   const mapBounds = useMemo<[number, number, number, number]>(() => {
     const latitudes = data.stations.map((station) => station.lat);
@@ -831,6 +867,8 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
 
       // Same treatment as the station cells: a focused area pushes its
       // neighbours back rather than removing them.
+      const highlighting = highlightedDivisions.size > 0;
+      const dimOthers = areaFocused || highlighting;
       const restingOpacity = (change: number | null, selected: boolean) => {
         // Neighbours keep their opacity when focused; they are washed toward
         // the canvas colour instead, so no tile layer shows through.
@@ -840,7 +878,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         return 0.76;
       };
       const restingStroke = (selected: boolean) => {
-        if (areaFocused && !selected) {
+        if (dimOthers && !selected) {
           return { color: isDark ? "rgba(226,238,231,.10)" : "rgba(23,55,45,.16)", weight: 0.6 };
         }
         return isDark
@@ -849,7 +887,11 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       };
 
       divisionAreaChanges.forEach((entry) => {
-        const selected = entry.division.id === selectedDivisionId;
+        // A county filter highlights every Division covering it; otherwise the
+        // single selected area is what stands out.
+        const selected = highlighting
+          ? highlightedDivisions.has(entry.division.id)
+          : entry.division.id === selectedDivisionId;
         const changeLabel = entry.change === null ? "Not available" : formatSigned(entry.change, entry.isRaw);
         const countLabel =
           entry.current === null || entry.baseline === null
@@ -866,7 +908,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           style: {
               ...restingStroke(selected),
             fillColor:
-              areaFocused && !selected
+              dimOthers && !selected
                 ? washToward(changeColour(entry.change, entry.isRaw), isDark ? "#0d1f19" : "#cfe1e6", 0.82)
                 : changeColour(entry.change, entry.isRaw),
             fillOpacity: restingOpacity(entry.change, selected),
@@ -888,7 +930,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       });
     }
     renderDivisionAreas();
-  }, [areaFocused, baselineYear, divisionAreaChanges, isDark, isNarrow, mapMode, mapReady, selectedDivisionId, selectedYear]);
+  }, [areaFocused, baselineYear, divisionAreaChanges, highlightedDivisions, isDark, isNarrow, mapMode, mapReady, selectedDivisionId, selectedYear]);
 
   // Leaflet renders grey wherever its container grew without it noticing, so
   // every change to the map's box has to be followed by invalidateSize().
@@ -925,6 +967,26 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   // draws — the division polygon, or the Voronoi cell built for a station —
   // so the frame always matches what is highlighted.
   const focusedBounds = useMemo<[[number, number], [number, number]] | null>(() => {
+    // A county filter frames every Division covering it, so Cork shows all
+    // three and Dublin all six rather than an arbitrary one.
+    if (highlightedDivisions.size > 0) {
+      let minLat = Infinity;
+      let minLng = Infinity;
+      let maxLat = -Infinity;
+      let maxLng = -Infinity;
+      data.divisions.forEach((division) => {
+        if (!highlightedDivisions.has(division.id)) return;
+        const [dMinLng, dMinLat, dMaxLng, dMaxLat] = geometryBounds(division.boundary);
+        minLat = Math.min(minLat, dMinLat);
+        minLng = Math.min(minLng, dMinLng);
+        maxLat = Math.max(maxLat, dMaxLat);
+        maxLng = Math.max(maxLng, dMaxLng);
+      });
+      return finiteBounds([
+        [minLat, minLng],
+        [maxLat, maxLng],
+      ]);
+    }
     if (!areaFocused) return null;
     if (mapMode === "station") {
       const station = data.stations.find((entry) => entry.id === selectedStationId);
@@ -953,7 +1015,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       [minLat, minLng],
       [maxLat, maxLng],
     ]);
-  }, [areaFocused, data.divisions, data.stations, mapBounds, mapMode, selectedDivisionId, selectedStationId]);
+  }, [areaFocused, data.divisions, data.stations, highlightedDivisions, mapBounds, mapMode, selectedDivisionId, selectedStationId]);
 
   useEffect(() => {
     if (!mapReady || !focusedBounds) return;
@@ -967,13 +1029,18 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     // divides by zero at fractional zoom — it hands NaN coordinates to
     // setView, which throws "Invalid LatLng object" and unmounts the app.
     // fitBounds animates without that maths.
+    // A county filter rebuilds every polygon in the same pass as this fit, and
+    // animating over that teardown leaves Leaflet's canvas renderer redrawing
+    // against a context it has already released. The filter is an instant
+    // action anyway; only the single-area zoom is worth animating.
+    const animate = !reducedMotion && highlightedDivisions.size === 0;
     map.fitBounds(focusedBounds, {
       padding,
-      animate: !reducedMotion,
+      animate,
       duration: 0.7,
       maxZoom: 12,
     });
-  }, [focusedBounds, isNarrow, mapReady, reducedMotion]);
+  }, [focusedBounds, highlightedDivisions, isNarrow, mapReady, reducedMotion]);
 
   // Leaving focus returns the map to the whole geography, by the same route it
   // arrived, so the zoom out reads as the reverse of the zoom in.
@@ -1402,28 +1469,6 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   // row, a search result — goes through here, so the zoom is never something
   // only one of those routes gets.
   // id -> name, so a reporting item can name the Division it belongs to.
-  const divisionNames = useMemo(
-    () => Object.fromEntries(data.divisions.map((d) => [d.id, d.name])),
-    [data.divisions],
-  );
-  const divisionCounties = useMemo(
-    () =>
-      Object.fromEntries(
-        data.divisions.map((d) => {
-          const stem = d.name.replace(" Division", "");
-          // The DMR Divisions cover no county a headline would name.
-          const counties = stem.startsWith("DMR")
-            ? ["Dublin"]
-            : stem.split("/").map((part) => part.replace(/\s+(City|North|South|East|West)$/, ""));
-          return [d.id, counties];
-        }),
-      ),
-    [data.divisions],
-  );
-  const groupLabels = useMemo(
-    () => Object.fromEntries(data.divisionCategories.map((g) => [g.id, g.shortLabel])),
-    [data.divisionCategories],
-  );
 
   // Selecting a Division from an article. Where the map sits beside the list
   // there is nothing to navigate to — moving it in place keeps the reader's
@@ -1446,6 +1491,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
 
   function clearAreaFocus() {
     setAreaFocused(false);
+    setReportingCounty("");
   }
 
   useEffect(() => {
@@ -1910,6 +1956,8 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
             divisionNames={divisionNames}
             divisionCounties={divisionCounties}
             groupLabels={groupLabels}
+            county={reportingCounty}
+            onCountyChange={setReportingCounty}
             onSelectDivision={focusDivisionFromReporting}
           />
           {/* The same map, alongside rather than instead of the list. Clicking a

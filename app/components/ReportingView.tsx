@@ -33,15 +33,19 @@ export function ReportingView({
   divisionNames,
   divisionCounties,
   groupLabels,
+  county,
+  onCountyChange,
   onSelectDivision,
 }: {
+  /** Lifted, because the map alongside highlights whatever county is chosen. */
+  county: string;
+  onCountyChange: (county: string) => void;
   divisionNames: Record<string, string>;
   /** Division id -> the counties it covers, for the county filter. */
   divisionCounties: Record<string, string[]>;
   groupLabels: Record<string, string>;
   onSelectDivision: (id: string) => void;
 }) {
-  const [county, setCounty] = useState("");
   const [group, setGroup] = useState("");
   const [query, setQuery] = useState("");
   const [feedsOpen, setFeedsOpen] = useState(false);
@@ -135,7 +139,7 @@ export function ReportingView({
         </label>
         <label>
           <span>County</span>
-          <select value={county} onChange={(event) => setCounty(event.target.value)}>
+          <select value={county} onChange={(event) => onCountyChange(event.target.value)}>
             <option value="">Anywhere</option>
             {counties.map((name) => (
               <option value={name} key={name}>{name}</option>
@@ -156,7 +160,7 @@ export function ReportingView({
             type="button"
             className="reporting-view-clear"
             onClick={() => {
-              setCounty("");
+              onCountyChange("");
               setGroup("");
               setQuery("");
             }}
