@@ -718,9 +718,17 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       mapInstance.current?.remove();
       mapInstance.current = null;
       areaLayer.current = null;
+      // The layer effects wait on mapReady. Leaving it true across a teardown
+      // means the flag never changes on the way back up, so they never re-run
+      // and the rebuilt map keeps its tiles but loses every polygon.
+      setMapReady(false);
       maskLayer.current = null;
     };
-  }, [data.stations, mapBounds]);
+    // `view` is a dependency because the map panel moves between parents when
+    // the view changes. React keeps this effect alive across that move, so
+    // without it the instance stays bound to a container that has been
+    // detached and the new one never paints.
+  }, [data.stations, mapBounds, view]);
 
   useEffect(() => {
     async function renderStationAreas() {
@@ -908,7 +916,10 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       );
     }, 140);
     return () => window.clearTimeout(timeout);
-  }, [areaFocused, isNarrow, mapBounds, mapMode, mapReady, nationalBounds]);
+    // `view` too: the map's box changes shape entirely when it moves beside
+    // the reporting list, and bounds fitted to the old one leave Ireland
+    // cropped.
+  }, [areaFocused, isNarrow, mapBounds, mapMode, mapReady, nationalBounds, view]);
 
   // Zooming to the focused area. Bounds come from the same geometry the map
   // draws — the division polygon, or the Voronoi cell built for a station —
@@ -1414,9 +1425,14 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     [data.divisionCategories],
   );
 
-  // Selecting a Division from an article returns to the map showing it.
+  // Selecting a Division from an article. Where the map sits beside the list
+  // there is nothing to navigate to — moving it in place keeps the reader's
+  // position in the list. Below that width the map is not rendered, so the
+  // only way to show the geography is to switch to it.
   function focusDivisionFromReporting(id: string) {
-    setView("map");
+    const sideMapVisible =
+      typeof window !== "undefined" && window.matchMedia("(min-width: 1101px)").matches;
+    if (!sideMapVisible) setView("map");
     setGeography("division");
     setSelectedDivisionId(id);
     setAreaFocused(true);
@@ -1444,6 +1460,160 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     setSelectedDivisionGroup(id);
     setSelectedDivisionDetail(null);
   }
+
+  // The map is declared once and placed by whichever view is showing. Two
+  // copies would mean two Leaflet instances fighting over one ref.
+  const mapPanel = (
+        <section
+          className={`district-map-panel${mapMode === "station" ? " ns-station-view" : ""}`}
+          aria-label={mapMode === "station" ? "Dublin station-area recorded-crime map" : "Garda-division recorded-crime map of Ireland"}
+        >
+          <div className="map-panel-heading">
+            <div>
+              <span>
+                {mapMode === "station"
+                  ? `All ${data.stations.length} Dublin reporting areas`
+                  : `All ${data.divisions.length} Garda Divisions nationwide`}
+              </span>
+              <strong>
+                {mapMode === "station"
+                  ? selectedCategoryCopy.shortLabel
+                  : selectedDivisionDetailCopy?.label ?? selectedDivisionGroupCopy?.shortLabel}{" "}
+                · {baselineYear}–{selectedYear}
+              </strong>
+            </div>
+            <div className="change-legend" aria-label="Percentage-change colour scale">
+              <span>Decreased</span>
+              <i /><i /><i /><i /><i /><i /><i />
+              <span>Increased</span>
+            </div>
+          </div>
+
+          <div
+            ref={mapElement}
+            className="district-map"
+            aria-label={mapMode === "station" ? "Map of Dublin station-area recorded-crime reporting geographies" : "Map of Garda divisions nationwide"}
+          />
+
+          {mapMode === "station" && availableChanges.length === 0 && (
+            <div className="map-no-data">No comparable area data for this selection.</div>
+          )}
+          {mapMode === "division" && availableDivisionChanges.length === 0 && (
+            <div className="map-no-data">No comparable area data for this selection.</div>
+          )}
+
+          {mapMode === "station" && (
+            <p className="ns-map-caveat">Cells approximate areas from station points — not official boundaries.</p>
+          )}
+
+          {/* The way back out of a focused area. Only rendered while a focus is
+              held, so it never occupies the map when it would do nothing. The
+              visible label shortens on a phone, where the caveat chip shares
+              this row, so the full wording lives on the button itself and stays
+              the accessible name at every width. */}
+          {areaFocused && (
+            <button
+              type="button"
+              className="area-focus-clear"
+              onClick={clearAreaFocus}
+              aria-label="Return to full map"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+                <path d="M9 3H5a2 2 0 0 0-2 2v4M15 3h4a2 2 0 0 1 2 2v4M9 21H5a2 2 0 0 1-2-2v-4M15 21h4a2 2 0 0 0 2-2v-4" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <span aria-hidden="true">Return to full map</span>
+            </button>
+          )}
+
+          {/* Nightshift readout. The container never takes a tap — it sits over
+              live geography — so it is pointer-events:none and only the
+              controls inside it opt back in. */}
+          {/* Past the half detent there is too little map left for the full
+              readout, so it collapses to the one-line label the sub-category
+              screen uses. */}
+          <div className={`ns-readout${sheetHeight > DETENTS[1] + 40 ? " is-compact" : ""}`} aria-live="polite">
+            <p className="ns-readout-eyebrow">{readoutEyebrow}</p>
+            <h2 className="ns-readout-name">{readoutName}</h2>
+            <div className="ns-readout-figure">
+              <strong className={`tone-${toneOf(readoutChange, readoutIsRaw)}`}>
+                {readoutChange === null ? "n/a" : formatSigned(readoutChange, readoutIsRaw)}
+              </strong>
+              <p>{readoutCounts}</p>
+            </div>
+            {mapMode === "division" && (
+              <button type="button" className="ns-readout-push" onClick={() => setMixOpen(true)}>
+                Full offence mix
+                <span aria-hidden="true">→</span>
+              </button>
+            )}
+          </div>
+
+          {mapMode === "station" ? (
+            <article className="selected-area-card" aria-live="polite">
+              <span>{selectedArea.station.division}</span>
+              <h2>{selectedArea.station.name}</h2>
+              <div>
+                <strong>{selectedArea.change === null ? "n/a" : formatSigned(selectedArea.change, selectedArea.isRaw)}</strong>
+                <p>from {baselineYear} to {selectedYear}</p>
+              </div>
+              <small>
+                {selectedArea.current === null || selectedArea.baseline === null
+                  ? "Comparable counts unavailable"
+                  : `${numberFormat.format(selectedArea.baseline)} → ${numberFormat.format(selectedArea.current)} recorded incidents`}
+              </small>
+            </article>
+          ) : (
+            <article className="selected-area-card division-card" aria-live="polite">
+              <span>Garda Division</span>
+              <h2>{selectedDivisionArea?.division.name}</h2>
+              <div>
+                <strong>
+                  {selectedDivisionArea?.change === null || selectedDivisionArea?.change === undefined
+                    ? "n/a"
+                    : formatSigned(selectedDivisionArea.change, selectedDivisionArea.isRaw)}
+                </strong>
+                <p>from {baselineYear} to {selectedYear}</p>
+              </div>
+              <small>
+                {selectedDivisionArea?.current === null || selectedDivisionArea?.baseline === null
+                  ? "Comparable counts unavailable"
+                  : `${numberFormat.format(selectedDivisionArea!.baseline!)} → ${numberFormat.format(selectedDivisionArea!.current!)} recorded incidents`}
+              </small>
+
+              <div className="quarter-chart">
+                <div className="quarter-chart-heading">
+                  <span>Quarterly trend</span>
+                  <button type="button" onClick={() => setQuarterRangeExpanded((value) => !value)}>
+                    {quarterRangeExpanded ? "Show 2019–present" : "Show full history (2003–)"}
+                  </button>
+                </div>
+                {(() => {
+                  const { segments, dots } = buildSparkline(divisionQuarterSeries, 100, 34);
+                  return segments.length === 0 ? (
+                    <p className="quarter-chart-empty">Not enough comparable quarters to chart.</p>
+                  ) : (
+                    <svg viewBox="0 0 100 34" preserveAspectRatio="none" className="quarter-chart-svg">
+                      {segments.map((points, index) => (
+                        <polyline key={index} points={points} fill="none" />
+                      ))}
+                      {dots.map((dot, index) => (
+                        <circle key={index} cx={dot.x} cy={dot.y} r={0.9} />
+                      ))}
+                    </svg>
+                  );
+                })()}
+                <small>
+                  {data.meta.quarters[quarterRangeExpanded ? 0 : data.meta.defaultQuarterStartIndex]}
+                  {" – "}
+                  {data.meta.quarters[data.meta.quarters.length - 1]}
+                </small>
+              </div>
+            </article>
+          )}
+
+          <p className="map-guidance">Hover over an area for its exact change · click to pin details</p>
+        </section>
+  );
 
   return (
     <main className={`change-map-app${filterSheetOpen ? " ns-behind-sheet" : ""}`}>
@@ -1735,12 +1905,21 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       </section>
 
       {view === "reporting" ? (
-        <ReportingView
-          divisionNames={divisionNames}
-          divisionCounties={divisionCounties}
-          groupLabels={groupLabels}
-          onSelectDivision={focusDivisionFromReporting}
-        />
+        <div className="reporting-layout">
+          <ReportingView
+            divisionNames={divisionNames}
+            divisionCounties={divisionCounties}
+            groupLabels={groupLabels}
+            onSelectDivision={focusDivisionFromReporting}
+          />
+          {/* The same map, alongside rather than instead of the list. Clicking a
+              Division in an article moves it here, so the geography a headline
+              names stays visible while reading. Hidden below the breakpoint —
+              mobile keeps the list on its own for now. */}
+          <aside className="reporting-map" aria-label="Recorded-crime map">
+            {mapPanel}
+          </aside>
+        </div>
       ) : (
         <>
         <section className="result-summary" aria-labelledby="result-summary-title" aria-live="polite">
@@ -1819,155 +1998,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
             )}
           </aside>
 
-          <section
-            className={`district-map-panel${mapMode === "station" ? " ns-station-view" : ""}`}
-            aria-label={mapMode === "station" ? "Dublin station-area recorded-crime map" : "Garda-division recorded-crime map of Ireland"}
-          >
-            <div className="map-panel-heading">
-              <div>
-                <span>
-                  {mapMode === "station"
-                    ? `All ${data.stations.length} Dublin reporting areas`
-                    : `All ${data.divisions.length} Garda Divisions nationwide`}
-                </span>
-                <strong>
-                  {mapMode === "station"
-                    ? selectedCategoryCopy.shortLabel
-                    : selectedDivisionDetailCopy?.label ?? selectedDivisionGroupCopy?.shortLabel}{" "}
-                  · {baselineYear}–{selectedYear}
-                </strong>
-              </div>
-              <div className="change-legend" aria-label="Percentage-change colour scale">
-                <span>Decreased</span>
-                <i /><i /><i /><i /><i /><i /><i />
-                <span>Increased</span>
-              </div>
-            </div>
-
-            <div
-              ref={mapElement}
-              className="district-map"
-              aria-label={mapMode === "station" ? "Map of Dublin station-area recorded-crime reporting geographies" : "Map of Garda divisions nationwide"}
-            />
-
-            {mapMode === "station" && availableChanges.length === 0 && (
-              <div className="map-no-data">No comparable area data for this selection.</div>
-            )}
-            {mapMode === "division" && availableDivisionChanges.length === 0 && (
-              <div className="map-no-data">No comparable area data for this selection.</div>
-            )}
-
-            {mapMode === "station" && (
-              <p className="ns-map-caveat">Cells approximate areas from station points — not official boundaries.</p>
-            )}
-
-            {/* The way back out of a focused area. Only rendered while a focus is
-                held, so it never occupies the map when it would do nothing. The
-                visible label shortens on a phone, where the caveat chip shares
-                this row, so the full wording lives on the button itself and stays
-                the accessible name at every width. */}
-            {areaFocused && (
-              <button
-                type="button"
-                className="area-focus-clear"
-                onClick={clearAreaFocus}
-                aria-label="Return to full map"
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
-                  <path d="M9 3H5a2 2 0 0 0-2 2v4M15 3h4a2 2 0 0 1 2 2v4M9 21H5a2 2 0 0 1-2-2v-4M15 21h4a2 2 0 0 0 2-2v-4" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                <span aria-hidden="true">Return to full map</span>
-              </button>
-            )}
-
-            {/* Nightshift readout. The container never takes a tap — it sits over
-                live geography — so it is pointer-events:none and only the
-                controls inside it opt back in. */}
-            {/* Past the half detent there is too little map left for the full
-                readout, so it collapses to the one-line label the sub-category
-                screen uses. */}
-            <div className={`ns-readout${sheetHeight > DETENTS[1] + 40 ? " is-compact" : ""}`} aria-live="polite">
-              <p className="ns-readout-eyebrow">{readoutEyebrow}</p>
-              <h2 className="ns-readout-name">{readoutName}</h2>
-              <div className="ns-readout-figure">
-                <strong className={`tone-${toneOf(readoutChange, readoutIsRaw)}`}>
-                  {readoutChange === null ? "n/a" : formatSigned(readoutChange, readoutIsRaw)}
-                </strong>
-                <p>{readoutCounts}</p>
-              </div>
-              {mapMode === "division" && (
-                <button type="button" className="ns-readout-push" onClick={() => setMixOpen(true)}>
-                  Full offence mix
-                  <span aria-hidden="true">→</span>
-                </button>
-              )}
-            </div>
-
-            {mapMode === "station" ? (
-              <article className="selected-area-card" aria-live="polite">
-                <span>{selectedArea.station.division}</span>
-                <h2>{selectedArea.station.name}</h2>
-                <div>
-                  <strong>{selectedArea.change === null ? "n/a" : formatSigned(selectedArea.change, selectedArea.isRaw)}</strong>
-                  <p>from {baselineYear} to {selectedYear}</p>
-                </div>
-                <small>
-                  {selectedArea.current === null || selectedArea.baseline === null
-                    ? "Comparable counts unavailable"
-                    : `${numberFormat.format(selectedArea.baseline)} → ${numberFormat.format(selectedArea.current)} recorded incidents`}
-                </small>
-              </article>
-            ) : (
-              <article className="selected-area-card division-card" aria-live="polite">
-                <span>Garda Division</span>
-                <h2>{selectedDivisionArea?.division.name}</h2>
-                <div>
-                  <strong>
-                    {selectedDivisionArea?.change === null || selectedDivisionArea?.change === undefined
-                      ? "n/a"
-                      : formatSigned(selectedDivisionArea.change, selectedDivisionArea.isRaw)}
-                  </strong>
-                  <p>from {baselineYear} to {selectedYear}</p>
-                </div>
-                <small>
-                  {selectedDivisionArea?.current === null || selectedDivisionArea?.baseline === null
-                    ? "Comparable counts unavailable"
-                    : `${numberFormat.format(selectedDivisionArea!.baseline!)} → ${numberFormat.format(selectedDivisionArea!.current!)} recorded incidents`}
-                </small>
-
-                <div className="quarter-chart">
-                  <div className="quarter-chart-heading">
-                    <span>Quarterly trend</span>
-                    <button type="button" onClick={() => setQuarterRangeExpanded((value) => !value)}>
-                      {quarterRangeExpanded ? "Show 2019–present" : "Show full history (2003–)"}
-                    </button>
-                  </div>
-                  {(() => {
-                    const { segments, dots } = buildSparkline(divisionQuarterSeries, 100, 34);
-                    return segments.length === 0 ? (
-                      <p className="quarter-chart-empty">Not enough comparable quarters to chart.</p>
-                    ) : (
-                      <svg viewBox="0 0 100 34" preserveAspectRatio="none" className="quarter-chart-svg">
-                        {segments.map((points, index) => (
-                          <polyline key={index} points={points} fill="none" />
-                        ))}
-                        {dots.map((dot, index) => (
-                          <circle key={index} cx={dot.x} cy={dot.y} r={0.9} />
-                        ))}
-                      </svg>
-                    );
-                  })()}
-                  <small>
-                    {data.meta.quarters[quarterRangeExpanded ? 0 : data.meta.defaultQuarterStartIndex]}
-                    {" – "}
-                    {data.meta.quarters[data.meta.quarters.length - 1]}
-                  </small>
-                </div>
-              </article>
-            )}
-
-            <p className="map-guidance">Hover over an area for its exact change · click to pin details</p>
-          </section>
+          {mapPanel}
         </section>
 
         <section

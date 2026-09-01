@@ -384,6 +384,40 @@ a { color: inherit; }
 }
 .map-no-data { position: absolute; z-index: 550; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 13px 16px; background: var(--paper); border: 1px solid var(--line); font-size: 10px; }
 
+/* Reporting beside the map: the list is the subject, the map is context that
+   moves when an article's Division is clicked. */
+.reporting-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 40%);
+  align-items: start;
+  border-bottom: 1px solid var(--line);
+}
+.reporting-map {
+  position: sticky;
+  top: 0;
+  height: calc(100vh - 60px);
+  min-height: 460px;
+  border-left: 1px solid var(--line);
+}
+.reporting-map .district-map-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+/* The heading is a fixed band; the map takes whatever is left. Giving the map
+   100% of the panel instead makes it taller than the space it has and crops
+   the geography. */
+.reporting-map .map-panel-heading { flex: 0 0 auto; }
+.reporting-map .district-map { flex: 1 1 auto; height: auto; min-height: 0; }
+/* The map carries the geography here; the list already names it. */
+.reporting-map .map-guidance,
+.reporting-map .selected-area-card { display: none; }
+
+@media (max-width: 1100px) {
+  .reporting-layout { grid-template-columns: minmax(0, 1fr); }
+  .reporting-map { display: none; }
+}
+
 /* Reporting view — a peer of the map, not a panel inside it. ---------------- */
 .reporting-view { padding: 22px 28px 40px; background: var(--cream); }
 .reporting-view-head {
