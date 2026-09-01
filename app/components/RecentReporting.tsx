@@ -40,22 +40,28 @@ export function RecentReporting({
 }) {
   const [open, setOpen] = useState(false);
   const [town, setTown] = useState<string | null>(null);
-  const [ignoreGroup, setIgnoreGroup] = useState(false);
+  // A Division's whole list is the default view. Narrowing to the selected
+  // offence group is something the reader opts into, because at this volume
+  // the group filter almost always empties the list — 36 articles across 28
+  // Divisions and 17 groups leaves most combinations with nothing in them.
+  const [narrowToGroup, setNarrowToGroup] = useState(false);
   const [feedsOpen, setFeedsOpen] = useState(false);
 
   const meta = getNewsMeta();
   const towns = useMemo(() => getNewsTowns(divisionId), [divisionId]);
 
+  const all = useMemo(() => getNews({ divisionId }), [divisionId]);
   const matching = useMemo(
-    () => getNews({ divisionId, group: ignoreGroup ? null : group, town }),
-    [divisionId, group, town, ignoreGroup],
+    () => getNews({ divisionId, group: narrowToGroup ? group : null, town }),
+    [divisionId, group, town, narrowToGroup],
   );
 
-  // Kept separate and separately labelled. Widening the search silently is how
-  // articles end up under a heading they do not belong to.
+  // Only meaningful once the reader has narrowed. Widening back is offered
+  // explicitly rather than done silently, so nothing appears under a heading
+  // it does not belong to.
   const widerInDivision = useMemo(
-    () => (matching.length === 0 ? getNews({ divisionId }) : []),
-    [divisionId, matching.length],
+    () => (matching.length === 0 && (narrowToGroup || town) ? all : []),
+    [all, matching.length, narrowToGroup, town],
   );
 
   if (!divisionId) return null;
@@ -69,6 +75,10 @@ export function RecentReporting({
         onClick={() => setOpen((value) => !value)}
       >
         <span id="reporting-title">Recent reporting</span>
+        {/* Binary, never a count: whether this Division has any coverage at all.
+            A number here would let article volume stand in for crime volume,
+            and would rank Divisions by how much press they attract. */}
+        {all.length > 0 && !open && <span className="reporting-has">reporting available</span>}
         <span className="reporting-chevron" aria-hidden="true" data-open={open}>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
             <path d="m6 9 6 6 6-6" />
@@ -79,7 +89,8 @@ export function RecentReporting({
       {open && (
         <div className="reporting-body">
           <p className="reporting-lede">
-            Reporting from the last {meta.windowMonths} months on {divisionName}. Not a
+            All reporting from the last {meta.windowMonths} months on {divisionName}
+            {narrowToGroup && <>, narrowed to {groupLabel.toLowerCase()}</>}. Not a
             record of the incidents counted above — news coverage follows what is
             newsworthy and where newsrooms are, not where crime happens.
           </p>
@@ -89,10 +100,11 @@ export function RecentReporting({
               {group && (
                 <button
                   type="button"
-                  className={ignoreGroup ? "" : "is-active"}
-                  onClick={() => setIgnoreGroup((value) => !value)}
+                  className={narrowToGroup ? "is-active" : ""}
+                  aria-pressed={narrowToGroup}
+                  onClick={() => setNarrowToGroup((value) => !value)}
                 >
-                  {groupLabel}
+                  Only {groupLabel.toLowerCase()}
                 </button>
               )}
               {towns.length > 0 && (
@@ -133,9 +145,9 @@ export function RecentReporting({
             </ul>
           ) : (
             <p className="reporting-empty">
-              No reporting from the outlets below matched this selection. That is
-              often the honest answer: most incidents are never reported, and
-              local coverage is uneven.
+              {narrowToGroup || town
+                ? "Nothing matched that narrowing. The full list for this Division is below."
+                : "No reporting from the outlets below covered this Division in the window. That is often the honest answer: most incidents are never reported, and local coverage is uneven."}
             </p>
           )}
 
@@ -143,8 +155,8 @@ export function RecentReporting({
             <div className="reporting-wider">
               <h3>Other reporting from {divisionName}</h3>
               <p className="reporting-wider-note">
-                Not matched to {groupLabel.toLowerCase()} — shown only because nothing
-                matched the selection above.
+                The full list for this Division, shown because the narrowing
+                above returned nothing.
               </p>
               <ul className="reporting-list">
                 {widerInDivision.slice(0, 5).map((cluster) => (

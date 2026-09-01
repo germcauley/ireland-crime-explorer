@@ -408,6 +408,17 @@ a { color: inherit; }
   text-align: left;
   cursor: pointer;
 }
+.reporting-has {
+  margin-right: auto;
+  margin-left: 10px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--ns-badge);
+  color: var(--ns-badge-text);
+  font: 600 9px var(--sans);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
 .reporting-chevron svg { width: 17px; height: 17px; display: block; transition: transform .18s ease; }
 .reporting-chevron[data-open="true"] svg { transform: rotate(180deg); }
 .reporting-body { padding: 0 28px 22px; }
@@ -492,29 +503,30 @@ a { color: inherit; }
 }
 .reporting-feeds li span { color: var(--text-faint); }
 
-/* Returns a focused area to the whole geography. Sits over the map because
-   that is what it acts on, and only exists while a focus is held. */
+/* Returns a focused area to the whole geography. Sits top-left, where nothing
+   competes with it, and is filled rather than outlined: it is the only way back
+   out of a zoomed view, so it has to read as the primary action on the map. */
 .area-focus-clear {
   position: absolute;
   z-index: 560;
-  /* Clears the panel heading, whose legend occupies the same corner. */
   top: 80px;
-  right: 12px;
+  left: 16px;
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  min-height: 34px;
-  padding: 0 13px;
-  border: 1px solid var(--line);
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 17px;
+  border: 1px solid var(--ink);
   border-radius: 999px;
-  background: rgba(248, 245, 238, .95);
-  color: var(--ink);
-  font: 600 11px var(--sans);
+  background: var(--ink);
+  color: var(--cream);
+  font: 700 12px var(--sans);
+  letter-spacing: -.01em;
   cursor: pointer;
-  box-shadow: 0 6px 18px rgba(23, 55, 45, .18);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .28);
 }
-.area-focus-clear svg { width: 14px; height: 14px; }
-.area-focus-clear:hover { background: var(--paper); }
+.area-focus-clear svg { width: 16px; height: 16px; }
+.area-focus-clear:hover { background: var(--rust); border-color: var(--rust); color: #fff; }
 .area-focus-clear-short { display: none; }
 
 .map-source-footer {
@@ -802,16 +814,18 @@ a { color: inherit; }
   }
   /* On Nightshift the button sits below the caveat chip's line rather than
      beside it, and takes the dark surface treatment. */
+  /* On a phone the caveat chip holds the top-left corner in station view, so
+     the button sits just below it rather than beside it. */
   .area-focus-clear {
-    top: 10px;
-    right: 10px;
-    min-height: 40px;
-    padding: 0 14px;
-    border-color: var(--ns-border);
-    background: rgba(13, 31, 25, .88);
-    color: var(--ns-text);
-    font-size: 12px;
-    box-shadow: none;
+    top: auto;
+    bottom: 14px;
+    left: 12px;
+    min-height: 44px;
+    padding: 0 18px;
+    border-color: var(--ns-text);
+    background: var(--ns-text);
+    color: var(--ns-page);
+    font-size: 13px;
   }
   .area-focus-clear svg { width: 15px; height: 15px; }
   .area-focus-clear-long { display: none; }

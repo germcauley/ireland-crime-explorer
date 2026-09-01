@@ -86,6 +86,32 @@ function toneOf(value: number | null, isRaw = false): "up" | "down" | "flat" {
   return value > 2 ? "up" : value < -2 ? "down" : "flat";
 }
 
+// Fading a neighbour by dropping its opacity lets the tile layer show through,
+// so the surrounding areas revert to a plain street map — the styled surface
+// breaks apart exactly when the reader is concentrating on one area. Washing
+// the colour toward the canvas instead keeps every polygon opaque, so the map
+// stays one surface and the focused area is the only saturated thing on it.
+function washToward(colour: string, towards: string, amount: number) {
+  const parse = (value: string) => [1, 3, 5].map((i) => parseInt(value.slice(i, i + 2), 16));
+  const [r1, g1, b1] = parse(colour);
+  const [r2, g2, b2] = parse(towards);
+  const mix = (a: number, b: number) => Math.round(a + (b - a) * amount);
+  return `#${[mix(r1, r2), mix(g1, g2), mix(b1, b2)]
+    .map((v) => v.toString(16).padStart(2, "0"))
+    .join("")}`;
+}
+
+// Voronoi clipping divides by the gap between two vertex distances, which is
+// zero on a degenerate edge and yields NaN coordinates. Leaflet throws
+// "Invalid LatLng object: (NaN, NaN)" on those and unmounts the whole app, so
+// nothing unusable is allowed to reach it: an area that cannot be framed
+// simply is not flown to.
+function finiteBounds(
+  bounds: [[number, number], [number, number]],
+): [[number, number], [number, number]] | null {
+  return bounds.flat().every(Number.isFinite) ? bounds : null;
+}
+
 function clipPolygon(polygon: Point[], a: number, b: number, c: number) {
   const result: Point[] = [];
   for (let index = 0; index < polygon.length; index += 1) {
@@ -702,7 +728,8 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         // Focusing an area pushes everything else back rather than hiding it:
         // the neighbours still carry the change scale, they just stop competing
         // with the area being read.
-        if (areaFocused && !selected) return 0.12;
+        // Neighbours keep their opacity when focused; they are washed toward
+        // the canvas colour instead, so no tile layer shows through.
         // How a fill reads depends on the canvas behind it, not the width.
         if (change === null) return isDark ? 0.4 : 0.48;
         if (isDark) return selected ? 0.98 : 0.62;
@@ -734,7 +761,10 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           </div>`;
         const polygon = leaflet.polygon(cell, {
           ...restingStroke(selected),
-          fillColor: changeColour(entry.change, entry.isRaw),
+          fillColor:
+              areaFocused && !selected
+                ? washToward(changeColour(entry.change, entry.isRaw), isDark ? "#0d1f19" : "#cfe1e6", 0.82)
+                : changeColour(entry.change, entry.isRaw),
           fillOpacity: restingOpacity(entry.change, selected),
           className: "reporting-area-cell",
         });
@@ -790,7 +820,8 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       // Same treatment as the station cells: a focused area pushes its
       // neighbours back rather than removing them.
       const restingOpacity = (change: number | null, selected: boolean) => {
-        if (areaFocused && !selected) return 0.12;
+        // Neighbours keep their opacity when focused; they are washed toward
+        // the canvas colour instead, so no tile layer shows through.
         // How a fill reads depends on the canvas behind it, not the width.
         if (change === null) return isDark ? 0.4 : 0.48;
         if (isDark) return selected ? 0.98 : 0.62;
@@ -821,8 +852,11 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           </div>`;
         const layer = leaflet.geoJSON(entry.division.boundary as never, {
           style: {
-            ...restingStroke(selected),
-            fillColor: changeColour(entry.change, entry.isRaw),
+              ...restingStroke(selected),
+            fillColor:
+              areaFocused && !selected
+                ? washToward(changeColour(entry.change, entry.isRaw), isDark ? "#0d1f19" : "#cfe1e6", 0.82)
+                : changeColour(entry.change, entry.isRaw),
             fillOpacity: restingOpacity(entry.change, selected),
             className: "reporting-area-cell",
           },
@@ -892,18 +926,18 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         if (lng < minLng) minLng = lng;
         if (lng > maxLng) maxLng = lng;
       });
-      return [
+      return finiteBounds([
         [minLat, minLng],
         [maxLat, maxLng],
-      ];
+      ]);
     }
     const division = data.divisions.find((entry) => entry.id === selectedDivisionId);
     if (!division) return null;
     const [minLng, minLat, maxLng, maxLat] = geometryBounds(division.boundary);
-    return [
+    return finiteBounds([
       [minLat, minLng],
       [maxLat, maxLng],
-    ];
+    ]);
   }, [areaFocused, data.divisions, data.stations, mapBounds, mapMode, selectedDivisionId, selectedStationId]);
 
   useEffect(() => {
@@ -913,7 +947,12 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     // The mobile readout and sheet cover the bottom of the map box, so the
     // frame is padded away from the edges the chrome sits over.
     const padding: [number, number] = isNarrow ? [28, 28] : [40, 40];
-    map.flyToBounds(focusedBounds, {
+    // fitBounds, not flyToBounds. The map runs with zoomSnap: 0 so it can fit
+    // Ireland to a phone without letterboxing, and Leaflet's fly-to spline
+    // divides by zero at fractional zoom — it hands NaN coordinates to
+    // setView, which throws "Invalid LatLng object" and unmounts the app.
+    // fitBounds animates without that maths.
+    map.fitBounds(focusedBounds, {
       padding,
       animate: !reducedMotion,
       duration: 0.7,
@@ -929,11 +968,12 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     const map = mapInstance.current;
     if (map && wasFocused.current && !areaFocused) {
       const bounds = mapMode === "station" ? mapBounds : nationalBounds;
-      map.flyToBounds(
+      map.fitBounds(
         [
           [bounds[1], bounds[0]],
           [bounds[3], bounds[2]],
         ],
+        // fitBounds for the same reason as the zoom in: see above.
         { padding: [10, 10], animate: !reducedMotion, duration: 0.6 },
       );
     }
