@@ -1,21 +1,23 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { getNews, getNewsMeta, getNewsTowns } from "../lib/news";
+import { getNews, getNewsMeta } from "../lib/news";
 
 /**
- * Recent reporting.
+ * Reporting, in the readout rail beside the area it belongs to.
  *
- * Coverage *of* crime, never a record of the crime itself. The distinction is
- * the whole point: news volume tracks newsworthiness and where newsrooms are,
- * not where offences happen, so this section is deliberately subordinate to
- * the statistics above it — collapsed by default, never showing an article
- * count, never ranking areas by how much coverage they have.
+ * It appears only where the selected area has coverage. There is no empty
+ * state, no article count and no ranking of areas by how much press they
+ * attract — newsrooms cluster in cities and cover what is notable, so any of
+ * those would let coverage read as a measure of crime. The "coverage is not
+ * crime" caveat lives in the disclosure view rather than repeating here.
  *
- * Only appears for Divisions. Dublin station areas are Voronoi cells drawn
- * from station points, which the app already tells readers are not boundaries;
- * pinning an article to one would assert exactly what that caveat denies.
+ * Articles are pinned to Divisions and never to station areas, which the app
+ * already says are not boundaries. The Dublin station view therefore pools the
+ * reporting of all six DMR Divisions under one heading.
  */
+
+const VISIBLE = 3;
 
 function formatDate(value: string | null): string {
   if (!value) return "";
@@ -27,182 +29,94 @@ function formatDate(value: string | null): string {
 }
 
 export function RecentReporting({
-  divisionId,
-  divisionName,
-  group,
-  groupLabel,
+  divisionIds,
+  areaName,
 }: {
-  divisionId: string | null;
-  divisionName: string;
-  /** CJQ06 group. Sub-categories are narrowed to their parent before arriving here. */
-  group: string | null;
-  groupLabel: string;
+  divisionIds: string[];
+  areaName: string;
 }) {
-  const [open, setOpen] = useState(false);
   const [town, setTown] = useState<string | null>(null);
-  // A Division's whole list is the default view. Narrowing to the selected
-  // offence group is something the reader opts into, because at this volume
-  // the group filter almost always empties the list — 36 articles across 28
-  // Divisions and 17 groups leaves most combinations with nothing in them.
-  const [narrowToGroup, setNarrowToGroup] = useState(false);
-  const [feedsOpen, setFeedsOpen] = useState(false);
-
+  const [showAll, setShowAll] = useState(false);
   const meta = getNewsMeta();
-  const towns = useMemo(() => getNewsTowns(divisionId), [divisionId]);
 
-  const all = useMemo(() => getNews({ divisionId }), [divisionId]);
-  const matching = useMemo(
-    () => getNews({ divisionId, group: narrowToGroup ? group : null, town }),
-    [divisionId, group, town, narrowToGroup],
+  // The parent keys this component by area, so a new area remounts it and the
+  // town filter starts fresh. Resetting in an effect would cascade a render.
+  const key = divisionIds.join(",");
+
+  const articles = useMemo(
+    () => divisionIds.flatMap((id) => getNews({ divisionId: id })),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [key],
   );
 
-  // Only meaningful once the reader has narrowed. Widening back is offered
-  // explicitly rather than done silently, so nothing appears under a heading
-  // it does not belong to.
-  const widerInDivision = useMemo(
-    () => (matching.length === 0 && (narrowToGroup || town) ? all : []),
-    [all, matching.length, narrowToGroup, town],
+  const towns = useMemo(() => {
+    const named = new Set<string>();
+    articles.forEach((article) => {
+      if (article.town) named.add(article.town);
+    });
+    return Array.from(named).sort((a, b) => a.localeCompare(b));
+  }, [articles]);
+
+  const filtered = useMemo(
+    () =>
+      articles
+        .filter((article) => !town || article.town === town)
+        .sort((a, b) => (b.publishedAt ?? "").localeCompare(a.publishedAt ?? "")),
+    [articles, town],
   );
 
-  const shown = matching;
+  // No coverage, no section. An empty state here would be a statement about the
+  // area rather than about the outlet list.
+  if (articles.length === 0) return null;
 
-  if (!divisionId) return null;
+  const shown = showAll ? filtered : filtered.slice(0, VISIBLE);
 
   return (
     <section className="reporting" aria-labelledby="reporting-title">
-      <button
-        type="button"
-        className="reporting-toggle"
-        aria-expanded={open}
-        onClick={() => setOpen((value) => !value)}
-      >
-        <span id="reporting-title">Recent reporting</span>
-        {/* Binary, never a count: whether this Division has any coverage at all.
-            A number here would let article volume stand in for crime volume,
-            and would rank Divisions by how much press they attract. */}
-        {all.length > 0 && !open && <span className="reporting-has">reporting available</span>}
-        <span className="reporting-chevron" aria-hidden="true" data-open={open}>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
-            <path d="m6 9 6 6 6-6" />
-          </svg>
-        </span>
-      </button>
+      <p className="reporting-spot">In the news</p>
+      <h2 id="reporting-title">Recent reporting</h2>
+      <p className="reporting-lede">
+        News articles about {areaName} from local and national outlets, last{" "}
+        {meta.windowMonths} months
+      </p>
 
-      {open && (
-        <div className="reporting-body">
-          <p className="reporting-lede">
-            {narrowToGroup ? (
-              <>Reporting on {divisionName}, narrowed to {groupLabel.toLowerCase()}.</>
-            ) : (
-              <>Reporting on {divisionName} from the last {meta.windowMonths} months.</>
-            )}{" "}
-            Coverage is not crime.
-          </p>
-
-
-          {(towns.length > 0 || group) && (
-            <div className="reporting-filters">
-              {group && (
-                <button
-                  type="button"
-                  className={narrowToGroup ? "is-active" : ""}
-                  aria-pressed={narrowToGroup}
-                  onClick={() => setNarrowToGroup((value) => !value)}
-                >
-                  Only {groupLabel.toLowerCase()}
-                </button>
-              )}
-              {towns.length > 0 && (
-                <label className="reporting-town">
-                  <span className="visually-hidden">Filter by town named in the article</span>
-                  <select
-                    value={town ?? ""}
-                    onChange={(event) => setTown(event.target.value || null)}
-                  >
-                    <option value="">Any town named</option>
-                    {towns.map((name) => (
-                      <option value={name} key={name}>{name}</option>
-                    ))}
-                  </select>
-                </label>
-              )}
-            </div>
-          )}
-
-          {shown.length > 0 ? (
-            <ul className="reporting-list">
-              {shown.map((cluster) => (
-                <li key={cluster.id}>
-                  <a href={cluster.url} target="_blank" rel="noreferrer nofollow">
-                    {cluster.title}
-                  </a>
-                  <p className="reporting-meta">
-                    {cluster.source}
-                    {cluster.publishedAt && <> · {formatDate(cluster.publishedAt)}</>}
-                    {cluster.town && <> · {cluster.town}</>}
-                    {cluster.alsoCoveredBy.length > 0 && (
-                      <> · also covered by {cluster.alsoCoveredBy.length} other{cluster.alsoCoveredBy.length > 1 ? " outlets" : " outlet"}</>
-                    )}
-                  </p>
-                  {cluster.description && <p className="reporting-snippet">{cluster.description}</p>}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="reporting-empty">
-              {narrowToGroup || town
-                ? "Nothing matched that narrowing. The full list is below."
-                : "No outlet in our list covered this Division in the window."}
-            </p>
-          )}
-
-          {widerInDivision.length > 0 && (
-            <div className="reporting-wider">
-              <h3>Other reporting from {divisionName}</h3>
-              <p className="reporting-wider-note">
-                The full list for this Division, shown because the narrowing
-                above returned nothing.
-              </p>
-              <ul className="reporting-list">
-                {widerInDivision.slice(0, 5).map((cluster) => (
-                  <li key={cluster.id}>
-                    <a href={cluster.url} target="_blank" rel="noreferrer nofollow">
-                      {cluster.title}
-                    </a>
-                    <p className="reporting-meta">
-                      {cluster.source}
-                      {cluster.publishedAt && <> · {formatDate(cluster.publishedAt)}</>}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          <button
-            type="button"
-            className="reporting-feeds-toggle"
-            aria-expanded={feedsOpen}
-            onClick={() => setFeedsOpen((value) => !value)}
-          >
-            {feedsOpen ? "Hide" : "Show"} the {meta.feeds.length} outlets searched
+      {towns.length > 1 && (
+        <div className="reporting-towns">
+          <button type="button" className={town === null ? "is-on" : ""} onClick={() => setTown(null)}>
+            Any town
           </button>
-          {feedsOpen && (
-            <div className="reporting-feeds">
-              <p>
-                An absence of reporting here means no outlet in this list covered it,
-                which is not the same as nothing having happened.
-              </p>
-              <ul>
-                {meta.feeds.map((feed) => (
-                  <li key={feed.url}>
-                    {feed.name} <span>{feed.scope}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          {towns.map((name) => (
+            <button
+              type="button"
+              key={name}
+              className={town === name ? "is-on" : ""}
+              onClick={() => setTown(name)}
+            >
+              {name}
+            </button>
+          ))}
         </div>
+      )}
+
+      <ul className="reporting-list">
+        {shown.map((article) => (
+          <li key={article.id}>
+            <a href={article.url} target="_blank" rel="noreferrer nofollow">
+              {article.title}
+            </a>
+            <p className="reporting-meta">
+              {article.source}
+              {article.publishedAt && <> · {formatDate(article.publishedAt)}</>}
+              {article.town && <> · {article.town}</>}
+            </p>
+          </li>
+        ))}
+      </ul>
+
+      {filtered.length > VISIBLE && (
+        <button type="button" className="reporting-more" onClick={() => setShowAll((value) => !value)}>
+          {showAll ? "Show fewer" : `All ${filtered.length} items`}
+        </button>
       )}
     </section>
   );

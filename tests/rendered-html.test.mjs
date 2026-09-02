@@ -31,12 +31,20 @@ test("server-renders the crime explorer and social metadata", async () => {
   const html = await response.text();
   assert.match(html, /<title>Ireland Crime Explorer<\/title>/i);
   assert.match(html, /Ireland Crime Explorer/);
-  assert.match(html, /<select[^>]*id="offence-group"/i);
-  assert.match(html, /All 28 Garda Divisions nationwide/);
-  assert.match(html, /Garda-division recorded-crime map of Ireland/);
-  assert.match(html, /Start with a place you know/);
+  // The shell must server-render: both geographies reachable, the comparison
+  // and offence controls present, and the disclosure link offered.
+  // React splits interpolated text with <!-- --> markers, so these match the
+  // literal halves rather than the rendered sentence.
+  assert.match(html, /Nationwide ·/);
+  assert.match(html, /Divisions/);
+  assert.match(html, /Dublin ·/);
+  assert.match(html, /station areas/);
+  assert.match(html, /Compare years/);
+  assert.match(html, /Which crimes\?/);
+  assert.match(html, /What this is, and is not/);
+  // Recorded-not-prevalence has to reach a reader who never runs any script.
+  assert.match(html, /Recorded incidents are not total crime/);
   assert.doesNotMatch(html, /Crime Bot/);
-  assert.match(html, /Source &amp; limits/);
   assert.match(html, /http:\/\/localhost\/og\.png/);
   assert.doesNotMatch(html, /codex-preview|SkeletonPreview|Your site is taking shape/);
 });
