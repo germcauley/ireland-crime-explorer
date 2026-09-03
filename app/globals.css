@@ -96,9 +96,20 @@ button { font: inherit; color: inherit; }
   cursor: pointer;
 }
 
-/* Nav --------------------------------------------------------------------- */
+/* Control bar: the whole navigation, on one line ------------------------- */
+/* Geography, offence and period sit together and never scroll away. The
+   filters used to be a third column, which a narrow screen reordered to the
+   bottom — under the full ranking, which is what made the app hard to move
+   around in. */
+.controlbar-shell { position: relative; }
+.controlbar {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-neutral-400);
+}
 .explorer-nav { display: flex; gap: 30px; }
-.is-narrow .explorer-nav { gap: 18px; }
 .explorer-nav button {
   padding: 0 0 6px;
   border: 0;
@@ -109,20 +120,89 @@ button { font: inherit; color: inherit; }
   cursor: pointer;
 }
 .explorer-nav button.is-active { color: var(--color-text); border-bottom-color: var(--color-accent); }
+.controlbar-rule { flex: 0 0 auto; width: 1px; height: 22px; background: var(--color-neutral-400); }
+.pill {
+  flex: 0 0 auto;
+  height: 34px;
+  padding: 0 14px;
+  border: 1px solid var(--color-neutral-400);
+  border-radius: 17px;
+  background: transparent;
+  font-size: 16px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.pill.is-on { background: var(--color-accent); border-color: var(--color-accent); color: #fff; }
+.pill.is-num { font-variant-numeric: tabular-nums; }
+.controlbar-jump {
+  margin-left: auto;
+  width: 260px;
+  height: 34px;
+  padding: 0 12px;
+  border: 1px solid var(--color-neutral-400);
+  border-radius: 2px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 15px;
+}
 
-/* Body: three columns that wrap. No media queries — the ResizeObserver flips
-   `is-narrow`, and below that width `order` puts the map first and the long
-   offence list last. */
+/* Panels: a drawer under the bar on a desktop, a sheet on a phone. */
+/* Overlays the body rather than pushing it: opening a filter must not move
+   the map out from under the reader. */
+.panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 5;
+  width: min(460px, 100%);
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: 12px 16px 16px;
+  border: 1px solid var(--color-neutral-400);
+  border-radius: 3px;
+  background: var(--color-bg);
+}
+.panel-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+.panel-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  border: 0;
+  background: transparent;
+  cursor: default;
+}
+.panel-list { display: flex; flex-direction: column; }
+.panel-list button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid var(--color-neutral-200);
+  background: none;
+  text-align: left;
+  font-size: 16px;
+  color: var(--color-text);
+  cursor: pointer;
+}
+.panel-list button.is-on { font-weight: 600; }
+.panel-row { display: flex; flex-direction: column; }
+.panel-sub { display: flex; flex-direction: column; padding: 4px 0 8px; }
+.panel-sub button { min-height: 38px; padding-left: 14px; border-bottom: 0; font-size: 15px; color: var(--color-accent-700); }
+.panel-sub button.is-on { color: var(--color-text); font-style: italic; }
+.panel-list .offence-count { font-size: 14px; color: var(--color-neutral-600); }
+
+/* Body: two columns, not three. The offence breakdown was always scoped to
+   the selected area, so it moves in beside it — and taking that column away
+   is what leaves a phone with a map and a sheet instead of a stack. */
 .explorer-body { display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start; }
 .is-narrow .explorer-body { gap: 28px; }
-.control-rail { flex: 0 1 260px; min-width: 240px; display: flex; flex-direction: column; gap: 30px; }
 .map-column { flex: 1 1 520px; min-width: 320px; }
-.readout-rail { flex: 1 1 300px; min-width: 280px; }
-/* The station view gives the map the full width and drops the readout below. */
-.explorer-body.is-stations .readout-rail { flex: 1 1 100%; }
-.is-narrow .control-rail { order: 3; flex: 1 1 100%; }
-.is-narrow .map-column { order: 1; flex: 1 1 100%; }
-.is-narrow .readout-rail { order: 2; flex: 1 1 100%; }
+.readout-rail { flex: 0 1 400px; min-width: 300px; }
 
 .rail-heading {
   margin: 0 0 10px;
@@ -206,14 +286,23 @@ button { font: inherit; color: inherit; }
 .offence-children span { font-variant-numeric: tabular-nums; color: var(--color-neutral-600); }
 
 /* Map --------------------------------------------------------------------- */
-.map-head { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; margin-bottom: 10px; }
+.map-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 10px; }
 .map-head h2 { margin: 0; font-size: 25px; font-weight: 600; }
+.map-head p { margin-left: auto; }
+.map-reset {
+  flex: 0 0 auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 14px;
+  color: var(--color-accent-700);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
 .map-head p { margin: 0; font-size: 14px; font-style: italic; color: var(--color-neutral-700); text-align: right; }
-.map-frame { height: 520px; min-height: 320px; }
-.map-frame.is-stations { height: 560px; }
-.map-frame.is-dublin { height: 460px; }
-.is-narrow .map-frame { height: 340px; }
-.is-narrow .map-frame.is-stations { height: 380px; }
+.map-frame { height: 620px; min-height: 320px; }
+.map-frame.is-dublin { height: 520px; }
 .crime-map { position: relative; width: 100%; height: 100%; }
 .crime-map-controls {
   position: absolute;
@@ -262,6 +351,9 @@ button { font: inherit; color: inherit; }
 .dot-down { background: var(--color-accent); opacity: 0.55; }
 .dot-up { background: var(--color-accent-2); opacity: 0.55; }
 .map-note { margin: 10px 0 0; font-size: 14px; font-style: italic; color: var(--color-neutral-700); max-width: 62ch; }
+
+.breakdown { margin-top: 25px; }
+.sheet-handle { display: none; }
 
 /* Readout ----------------------------------------------------------------- */
 /* Sticky, because the rankings list is long and a click near its foot must
@@ -346,6 +438,128 @@ button { font: inherit; color: inherit; }
 .about section p { margin: 0 0 8px; font-size: 16px; line-height: 1.5; color: var(--color-neutral-800); }
 
 .explorer-footnote { margin: 0; font-size: 14px; color: var(--color-neutral-700); max-width: 78ch; }
+
+/* Phone: a fixed frame of bar, map and sheet ------------------------------ */
+/* Nothing scrolls the page. The map takes whatever the sheet leaves, and the
+   sheet snaps between three heights, so the ranking is two taps from landing
+   rather than a scroll past everything above it. */
+.explorer.is-narrow {
+  position: relative;
+  height: 100dvh;
+  padding: 0;
+  gap: 0;
+  overflow: hidden;
+}
+/* The nameplate is not the product on a phone: one line, no dateline. */
+.is-narrow .masthead {
+  align-items: center;
+  gap: 10px;
+  padding: calc(8px + env(safe-area-inset-top)) 16px 0;
+}
+.is-narrow .masthead-title { align-items: center; gap: 8px; }
+.is-narrow .masthead-mark { width: 22px; margin-top: 0; }
+.is-narrow .masthead h1 { font-size: 18px; letter-spacing: -0.01em; }
+.is-narrow .dateline { display: none; }
+.is-narrow .masthead-actions { gap: 12px; }
+.is-narrow .masthead-actions .text-link { font-size: 13px; }
+.is-narrow .controlbar {
+  flex-wrap: nowrap;
+  gap: 12px;
+  padding: 8px 16px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.is-narrow .explorer-nav { flex: 0 0 auto; }
+.is-narrow .explorer-nav button { white-space: nowrap; }
+.is-narrow .explorer-nav { gap: 14px; }
+.is-narrow .explorer-nav button { font-size: 16px; }
+.is-narrow .controlbar-rule { display: none; }
+.is-narrow .pill { height: 32px; padding: 0 12px; font-size: 15px; }
+.is-narrow .controlbar-jump { flex: 0 0 160px; width: auto; margin-left: 0; }
+
+.is-narrow .explorer-body { position: relative; display: block; flex: 1 1 auto; min-height: 0; gap: 0; }
+.is-narrow .map-column { position: absolute; inset: 0; }
+.is-narrow .map-frame {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: var(--sheet-h, 360px);
+  height: auto;
+}
+.is-narrow .map-note,
+.is-narrow .explorer-footnote { display: none; }
+/* The map title and its hint go, but the reset stays reachable. */
+.is-narrow .map-head {
+  position: absolute;
+  top: 6px;
+  right: 16px;
+  z-index: 3;
+  margin: 0;
+  gap: 0;
+}
+.is-narrow .map-head h2,
+.is-narrow .map-head p { display: none; }
+.is-narrow .map-legend {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+  /* Clear of the reset, which sits in the same strip. */
+  right: 72px;
+  z-index: 2;
+  margin: 0;
+  gap: 14px;
+  font-size: 12px;
+  pointer-events: none;
+}
+.is-narrow .map-back { position: absolute; top: 36px; left: 16px; z-index: 2; margin: 0; }
+
+.is-narrow .readout-rail {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  min-width: 0;
+  padding: 0 16px calc(6px + env(safe-area-inset-bottom));
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-neutral-400);
+  overflow-y: auto;
+  transition: height .22s ease;
+}
+.is-narrow .readout { position: static; padding-bottom: 0; }
+.is-narrow .sheet-handle {
+  display: grid;
+  place-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  height: 26px;
+  margin: 0 0 2px;
+  border: 0;
+  background: var(--color-bg);
+  cursor: ns-resize;
+}
+.sheet-handle span { display: block; width: 40px; height: 4px; border-radius: 2px; background: var(--color-neutral-400); }
+.is-narrow .rankings ol { max-height: none; }
+
+.is-narrow .panel-scrim { background: rgba(0, 0, 0, .45); }
+.is-narrow .panel {
+  position: fixed;
+  /* The desktop rule anchors the drawer under the bar; the sheet anchors to
+     the bottom instead, so that `top` has to be given back. */
+  top: auto;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  width: auto;
+  max-height: 72vh;
+  overflow-y: auto;
+  border-radius: 6px 6px 0 0;
+  padding-bottom: calc(16px + env(safe-area-inset-bottom));
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: .01ms !important; }

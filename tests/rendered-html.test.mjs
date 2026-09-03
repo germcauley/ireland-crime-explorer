@@ -39,8 +39,12 @@ test("server-renders the crime explorer and social metadata", async () => {
   assert.match(html, /Divisions/);
   assert.match(html, /Dublin ·/);
   assert.match(html, /station areas/);
-  assert.match(html, /Compare years/);
-  assert.match(html, /Which crimes\?/);
+  // The control bar carries the offence and the period; both open a panel, so
+  // only the bar's own labels are in the server HTML.
+  assert.match(html, /class="pill"/);
+  assert.match(html, /All crime/);
+  assert.match(html, /Find a Division/);
+  assert.match(html, /What was recorded there/);
   assert.match(html, /What this is, and is not/);
   // Recorded-not-prevalence has to reach a reader who never runs any script.
   assert.match(html, /Recorded incidents are not total crime/);

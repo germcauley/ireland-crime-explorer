@@ -20,6 +20,8 @@ import { RecentReporting } from "./RecentReporting";
 const numberFormat = new Intl.NumberFormat("en-IE");
 const ALL_CRIME = "all";
 const TOP_GROUPS = 6;
+/** The three heights the phone readout snaps between, in pixels. */
+const SHEET_DETENTS = [128, 360, 640];
 /** The national map merges the six DMR Divisions into one symbol. */
 const DUBLIN_AGGREGATE = "dublin-aggregate";
 
@@ -102,6 +104,13 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   // Clicking the merged Dublin symbol zooms the national frame into the city
   // without leaving the nationwide tab — the station view is the other tab's job.
   const [dublinZoom, setDublinZoom] = useState(false);
+  // The whole of the reader's choice now lives in one bar, and the bar opens
+  // one panel at a time. On a phone that panel is a sheet; on a desktop it
+  // drops from the control that opened it.
+  const [panel, setPanel] = useState<null | "group" | "years">(null);
+  // How much of the readout is showing on a phone. Index into SHEET_DETENTS.
+  const [detent, setDetent] = useState(1);
+  const [jump, setJump] = useState("");
 
   const theme = useSyncExternalStore(subscribeToTheme, readTheme, () => "light" as const);
   const isDark = theme === "dark";
@@ -116,7 +125,12 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   // same embedded as it does standalone.
   useEffect(() => {
     const element = root.current;
-    if (!element || typeof ResizeObserver === "undefined") return;
+    if (!element) return;
+    // Measure once directly: an observer's first callback is not guaranteed to
+    // arrive promptly (a throttled or hidden tab can hold it), and until it
+    // does a phone would be laid out as a desktop.
+    setNarrow(element.getBoundingClientRect().width < 720);
+    if (typeof ResizeObserver === "undefined") return;
     const observer = new ResizeObserver(([entry]) => setNarrow(entry.contentRect.width < 720));
     observer.observe(element);
     return () => observer.disconnect();
@@ -357,6 +371,31 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       ? Math.round((selectedCount / allCrimeCount) * 100)
       : null;
 
+  // A panel is modal enough to deserve an escape hatch that is not a tap on
+  // the backdrop.
+  useEffect(() => {
+    if (panel === null) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setPanel(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [panel]);
+
+  /** Position in the ranking, so a filtered list still shows real ranks. */
+  const rankOf = useMemo(() => {
+    const out: Record<string, number> = {};
+    ranked.forEach((area, index) => {
+      out[area.id] = index + 1;
+    });
+    return out;
+  }, [ranked]);
+
+  const query = jump.trim().toLowerCase();
+  const listed = query
+    ? ranked.filter((area) => area.name.toLowerCase().includes(query))
+    : ranked;
+
   /** Reporting is pinned to Divisions; the station view pools all six DMR. */
   const reportingDivisionIds = useMemo(() => {
     if (stationMode) return Array.from(dmrIds);
@@ -404,8 +443,24 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     setSelectedDivision((current) => (current === id ? null : id));
   }
 
+  /** Back to the landing reading: whole country, all crime, the full span. */
+  function resetAll() {
+    setGroup(ALL_CRIME);
+    setSub(null);
+    setMoreGroups(false);
+    setSelectedDivision(null);
+    setSelectedStation(null);
+    setDublinZoom(false);
+    setFromYear(years[0]);
+    setToYear(latest);
+    setJump("");
+    setPanel(null);
+  }
+
   function switchView(next: "atlas" | "dublin") {
     setView(next);
+    setPanel(null);
+    setJump("");
     setDublinZoom(false);
     setSub(null);
     if (next === "dublin" && !selectedStation) setSelectedStation(data.stations[0]?.id ?? null);
@@ -428,7 +483,13 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   }
 
   return (
-    <main className={`explorer${narrow ? " is-narrow" : ""}`} ref={root}>
+    <main
+      className={`explorer${narrow ? " is-narrow" : ""}`}
+      ref={root}
+      // The map is sized above the sheet rather than behind it, so the
+      // projection fits the part of the country the reader can actually see.
+      style={narrow ? ({ "--sheet-h": `${SHEET_DETENTS[detent]}px` } as React.CSSProperties) : undefined}
+    >
       <Masthead
         latest={latest}
         theme={theme}
@@ -437,72 +498,296 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         aboutLabel="What this is, and is not"
       />
 
-      <nav className="explorer-nav" aria-label="Geography">
+      {/* Every choice the reader has made, on one line that never scrolls away:
+          geography, offence, period, and a way to jump straight to a place.
+          The filters used to be a third column, which a narrow screen pushed
+          below the whole ranking. */}
+      <div className="controlbar-shell">
+      <div className="controlbar">
+        <nav className="explorer-nav" aria-label="Geography">
+          <button
+            type="button"
+            className={view === "atlas" ? "is-active" : ""}
+            aria-current={view === "atlas"}
+            onClick={() => switchView("atlas")}
+          >
+            {/* The counts are orientation on a desktop and clutter on a
+                phone, where they push the offence control off the bar. */}
+            {narrow ? "Nationwide" : `Nationwide · ${data.divisions.length} Divisions`}
+          </button>
+          <button
+            type="button"
+            className={view === "dublin" ? "is-active" : ""}
+            aria-current={view === "dublin"}
+            onClick={() => switchView("dublin")}
+          >
+            {narrow ? "Dublin" : `Dublin · ${data.stations.length} station areas`}
+          </button>
+        </nav>
+        <span className="controlbar-rule" aria-hidden="true" />
         <button
           type="button"
-          className={view === "atlas" ? "is-active" : ""}
-          aria-current={view === "atlas"}
-          onClick={() => switchView("atlas")}
+          className={`pill${group === ALL_CRIME ? "" : " is-on"}`}
+          aria-expanded={panel === "group"}
+          onClick={() => setPanel((current) => (current === "group" ? null : "group"))}
         >
-          Nationwide · {data.divisions.length} Divisions
+          {activeLabel.charAt(0).toUpperCase() + activeLabel.slice(1)}{" "}
+          <span aria-hidden="true">▾</span>
         </button>
         <button
           type="button"
-          className={view === "dublin" ? "is-active" : ""}
-          aria-current={view === "dublin"}
-          onClick={() => switchView("dublin")}
+          className="pill is-num"
+          aria-expanded={panel === "years"}
+          onClick={() => setPanel((current) => (current === "years" ? null : "years"))}
         >
-          Dublin · {data.stations.length} station areas
+          {fromYear} → {toYear} <span aria-hidden="true">▾</span>
         </button>
-      </nav>
+        <input
+          className="controlbar-jump"
+          type="search"
+          value={jump}
+          onChange={(event) => setJump(event.target.value)}
+          placeholder={stationMode ? "Find a station area" : "Find a Division"}
+          aria-label="Find an area"
+        />
+      </div>
+
+      {panel !== null && (
+        <>
+          <button
+            type="button"
+            className="panel-scrim"
+            aria-label="Close"
+            onClick={() => setPanel(null)}
+          />
+          <div
+            className={`panel is-${panel}`}
+            role="dialog"
+            aria-modal="true"
+            aria-label={panel === "group" ? "Which crimes" : "Compare years"}
+          >
+            <div className="panel-head">
+              <p className="rail-heading">
+                {panel === "group" ? "Which crimes" : "Compare years"}
+              </p>
+              <button type="button" className="rail-more" onClick={() => setPanel(null)}>
+                Done
+              </button>
+            </div>
+
+            {panel === "years" ? (
+              <div className="panel-body">
+                <div className="year-row">
+                  <span className="year-label">From</span>
+                  <div className="year-chips">
+                    {years.map((year) => (
+                      <button
+                        type="button"
+                        key={`from-${year}`}
+                        className={year === fromYear ? "is-on" : ""}
+                        disabled={year === years[years.length - 1]}
+                        onClick={() => pickYear("from", year)}
+                      >
+                        {year}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="year-row">
+                  <span className="year-label">To</span>
+                  <div className="year-chips">
+                    {years.map((year) => (
+                      <button
+                        type="button"
+                        key={`to-${year}`}
+                        className={year === toYear ? "is-on" : ""}
+                        disabled={year === years[0]}
+                        onClick={() => pickYear("to", year)}
+                      >
+                        {year}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <p className="rail-caption">
+                  Percentage change between {fromYear} and {toYear}. Areas with fewer than
+                  ten incidents in {fromYear} are left blank rather than shown as a large
+                  swing.
+                </p>
+              </div>
+            ) : (
+              <div className="panel-list">
+                <button
+                  type="button"
+                  className={group === ALL_CRIME ? "is-on" : ""}
+                  onClick={() => {
+                    setGroup(ALL_CRIME);
+                    setSub(null);
+                    setPanel(null);
+                  }}
+                >
+                  <span>All crime</span>
+                  <span className="offence-count">{numberFormat.format(allCrimeCount)}</span>
+                </button>
+                {offenceRows.map((row) => (
+                  <div key={row.id} className="panel-row">
+                    <button
+                      type="button"
+                      className={group === row.id ? "is-on" : ""}
+                      // Picking a group with sub-categories opens them in
+                      // place rather than closing: the second choice is the
+                      // reason a reader opened the panel at all.
+                      onClick={() => {
+                        setGroup(row.id);
+                        setSub(null);
+                        if (stationMode || row.children.length === 0) setPanel(null);
+                      }}
+                    >
+                      <span>{row.label}</span>
+                      <span className="offence-count">{numberFormat.format(row.count)}</span>
+                    </button>
+                    {/* Second level under the group it belongs to, so a reader
+                        who picked one does not go looking elsewhere for its
+                        official sub-categories. */}
+                    {group === row.id && row.children.length > 0 && !stationMode && (
+                      <div className="panel-sub">
+                        <button
+                          type="button"
+                          className={sub === null ? "is-on" : ""}
+                          onClick={() => {
+                            setSub(null);
+                            setPanel(null);
+                          }}
+                        >
+                          <span>Whole group</span>
+                          <span className="offence-count">{numberFormat.format(row.count)}</span>
+                        </button>
+                        {row.children.map((child) => (
+                          <button
+                            type="button"
+                            key={child.id}
+                            className={sub === child.id ? "is-on" : ""}
+                            onClick={() => {
+                              setSub(child.id);
+                              setPanel(null);
+                            }}
+                          >
+                            <span>{child.label}</span>
+                            <span className="offence-count">
+                              {numberFormat.format(child.count)}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </>
+      )}
+      </div>
 
       <div className={`explorer-body${stationMode ? " is-stations" : ""}`}>
-        <aside className="control-rail" aria-label="Filters">
-          <section>
-            <h2 className="rail-heading">Compare years</h2>
-            <div className="year-row">
-              <span className="year-label">From</span>
-              <div className="year-chips">
-                {years.map((year) => (
-                  <button
-                    type="button"
-                    key={`from-${year}`}
-                    className={year === fromYear ? "is-on" : ""}
-                    disabled={year === years[years.length - 1]}
-                    onClick={() => pickYear("from", year)}
-                  >
-                    {year}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <div className="year-row">
-              <span className="year-label">To</span>
-              <div className="year-chips">
-                {years.map((year) => (
-                  <button
-                    type="button"
-                    key={`to-${year}`}
-                    className={year === toYear ? "is-on" : ""}
-                    disabled={year === years[0]}
-                    onClick={() => pickYear("to", year)}
-                  >
-                    {year}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <p className="rail-caption">
-              Percentage change between {fromYear} and {toYear}. Areas with fewer than ten
-              incidents in {fromYear} are left blank rather than shown as a large swing.
+        <section className="map-column" aria-label="Map">
+          <div className="map-head">
+            <h2>
+              {stationMode
+                ? "Dublin station areas"
+                : dublinZoom
+                  ? "The six Dublin Divisions"
+                  : "Recorded crime by Garda Division"}
+            </h2>
+            <button type="button" className="map-reset" onClick={resetAll}>
+              Reset
+            </button>
+            <p>
+              {stationMode
+                ? "Station locations, sized by count · scroll or use + − to zoom, drag to pan"
+                : dublinZoom
+                  ? "Zoomed to Dublin · pick a Division, or step back out to the whole country"
+                  : "Circle area is the recorded count · the Dublin symbol opens its six Divisions"}
             </p>
-          </section>
+          </div>
 
-          <section>
-            <h2 className="rail-heading">Which crimes?</h2>
-            <p className="rail-caption is-italic">
-              in {selectedArea?.name ?? "this area"}, {toYear}
+          <div className={`map-frame${stationMode ? " is-stations" : dublinZoom ? " is-dublin" : ""}`}>
+            <CrimeMap
+              points={mapPoints}
+              selected={selectedId}
+              view={mapView}
+              onSelect={selectFromMap}
+              isDark={isDark}
+            />
+          </div>
+
+          {dublinZoom && !stationMode && (
+            <button type="button" className="map-back" onClick={() => setDublinZoom(false)}>
+              Back to all of Ireland
+            </button>
+          )}
+
+          <div className="map-legend">
+            <span>Circle area = recorded incidents</span>
+            <span><i className="dot-down" /> Down on {fromYear} · {toYear} count</span>
+            <span><i className="dot-up" /> Up on {fromYear}</span>
+          </div>
+
+          {stationMode && (
+            <p className="map-note">
+              Each symbol sits at the station itself, not at the centre of the area it
+              records — no catchment boundaries are published. Names are shown where they
+              fit; zoom in for the rest.
             </p>
+          )}
+        </section>
+
+        <aside
+          className="readout-rail"
+          aria-label="Selected area"
+          style={narrow ? { height: SHEET_DETENTS[detent] } : undefined}
+        >
+          {/* On a phone the rail is a sheet over the map. Tapping the handle
+              cycles the three heights, so the ranking is two taps from the
+              landing view rather than a scroll past everything else. */}
+          <button
+            type="button"
+            className="sheet-handle"
+            aria-label="Resize the readout"
+            onClick={() => setDetent((current) => (current + 1) % SHEET_DETENTS.length)}
+          >
+            <span />
+          </button>
+          <div className="readout">
+            <p className="rail-heading">
+              {selectedId === null
+                ? stationMode
+                  ? `All ${data.stations.length} station areas`
+                  : `All ${data.divisions.length} Divisions`
+                : stationMode
+                  ? "Dublin station area"
+                  : selectedId === DUBLIN_AGGREGATE
+                    ? "Dublin Metropolitan Region"
+                    : "Garda Division"}{" "}
+              · {toYear}
+            </p>
+            <h2>{selectedArea?.name ?? "—"}</h2>
+            <p className="readout-count">
+              {selectedCount === null ? "—" : numberFormat.format(selectedCount)}
+            </p>
+            <p className="readout-caption">
+              recorded incidents of {activeLabel}
+              {share !== null && <> — {share}% of everything recorded there</>}
+            </p>
+            <p className={`readout-change tone-${toneOf(selectedArea?.change ?? null)}`}>
+              {selectedArea?.change === null || selectedArea?.change === undefined
+                ? "No comparable baseline"
+                : `${formatChange(selectedArea.change)} on ${fromYear} (${numberFormat.format(selectedArea.from ?? 0)})`}
+            </p>
+          </div>
+
+          <section className="breakdown">
+            <h2 className="rail-heading">What was recorded there</h2>
             <div className="offence-rows">
               <OffenceRow
                 label="All crime"
@@ -558,85 +843,6 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
               </button>
             )}
           </section>
-        </aside>
-
-        <section className="map-column" aria-label="Map">
-          <div className="map-head">
-            <h2>
-              {stationMode
-                ? "Dublin station areas"
-                : dublinZoom
-                  ? "The six Dublin Divisions"
-                  : "Recorded crime by Garda Division"}
-            </h2>
-            <p>
-              {stationMode
-                ? "Station locations, sized by count · scroll or use + − to zoom, drag to pan"
-                : dublinZoom
-                  ? "Zoomed to Dublin · pick a Division, or step back out to the whole country"
-                  : "Circle area is the recorded count · the Dublin symbol opens its six Divisions"}
-            </p>
-          </div>
-
-          <div className={`map-frame${stationMode ? " is-stations" : dublinZoom ? " is-dublin" : ""}`}>
-            <CrimeMap
-              points={mapPoints}
-              selected={selectedId}
-              view={mapView}
-              onSelect={selectFromMap}
-              isDark={isDark}
-            />
-          </div>
-
-          {dublinZoom && !stationMode && (
-            <button type="button" className="map-back" onClick={() => setDublinZoom(false)}>
-              Back to all of Ireland
-            </button>
-          )}
-
-          <div className="map-legend">
-            <span>Circle area = recorded incidents</span>
-            <span><i className="dot-down" /> Down on {fromYear} · {toYear} count</span>
-            <span><i className="dot-up" /> Up on {fromYear}</span>
-          </div>
-
-          {stationMode && (
-            <p className="map-note">
-              Each symbol sits at the station itself, not at the centre of the area it
-              records — no catchment boundaries are published. Names are shown where they
-              fit; zoom in for the rest.
-            </p>
-          )}
-        </section>
-
-        <aside className="readout-rail" aria-label="Selected area">
-          <div className="readout">
-            <p className="rail-heading">
-              {selectedId === null
-                ? stationMode
-                  ? `All ${data.stations.length} station areas`
-                  : `All ${data.divisions.length} Divisions`
-                : stationMode
-                  ? "Dublin station area"
-                  : selectedId === DUBLIN_AGGREGATE
-                    ? "Dublin Metropolitan Region"
-                    : "Garda Division"}{" "}
-              · {toYear}
-            </p>
-            <h2>{selectedArea?.name ?? "—"}</h2>
-            <p className="readout-count">
-              {selectedCount === null ? "—" : numberFormat.format(selectedCount)}
-            </p>
-            <p className="readout-caption">
-              recorded incidents of {activeLabel}
-              {share !== null && <> — {share}% of everything recorded there</>}
-            </p>
-            <p className={`readout-change tone-${toneOf(selectedArea?.change ?? null)}`}>
-              {selectedArea?.change === null || selectedArea?.change === undefined
-                ? "No comparable baseline"
-                : `${formatChange(selectedArea.change)} on ${fromYear} (${numberFormat.format(selectedArea.from ?? 0)})`}
-            </p>
-          </div>
 
           <RecentReporting
             key={reportingDivisionIds.join(",")}
@@ -653,7 +859,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
               <span>{fromYear} → {toYear}</span>
             </div>
             <ol>
-              {ranked.map((area, index) => (
+              {listed.map((area) => (
                 <li key={area.id}>
                   <button
                     type="button"
@@ -664,7 +870,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
                         : setSelectedDivision((current) => (current === area.id ? null : area.id))
                     }
                   >
-                    <span className="rank">{index + 1}</span>
+                    <span className="rank">{rankOf[area.id]}</span>
                     <span className="rank-name">{area.name}</span>
                     <span className={`rank-change tone-${toneOf(area.change)}`}>
                       {area.change === null ? "—" : formatChange(area.change)}
@@ -673,6 +879,9 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
                 </li>
               ))}
             </ol>
+            {listed.length === 0 && (
+              <p className="rail-caption">Nothing here matches “{jump}”.</p>
+            )}
           </div>
         </aside>
       </div>
