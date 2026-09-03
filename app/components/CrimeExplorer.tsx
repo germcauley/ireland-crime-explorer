@@ -86,6 +86,31 @@ function yearTotal(series: Record<string, Array<number | null>>, code: string, i
   return value === undefined ? null : value;
 }
 
+/**
+ * Division series are quarterly (2003Q1 onward), station series are annual.
+ * Summing the four quarters of a year is what makes the two comparable — and
+ * indexing a quarterly series by a position in `meta.years` reads 2003Q1
+ * onward while labelling it 2019 onward.
+ */
+function quarterTotal(
+  series: Record<string, Array<number | null>>,
+  code: string,
+  quarters: number[],
+) {
+  const values = series[code];
+  if (!values) return null;
+  let total = 0;
+  let any = false;
+  quarters.forEach((index) => {
+    const value = values[index];
+    if (value !== undefined && value !== null) {
+      total += value;
+      any = true;
+    }
+  });
+  return any ? total : null;
+}
+
 export function CrimeExplorer({ data }: { data: DashboardData }) {
   const years = data.meta.years;
   const latest = years[years.length - 1];
@@ -154,17 +179,31 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     [data.divisions],
   );
 
+  /** Which positions in a Division's quarterly series belong to each year. */
+  const quartersByYear = useMemo(() => {
+    const out: Record<number, number[]> = {};
+    (data.meta.quarters ?? []).forEach((label, index) => {
+      const year = Number(label.slice(0, 4));
+      if (!Number.isFinite(year)) return;
+      (out[year] ??= []).push(index);
+    });
+    return out;
+  }, [data.meta.quarters]);
+
+  const fromQuarters = quartersByYear[fromYear] ?? [];
+  const toQuarters = quartersByYear[toYear] ?? [];
+
   /** The offence code in play: a sub-category if chosen, else the group. */
   const activeCode = stationMode ? (group === ALL_CRIME ? "all" : group) : sub ?? (group === ALL_CRIME ? null : group);
 
-  const divisionValue = (division: Division, index: number) => {
-    if (index < 0) return null;
+  const divisionValue = (division: Division, quarters: number[]) => {
+    if (quarters.length === 0) return null;
     if (activeCode === null) {
       // "All crime" nationally is the sum of the official groups.
       let total = 0;
       let any = false;
       data.divisionCategories.forEach((category) => {
-        const value = yearTotal(division.series, category.id, index);
+        const value = quarterTotal(division.series, category.id, quarters);
         if (value !== null) {
           total += value;
           any = true;
@@ -172,7 +211,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       });
       return any ? total : null;
     }
-    return yearTotal(division.series, activeCode, index);
+    return quarterTotal(division.series, activeCode, quarters);
   };
 
   const stationValue = (station: Station, index: number) =>
@@ -196,8 +235,8 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       });
     }
     return data.divisions.map((division) => {
-      const to = divisionValue(division, toIndex);
-      const from = divisionValue(division, fromIndex);
+      const to = divisionValue(division, toQuarters);
+      const from = divisionValue(division, fromQuarters);
       const [lat, lng] = divisionCentroids[division.id] ?? [null, null];
       return {
         id: division.id,
@@ -211,7 +250,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       };
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, stationMode, toIndex, fromIndex, activeCode, group, divisionCentroids]);
+  }, [data, stationMode, toIndex, fromIndex, toQuarters, fromQuarters, activeCode, group, divisionCentroids]);
 
   /** The six DMR Divisions summed, so the national map shows one Dublin. */
   const dublinAggregate = useMemo(() => {
@@ -339,7 +378,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
             : [];
     if (members.length === 0) return [];
     const total = (code: string) =>
-      members.reduce((sum, member) => sum + (yearTotal(member.series, code, index) ?? 0), 0);
+      members.reduce((sum, member) => sum + (quarterTotal(member.series, code, toQuarters) ?? 0), 0);
     return data.divisionCategories
       .map((category) => ({
         id: category.id,
@@ -352,7 +391,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         })),
       }))
       .sort((a, b) => b.count - a.count);
-  }, [data, dmrIds, selectedId, stationMode, toIndex]);
+  }, [data, dmrIds, selectedId, stationMode, toIndex, toQuarters]);
 
   const offenceMax = Math.max(1, ...offenceRows.map((row) => row.count));
   const allCrimeCount = offenceRows.reduce((sum, row) => sum + row.count, 0);
