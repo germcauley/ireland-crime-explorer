@@ -1,4 +1,6 @@
-<img src="public/logo-full.png" alt="Ireland Crime Explorer" width="200">
+<img src="public/logo-full.png" alt="" width="180" align="right">
+
+# Ireland Crime Explorer
 
 A map-first explorer of official recorded-crime incidents. Two geographies —
 28 national Garda Divisions, and the 41 Dublin Metropolitan Region station
