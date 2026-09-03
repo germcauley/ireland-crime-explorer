@@ -94,7 +94,10 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const [group, setGroup] = useState(ALL_CRIME);
   const [sub, setSub] = useState<string | null>(null);
   const [moreGroups, setMoreGroups] = useState(false);
-  const [selectedDivision, setSelectedDivision] = useState(data.divisions[0]?.id ?? "");
+  // Null is a real state, not a placeholder: the reader lands on the whole
+  // country and can get back to it. Clicking the selected symbol again clears,
+  // the same way clicking the open offence group clears back to all crime.
+  const [selectedDivision, setSelectedDivision] = useState<string | null>(null);
   const [selectedStation, setSelectedStation] = useState<string | null>(null);
   // Clicking the merged Dublin symbol zooms the national frame into the city
   // without leaving the nationwide tab — the station view is the other tab's job.
@@ -242,9 +245,35 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     }));
   }, [areas, dublinAggregate, dublinZoom, dmrIds, fromYear, stationMode]);
 
-  const selectedId = stationMode ? selectedStation ?? areas[0]?.id ?? "" : selectedDivision;
+  const selectedId = stationMode ? selectedStation : selectedDivision;
+
+  /** With nothing selected the readout describes the whole geography. */
+  const wholeGeography = useMemo(() => {
+    const sum = (key: "to" | "from") =>
+      areas.reduce<number | null>((total, area) => {
+        if (area[key] === null) return total;
+        return (total ?? 0) + (area[key] as number);
+      }, null);
+    const to = sum("to");
+    const from = sum("from");
+    return {
+      id: "",
+      name: stationMode ? "All 41 station areas" : "All of Ireland",
+      shortName: "",
+      lat: null,
+      lng: null,
+      to,
+      from,
+      change: percentageChange(to, from),
+    };
+  }, [areas, stationMode]);
+
   const selectedArea =
-    selectedId === DUBLIN_AGGREGATE ? dublinAggregate : areas.find((a) => a.id === selectedId) ?? areas[0];
+    selectedId === null
+      ? wholeGeography
+      : selectedId === DUBLIN_AGGREGATE
+        ? dublinAggregate ?? wholeGeography
+        : areas.find((a) => a.id === selectedId) ?? wholeGeography;
 
   /** Rankings never include the Dublin aggregate — it is not one of the 28. */
   const ranked = useMemo(
@@ -264,27 +293,36 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const offenceRows = useMemo(() => {
     const index = toIndex;
     if (stationMode) {
-      const station = data.stations.find((s) => s.id === selectedId);
-      if (!station) return [];
+      const stations =
+        selectedId === null ? data.stations : data.stations.filter((s) => s.id === selectedId);
+      if (stations.length === 0) return [];
       return data.categories
         .filter((category) => category.kind === "official")
         .map((category) => ({
           id: category.id,
           label: category.shortLabel,
-          count: yearTotal(station.series, category.id, index) ?? 0,
+          count: stations.reduce(
+            (sum, station) => sum + (yearTotal(station.series, category.id, index) ?? 0),
+            0,
+          ),
           children: [] as { id: string; label: string; count: number }[],
         }))
         .sort((a, b) => b.count - a.count);
     }
+    // Nothing selected means the whole country, so the breakdown describes
+    // what it is sitting next to rather than emptying out.
     const division =
-      selectedId === DUBLIN_AGGREGATE
+      selectedId === null || selectedId === DUBLIN_AGGREGATE
         ? null
         : data.divisions.find((d) => d.id === selectedId);
-    const members = selectedId === DUBLIN_AGGREGATE
-      ? data.divisions.filter((d) => dmrIds.has(d.id))
-      : division
-        ? [division]
-        : [];
+    const members =
+      selectedId === null
+        ? data.divisions
+        : selectedId === DUBLIN_AGGREGATE
+          ? data.divisions.filter((d) => dmrIds.has(d.id))
+          : division
+            ? [division]
+            : [];
     if (members.length === 0) return [];
     const total = (code: string) =>
       members.reduce((sum, member) => sum + (yearTotal(member.series, code, index) ?? 0), 0);
@@ -323,10 +361,18 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
   const reportingDivisionIds = useMemo(() => {
     if (stationMode) return Array.from(dmrIds);
     if (selectedId === DUBLIN_AGGREGATE) return Array.from(dmrIds);
+    // Nothing selected pools the country, so the landing view still offers the
+    // reporting rather than hiding it until an area is picked.
+    if (selectedId === null) return data.divisions.map((d) => d.id);
     return [selectedId];
-  }, [dmrIds, selectedId, stationMode]);
+  }, [data.divisions, dmrIds, selectedId, stationMode]);
 
-  const reportingName = stationMode || selectedId === DUBLIN_AGGREGATE ? "Dublin" : selectedArea?.name ?? "";
+  const reportingName =
+    stationMode || selectedId === DUBLIN_AGGREGATE
+      ? "Dublin"
+      : selectedId === null
+        ? "Ireland"
+        : selectedArea?.name ?? "";
 
   function pickYear(which: "from" | "to", year: number) {
     // Clamp rather than refuse: picking a From at or past To pushes To along.
@@ -341,15 +387,21 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
 
   function selectFromMap(id: string) {
     if (stationMode) {
-      setSelectedStation(id);
+      setSelectedStation((current) => (current === id ? null : id));
       return;
     }
     if (id === DUBLIN_AGGREGATE) {
+      // Clicking Dublin again steps back out rather than re-zooming.
+      if (selectedDivision === DUBLIN_AGGREGATE) {
+        setSelectedDivision(null);
+        setDublinZoom(false);
+        return;
+      }
       setSelectedDivision(DUBLIN_AGGREGATE);
       setDublinZoom(true);
       return;
     }
-    setSelectedDivision(id);
+    setSelectedDivision((current) => (current === id ? null : id));
   }
 
   function switchView(next: "atlas" | "dublin") {
@@ -357,7 +409,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     setDublinZoom(false);
     setSub(null);
     if (next === "dublin" && !selectedStation) setSelectedStation(data.stations[0]?.id ?? null);
-    if (next === "atlas" && selectedDivision === DUBLIN_AGGREGATE) setSelectedDivision(data.divisions[0]?.id ?? "");
+    if (next === "atlas" && selectedDivision === DUBLIN_AGGREGATE) setSelectedDivision(null);
   }
 
   if (view === "about") {
@@ -560,7 +612,16 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         <aside className="readout-rail" aria-label="Selected area">
           <div className="readout">
             <p className="rail-heading">
-              {stationMode ? "Dublin station area" : selectedId === DUBLIN_AGGREGATE ? "Dublin Metropolitan Region" : "Garda Division"} · {toYear}
+              {selectedId === null
+                ? stationMode
+                  ? `All ${data.stations.length} station areas`
+                  : `All ${data.divisions.length} Divisions`
+                : stationMode
+                  ? "Dublin station area"
+                  : selectedId === DUBLIN_AGGREGATE
+                    ? "Dublin Metropolitan Region"
+                    : "Garda Division"}{" "}
+              · {toYear}
             </p>
             <h2>{selectedArea?.name ?? "—"}</h2>
             <p className="readout-count">
@@ -597,7 +658,11 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
                   <button
                     type="button"
                     className={area.id === selectedId ? "is-selected" : ""}
-                    onClick={() => (stationMode ? setSelectedStation(area.id) : setSelectedDivision(area.id))}
+                    onClick={() =>
+                      stationMode
+                        ? setSelectedStation((current) => (current === area.id ? null : area.id))
+                        : setSelectedDivision((current) => (current === area.id ? null : area.id))
+                    }
                   >
                     <span className="rank">{index + 1}</span>
                     <span className="rank-name">{area.name}</span>
