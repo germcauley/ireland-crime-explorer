@@ -1,4 +1,8 @@
-<img src="public/logo-full.png" alt="" width="180" align="left">
+<!-- Absolute raw URL, not a relative path: GitHub rewrites relative paths
+     inside markdown image syntax but leaves them alone inside raw <img>,
+     where the browser then resolves them against the page and 404s. -->
+<img src="https://raw.githubusercontent.com/germcauley/ireland-crime-explorer/main/public/logo-full.png"
+     alt="" width="180" align="left">
 
 # Ireland Crime Explorer
 
