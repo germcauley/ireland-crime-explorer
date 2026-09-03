@@ -32,6 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL(origin),
     title: "Ireland Crime Explorer",
     description,
+    icons: { icon: "/icon.png", apple: "/apple-icon.png" },
     openGraph: {
       type: "website",
       title: "Ireland Crime Explorer",

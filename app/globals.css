@@ -68,6 +68,13 @@ button { font: inherit; color: inherit; }
 
 /* Masthead ---------------------------------------------------------------- */
 .masthead { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.masthead-title { display: flex; align-items: flex-start; gap: 14px; }
+.masthead-mark { width: 52px; height: auto; flex: 0 0 auto; margin-top: 2px; }
+/* One mark per theme rather than a filter, so the bars keep their hue. */
+.masthead-mark.is-dark { display: none; }
+:root[data-theme="dark"] .masthead-mark.is-light { display: none; }
+:root[data-theme="dark"] .masthead-mark.is-dark { display: block; }
+.is-narrow .masthead-mark { width: 40px; }
 .masthead h1 {
   margin: 0;
   font-size: 34px;

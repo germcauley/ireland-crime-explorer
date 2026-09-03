@@ -703,11 +703,19 @@ function Masthead({
 }) {
   return (
     <header className="masthead">
-      <div>
-        <h1>Ireland Crime Explorer</h1>
-        <p className="dateline">
-          Official recorded-crime incidents · CSO CJA11 and CJQ06 · 2019–{latest}
-        </p>
+      <div className="masthead-title">
+        {/* The mark only: the wordmark beside it already says the name, and the
+            logo's own lettering would repeat it. Two files rather than a CSS
+            filter, because inverting would flip the teal and magenta bars —
+            the same pair the map uses for down and up. */}
+        <img className="masthead-mark is-light" src="/logo-mark.png" alt="" width={52} height={60} />
+        <img className="masthead-mark is-dark" src="/logo-mark-dark.png" alt="" width={52} height={60} />
+        <div>
+          <h1>Ireland Crime Explorer</h1>
+          <p className="dateline">
+            Official recorded-crime incidents · CSO CJA11 and CJQ06 · 2019–{latest}
+          </p>
+        </div>
       </div>
       <div className="masthead-actions">
         <button
