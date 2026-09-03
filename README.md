@@ -4,6 +4,8 @@
 <img src="https://raw.githubusercontent.com/germcauley/ireland-crime-explorer/main/public/logo-full.png"
      alt="" width="200" >
 
+https://ireland-crime-explorer.vercel.app/
+
 # Ireland Crime Explorer
 
 A map-first explorer of official recorded-crime incidents. Two geographies —
