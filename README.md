@@ -1,4 +1,4 @@
-<img src="public/logo-full.png" alt="" width="180" align="right">
+<img src="public/logo-full.png" alt="" width="180" align="left">
 
 # Ireland Crime Explorer
 
