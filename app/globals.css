@@ -439,6 +439,16 @@ button { font: inherit; color: inherit; }
 
 .explorer-footnote { margin: 0; font-size: 14px; color: var(--color-neutral-700); max-width: 78ch; }
 
+/* The disclosure view is a page, not the fixed map frame: it scrolls, and it
+   keeps its margins. */
+.explorer.is-narrow.is-about {
+  height: auto;
+  overflow: visible;
+  padding: 0 18px calc(30px + env(safe-area-inset-bottom));
+  gap: 16px;
+}
+.explorer.is-narrow.is-about .masthead { padding-left: 0; padding-right: 0; }
+
 /* Phone: a fixed frame of bar, map and sheet ------------------------------ */
 /* Nothing scrolls the page. The map takes whatever the sheet leaves, and the
    sheet snaps between three heights, so the ranking is two taps from landing
@@ -508,8 +518,8 @@ button { font: inherit; color: inherit; }
   right: 72px;
   z-index: 2;
   margin: 0;
-  gap: 14px;
-  font-size: 12px;
+  gap: 10px;
+  font-size: 11.5px;
   pointer-events: none;
 }
 .is-narrow .map-back { position: absolute; top: 36px; left: 16px; z-index: 2; margin: 0; }

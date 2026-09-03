@@ -508,7 +508,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
 
   if (view === "about") {
     return (
-      <main className="explorer" ref={root}>
+      <main className={`explorer is-about${narrow ? " is-narrow" : ""}`} ref={root}>
         <Masthead
           latest={latest}
           theme={theme}
@@ -766,10 +766,15 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
             </button>
           )}
 
+          {/* The legend sits over the map on a phone, so it says the same
+              thing in fewer words rather than wrapping across the coastline. */}
           <div className="map-legend">
-            <span>Circle area = recorded incidents</span>
-            <span><i className="dot-down" /> Down on {fromYear} · {toYear} count</span>
-            <span><i className="dot-up" /> Up on {fromYear}</span>
+            <span>Circle area = {narrow ? "incidents" : "recorded incidents"}</span>
+            <span>
+              <i className="dot-down" /> Down on {fromYear}
+              {!narrow && <> · {toYear} count</>}
+            </span>
+            <span><i className="dot-up" /> Up{!narrow && <> on {fromYear}</>}</span>
           </div>
 
           {stationMode && (
