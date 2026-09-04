@@ -25,6 +25,14 @@ CJQ06_URL = (
     "https://ws.cso.ie/public/api.restful/"
     "PxStat.Data.Cube_API.ReadDataset/CJQ06/JSON-stat/2.0/en"
 )
+# CJQ06 was archived on 25 June 2026 and replaced by CJQ10, which restates the
+# whole series on the current Garda Divisional structure — 21 Divisions rather
+# than the 2011/2013 structure's 28. Fetched here so the raw archive has it
+# from now on; nothing reads it yet (see docs/roadmap.md, item 0).
+CJQ10_URL = (
+    "https://ws.cso.ie/public/api.restful/"
+    "PxStat.Data.Cube_API.ReadDataset/CJQ10/JSON-stat/2.0/en"
+)
 STATION_POINTS_URL = (
     "https://data.smartdublin.ie/dataset/87ce5c48-d0de-4968-b596-4002d156105d/"
     "resource/54c2e63b-8c9e-4b49-bf49-7d3a1ba499d4/download/"
@@ -68,11 +76,13 @@ def main() -> None:
 
     cso_payload = fetch_json(CSO_URL)
     cjq06_payload = fetch_json(CJQ06_URL)
+    cjq10_payload = fetch_json(CJQ10_URL)
     station_points = fetch_json(STATION_POINTS_URL)
     division_boundaries_zip = fetch_bytes(DIVISION_BOUNDARIES_URL)
 
     write_json(RAW_DIR / "cja11.json", cso_payload)
     write_json(RAW_DIR / "cjq06.json", cjq06_payload)
+    write_json(RAW_DIR / "cjq10.json", cjq10_payload)
     write_json(GEOGRAPHY_DIR / "dublin_garda_stations.geojson", station_points)
     (GEOGRAPHY_DIR / "garda_divisions.zip").write_bytes(division_boundaries_zip)
     write_json(
@@ -83,12 +93,15 @@ def main() -> None:
             "cso_url": CSO_URL,
             "cjq06_table": "CJQ06",
             "cjq06_url": CJQ06_URL,
+            "cjq06_archived": "2026-06-25, replaced by CJQ10",
+            "cjq10_table": "CJQ10",
+            "cjq10_url": CJQ10_URL,
             "station_points_url": STATION_POINTS_URL,
             "division_boundaries_url": DIVISION_BOUNDARIES_URL,
             "classification_mapping_version": "1.0.0",
         },
     )
-    print("Fetched CJA11, CJQ06, Dublin Garda station points and division boundaries.")
+    print("Fetched CJA11, CJQ06, CJQ10, Dublin Garda station points and division boundaries.")
 
 
 if __name__ == "__main__":
