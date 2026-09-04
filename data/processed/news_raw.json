@@ -1,9 +1,259 @@
 {
  "meta": {
-  "fetchedAt": "2026-09-04T07:33:37.120115+00:00",
+  "fetchedAt": "2026-09-04T09:20:53.808308+00:00",
   "feedCount": 25
  },
  "articles": [
+  {
+   "id": "3e252d47717de299",
+   "title": "'I wanted to close all this off': Kevin McHugh says no to proposed Harps role",
+   "description": "",
+   "url": "https://www.donegaldaily.com/sport-lead/i-wanted-to-close-all-this-off-kevin-mchugh-says-no-to-proposed-harps-role-648193",
+   "source": "Donegal Daily",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T10:04:31+00:00",
+   "fetchedAt": "2026-09-04T09:20:51.671641+00:00"
+  },
+  {
+   "id": "41ed2200d05173f6",
+   "title": "Dublin Zoo to close for two days next week facilitate Trump’s visit to Dublin",
+   "description": "Trump will pay a visit to the Áras when he arrives in Ireland on Saturday week.",
+   "url": "https://www.thejournal.ie/all-gates-and-roads-of-phoenix-park-to-close-from-thursday-to-saturday-for-trump-visit-7152435-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-04T09:18:02+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.333232+00:00"
+  },
+  {
+   "id": "4a949b11cbd1e018",
+   "title": "Four Donegal entries make final of Full Circle Awards",
+   "description": "",
+   "url": "https://www.donegaldaily.com/news/four-donegal-entries-make-final-of-full-circle-awards-648188",
+   "source": "Donegal Daily",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T09:12:12+00:00",
+   "fetchedAt": "2026-09-04T09:20:51.671679+00:00"
+  },
+  {
+   "id": "0493a751933203f6",
+   "title": "Waterford’s Irish Open Connection Puts the Spotlight on a County Built for Golf",
+   "description": "As the world’s leading golfers prepare to compete for the Amgen Irish Open, Waterford is putting its own golfing credentials in the spotlight – with the prestigious tournament trophy once again being handcrafted in Ireland’s oldest city. Designed by Waterford Senior Product Designer Matt Kehoe and introduced in 2022, the Amgen Irish Open trophy is […]",
+   "url": "https://wlrfm.com/sport/waterfords-irish-open-connection-puts-the-spotlight-on-a-county-built-for-golf-4488368/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T09:04:15+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.566611+00:00"
+  },
+  {
+   "id": "94e90ca406a3c1d4",
+   "title": "Shock as boy, 12, killed in train collision in Mayo",
+   "description": "",
+   "url": "https://www.donegaldaily.com/news/shock-as-boy-12-killed-in-train-collision-in-mayo-648186",
+   "source": "Donegal Daily",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T09:00:33+00:00",
+   "fetchedAt": "2026-09-04T09:20:51.671706+00:00"
+  },
+  {
+   "id": "9c6d4f5000ca4537",
+   "title": "€4.5 million investment for Mayo as new diagnostic imaging centre opens",
+   "description": "The purpose-built, multi-modality centre brings together MRI, CT, Ultrasound and X-ray services under one roof, combining advanced imaging technology with local clinical expertise in a modern outpatient setting.",
+   "url": "https://www.mayonews.ie/news/eu45-million-investment-for-mayo-as-new-diagnostic-imaging-centre-opens-8959743",
+   "source": "Mayo News",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T09:00:29+00:00",
+   "fetchedAt": "2026-09-04T09:20:49.917267+00:00"
+  },
+  {
+   "id": "0a2a643b468e2ef0",
+   "title": "Mullooly says it’s vital that the UK and EU align their policies on Brazilian beef",
+   "description": "Midlands North West MEP Ciaran Mullooly says it’s important that the UK align its policy regarding that of Brazilian beef with that of the EU, where a two-year ban is now in effect. On today’s Greg Hughes Show, Mr Mullooly acknowledged that any Brazilian beef already in the system is here legally and cannot be […]",
+   "url": "https://highlandradio.com/2026/09/04/mullooly-says-its-vital-that-the-uk-and-eu-align-their-policies-on-brazilian-beef/",
+   "source": "Highland Radio",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T08:52:21+00:00",
+   "fetchedAt": "2026-09-04T09:20:52.321800+00:00"
+  },
+  {
+   "id": "e3b31775692e6455",
+   "title": "Mayo train crash LIVE: 'Significant disruption' to Irish Rail services after boy dies in Ballyhaunis tragedy",
+   "description": "Gardaí are appealing for information after a car collided with a train at Kiltybo, Ballyhaunis, Co Mayo",
+   "url": "https://www.irishmirror.ie/news/irish-news/crash-mayo-train-car-delays-37625959",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-04T08:44:50+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.038722+00:00"
+  },
+  {
+   "id": "8dd27873153c437b",
+   "title": "Ireland weather boffins monitoring major system with 112km/h winds risk",
+   "description": "The low pressure system could bring winds in excess of 110km/h",
+   "url": "https://www.dublinlive.ie/news/ireland-weather-boffins-monitoring-major-34565885",
+   "source": "Dublin Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T08:44:21+00:00",
+   "fetchedAt": "2026-09-04T09:20:51.666763+00:00"
+  },
+  {
+   "id": "f51daf6178b80174",
+   "title": "Next shoppers 'can't wait to wear' faux suede jacket that's 'great value for money'",
+   "description": "\"My wife bought this two weeks ago, she loves the fit and can't wait until it's cooler to wear.\"",
+   "url": "https://www.corkbeo.ie/culture/whats-on-news/next-shoppers-cant-wait-wear-34565793",
+   "source": "Cork Beo",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T08:36:10+00:00",
+   "fetchedAt": "2026-09-04T09:20:51.639965+00:00"
+  },
+  {
+   "id": "30e44bcb52d6e6e9",
+   "title": "Met Éireann's weekend weather - autumn moving in but summer temps hanging around",
+   "description": "Met Éireann has delivered its weather verdict for the weekend - and it's looking mild, muggy and damp.",
+   "url": "https://www.corkbeo.ie/news/local-news/met-eireanns-weekend-weather-autumn-34565733",
+   "source": "Cork Beo",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T08:33:36+00:00",
+   "fetchedAt": "2026-09-04T09:20:51.640014+00:00"
+  },
+  {
+   "id": "f997f2dc003ac2a3",
+   "title": "Ireland weather: Country set for 'changeable and often unsettled' weekend",
+   "description": "Summer is over and autumn is truly here",
+   "url": "https://www.irishmirror.ie/weather/ireland-weekend-weather-forecast-rain-37626092",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-04T08:24:34+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.038760+00:00"
+  },
+  {
+   "id": "9980b02674dedbf6",
+   "title": "Irish Rail statement as boy, 12, killed in Mayo level crossing tragedy",
+   "description": "The horror unfolded at a level crossing in Kiltybo near Ballyhaunis",
+   "url": "https://www.dublinlive.ie/news/irish-rail-statement-boy-12-34565773",
+   "source": "Dublin Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T08:21:55+00:00",
+   "fetchedAt": "2026-09-04T09:20:51.666798+00:00"
+  },
+  {
+   "id": "4aa780ae840e6aa0",
+   "title": "Breaking: Boy aged 12 dies after train smashes into car in Co Mayo",
+   "description": "A 12-year-old boy has died after the car he was travelling in was struck by a train at a level crossing in Co Mayo. The collision happened shortly before 9pm on Wednesday at a user-operated crossing in Kiltybo, near Ballyhaunis. The young boy was pronounced dead at the scene. A man in his late 40s, […]",
+   "url": "https://wlrfm.com/news/breaking-boy-aged-12-dies-after-train-smashes-into-car-in-co-mayo-4488339/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T08:21:12+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.566699+00:00"
+  },
+  {
+   "id": "d971ee6a499e903e",
+   "title": "Two Waterford circular champions shortlisted for national Full Circle Awards",
+   "description": "Circular.ie, Ireland’s national platform for circular economy, has today announced the Waterford finalists shortlisted for the Full Circle Awards 2026, recognising individuals, organisations and community groups who are leading the way in circular living, reuse, repair and sustainability in their local communities. Returning for a second year, the awards, which are funded by the Government […]",
+   "url": "https://wlrfm.com/news/two-waterford-circular-champions-shortlisted-for-national-full-circle-awards-4488336/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T08:21:04+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.566783+00:00"
+  },
+  {
+   "id": "ba82d03dfb7cbfbf",
+   "title": "Traditional music quartet to bring 40th anniversary tour to Belltable",
+   "description": "Four of Ireland’s leading traditional musicians will come together for a nationwide autumn tour, with a stop in Limerick among the highlights of the run. Muireann Nic Amhlaoibh, Pauline Scanlon, Tom Morrow and John Doyle will perform as part of Music Network’s 40th anniversary celebrations, touring from Wednesday September 16 to Saturday October 3. The […]",
+   "url": "https://www.limerickpost.ie/2026/09/04/traditional-music-quartet-to-bring-40th-anniversary-tour-to-belltable/",
+   "source": "Limerick Post",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T08:20:05+00:00",
+   "fetchedAt": "2026-09-04T09:20:51.196485+00:00"
+  },
+  {
+   "id": "db295387f826d386",
+   "title": "Iarnród Éireann express sympathies to family of Mayo boy who died in train collision",
+   "description": "They also thanked all who responded to the tragic incident for the professionalism and care shown to those involved",
+   "url": "https://www.mayonews.ie/news/iarnrod-eireann-express-sympathies-to-family-of-mayo-boy-who-died-in-train-collision-8959631",
+   "source": "Mayo News",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T08:15:19+00:00",
+   "fetchedAt": "2026-09-04T09:20:49.917315+00:00"
+  },
+  {
+   "id": "1be080ca49b30a5e",
+   "title": "Over 800 barrels of Guinness, worth around €135,000, stolen from two trailers in English depot",
+   "description": "‘It is famously said that “Guinness is good for you”, but that is only the case when it has been bought and paid for.’",
+   "url": "https://www.thejournal.ie/over-800-barrels-of-guinness-stolen-from-two-trailers-in-english-depot-7152389-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-04T08:15:17+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.333274+00:00"
+  },
+  {
+   "id": "f3f2effd0791df4f",
+   "title": "'Nearly as bad as a title fight': Bernard Dunne did his Irish Leaving Cert exam this year",
+   "description": "Dunne said it was the only subject he failed in his Leaving Cert.",
+   "url": "https://www.thejournal.ie/bernard-dunne-irish-leaving-cert-7152392-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-04T08:11:24+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.333330+00:00"
+  },
+  {
+   "id": "5169f1e16a976d48",
+   "title": "Cocaine accused allegedly taken into North by mistake on journey to Ballyshannon court",
+   "description": "A 44-year-old man who is facing a cocaine possession charge, was allegedly transported through Northern Ireland by mistake while being brought to Ballyshannon District Court. The Irish Mirror reports that Patrick Irwin from Corrowgubaddagh, Ballisodare, County Sligo, was being transported by the Irish Prison Service for a bail hearing, when the vehicle crossed the border […]",
+   "url": "https://highlandradio.com/2026/09/04/cocaine-accused-allegedly-taken-into-north-by-mistake-on-journey-to-ballyshannon-court/",
+   "source": "Highland Radio",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T08:10:53+00:00",
+   "fetchedAt": "2026-09-04T09:20:52.321896+00:00"
+  },
+  {
+   "id": "b3ccc641e5d70025",
+   "title": "RIP: 12-year-old boy dies after car hit by train on level crossing in Mayo",
+   "description": "The young boy was pronounced dead at the scene in Kiltybo near Ballyhaunis.",
+   "url": "https://www.connachttribune.ie/national/rip-12-year-old-boy-dies-after-car-hit-by-train-on-level-crossing-in-mayo-8959562",
+   "source": "Connacht Tribune",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T08:05:37+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.151919+00:00"
+  },
+  {
+   "id": "f1285016c9eee9bf",
+   "title": "RIP: 12-year-old boy dies after car hit by train on level crossing in Mayo",
+   "description": "The young boy was pronounced dead at the scene in Kiltybo near Ballyhaunis.",
+   "url": "https://www.limerickleader.ie/national/rip-12-year-old-boy-dies-after-car-hit-by-train-on-level-crossing-in-mayo-8959562",
+   "source": "Limerick Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T08:05:37+00:00",
+   "fetchedAt": "2026-09-04T09:20:49.882232+00:00"
+  },
+  {
+   "id": "c4c916ac2684e8af",
+   "title": "RIP: 12-year-old boy dies after car hit by train on level crossing in Mayo",
+   "description": "The young boy was pronounced dead at the scene in Kiltybo near Ballyhaunis.",
+   "url": "https://www.offalyexpress.ie/national/rip-12-year-old-boy-dies-after-car-hit-by-train-on-level-crossing-in-mayo-8959562",
+   "source": "Offaly Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T08:05:37+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.794957+00:00"
+  },
+  {
+   "id": "4b68b0f08d9c45ba",
+   "title": "Mr Moonlight murder case to be turned into major new TV drama",
+   "description": "The infamous ‘Mr Moonlight’ murder case, which gripped the nation seven years ago, is being turned into a major TV drama for RTÉ and the BBC. The new five-part series is based on the story of the killing of truck driver and part-time DJ Bobby Ryan. Set within a close-knit rural community, The Murder Of […]",
+   "url": "https://wlrfm.com/lifestyle/mr-moonlight-murder-case-to-be-turned-into-major-new-tv-drama-4488306/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T08:04:41+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.566858+00:00"
+  },
+  {
+   "id": "f8269b5791268a14",
+   "title": "Waterford FC and Sligo Rovers meet again with FAI Cup semi-final place at stake",
+   "description": "Waterford FC return to the RSC tonight with a place in the FAI Cup semi-finals up for grabs as Sligo Rovers make the trip south-east for a quarter-final meeting. It will be the fifth time the sides have faced each other this season, with the Blues going into the game in excellent form after extending […]",
+   "url": "https://wlrfm.com/sport/waterford-fc-and-sligo-rovers-meet-again-with-fai-cup-semi-final-place-at-stake-4488325/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T08:01:55+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.566929+00:00"
+  },
   {
    "id": "a640522757451d99",
    "title": "He fought under Ali, now Paddy Doherty returns to Croke Park for Katie farewell",
@@ -15,6 +265,206 @@
    "fetchedAt": "2026-09-04T07:33:35.019736+00:00"
   },
   {
+   "id": "fd21c2345ae5c296",
+   "title": "NTA puts €6m value on Adare Ryder Cup ‘park and ride’ and ‘train and ride’ services",
+   "description": "THE National Transport Authority (NTA) has put a €6million estimate on a contract to provide ‘park and ride’ and ‘train and ride’ services for the 2027 Ryder Cup in Adare, County Limerick. In tender documents, the NTA is seeking transport firms to operate the passenger transport services for the event over six days. The staging […]",
+   "url": "https://www.limerickpost.ie/2026/09/04/nta-puts-e6m-value-on-adare-ryder-cup-park-and-ride-and-train-and-ride-services/",
+   "source": "Limerick Post",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T08:00:47+00:00",
+   "fetchedAt": "2026-09-04T09:20:51.196614+00:00"
+  },
+  {
+   "id": "f96b72460e800ef5",
+   "title": "Music for Galway Breaking Boundaries with exciting new programme",
+   "description": "Next March will mark the 200th anniversary of the death of composer Ludwig van Beethoven – and that significant anniversary has inspired the theme of Music for Galway’s upcoming concert season.",
+   "url": "https://www.connachttribune.ie/news/music-for-galway-breaking-boundaries-with-exciting-new-programme-8958960",
+   "source": "Connacht Tribune",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T08:00:46+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.151975+00:00"
+  },
+  {
+   "id": "324ddaa1bd08a237",
+   "title": "Will Kobe McDonald actually return for Crossmolina against Mayo Gaels?",
+   "description": "After six weeks which saw major moments in Croke Park, Australia, and Electric Picnic, the youngster is back in Mayo",
+   "url": "https://www.mayonews.ie/sport/gaa/will-kobe-mcdonald-actually-return-for-crossmolina-against-mayo-gaels-8958707",
+   "source": "Mayo News",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T08:00:41+00:00",
+   "fetchedAt": "2026-09-04T09:20:49.917351+00:00"
+  },
+  {
+   "id": "0b5224a20cf322d3",
+   "title": "Woman inmate told go to window for breath of air if gripped by panic attack",
+   "description": "Court hears that prisoner suffers from mental health problems",
+   "url": "https://www.irishtimes.com/crime-law/courts/2026/09/04/woman-inmate-told-go-to-window-for-breath-of-air-if-gripped-by-panic-attack/",
+   "source": "Irish Times",
+   "scope": "national",
+   "publishedAt": "2026-09-04T08:00:00+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.127144+00:00"
+  },
+  {
+   "id": "81d07d69125d0a66",
+   "title": "'Disruption' to Dublin-bound train services after boy dies in level crossing tragedy: latest updates",
+   "description": "Gardaí are appealing for information after a car collided with a train",
+   "url": "https://www.dublinlive.ie/news/crash-mayo-train-car-delays-34565641",
+   "source": "Dublin Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T07:57:07+00:00",
+   "fetchedAt": "2026-09-04T09:20:51.666831+00:00"
+  },
+  {
+   "id": "a4229889f8fc0ffd",
+   "title": "Fianna Fail national think-in to take place in Tullamore next week",
+   "description": "FIANNA Fail's annual national think-in will take place in Tullamore on Monday and Tuesday next, September 8 and 9 next, bringing ministers, TDs, senators and party members from across the country to Offaly for one of the most important events in the political calendar.",
+   "url": "https://www.offalyexpress.ie/news/politics/fianna-fail-national-think-in-to-take-place-in-tullamore-next-week-8940001",
+   "source": "Offaly Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T07:55:34+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.795017+00:00"
+  },
+  {
+   "id": "b084cc09e307386e",
+   "title": "Irish Rail statement in full as 12-year-old boy killed in Mayo level crossing tragedy",
+   "description": "The horror unfolded at a level crossing in Kiltybo near Ballyhaunis",
+   "url": "https://www.irishmirror.ie/news/irish-news/irish-rail-level-crossing-mayo-37626054",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-04T07:52:04+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.038793+00:00"
+  },
+  {
+   "id": "a2cd81a54f04b85e",
+   "title": "Seven Waterford GAA Championship clashes to look forward to this weekend",
+   "description": "There is another busy weekend of championship action on the way in Waterford, with seven games across football and hurling set to take place from Friday evening through to Sunday. There is plenty at stake across the three days, with the County Junior C Hurling Final taking centre stage on Friday night, while the Intermediate […]",
+   "url": "https://wlrfm.com/sport/seven-waterford-gaa-championship-clashes-to-look-forward-to-this-weekend-4488318/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T07:51:49+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.566999+00:00"
+  },
+  {
+   "id": "3949d338de2289ef",
+   "title": "The 9 at 9: Friday",
+   "description": "Train collision in Mayo, a warning over e-scooters, and a new report on over-inflated house prices…",
+   "url": "https://www.thejournal.ie/news-headlines-today-friday-7152371-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-04T07:49:42+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.333359+00:00"
+  },
+  {
+   "id": "c42e1b8038c32585",
+   "title": "'Significant degree' of overvaluation in Irish housing market",
+   "description": "The ESRI said the pre-crisis period was \"driven by excessive credit growth and loose lending standards\" while the current situation appears to be \"primarily an affordability issue\"",
+   "url": "https://www.irishmirror.ie/news/irish-news/significant-degree-overvaluation-irish-housing-37626039",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-04T07:48:01+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.038842+00:00"
+  },
+  {
+   "id": "4bf3f2356cb5b1a1",
+   "title": "'Worst August on record' as thousands of patients without beds in Limerick and Cork hospitals",
+   "description": "University Hospital Limerick and Cork University Hospital the two most overcrowded hospitals",
+   "url": "https://www.corkbeo.ie/news/local-news/worst-august-record-thousands-patients-34563364",
+   "source": "Cork Beo",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T07:45:29+00:00",
+   "fetchedAt": "2026-09-04T09:20:51.640049+00:00"
+  },
+  {
+   "id": "8bf777d665abbfe3",
+   "title": "Irish overseas aid up but US cuts devastating - minister",
+   "description": "Minister of State for International Development and Diaspora Neale Richmond has said the impact of the US drastically cutting its aid to countries has been \"devastating\".",
+   "url": "https://www.rte.ie/news/2026/0904/1590293-irish-aid/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-04T07:43:39+00:00",
+   "fetchedAt": "2026-09-04T09:20:49.736570+00:00"
+  },
+  {
+   "id": "4058853ef2502fd4",
+   "title": "Boy dies after car hit by train on level crossing in Co Mayo",
+   "description": "The 12-year-old was pronounced dead at the scene in Kiltybo near Ballyhaunis.",
+   "url": "https://www.leitrimobserver.ie/national/boy-dies-after-car-hit-by-train-on-level-crossing-in-co-mayo-8959562",
+   "source": "Leitrim Observer",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T07:42:36+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.730151+00:00"
+  },
+  {
+   "id": "0ae94cb90252a3b4",
+   "title": "Saoirse-Monica Jackson’s ode to Dolly Parton would make her Derry Girls character proud",
+   "description": "Saoirse-Monica Jackson has paid homage to the late great Dolly Parton in a way that would make her Derry Girls character, Erin Quinn, proud. While the actress has long pointed out the differences between herself and her on-screen character (accent aside, of course), their love of Dolly Parton appears to unite the pair. Saoirse-Monica and […]",
+   "url": "https://wlrfm.com/lifestyle/saoirse-monica-jacksons-ode-to-dolly-parton-would-make-her-derry-girls-character-proud-4488042/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T07:41:47+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.567078+00:00"
+  },
+  {
+   "id": "242bfd11b881f3e1",
+   "title": "Police appeal after car damaged in Derry",
+   "description": "Police in Derry are appealing for information following an incident of criminal damage on Wednesday night. A dark blue Ford Focus was parked on Duke Street at around 11pm when it was damaged by an unknown person. Anyone who witnessed the incident or has dashcam footage is asked to contact police on 101.",
+   "url": "https://highlandradio.com/2026/09/04/police-appeal-after-car-damaged-in-derry/",
+   "source": "Highland Radio",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T07:40:55+00:00",
+   "fetchedAt": "2026-09-04T09:20:52.321959+00:00"
+  },
+  {
+   "id": "bcf548922cc1fe29",
+   "title": "Waterford football championships continue with busy weekend programme",
+   "description": "The Waterford club football championships continue this weekend with a packed schedule of games across the Intermediate and Junior grades. There are three games down for decision in the Radley Engineering Intermediate Football Championship on Saturday. Affane/Cappoquin/Tourin take on Sliabh gCua at 2pm in Colligan, while Ballynaeelagh meet Shamrocks at 3.45pm in Lismore. At 3.30pm, […]",
+   "url": "https://wlrfm.com/sport/waterford-football-championships-continue-with-busy-weekend-programme-4488300/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T07:40:29+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.567152+00:00"
+  },
+  {
+   "id": "8d22ede3e94b90d5",
+   "title": "Wet and cloudy weekend in store but highs of up to 22 degrees on Sunday",
+   "description": "Tomorrow morning will start mostly dry with sunny spells, but cloud will increase through the morning and rain or drizzle will extend to most areas throughout the day.",
+   "url": "https://www.thejournal.ie/wet-and-cloudy-weekend-in-store-but-highs-of-up-to-22-degrees-on-sunday-7152373-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-04T07:37:57+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.333396+00:00"
+  },
+  {
+   "id": "076f4af7f3ce8d93",
+   "title": "Gardaí warn Donegal public over new ‘quishing’ QR code scam",
+   "description": "Gardaí in Donegal are warning the public about a new type of fraud known as ‘quishing’, which uses fake QR codes to steal personal and payment information. Scammers place malicious QR code stickers over genuine codes in public places, such as parking meters, EV charging stations and event posters. Scanning the fake code can redirect […]",
+   "url": "https://highlandradio.com/2026/09/04/gardai-warn-donegal-public-over-new-quishing-qr-code-scam/",
+   "source": "Highland Radio",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T07:34:37+00:00",
+   "fetchedAt": "2026-09-04T09:20:52.322036+00:00"
+  },
+  {
+   "id": "3a1001ed43805caf",
+   "title": "Section G at Richmond Park to close for two St Patrick’s Athletic home games",
+   "description": "St Patrick’s Athletic have been hit with a fine and a two-match closure of Section G of the Main Stand at Richmond Park following an incident involving a spectator during their SSE Airtricity Men’s Premier Division game against Waterford FC last Friday. The match on August 28th saw a Waterford FC player struck by a […]",
+   "url": "https://wlrfm.com/sport/section-g-at-richmond-park-to-close-for-two-st-patricks-athletic-home-games-4488296/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T07:33:50+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.567224+00:00"
+  },
+  {
+   "id": "254b0514e58f8d7b",
+   "title": "RIP: Boy, 12, dies after train hits car at level crossing in Mayo",
+   "description": "The incident, the second collision involving a train on Thursday, happened at a level crossing at Kiltybo close to Ballyhaunis",
+   "url": "https://www.mayonews.ie/news/rip-boy-12-dies-after-train-hits-car-at-level-crossing-in-mayo-8959553",
+   "source": "Mayo News",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T07:33:01+00:00",
+   "fetchedAt": "2026-09-04T09:20:49.917385+00:00"
+  },
+  {
    "id": "bd02d8f68387b9a4",
    "title": "'Significant disruption' to train services after boy dies in Mayo level crossing tragedy - updates",
    "description": "Gardaí are appealing for information after a car collided with a train",
@@ -23,6 +473,16 @@
    "scope": "national",
    "publishedAt": "2026-09-04T07:32:26+00:00",
    "fetchedAt": "2026-09-04T07:33:34.641537+00:00"
+  },
+  {
+   "id": "2ff70ea49b0ad4e2",
+   "title": "Limerick hurling preview: Crucial games in Group 2 of the SHC down for decision",
+   "description": "Depending on how the results fall, Kildimo-Pallaskenry could find themselves relegated to the Premier Intermediate Hurling Championship by the end of the night",
+   "url": "https://www.limerickleader.ie/sport/gaa/hurling/limerick-hurling-preview-crucial-games-in-group-2-of-the-shc-down-for-decision-8959399",
+   "source": "Limerick Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T07:30:01+00:00",
+   "fetchedAt": "2026-09-04T09:20:49.882282+00:00"
   },
   {
    "id": "5253baba7f889d98",
@@ -125,6 +585,16 @@
    "fetchedAt": "2026-09-04T07:33:35.658464+00:00"
   },
   {
+   "id": "2231ea5fd2fe2bde",
+   "title": "Roy Keane tears into Liverpool after disappointing start to Premier League season",
+   "description": "Roy Keane has torn into Liverpool after their winless start to the Premier League season. Andoni Iraola’s side has begun this campaign with two draws against Newcastle United and Nottingham Forest, in two matches where the Reds were fortunate to come away with a point. And despite the late window signing of Bradley Barcola, Liverpool […]",
+   "url": "https://wlrfm.com/sport/roy-keane-tears-into-liverpool-after-disappointing-start-to-premier-league-season-4488170/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T07:16:00+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.567519+00:00"
+  },
+  {
    "id": "e3a41b87043a0411",
    "title": "Katie George Dunlevy bids for more glory at world championships",
    "description": "The reigning World Champion tandem pairing of Katie-George Dunlevy and Linda Kelly will be bidding to defend their road race and time-trial World Championship titles this weekend. They are part of a 12 strong Irish team taking part in the 2026 UCI Para Cycling Road World Championships in Alabama. London based Dunlevy – who has […]",
@@ -133,6 +603,16 @@
    "scope": "regional",
    "publishedAt": "2026-09-04T07:13:09+00:00",
    "fetchedAt": "2026-09-04T07:33:36.038402+00:00"
+  },
+  {
+   "id": "3f9bf964b1ad0bd5",
+   "title": "Jess Redden shares moving tribute on dad's anniversary about reality of grief",
+   "description": "Jess Redden has opened up about the loss of her dad, six years after he sadly passed. The pharmacist confessed that the way she grieves him has changed since becoming a mum. The Dublin woman welcomed her two children, who she shares with her former rugby star husband Rob Kearney, since her father passed. Jess […]",
+   "url": "https://wlrfm.com/lifestyle/jess-redden-shares-moving-tribute-on-dads-anniversary-about-reality-of-grief-4488099/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T07:13:00+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.567589+00:00"
   },
   {
    "id": "1fe4fe72d11e9ee4",
@@ -205,6 +685,16 @@
    "fetchedAt": "2026-09-04T07:33:34.681506+00:00"
   },
   {
+   "id": "108ede5b755de9c7",
+   "title": "‘We just don’t want them’: hundreds gather in a Kildare town over data centre plans",
+   "description": "Noise issues in Clondalkin are a cautionary tale – but it’s not too late for Kildare, town meeting hears",
+   "url": "https://www.irishtimes.com/ireland/2026/09/04/naas-has-a-message-for-the-bond-villains-we-dont-want-your-data-centres/",
+   "source": "Irish Times",
+   "scope": "national",
+   "publishedAt": "2026-09-04T07:00:00+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.127235+00:00"
+  },
+  {
    "id": "936c34edaf6ddb68",
    "title": "Dublin-Mayo train collides with car at level crossing",
    "description": "The incident took place at a level crossing in Kiltybo in Ballyhaunis, involving a Westport-Dublin service, just before 9pm on Thursday",
@@ -235,6 +725,16 @@
    "fetchedAt": "2026-09-04T07:33:34.699276+00:00"
   },
   {
+   "id": "8effc91fcac7cfa8",
+   "title": "Argentinian leader says 'winds of change' from the US favour his country's claim to Falklands",
+   "description": "Donald Trump has said the United States is reviewing its position on the Falkland Islands.",
+   "url": "https://www.thejournal.ie/javier-milei-argentina-falklands-7152337-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-04T06:51:30+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.333510+00:00"
+  },
+  {
    "id": "e8bfa9156807a19a",
    "title": "11 acres of land for sale in Offaly town centre for €4 million",
    "description": "Close to 11 acres of land in Tullamore is due to go for sale by public tender on Friday 9th October.",
@@ -243,6 +743,16 @@
    "scope": "regional",
    "publishedAt": "2026-09-04T06:45:16+00:00",
    "fetchedAt": "2026-09-04T07:33:34.871351+00:00"
+  },
+  {
+   "id": "f8b89d453517dd22",
+   "title": "PREVIEW AND PREDICTION: Clough/Ballacolla chasing fifth straight win",
+   "description": "Reigning champions can make it five wins from five against Portlaoise",
+   "url": "https://www.leinsterexpress.ie/sport/gaa/preview-and-prediction-cloughballacolla-chasing-fifth-straight-win-8958216",
+   "source": "Leinster Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-04T06:38:20+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.625528+00:00"
   },
   {
    "id": "e68c6fde2e266615",
@@ -325,6 +835,16 @@
    "fetchedAt": "2026-09-04T07:33:34.699342+00:00"
   },
   {
+   "id": "90e339b4eff1d79f",
+   "title": "Farage to address Reform conference as party referred to police over undercover report",
+   "description": "Farage’s speech risks being overshadowed by allegations that Reform breached political donation rules by having polling paid for by an overseas company.",
+   "url": "https://www.thejournal.ie/nigel-farage-to-address-reform-conference-as-party-reported-to-police-over-funding-7152311-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-04T06:20:45+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.333579+00:00"
+  },
+  {
    "id": "4a556235440025bc",
    "title": "Watch: Moment buried workers pulled free in Nepal",
    "description": "Rescuers have pulled out a survivor alive from a tunnel linked to a hydropower station on the Trishuli River, nine days after an ice, rock and mud slide swept through a valley in Nepal, a video released by the Nepalese army showed.",
@@ -403,6 +923,16 @@
    "scope": "regional",
    "publishedAt": "2026-09-04T06:00:00+00:00",
    "fetchedAt": "2026-09-04T07:33:35.257795+00:00"
+  },
+  {
+   "id": "5f71bb8b58fc789d",
+   "title": "Dad killed by daughter's deadly pet ostrich and then she refused to get rid of it",
+   "description": "The 81-year-old pensioner was killed in a deadly attack by an ostrich on his daughter's exotic-animal farm — after making one crucial mistake he had been warned against.",
+   "url": "https://www.irishmirror.ie/news/world-news/dad-killed-daughters-deadly-pet-37619626",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-04T06:00:00+00:00",
+   "fetchedAt": "2026-09-04T09:20:50.038955+00:00"
   },
   {
    "id": "87b00e082caa42de",
@@ -573,6 +1103,16 @@
    "scope": "national",
    "publishedAt": "2026-09-04T04:47:51+00:00",
    "fetchedAt": "2026-09-04T07:33:34.604717+00:00"
+  },
+  {
+   "id": "2d02d28773b71850",
+   "title": "Boy killed and man injured after train hits car in Mayo",
+   "description": "A 12-year-old boy has died following a collision between a train and a car in Co Mayo last night.",
+   "url": "https://www.rte.ie/news/connacht/2026/0904/1590277-mayo-train-collision/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-04T04:47:51+00:00",
+   "fetchedAt": "2026-09-04T09:20:49.736137+00:00"
   },
   {
    "id": "851658eb60511a90",
