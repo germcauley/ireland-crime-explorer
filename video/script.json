@@ -1,0 +1,51 @@
+{
+  "voice": "en-IE-EmilyNeural",
+  "rate": "-4%",
+  "beats": [
+    {
+      "id": "open",
+      "say": "Ireland Crime Explorer maps official recorded crime figures from the Central Statistics Office.",
+      "caption": "Official recorded-crime figures, mapped"
+    },
+    {
+      "id": "map",
+      "say": "Every Garda Division on one map. Circle size is the number of incidents recorded.",
+      "caption": "28 Garda Divisions · circle area = recorded incidents"
+    },
+    {
+      "id": "select",
+      "say": "Tap an area for its own count, and how that changed.",
+      "caption": "Tap an area for its own numbers"
+    },
+    {
+      "id": "offence",
+      "say": "Filter by offence, right down to the official sub-categories.",
+      "caption": "Filter by offence — and by sub-category"
+    },
+    {
+      "id": "years",
+      "say": "Compare any two years, back to twenty nineteen.",
+      "caption": "Compare any two years"
+    },
+    {
+      "id": "news",
+      "say": "Local news coverage sits beside the area it belongs to.",
+      "caption": "Local reporting, pinned to the area"
+    },
+    {
+      "id": "dublin",
+      "say": "And Dublin breaks down into forty one station areas.",
+      "caption": "Dublin · 41 station areas"
+    },
+    {
+      "id": "caveat",
+      "say": "It also says plainly what it is not. Recorded crime is not the same as crime. Reporting rates and Garda activity move these counts too.",
+      "caption": "Recorded crime is not the same as crime"
+    },
+    {
+      "id": "end",
+      "say": "Ireland Crime Explorer. Recorded crime, in context.",
+      "caption": "Recorded crime, in context"
+    }
+  ]
+}

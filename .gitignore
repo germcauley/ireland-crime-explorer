@@ -48,3 +48,12 @@ tsconfig.tsbuildinfo
 # python
 __pycache__/
 *.pyc
+
+# video harness: the scripts are tracked, the renders are not
+/video/node_modules/
+/video/out/
+/video/*.mp4
+
+# design canvas working files, kept local
+/design/
+/Design.pdf

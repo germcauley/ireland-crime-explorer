@@ -1,0 +1,15 @@
+{
+  "name": "ireland-crime-explorer-video",
+  "version": "1.0.0",
+  "description": "Films the running app and narrates it, for promo cuts.",
+  "scripts": {
+    "voice": "python3 tts.py",
+    "capture": "node capture.mjs",
+    "compose": "python3 compose.py",
+    "film": "python3 tts.py && node capture.mjs && python3 compose.py"
+  },
+  "dependencies": {
+    "playwright-core": "^1.62.1"
+  },
+  "private": true
+}
