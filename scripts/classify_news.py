@@ -281,7 +281,7 @@ def main() -> None:
     parser.add_argument(
         "--from-labels",
         action="store_true",
-        help="apply the hand-reviewed labels instead of calling the model",
+        help="apply the reviewed labels instead of calling the model",
     )
     parser.add_argument(
         "--pending",
@@ -341,7 +341,8 @@ def main() -> None:
             print(f"error: {LABELS} missing", file=sys.stderr)
             raise SystemExit(1)
         labels = {entry["id"]: entry for entry in json.loads(LABELS.read_text())["labels"]}
-        print(f"applying {len(labels)} hand-reviewed labels")
+        hand = sum(1 for entry in labels.values() if entry.get("by", "hand") == "hand")
+        print(f"applying {len(labels)} reviewed labels ({hand} by hand)")
 
     api_key = os.environ.get("ANTHROPIC_API_KEY")
     use_llm = bool(api_key) and not args.no_llm and not args.from_labels

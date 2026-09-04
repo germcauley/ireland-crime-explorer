@@ -1,11 +1,11 @@
 {
  "meta": {
-  "generatedAt": "2026-09-04T07:33:51.818975+00:00",
+  "generatedAt": "2026-09-04T08:21:00.270630+00:00",
   "windowMonths": 12,
   "model": "hand-reviewed",
   "articlesConsidered": 2688,
   "candidates": 289,
-  "unclassified": 197,
+  "unclassified": 123,
   "feeds": [
    {
     "name": "RTÉ News",
@@ -143,10 +143,10 @@
    "source": "Irish Mirror",
    "publishedAt": "2026-09-04T07:32:26+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
+   "divisionId": "22",
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.85,
    "reasoning": null
   },
   {
@@ -157,10 +157,10 @@
    "source": "Donegal Daily",
    "publishedAt": "2026-09-04T07:30:00+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
+   "divisionId": "12",
    "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "group": "03",
+   "confidence": 0.85,
    "reasoning": null
   },
   {
@@ -171,10 +171,10 @@
    "source": "WLR FM",
    "publishedAt": "2026-09-04T07:18:00+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
-   "town": null,
+   "divisionId": "41",
+   "town": "Tullamore",
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.8,
    "reasoning": null
   },
   {
@@ -185,10 +185,10 @@
    "source": "Connacht Tribune",
    "publishedAt": "2026-09-04T07:03:06+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
+   "divisionId": "23",
    "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "group": "03",
+   "confidence": 0.9,
    "reasoning": null
   },
   {
@@ -199,10 +199,10 @@
    "source": "Limerick Leader",
    "publishedAt": "2026-09-04T07:00:16+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
-   "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "divisionId": "35",
+   "town": "Ardpatrick",
+   "group": "08",
+   "confidence": 0.9,
    "reasoning": null
   },
   {
@@ -213,10 +213,10 @@
    "source": "Mayo News",
    "publishedAt": "2026-09-04T06:30:06+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
-   "town": null,
+   "divisionId": "22",
+   "town": "Ballyhaunis",
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.85,
    "reasoning": null
   },
   {
@@ -230,7 +230,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.85,
    "reasoning": null
   },
   {
@@ -241,10 +241,10 @@
    "source": "Connacht Tribune",
    "publishedAt": "2026-09-04T06:08:17+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
+   "divisionId": "23",
    "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "group": "02",
+   "confidence": 0.85,
    "reasoning": null
   },
   {
@@ -255,10 +255,10 @@
    "source": "Irish Times",
    "publishedAt": "2026-09-04T06:00:00+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
+   "divisionId": "23",
    "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "group": "13",
+   "confidence": 0.8,
    "reasoning": null
   },
   {
@@ -272,7 +272,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.85,
    "reasoning": null
   },
   {
@@ -289,7 +289,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.85,
    "reasoning": null
   },
   {
@@ -303,10 +303,10 @@
     "The Journal",
     "Irish Mirror"
    ],
-   "divisionId": null,
+   "divisionId": "22",
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.85,
    "reasoning": null
   },
   {
@@ -317,10 +317,10 @@
    "source": "Mayo News",
    "publishedAt": "2026-09-03T22:14:23+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
+   "divisionId": "22",
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.8,
    "reasoning": null
   },
   {
@@ -331,10 +331,10 @@
    "source": "Offaly Express",
    "publishedAt": "2026-09-03T20:00:03+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
+   "divisionId": "41",
    "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "group": "08",
+   "confidence": 0.85,
    "reasoning": null
   },
   {
@@ -345,10 +345,10 @@
    "source": "Donegal Daily",
    "publishedAt": "2026-09-03T19:52:00+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
-   "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "divisionId": "12",
+   "town": "Letterkenny",
+   "group": "15",
+   "confidence": 0.8,
    "reasoning": null
   },
   {
@@ -362,7 +362,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.85,
    "reasoning": null
   },
   {
@@ -373,10 +373,10 @@
    "source": "Irish Mirror",
    "publishedAt": "2026-09-03T19:12:58+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
-   "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "divisionId": "65",
+   "town": "Dún Laoghaire",
+   "group": "01",
+   "confidence": 0.8,
    "reasoning": null
   },
   {
@@ -390,7 +390,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.95,
    "reasoning": null
   },
   {
@@ -401,10 +401,10 @@
    "source": "Limerick Leader",
    "publishedAt": "2026-09-03T19:00:54+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
-   "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "divisionId": "35",
+   "town": "Limerick",
+   "group": "08",
+   "confidence": 0.9,
    "reasoning": null
   },
   {
@@ -415,10 +415,10 @@
    "source": "Irish Times",
    "publishedAt": "2026-09-03T18:50:17+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
-   "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "divisionId": "65",
+   "town": "Glenageary",
+   "group": "01",
+   "confidence": 0.8,
    "reasoning": null
   },
   {
@@ -429,10 +429,10 @@
    "source": "Leinster Express",
    "publishedAt": "2026-09-03T17:39:41+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
-   "town": null,
+   "divisionId": "41",
+   "town": "Tullamore",
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.8,
    "reasoning": null
   },
   {
@@ -443,10 +443,10 @@
    "source": "Limerick Leader",
    "publishedAt": "2026-09-03T17:00:10+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
-   "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "divisionId": "35",
+   "town": "Limerick",
+   "group": "08",
+   "confidence": 0.85,
    "reasoning": null
   },
   {
@@ -457,10 +457,10 @@
    "source": "Irish Times",
    "publishedAt": "2026-09-03T15:54:21+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
+   "divisionId": "31",
    "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "group": "14",
+   "confidence": 0.8,
    "reasoning": null
   },
   {
@@ -474,7 +474,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.85,
    "reasoning": null
   },
   {
@@ -488,7 +488,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.9,
    "reasoning": null
   },
   {
@@ -502,7 +502,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.85,
    "reasoning": null
   },
   {
@@ -513,10 +513,10 @@
    "source": "Donegal Daily",
    "publishedAt": "2026-09-03T13:01:00+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
+   "divisionId": "12",
    "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "group": "02",
+   "confidence": 0.9,
    "reasoning": null
   },
   {
@@ -530,7 +530,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.9,
    "reasoning": null
   },
   {
@@ -544,7 +544,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.9,
    "reasoning": null
   },
   {
@@ -555,10 +555,10 @@
    "source": "Dublin Live",
    "publishedAt": "2026-09-03T12:24:19+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
+   "divisionId": "45",
    "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "group": "12",
+   "confidence": 0.85,
    "reasoning": null
   },
   {
@@ -569,10 +569,10 @@
    "source": "Irish Mirror",
    "publishedAt": "2026-09-03T11:58:13+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
+   "divisionId": "45",
    "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "group": "12",
+   "confidence": 0.85,
    "reasoning": null
   },
   {
@@ -583,10 +583,10 @@
    "source": "Connacht Tribune",
    "publishedAt": "2026-09-03T09:29:50+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
+   "divisionId": "23",
    "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "group": "16",
+   "confidence": 0.7,
    "reasoning": null
   },
   {
@@ -600,7 +600,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.7,
    "reasoning": null
   },
   {
@@ -611,10 +611,10 @@
    "source": "Irish Times",
    "publishedAt": "2026-09-03T08:00:00+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
-   "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "divisionId": "21",
+   "town": "Tulla",
+   "group": "08",
+   "confidence": 0.9,
    "reasoning": null
   },
   {
@@ -628,7 +628,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.7,
    "reasoning": null
   },
   {
@@ -642,7 +642,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.8,
    "reasoning": null
   },
   {
@@ -656,7 +656,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.95,
    "reasoning": null
   },
   {
@@ -667,10 +667,10 @@
    "source": "Limerick Post",
    "publishedAt": "2026-09-02T17:30:28+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
-   "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "divisionId": "35",
+   "town": "Limerick",
+   "group": "01",
+   "confidence": 0.85,
    "reasoning": null
   },
   {
@@ -681,10 +681,10 @@
    "source": "Offaly Express",
    "publishedAt": "2026-09-02T16:53:00+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
-   "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "divisionId": "41",
+   "town": "Daingean",
+   "group": "12",
+   "confidence": 0.85,
    "reasoning": null
   },
   {
@@ -695,10 +695,10 @@
    "source": "Limerick Post",
    "publishedAt": "2026-09-02T16:41:10+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
-   "town": null,
+   "divisionId": "35",
+   "town": "Limerick",
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.75,
    "reasoning": null
   },
   {
@@ -709,10 +709,10 @@
    "source": "Irish Times",
    "publishedAt": "2026-09-02T16:21:30+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
-   "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "divisionId": "61",
+   "town": "Ranelagh",
+   "group": "03",
+   "confidence": 0.85,
    "reasoning": null
   },
   {
@@ -723,10 +723,10 @@
    "source": "Donegal Daily",
    "publishedAt": "2026-09-02T16:16:15+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
+   "divisionId": "12",
    "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "group": "07",
+   "confidence": 0.85,
    "reasoning": null
   },
   {
@@ -740,7 +740,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.7,
    "reasoning": null
   },
   {
@@ -754,7 +754,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.9,
    "reasoning": null
   },
   {
@@ -768,10 +768,10 @@
     "Cork Beo",
     "The Journal"
    ],
-   "divisionId": null,
+   "divisionId": "31",
    "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "group": "11",
+   "confidence": 0.8,
    "reasoning": null
   },
   {
@@ -785,7 +785,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.9,
    "reasoning": null
   },
   {
@@ -796,10 +796,10 @@
    "source": "Kilkenny People",
    "publishedAt": "2026-09-02T13:19:07+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
-   "town": null,
+   "divisionId": "53",
+   "town": "Kilkenny",
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.7,
    "reasoning": null
   },
   {
@@ -815,7 +815,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.7,
    "reasoning": null
   },
   {
@@ -829,7 +829,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.7,
    "reasoning": null
   },
   {
@@ -840,10 +840,10 @@
    "source": "Cork Beo",
    "publishedAt": "2026-09-02T12:37:10+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
+   "divisionId": "31",
    "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "group": "03",
+   "confidence": 0.85,
    "reasoning": null
   },
   {
@@ -857,7 +857,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.95,
    "reasoning": null
   },
   {
@@ -871,7 +871,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.9,
    "reasoning": null
   },
   {
@@ -886,10 +886,10 @@
     "Irish Times",
     "WLR FM"
    ],
-   "divisionId": null,
-   "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "divisionId": "23",
+   "town": "Galway",
+   "group": "01",
+   "confidence": 0.95,
    "reasoning": null
   },
   {
@@ -903,7 +903,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.6,
    "reasoning": null
   },
   {
@@ -917,7 +917,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.9,
    "reasoning": null
   },
   {
@@ -931,7 +931,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.95,
    "reasoning": null
   },
   {
@@ -945,7 +945,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.85,
    "reasoning": null
   },
   {
@@ -958,10 +958,10 @@
    "alsoCoveredBy": [
     "Irish Mirror · Crime"
    ],
-   "divisionId": null,
+   "divisionId": "31",
    "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "group": "10",
+   "confidence": 0.85,
    "reasoning": null
   },
   {
@@ -975,7 +975,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.95,
    "reasoning": null
   },
   {
@@ -989,7 +989,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.95,
    "reasoning": null
   },
   {
@@ -1003,7 +1003,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.9,
    "reasoning": null
   },
   {
@@ -1019,7 +1019,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.9,
    "reasoning": null
   },
   {
@@ -1035,7 +1035,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.85,
    "reasoning": null
   },
   {
@@ -1046,10 +1046,10 @@
    "source": "Tipperary Live",
    "publishedAt": "2026-09-01T19:00:41+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
+   "divisionId": "51",
    "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "group": "14",
+   "confidence": 0.9,
    "reasoning": null
   },
   {
@@ -1072,7 +1072,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.95,
    "reasoning": null
   },
   {
@@ -1086,7 +1086,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.95,
    "reasoning": null
   },
   {
@@ -1100,7 +1100,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.85,
    "reasoning": null
   },
   {
@@ -1111,10 +1111,10 @@
    "source": "Cork Beo",
    "publishedAt": "2026-09-01T15:47:38+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
+   "divisionId": "33",
    "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "group": "07",
+   "confidence": 0.8,
    "reasoning": null
   },
   {
@@ -1127,10 +1127,10 @@
    "alsoCoveredBy": [
     "Dublin Live"
    ],
-   "divisionId": null,
-   "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "divisionId": "65",
+   "town": "Leopardstown",
+   "group": "03",
+   "confidence": 0.85,
    "reasoning": null
   },
   {
@@ -1141,10 +1141,10 @@
    "source": "Irish Times",
    "publishedAt": "2026-09-01T14:45:49+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
-   "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "divisionId": "65",
+   "town": "Leopardstown",
+   "group": "03",
+   "confidence": 0.9,
    "reasoning": null
   },
   {
@@ -1158,7 +1158,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.95,
    "reasoning": null
   },
   {
@@ -1176,10 +1176,10 @@
     "Kilkenny People",
     "Limerick Leader"
    ],
-   "divisionId": null,
-   "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "divisionId": "65",
+   "town": "Leopardstown",
+   "group": "03",
+   "confidence": 0.75,
    "reasoning": null
   },
   {
@@ -1190,10 +1190,10 @@
    "source": "RTÉ News",
    "publishedAt": "2026-09-01T14:24:17+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
-   "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "divisionId": "65",
+   "town": "Leopardstown",
+   "group": "03",
+   "confidence": 0.75,
    "reasoning": null
   },
   {
@@ -1207,7 +1207,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.9,
    "reasoning": null
   },
   {
@@ -1218,10 +1218,10 @@
    "source": "Irish Independent · Courts",
    "publishedAt": "2026-09-01T13:18:00+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
-   "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "divisionId": "65",
+   "town": "Leopardstown",
+   "group": "03",
+   "confidence": 0.8,
    "reasoning": null
   },
   {
@@ -1235,7 +1235,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.95,
    "reasoning": null
   },
   {
@@ -1253,7 +1253,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.7,
    "reasoning": null
   },
   {
@@ -1267,7 +1267,7 @@
    "divisionId": null,
    "town": null,
    "group": null,
-   "confidence": 0.0,
+   "confidence": 0.9,
    "reasoning": null
   },
   {
@@ -1278,10 +1278,10 @@
    "source": "Donegal Daily",
    "publishedAt": "2026-09-01T11:12:00+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
+   "divisionId": "12",
    "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "group": "12",
+   "confidence": 0.85,
    "reasoning": null
   },
   {
@@ -1292,10 +1292,10 @@
    "source": "Limerick Post",
    "publishedAt": "2026-09-01T11:00:41+00:00",
    "alsoCoveredBy": [],
-   "divisionId": null,
-   "town": null,
-   "group": null,
-   "confidence": 0.0,
+   "divisionId": "35",
+   "town": "Limerick",
+   "group": "09",
+   "confidence": 0.85,
    "reasoning": null
   },
   {

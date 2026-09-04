@@ -149,7 +149,14 @@ def score_against_labels(news) -> None:
         )
         return
 
-    labels = {entry["id"]: entry for entry in load(LABELS)["labels"]}
+    # Only hand labels are ground truth. Entries written by a model place
+    # articles on the map but cannot measure a model: that would be scoring a
+    # run against another run's output.
+    labels = {
+        entry["id"]: entry
+        for entry in load(LABELS)["labels"]
+        if entry.get("by", "hand") == "hand"
+    }
     by_id = {cluster["id"]: cluster for cluster in news["clusters"]}
 
     judged = agreed = wrong = 0

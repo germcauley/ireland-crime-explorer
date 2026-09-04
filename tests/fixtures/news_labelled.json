@@ -1,9 +1,10 @@
 {
- "note": "Ground truth for the classifier, labelled by hand from a real fetch on 2026-08-30. These are the 22 articles that passed the prefilter. Stage 2 is scored against them: a run that disagrees on division is a precision failure, which is the bar that matters — an article filed under the wrong county is a false statement about a real place.",
+ "note": "Ground truth for the classifier, labelled by hand from a real fetch on 2026-08-30. These are the 22 articles that passed the prefilter. Stage 2 is scored against them: a run that disagrees on division is a precision failure, which is the bar that matters — an article filed under the wrong county is a false statement about a real place. A second pass (2026-09-04) labelled the 145 candidates from a later fetch; those carry \"by\": \"claude\" and are excluded from scoring, because measuring a model against labels a model wrote proves nothing. Only the hand-labelled entries are ground truth.",
  "rules": [
   "division: where the OFFENCE happened. null when the article reports no recorded offence, names no Irish location, or the location cannot be resolved.",
   "town: only a place the article itself names, and only when it locates the offence. A court's town is not the offence's town.",
-  "group: CJQ06 group. null when no specific recorded offence is reported — a fatal road accident with no alleged offence has a division but no group."
+  "group: CJQ06 group. null when no specific recorded offence is reported — a fatal road accident with no alleged offence has a division but no group.",
+  "by: who labelled it. \"hand\" entries are ground truth and score model runs; \"claude\" entries place articles on the map but are never scored against."
  ],
  "labels": [
   {
@@ -13,7 +14,8 @@
    "town": null,
    "group": "01",
    "confidence": 0.95,
-   "why": "Co Meath named; a death caused by a vehicle sits under Homicide (012, dangerous driving leading to death). No town named, only the county."
+   "why": "Co Meath named; a death caused by a vehicle sits under Homicide (012, dangerous driving leading to death). No town named, only the county.",
+   "by": "hand"
   },
   {
    "id": "02bf5074f60d1c27",
@@ -22,7 +24,8 @@
    "town": null,
    "group": "01",
    "confidence": 0.9,
-   "why": "Same incident as the arrest report above. A fundraiser article, but it reports the offence and its county."
+   "why": "Same incident as the arrest report above. A fundraiser article, but it reports the offence and its county.",
+   "by": "hand"
   },
   {
    "id": "e29df53c8fff289a",
@@ -31,7 +34,8 @@
    "town": null,
    "group": "03",
    "confidence": 0.9,
-   "why": "Electric Picnic is at Stradbally, Co Laois — Laois/Offaly. Tullamore is named but only as the court; tagging the assault to it would place the offence in the wrong town."
+   "why": "Electric Picnic is at Stradbally, Co Laois — Laois/Offaly. Tullamore is named but only as the court; tagging the assault to it would place the offence in the wrong town.",
+   "by": "hand"
   },
   {
    "id": "427c0cd7920b9628",
@@ -40,7 +44,8 @@
    "town": "Grange",
    "group": null,
    "confidence": 0.95,
-   "why": "Sligo named, and the article names Grange as the location. No offence alleged, so no group — a death is not automatically a recorded crime."
+   "why": "Sligo named, and the article names Grange as the location. No offence alleged, so no group — a death is not automatically a recorded crime.",
+   "by": "hand"
   },
   {
    "id": "adde2de8baa8318a",
@@ -49,7 +54,8 @@
    "town": null,
    "group": null,
    "confidence": 0.95,
-   "why": "Same incident. Gortnaleck is named as a townland, not a town. No offence alleged."
+   "why": "Same incident. Gortnaleck is named as a townland, not a town. No offence alleged.",
+   "by": "hand"
   },
   {
    "id": "aa44799ba04cc3e2",
@@ -58,7 +64,8 @@
    "town": null,
    "group": null,
    "confidence": 0.95,
-   "why": "Same incident, county only."
+   "why": "Same incident, county only.",
+   "by": "hand"
   },
   {
    "id": "29f6be89a0292bc7",
@@ -67,7 +74,8 @@
    "town": "Kilkenny",
    "group": "09",
    "confidence": 0.9,
-   "why": "Rental scam warning from Kilkenny gardaí. Fraud."
+   "why": "Rental scam warning from Kilkenny gardaí. Fraud.",
+   "by": "hand"
   },
   {
    "id": "99b536fa0694bd61",
@@ -76,7 +84,8 @@
    "town": "Longford",
    "group": null,
    "confidence": 0.95,
-   "why": "Longford named, Battery Road given. Gardaí appealing for witnesses but no offence alleged."
+   "why": "Longford named, Battery Road given. Gardaí appealing for witnesses but no offence alleged.",
+   "by": "hand"
   },
   {
    "id": "d273464bbf49bd95",
@@ -85,7 +94,8 @@
    "town": "Longford",
    "group": null,
    "confidence": 0.95,
-   "why": "Same incident."
+   "why": "Same incident.",
+   "by": "hand"
   },
   {
    "id": "28f2a680fef0a33a",
@@ -94,7 +104,8 @@
    "town": "Kimmage",
    "group": null,
    "confidence": 0.85,
-   "why": "Kimmage is in DMR South. A body found and a postmortem carried out is not yet a stated offence, so no group."
+   "why": "Kimmage is in DMR South. A body found and a postmortem carried out is not yet a stated offence, so no group.",
+   "by": "hand"
   },
   {
    "id": "45e00e7aeca42eda",
@@ -103,7 +114,8 @@
    "town": null,
    "group": "04",
    "confidence": 0.85,
-   "why": "Co Carlow named — Kilkenny/Carlow. A stolen vehicle striking a person is a dangerous act; the theft is secondary to what is reported."
+   "why": "Co Carlow named — Kilkenny/Carlow. A stolen vehicle striking a person is a dangerous act; the theft is secondary to what is reported.",
+   "by": "hand"
   },
   {
    "id": "301807f96b90c645",
@@ -112,7 +124,8 @@
    "town": null,
    "group": "15",
    "confidence": 0.8,
-   "why": "Co Westmeath named. Breaching a court order falls under justice offences."
+   "why": "Co Westmeath named. Breaching a court order falls under justice offences.",
+   "by": "hand"
   },
   {
    "id": "5d786c38f7273a37",
@@ -121,7 +134,8 @@
    "town": "Galway",
    "group": "10",
    "confidence": 0.95,
-   "why": "Galway named, drugs charges."
+   "why": "Galway named, drugs charges.",
+   "by": "hand"
   },
   {
    "id": "a6a5a0d0cc1759db",
@@ -130,7 +144,8 @@
    "town": "Galway",
    "group": "10",
    "confidence": 0.9,
-   "why": "Very likely the same operation as the escape-room charges. Drugs and cash found in Galway raids."
+   "why": "Very likely the same operation as the escape-room charges. Drugs and cash found in Galway raids.",
+   "by": "hand"
   },
   {
    "id": "d000d9154c461989",
@@ -139,7 +154,8 @@
    "town": "Sligo",
    "group": "10",
    "confidence": 0.95,
-   "why": "Sligo/Leitrim Drugs Unit, Sligo Town named explicitly."
+   "why": "Sligo/Leitrim Drugs Unit, Sligo Town named explicitly.",
+   "by": "hand"
   },
   {
    "id": "f91134e88cada70f",
@@ -148,7 +164,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Greyhound racing. A prefilter false positive — the model must reject it."
+   "why": "Greyhound racing. A prefilter false positive — the model must reject it.",
+   "by": "hand"
   },
   {
    "id": "ae219de7c29636c8",
@@ -157,7 +174,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Local government, no offence."
+   "why": "Local government, no offence.",
+   "by": "hand"
   },
   {
    "id": "57a2c8f43afa1c11",
@@ -166,7 +184,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "An editorial. Mentions a scam warning in passing but reports no offence."
+   "why": "An editorial. Mentions a scam warning in passing but reports no offence.",
+   "by": "hand"
   },
   {
    "id": "3d2d9ed126918e50",
@@ -175,7 +194,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Industrial relations at a detention centre, not crime in a Division."
+   "why": "Industrial relations at a detention centre, not crime in a Division.",
+   "by": "hand"
   },
   {
    "id": "472bd5d82579ae75",
@@ -184,7 +204,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Industrial relations."
+   "why": "Industrial relations.",
+   "by": "hand"
   },
   {
    "id": "dde1655bb074d62e",
@@ -193,7 +214,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Professional regulation and a High Court order, not a recorded offence. Wicklow is named as where the doctor practises."
+   "why": "Professional regulation and a High Court order, not a recorded offence. Wicklow is named as where the doctor practises.",
+   "by": "hand"
   },
   {
    "id": "9e4ea3093b1ff94b",
@@ -202,7 +224,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "A death in custody from withdrawal seizures, reported as a prison-conditions story. No offence, and 'Cork' alone is three Divisions."
+   "why": "A death in custody from withdrawal seizures, reported as a prison-conditions story. No offence, and 'Cork' alone is three Divisions.",
+   "by": "hand"
   },
   {
    "id": "69b65ca6f869291d",
@@ -211,7 +234,8 @@
    "town": null,
    "group": "05",
    "confidence": 0.9,
-   "why": "Galway named. Alleged false imprisonment is Kidnapping and related offences (05); assault is secondary to what is reported. Village not named, so no town."
+   "why": "Galway named. Alleged false imprisonment is Kidnapping and related offences (05); assault is secondary to what is reported. Village not named, so no town.",
+   "by": "hand"
   },
   {
    "id": "49617bda7530e34e",
@@ -220,7 +244,8 @@
    "town": "Limerick",
    "group": "03",
    "confidence": 0.95,
-   "why": "Limerick city centre named, an arrest following a public-order/assault incident."
+   "why": "Limerick city centre named, an arrest following a public-order/assault incident.",
+   "by": "hand"
   },
   {
    "id": "0f90d0cbe458987e",
@@ -229,7 +254,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "A bail and detention challenge in the High Court. No offence located in a Division; 'Limerick man' describes the person, not where anything happened."
+   "why": "A bail and detention challenge in the High Court. No offence located in a Division; 'Limerick man' describes the person, not where anything happened.",
+   "by": "hand"
   },
   {
    "id": "d697c313ef5f91f7",
@@ -238,7 +264,8 @@
    "town": "Kilkenny",
    "group": null,
    "confidence": 0.9,
-   "why": "Kilkenny named. A road collision with no alleged offence — Division but no group."
+   "why": "Kilkenny named. A road collision with no alleged offence — Division but no group.",
+   "by": "hand"
   },
   {
    "id": "b5faefb98780c3cf",
@@ -247,7 +274,8 @@
    "town": null,
    "group": "01",
    "confidence": 0.95,
-   "why": "Same Meath hit-and-run already labelled. County only, no town."
+   "why": "Same Meath hit-and-run already labelled. County only, no town.",
+   "by": "hand"
   },
   {
    "id": "3ea291559d0e07b7",
@@ -256,7 +284,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Traffic and weather advice ahead of a festival. No offence reported."
+   "why": "Traffic and weather advice ahead of a festival. No offence reported.",
+   "by": "hand"
   },
   {
    "id": "0e87b5ad21e389e8",
@@ -265,7 +294,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Garda road-safety advice ahead of hedge cutting. Advisory, not a reported offence."
+   "why": "Garda road-safety advice ahead of hedge cutting. Advisory, not a reported offence.",
+   "by": "hand"
   },
   {
    "id": "5d17a9f544010a23",
@@ -274,7 +304,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Deaths in Spain. Monaghan is the victim's birthplace, not where anything happened."
+   "why": "Deaths in Spain. Monaghan is the victim's birthplace, not where anything happened.",
+   "by": "hand"
   },
   {
    "id": "5900cc5dc5de9ad6",
@@ -283,7 +314,8 @@
    "town": "Carrigaline",
    "group": "07",
    "confidence": 0.85,
-   "why": "Carrigaline sits in Cork City Division. Entering premises to steal is burglary."
+   "why": "Carrigaline sits in Cork City Division. Entering premises to steal is burglary.",
+   "by": "hand"
   },
   {
    "id": "307fb8e99792c73e",
@@ -292,7 +324,8 @@
    "town": null,
    "group": "01",
    "confidence": 0.9,
-   "why": "Same Meath hit-and-run already labelled; this is a second outlet."
+   "why": "Same Meath hit-and-run already labelled; this is a second outlet.",
+   "by": "hand"
   },
   {
    "id": "fd332589e089b78d",
@@ -301,7 +334,8 @@
    "town": null,
    "group": null,
    "confidence": 0.85,
-   "why": "Co Louth named and gardaí are investigating, but the offence under investigation is not stated clearly enough to assign a group."
+   "why": "Co Louth named and gardaí are investigating, but the offence under investigation is not stated clearly enough to assign a group.",
+   "by": "hand"
   },
   {
    "id": "185902181f4b22b0",
@@ -310,7 +344,8 @@
    "town": null,
    "group": null,
    "confidence": 0.75,
-   "why": "Ballycoolin is in DMR West. A single-vehicle collision with no offence alleged. The prefilter matched on the victim's surname 'Carrick', not a place."
+   "why": "Ballycoolin is in DMR West. A single-vehicle collision with no offence alleged. The prefilter matched on the victim's surname 'Carrick', not a place.",
+   "by": "hand"
   },
   {
    "id": "753fb0efc2d96cb0",
@@ -319,7 +354,8 @@
    "town": "Galway",
    "group": "10",
    "confidence": 0.95,
-   "why": "Search warrants at two properties in Galway city."
+   "why": "Search warrants at two properties in Galway city.",
+   "by": "hand"
   },
   {
    "id": "67f3b553a0d339e2",
@@ -328,7 +364,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "An employment dispute in the High Court. No offence."
+   "why": "An employment dispute in the High Court. No offence.",
+   "by": "hand"
   },
   {
    "id": "23285e560c09c62b",
@@ -337,7 +374,8 @@
    "town": "Coolock",
    "group": "03",
    "confidence": 0.95,
-   "why": "Coolock is in DMR North."
+   "why": "Coolock is in DMR North.",
+   "by": "hand"
   },
   {
    "id": "a7185b0c9a2379bc",
@@ -346,7 +384,8 @@
    "town": "Coolock",
    "group": "03",
    "confidence": 0.95,
-   "why": "Same incident, second outlet."
+   "why": "Same incident, second outlet.",
+   "by": "hand"
   },
   {
    "id": "5aed39a0d1c65b1c",
@@ -355,7 +394,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "The murder happened in Australia. Kilkenny is where the funeral is held."
+   "why": "The murder happened in Australia. Kilkenny is where the funeral is held.",
+   "by": "hand"
   },
   {
    "id": "f47c3dfd97fb4c85",
@@ -364,7 +404,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "'Cork' alone spans three Divisions and no town is named, so it cannot be placed."
+   "why": "'Cork' alone spans three Divisions and no town is named, so it cannot be placed.",
+   "by": "hand"
   },
   {
    "id": "b764913b3fe26525",
@@ -373,7 +414,8 @@
    "town": "Galway",
    "group": "02",
    "confidence": 0.95,
-   "why": "Ceannt Station is in Galway city."
+   "why": "Ceannt Station is in Galway city.",
+   "by": "hand"
   },
   {
    "id": "345797519030baa1",
@@ -382,7 +424,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "About a funeral in Kildare; the crash was on the M9 and the related offence was in Carlow."
+   "why": "About a funeral in Kildare; the crash was on the M9 and the related offence was in Carlow.",
+   "by": "hand"
   },
   {
    "id": "2cf6430dbbe28348",
@@ -391,7 +434,8 @@
    "town": "Ballinhassig",
    "group": "04",
    "confidence": 0.85,
-   "why": "Ballinhassig is named and sits in Cork West Division, which resolves the otherwise ambiguous 'Cork'."
+   "why": "Ballinhassig is named and sits in Cork West Division, which resolves the otherwise ambiguous 'Cork'.",
+   "by": "hand"
   },
   {
    "id": "e2e77621daf7c3a8",
@@ -400,7 +444,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "A civil personal-injury case decided in a US court."
+   "why": "A civil personal-injury case decided in a US court.",
+   "by": "hand"
   },
   {
    "id": "80a2102976281a24",
@@ -409,7 +454,8 @@
    "town": "Dundalk",
    "group": "11",
    "confidence": 0.95,
-   "why": "Search operation in Dundalk, Co Louth. Firearms and ammunition."
+   "why": "Search operation in Dundalk, Co Louth. Firearms and ammunition.",
+   "by": "hand"
   },
   {
    "id": "8fe8f51e651a4258",
@@ -418,7 +464,8 @@
    "town": "Limerick",
    "group": "01",
    "confidence": 0.95,
-   "why": "Murder investigation in Limerick city."
+   "why": "Murder investigation in Limerick city.",
+   "by": "hand"
   },
   {
    "id": "2f568ef8e7c2da70",
@@ -427,7 +474,8 @@
    "town": "Blanchardstown",
    "group": "01",
    "confidence": 0.95,
-   "why": "Assaulted in Blanchardstown, DMR West; charge upgraded to murder."
+   "why": "Assaulted in Blanchardstown, DMR West; charge upgraded to murder.",
+   "by": "hand"
   },
   {
    "id": "cbdab7fdf4273ac1",
@@ -436,7 +484,8 @@
    "town": null,
    "group": "11",
    "confidence": 0.85,
-   "why": "Alleged explosive device found in a car in County Monaghan."
+   "why": "Alleged explosive device found in a car in County Monaghan.",
+   "by": "hand"
   },
   {
    "id": "e2d79597e3572c72",
@@ -445,7 +494,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "'Wexford man' describes the person. Where the original offences occurred is not stated."
+   "why": "'Wexford man' describes the person. Where the original offences occurred is not stated.",
+   "by": "hand"
   },
   {
    "id": "9c0c5fe9f1dff28c",
@@ -454,7 +504,8 @@
    "town": "Tramore",
    "group": "03",
    "confidence": 0.95,
-   "why": "Tramore, Co Waterford."
+   "why": "Tramore, Co Waterford.",
+   "by": "hand"
   },
   {
    "id": "505116d960b57f4c",
@@ -463,7 +514,8 @@
    "town": "Limerick",
    "group": "03",
    "confidence": 0.9,
-   "why": "Shooting causing injury in Limerick city."
+   "why": "Shooting causing injury in Limerick city.",
+   "by": "hand"
   },
   {
    "id": "18f491120ed6e0aa",
@@ -472,7 +524,8 @@
    "town": null,
    "group": "01",
    "confidence": 0.9,
-   "why": "The murder under investigation happened in Kerry; the arrest abroad does not move it."
+   "why": "The murder under investigation happened in Kerry; the arrest abroad does not move it.",
+   "by": "hand"
   },
   {
    "id": "e072a2f56b181b4d",
@@ -481,7 +534,8 @@
    "town": "Portlaoise",
    "group": "01",
    "confidence": 0.95,
-   "why": "Fatal assault in Portlaoise."
+   "why": "Fatal assault in Portlaoise.",
+   "by": "hand"
   },
   {
    "id": "41127c96b67a4878",
@@ -490,7 +544,8 @@
    "town": "Dún Laoghaire",
    "group": "01",
    "confidence": 0.95,
-   "why": "Dún Laoghaire is in DMR East."
+   "why": "Dún Laoghaire is in DMR East.",
+   "by": "hand"
   },
   {
    "id": "6bc4f548439a647d",
@@ -499,7 +554,8 @@
    "town": "Limerick",
    "group": "15",
    "confidence": 0.9,
-   "why": "Organised prostitution operation in Limerick."
+   "why": "Organised prostitution operation in Limerick.",
+   "by": "hand"
   },
   {
    "id": "6772db2012e35f57",
@@ -508,7 +564,8 @@
    "town": null,
    "group": "01",
    "confidence": 0.75,
-   "why": "The murder charge relates to Co Galway. He died in Castlerea Prison, which is where the article's event happened but not the offence."
+   "why": "The murder charge relates to Co Galway. He died in Castlerea Prison, which is where the article's event happened but not the offence.",
+   "by": "hand"
   },
   {
    "id": "465f32b7edeae32c",
@@ -517,7 +574,8 @@
    "town": "Drogheda",
    "group": "10",
    "confidence": 0.85,
-   "why": "Tied to the Drogheda feud, Co Louth."
+   "why": "Tied to the Drogheda feud, Co Louth.",
+   "by": "hand"
   },
   {
    "id": "60b692905862525f",
@@ -526,7 +584,8 @@
    "town": null,
    "group": "01",
    "confidence": 0.95,
-   "why": "Co Waterford named."
+   "why": "Co Waterford named.",
+   "by": "hand"
   },
   {
    "id": "0b7f5fff8adafcc6",
@@ -535,7 +594,8 @@
    "town": null,
    "group": "08",
    "confidence": 0.7,
-   "why": "Offences 'across south east Dublin', heard at Dún Laoghaire District Court — DMR East. Lower confidence because the area given is loose."
+   "why": "Offences 'across south east Dublin', heard at Dún Laoghaire District Court — DMR East. Lower confidence because the area given is loose.",
+   "by": "hand"
   },
   {
    "id": "3d9cffd3236750e3",
@@ -544,7 +604,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "'Dublin city centre' spans DMR South Central and North Central; no specific area is named."
+   "why": "'Dublin city centre' spans DMR South Central and North Central; no specific area is named.",
+   "by": "hand"
   },
   {
    "id": "88fba9248b9a3b49",
@@ -553,7 +614,8 @@
    "town": "Bridgend",
    "group": "06",
    "confidence": 0.95,
-   "why": "Bridgend, Co Donegal. Robbery."
+   "why": "Bridgend, Co Donegal. Robbery.",
+   "by": "hand"
   },
   {
    "id": "409167666a28d482",
@@ -562,7 +624,8 @@
    "town": "Bridgend",
    "group": "06",
    "confidence": 0.95,
-   "why": "Same Bridgend robbery, staff assaulted during it."
+   "why": "Same Bridgend robbery, staff assaulted during it.",
+   "by": "hand"
   },
   {
    "id": "e912723c41aadd97",
@@ -571,7 +634,8 @@
    "town": "Buncrana",
    "group": "03",
    "confidence": 0.95,
-   "why": "Assault on Main Street, Buncrana."
+   "why": "Assault on Main Street, Buncrana.",
+   "by": "hand"
   },
   {
    "id": "168ce3e7b4524de8",
@@ -580,7 +644,8 @@
    "town": "Letterkenny",
    "group": "08",
    "confidence": 0.95,
-   "why": "E-scooter stolen from Letterkenny Shopping Centre."
+   "why": "E-scooter stolen from Letterkenny Shopping Centre.",
+   "by": "hand"
   },
   {
    "id": "b6712af6521ce6f5",
@@ -589,7 +654,8 @@
    "town": "Letterkenny",
    "group": null,
    "confidence": 0.9,
-   "why": "Road traffic collision in Letterkenny. No offence alleged, so no group."
+   "why": "Road traffic collision in Letterkenny. No offence alleged, so no group.",
+   "by": "hand"
   },
   {
    "id": "4979486b991d6a58",
@@ -598,7 +664,8 @@
    "town": "Bundoran",
    "group": "12",
    "confidence": 0.95,
-   "why": "Criminal damage and graffiti at a Bundoran church."
+   "why": "Criminal damage and graffiti at a Bundoran church.",
+   "by": "hand"
   },
   {
    "id": "1e8c7e05db8eccaa",
@@ -607,7 +674,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Arrest warrant issued by an Australian court. Donegal is the person's origin."
+   "why": "Arrest warrant issued by an Australian court. Donegal is the person's origin.",
+   "by": "hand"
   },
   {
    "id": "1b912fa96d189e7e",
@@ -616,7 +684,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "A story about court delays, not about an offence."
+   "why": "A story about court delays, not about an offence.",
+   "by": "hand"
   },
   {
    "id": "3ceb737cc20bc0dc",
@@ -625,7 +694,8 @@
    "town": null,
    "group": "09",
    "confidence": 0.85,
-   "why": "Fake Garda calls targeting Donegal motorists. Fraud."
+   "why": "Fake Garda calls targeting Donegal motorists. Fraud.",
+   "by": "hand"
   },
   {
    "id": "6f830a6d72ffe060",
@@ -634,7 +704,8 @@
    "town": null,
    "group": "09",
    "confidence": 0.85,
-   "why": "HSE medical card scam texts in Donegal. Fraud."
+   "why": "HSE medical card scam texts in Donegal. Fraud.",
+   "by": "hand"
   },
   {
    "id": "8ab87cb4f9b2ce50",
@@ -643,7 +714,8 @@
    "town": "Leopardstown",
    "group": "13",
    "confidence": 0.9,
-   "why": "Large-scale disturbance in Leopardstown, which is DMR East."
+   "why": "Large-scale disturbance in Leopardstown, which is DMR East.",
+   "by": "hand"
   },
   {
    "id": "e0b6ee992d89c1dc",
@@ -652,7 +724,8 @@
    "town": "Leopardstown",
    "group": "13",
    "confidence": 0.9,
-   "why": "Industrial estate in Leopardstown."
+   "why": "Industrial estate in Leopardstown.",
+   "by": "hand"
   },
   {
    "id": "3cbb110c288e0f4f",
@@ -661,7 +734,8 @@
    "town": "Leopardstown",
    "group": "03",
    "confidence": 0.85,
-   "why": "South County Business Park is in Leopardstown."
+   "why": "South County Business Park is in Leopardstown.",
+   "by": "hand"
   },
   {
    "id": "020fdd4fe3230288",
@@ -670,7 +744,8 @@
    "town": "Leopardstown",
    "group": "03",
    "confidence": 0.8,
-   "why": "Same business-park brawl; the area is named across the coverage."
+   "why": "Same business-park brawl; the area is named across the coverage.",
+   "by": "hand"
   },
   {
    "id": "3f5fda3d00353384",
@@ -679,7 +754,8 @@
    "town": "Leopardstown",
    "group": "03",
    "confidence": 0.75,
-   "why": "Same incident, though this report names only 'Dublin business park'."
+   "why": "Same incident, though this report names only 'Dublin business park'.",
+   "by": "hand"
   },
   {
    "id": "50c96e37b0cd0f1a",
@@ -688,7 +764,8 @@
    "town": "Leopardstown",
    "group": "13",
    "confidence": 0.85,
-   "why": "Syndicated: names Leopardstown in the description."
+   "why": "Syndicated: names Leopardstown in the description.",
+   "by": "hand"
   },
   {
    "id": "ce42eaaf40b3a989",
@@ -697,7 +774,8 @@
    "town": "Leopardstown",
    "group": "13",
    "confidence": 0.85,
-   "why": "Syndicated: names Leopardstown."
+   "why": "Syndicated: names Leopardstown.",
+   "by": "hand"
   },
   {
    "id": "a67200eebb2091ff",
@@ -706,7 +784,8 @@
    "town": "Leopardstown",
    "group": "13",
    "confidence": 0.85,
-   "why": "Syndicated: names Leopardstown."
+   "why": "Syndicated: names Leopardstown.",
+   "by": "hand"
   },
   {
    "id": "e47c2c7253b749f5",
@@ -715,7 +794,8 @@
    "town": "Leopardstown",
    "group": "13",
    "confidence": 0.85,
-   "why": "Syndicated: names Leopardstown."
+   "why": "Syndicated: names Leopardstown.",
+   "by": "hand"
   },
   {
    "id": "b9976fe91dfe8bd5",
@@ -724,7 +804,8 @@
    "town": "Leopardstown",
    "group": "13",
    "confidence": 0.85,
-   "why": "Syndicated: names Leopardstown."
+   "why": "Syndicated: names Leopardstown.",
+   "by": "hand"
   },
   {
    "id": "712dd871297e7df3",
@@ -733,7 +814,8 @@
    "town": "Leopardstown",
    "group": "13",
    "confidence": 0.85,
-   "why": "Syndicated: names Leopardstown."
+   "why": "Syndicated: names Leopardstown.",
+   "by": "hand"
   },
   {
    "id": "2f40e45861b21827",
@@ -742,7 +824,8 @@
    "town": "Leopardstown",
    "group": "13",
    "confidence": 0.85,
-   "why": "Syndicated: names Leopardstown."
+   "why": "Syndicated: names Leopardstown.",
+   "by": "hand"
   },
   {
    "id": "5c3d6221f013967a",
@@ -751,7 +834,8 @@
    "town": null,
    "group": "13",
    "confidence": 0.7,
-   "why": "Same weekend disorder, but this wire copy names only 'Dublin'."
+   "why": "Same weekend disorder, but this wire copy names only 'Dublin'.",
+   "by": "hand"
   },
   {
    "id": "92699671c67d3646",
@@ -760,7 +844,8 @@
    "town": null,
    "group": "13",
    "confidence": 0.7,
-   "why": "Same wire copy."
+   "why": "Same wire copy.",
+   "by": "hand"
   },
   {
    "id": "ee0ff249efb3301d",
@@ -769,7 +854,8 @@
    "town": null,
    "group": "13",
    "confidence": 0.7,
-   "why": "Same wire copy."
+   "why": "Same wire copy.",
+   "by": "hand"
   },
   {
    "id": "22acd1e4563f650d",
@@ -778,7 +864,8 @@
    "town": null,
    "group": "13",
    "confidence": 0.7,
-   "why": "Same wire copy."
+   "why": "Same wire copy.",
+   "by": "hand"
   },
   {
    "id": "b26da58210d72402",
@@ -787,7 +874,8 @@
    "town": null,
    "group": "13",
    "confidence": 0.7,
-   "why": "Same wire copy."
+   "why": "Same wire copy.",
+   "by": "hand"
   },
   {
    "id": "a3ab8642482ff4fb",
@@ -796,7 +884,8 @@
    "town": null,
    "group": "13",
    "confidence": 0.7,
-   "why": "Same wire copy."
+   "why": "Same wire copy.",
+   "by": "hand"
   },
   {
    "id": "24f6117ea5ddc9ab",
@@ -805,7 +894,8 @@
    "town": null,
    "group": "13",
    "confidence": 0.7,
-   "why": "Same wire copy."
+   "why": "Same wire copy.",
+   "by": "hand"
   },
   {
    "id": "36e6c828107208a9",
@@ -814,7 +904,8 @@
    "town": null,
    "group": "13",
    "confidence": 0.7,
-   "why": "Same wire copy."
+   "why": "Same wire copy.",
+   "by": "hand"
   },
   {
    "id": "b98f2501c034320a",
@@ -823,7 +914,8 @@
    "town": null,
    "group": "13",
    "confidence": 0.7,
-   "why": "Same wire copy."
+   "why": "Same wire copy.",
+   "by": "hand"
   },
   {
    "id": "c97cfb49cfe5401f",
@@ -832,7 +924,8 @@
    "town": "Deansgrange",
    "group": "03",
    "confidence": 0.9,
-   "why": "Arrest at a property in Deansgrange, DMR East."
+   "why": "Arrest at a property in Deansgrange, DMR East.",
+   "by": "hand"
   },
   {
    "id": "41e14c5d8fe7a26d",
@@ -841,7 +934,8 @@
    "town": "Ballyogan",
    "group": "03",
    "confidence": 0.9,
-   "why": "House in Ballyogan, DMR East."
+   "why": "House in Ballyogan, DMR East.",
+   "by": "hand"
   },
   {
    "id": "37af15ac4064533f",
@@ -850,7 +944,8 @@
    "town": null,
    "group": "03",
    "confidence": 0.8,
-   "why": "Same assault, given as a south Dublin home."
+   "why": "Same assault, given as a south Dublin home.",
+   "by": "hand"
   },
   {
    "id": "591603fc581df9ad",
@@ -859,7 +954,8 @@
    "town": null,
    "group": "03",
    "confidence": 0.75,
-   "why": "Same assault on two women."
+   "why": "Same assault on two women.",
+   "by": "hand"
   },
   {
    "id": "7bc11ec4e73ad2ef",
@@ -868,7 +964,8 @@
    "town": null,
    "group": "10",
    "confidence": 0.8,
-   "why": "Seizure in west Dublin, which is DMR West."
+   "why": "Seizure in west Dublin, which is DMR West.",
+   "by": "hand"
   },
   {
    "id": "7ed2273627730cbc",
@@ -877,7 +974,8 @@
    "town": "Donabate",
    "group": "01",
    "confidence": 0.9,
-   "why": "Remains found buried in Donabate, north Co Dublin — DMR North."
+   "why": "Remains found buried in Donabate, north Co Dublin — DMR North.",
+   "by": "hand"
   },
   {
    "id": "87705c27c2d0bbae",
@@ -886,7 +984,8 @@
    "town": null,
    "group": "03",
    "confidence": 0.8,
-   "why": "War Memorial Gardens is at Islandbridge, DMR South Central."
+   "why": "War Memorial Gardens is at Islandbridge, DMR South Central.",
+   "by": "hand"
   },
   {
    "id": "6f7932db55b464ec",
@@ -895,7 +994,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Solicitors' industrial action, not an offence."
+   "why": "Solicitors' industrial action, not an offence.",
+   "by": "hand"
   },
   {
    "id": "400bd5a7aab52bbc",
@@ -904,7 +1004,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Continuation of the same withdrawal of services."
+   "why": "Continuation of the same withdrawal of services.",
+   "by": "hand"
   },
   {
    "id": "b806cc7bde511571",
@@ -913,7 +1014,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Drug haul reported only as 'in Dublin', which spans six Divisions."
+   "why": "Drug haul reported only as 'in Dublin', which spans six Divisions.",
+   "by": "hand"
   },
   {
    "id": "6c60c915e93b95ac",
@@ -922,7 +1024,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Cocaine handover in an unnamed Dublin car park."
+   "why": "Cocaine handover in an unnamed Dublin car park.",
+   "by": "hand"
   },
   {
    "id": "e3278f190a67e394",
@@ -931,7 +1034,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Seizure given only as a Dublin operation."
+   "why": "Seizure given only as a Dublin operation.",
+   "by": "hand"
   },
   {
    "id": "8849d6286b3badf8",
@@ -940,7 +1044,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "A scuffle at a protest; no offence reported."
+   "why": "A scuffle at a protest; no offence reported.",
+   "by": "hand"
   },
   {
    "id": "a9e9620ffdca65aa",
@@ -949,7 +1054,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "House entry with a knife, but no Dublin area named."
+   "why": "House entry with a knife, but no Dublin area named.",
+   "by": "hand"
   },
   {
    "id": "6d4f85c1a91717fd",
@@ -958,7 +1064,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Missing person appeal, not an offence."
+   "why": "Missing person appeal, not an offence.",
+   "by": "hand"
   },
   {
    "id": "5e324b5ba0b21876",
@@ -967,7 +1074,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Carjacking given as 'Dublin city' — DMR South Central or North Central."
+   "why": "Carjacking given as 'Dublin city' — DMR South Central or North Central.",
+   "by": "hand"
   },
   {
    "id": "ad0cb91102f3a651",
@@ -976,7 +1084,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Same carjacking, 'central Dublin'."
+   "why": "Same carjacking, 'central Dublin'.",
+   "by": "hand"
   },
   {
    "id": "35fd2ec3c335fa2c",
@@ -985,7 +1094,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Official Secrets Act charges; where the offence occurred is not stated."
+   "why": "Official Secrets Act charges; where the offence occurred is not stated.",
+   "by": "hand"
   },
   {
    "id": "39949940e556f802",
@@ -994,7 +1104,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Recovery operation across 'Dublin city'."
+   "why": "Recovery operation across 'Dublin city'.",
+   "by": "hand"
   },
   {
    "id": "d44ce36b5c05fd1a",
@@ -1003,7 +1114,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Slash attack after a phone theft, no area named."
+   "why": "Slash attack after a phone theft, no area named.",
+   "by": "hand"
   },
   {
    "id": "42734ff7805c4f5d",
@@ -1012,7 +1124,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Burglaries 'across several counties'; the court is in Dublin."
+   "why": "Burglaries 'across several counties'; the court is in Dublin.",
+   "by": "hand"
   },
   {
    "id": "fc89d640adb418da",
@@ -1021,7 +1134,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Containment on the M50, which runs through several Divisions."
+   "why": "Containment on the M50, which runs through several Divisions.",
+   "by": "hand"
   },
   {
    "id": "7b5b0eef302613cb",
@@ -1030,7 +1144,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Mosque arson; the mosque is not located in the report."
+   "why": "Mosque arson; the mosque is not located in the report.",
+   "by": "hand"
   },
   {
    "id": "6c76995c122e691c",
@@ -1039,7 +1154,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Same arson trial."
+   "why": "Same arson trial.",
+   "by": "hand"
   },
   {
    "id": "f2a434f2c3161d9e",
@@ -1048,7 +1164,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Soliciting murder; where the offence occurred is not stated."
+   "why": "Soliciting murder; where the offence occurred is not stated.",
+   "by": "hand"
   },
   {
    "id": "064e199725a53aab",
@@ -1057,7 +1174,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Stabbing at a Dublin home, no area named."
+   "why": "Stabbing at a Dublin home, no area named.",
+   "by": "hand"
   },
   {
    "id": "b6a8941bc5c90606",
@@ -1066,7 +1184,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Assault given only as 'Dublin'."
+   "why": "Assault given only as 'Dublin'.",
+   "by": "hand"
   },
   {
    "id": "dad711eb658165bd",
@@ -1075,7 +1194,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Fatal stabbing reported as 'in Dublin'."
+   "why": "Fatal stabbing reported as 'in Dublin'.",
+   "by": "hand"
   },
   {
    "id": "a4316f690e70fea6",
@@ -1084,7 +1204,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Same fatal assault, no area."
+   "why": "Same fatal assault, no area.",
+   "by": "hand"
   },
   {
    "id": "81769ff5d1600f13",
@@ -1093,7 +1214,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Family statement about the same case."
+   "why": "Family statement about the same case.",
+   "by": "hand"
   },
   {
    "id": "e7e43dabd4597615",
@@ -1102,7 +1224,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Councillor commentary on policing, not a report of an offence."
+   "why": "Councillor commentary on policing, not a report of an offence.",
+   "by": "hand"
   },
   {
    "id": "3c116e14570b61ef",
@@ -1111,7 +1234,8 @@
    "town": "Limerick",
    "group": "09",
    "confidence": 0.8,
-   "why": "Money mule scam warning to Limerick students. Fraud."
+   "why": "Money mule scam warning to Limerick students. Fraud.",
+   "by": "hand"
   },
   {
    "id": "8220855be0667e9b",
@@ -1120,7 +1244,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Limerick is where the court sits; where the offences occurred is not stated."
+   "why": "Limerick is where the court sits; where the offences occurred is not stated.",
+   "by": "hand"
   },
   {
    "id": "775a5a79be8344e3",
@@ -1129,7 +1254,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Exports and sanctions, not a recorded offence."
+   "why": "Exports and sanctions, not a recorded offence.",
+   "by": "hand"
   },
   {
    "id": "5190d39d2ca800f3",
@@ -1138,7 +1264,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Missing person appeal."
+   "why": "Missing person appeal.",
+   "by": "hand"
   },
   {
    "id": "cbbc391fc5315011",
@@ -1147,7 +1274,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Same missing person appeal."
+   "why": "Same missing person appeal.",
+   "by": "hand"
   },
   {
    "id": "d180e1df976476e9",
@@ -1156,7 +1284,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Same missing person appeal."
+   "why": "Same missing person appeal.",
+   "by": "hand"
   },
   {
    "id": "7941349cb8b0edbc",
@@ -1165,7 +1294,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "A public meeting for institutional abuse survivors, not a current offence."
+   "why": "A public meeting for institutional abuse survivors, not a current offence.",
+   "by": "hand"
   },
   {
    "id": "8f5a2990c242bc70",
@@ -1174,7 +1304,8 @@
    "town": null,
    "group": "06",
    "confidence": 0.9,
-   "why": "Armed robbery of a fast food premises in Laois."
+   "why": "Armed robbery of a fast food premises in Laois.",
+   "by": "hand"
   },
   {
    "id": "afa1cf1ad2f874f5",
@@ -1183,7 +1314,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "A book launch. 'Court Hotel' is a venue name."
+   "why": "A book launch. 'Court Hotel' is a venue name.",
+   "by": "hand"
   },
   {
    "id": "c6acea9d219ce78a",
@@ -1192,7 +1324,8 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "Festival traffic advice, not an offence."
+   "why": "Festival traffic advice, not an offence.",
+   "by": "hand"
   },
   {
    "id": "d798c3dd7e292d10",
@@ -1201,7 +1334,8 @@
    "town": "Doneraile",
    "group": "01",
    "confidence": 0.9,
-   "why": "Murder outside the victim's home in Doneraile, Cork North."
+   "why": "Murder outside the victim's home in Doneraile, Cork North.",
+   "by": "hand"
   },
   {
    "id": "131cc47f5832241f",
@@ -1210,7 +1344,8 @@
    "town": "Doneraile",
    "group": "01",
    "confidence": 0.85,
-   "why": "Same Doneraile murder."
+   "why": "Same Doneraile murder.",
+   "by": "hand"
   },
   {
    "id": "d012cc30e3917654",
@@ -1219,7 +1354,8 @@
    "town": "Doneraile",
    "group": "01",
    "confidence": 0.9,
-   "why": "Same, names Doneraile explicitly."
+   "why": "Same, names Doneraile explicitly.",
+   "by": "hand"
   },
   {
    "id": "6b7aa44985219e44",
@@ -1228,7 +1364,8 @@
    "town": "Doneraile",
    "group": "01",
    "confidence": 0.9,
-   "why": "Same, names Doneraile."
+   "why": "Same, names Doneraile.",
+   "by": "hand"
   },
   {
    "id": "90399cfefa420769",
@@ -1237,7 +1374,8 @@
    "town": "Doneraile",
    "group": "01",
    "confidence": 0.85,
-   "why": "Same case."
+   "why": "Same case.",
+   "by": "hand"
   },
   {
    "id": "efd1357b509105a3",
@@ -1246,7 +1384,8 @@
    "town": "Doneraile",
    "group": "01",
    "confidence": 0.85,
-   "why": "Same case."
+   "why": "Same case.",
+   "by": "hand"
   },
   {
    "id": "66d83510ccfa6a4d",
@@ -1255,7 +1394,8 @@
    "town": null,
    "group": "10",
    "confidence": 0.85,
-   "why": "Cork Airport is in Cork City Division."
+   "why": "Cork Airport is in Cork City Division.",
+   "by": "hand"
   },
   {
    "id": "3a026454407d241b",
@@ -1264,7 +1404,8 @@
    "town": null,
    "group": "10",
    "confidence": 0.85,
-   "why": "Same Cork Airport seizure."
+   "why": "Same Cork Airport seizure.",
+   "by": "hand"
   },
   {
    "id": "751e2d7096901a9c",
@@ -1273,7 +1414,8 @@
    "town": null,
    "group": "10",
    "confidence": 0.85,
-   "why": "Same Cork Airport seizure."
+   "why": "Same Cork Airport seizure.",
+   "by": "hand"
   },
   {
    "id": "c51c4d6bc49129a6",
@@ -1282,7 +1424,8 @@
    "town": null,
    "group": "14",
    "confidence": 0.85,
-   "why": "Speeding prosecutions in Co Galway."
+   "why": "Speeding prosecutions in Co Galway.",
+   "by": "hand"
   },
   {
    "id": "e5079f46969a3045",
@@ -1291,7 +1434,8 @@
    "town": null,
    "group": "07",
    "confidence": 0.85,
-   "why": "Community alerts about a burglary gang around Galway."
+   "why": "Community alerts about a burglary gang around Galway.",
+   "by": "hand"
   },
   {
    "id": "6c442340e456ffc4",
@@ -1300,7 +1444,8 @@
    "town": "Galway",
    "group": "03",
    "confidence": 0.9,
-   "why": "Assault with a hurley at Galway Shopping Centre."
+   "why": "Assault with a hurley at Galway Shopping Centre.",
+   "by": "hand"
   },
   {
    "id": "669757df3ff40e5b",
@@ -1309,7 +1454,1458 @@
    "town": null,
    "group": null,
    "confidence": 0.0,
-   "why": "A Garda-hosted suicide awareness event, not an offence."
+   "why": "A Garda-hosted suicide awareness event, not an offence.",
+   "by": "hand"
+  },
+  {
+   "id": "bd02d8f68387b9a4",
+   "title": "'Significant disruption' to train services after boy dies in Mayo level crossing tragedy - updates",
+   "division": "22",
+   "town": null,
+   "group": null,
+   "confidence": 0.85,
+   "why": "Co Mayo. A level-crossing collision with no offence alleged.",
+   "by": "claude"
+  },
+  {
+   "id": "5253baba7f889d98",
+   "title": "Donegal court hears husband allegedly threatened to burn family home",
+   "division": "12",
+   "town": null,
+   "group": "03",
+   "confidence": 0.85,
+   "why": "A threat to burn the family home, Co Donegal.",
+   "by": "claude"
+  },
+  {
+   "id": "56be1936684bf8a3",
+   "title": "Young boy, 12, killed in horror collision involving train and car in Co Mayo",
+   "division": "22",
+   "town": null,
+   "group": null,
+   "confidence": 0.85,
+   "why": "The same Co Mayo collision.",
+   "by": "claude"
+  },
+  {
+   "id": "44f24d50291a363c",
+   "title": "Train crash chaos: Rail services suspended after train smashes into tractor",
+   "division": "41",
+   "town": "Tullamore",
+   "group": null,
+   "confidence": 0.8,
+   "why": "Near Tullamore, Co Offaly. No offence alleged.",
+   "by": "claude"
+  },
+  {
+   "id": "1fe4fe72d11e9ee4",
+   "title": "Boy (12) pronounced dead following collision between train and car in Co Mayo last night",
+   "division": "22",
+   "town": null,
+   "group": null,
+   "confidence": 0.85,
+   "why": "The same collision.",
+   "by": "claude"
+  },
+  {
+   "id": "16502210b3c52509",
+   "title": "Husband admits threatening to kill his wife with shotgun at Galway property",
+   "division": "23",
+   "town": null,
+   "group": "03",
+   "confidence": 0.9,
+   "why": "A threat to kill at a Galway property.",
+   "by": "claude"
+  },
+  {
+   "id": "f7389c159d8b97f3",
+   "title": "New RTÉ drama tells 'human story' of infamous Mr Moonlight murder in Co Tipperary",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.85,
+   "why": "A drama commission. The 2011 Tipperary murder is the subject, but no offence is being reported.",
+   "by": "claude"
+  },
+  {
+   "id": "deaaceeb04d300ae",
+   "title": "Gardai investigating thefts of tools and a mobile power-washing unit in County Limerick",
+   "division": "35",
+   "town": "Ardpatrick",
+   "group": "08",
+   "confidence": 0.9,
+   "why": "Ardpatrick, Co Limerick.",
+   "by": "claude"
+  },
+  {
+   "id": "49b6c5a82ee6dfda",
+   "title": "Mayo rail services disrupted following Ballyhaunis collision",
+   "division": "22",
+   "town": "Ballyhaunis",
+   "group": null,
+   "confidence": 0.85,
+   "why": "Ballyhaunis, Co Mayo. Disruption, no offence.",
+   "by": "claude"
+  },
+  {
+   "id": "b4cf1540ca2711d1",
+   "title": "Irishman got teen pregnant before doing unthinkable act to avoid wife knowing",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.85,
+   "why": "A parole story about 1992 murders.",
+   "by": "claude"
+  },
+  {
+   "id": "b3ae117509ef6807",
+   "title": "Gardai respond to reports of an alleged gang incident of sexual nature at Galway beach",
+   "division": "23",
+   "town": null,
+   "group": "02",
+   "confidence": 0.85,
+   "why": "A Galway beach.",
+   "by": "claude"
+  },
+  {
+   "id": "460a4a6f18144642",
+   "title": "Galway social housing tenants could lose homes through misbehaviour, says judge",
+   "division": "23",
+   "town": null,
+   "group": "13",
+   "confidence": 0.8,
+   "why": "A public-order incident outside a Galway local-authority house.",
+   "by": "claude"
+  },
+  {
+   "id": "a924fde35dbeb7ea",
+   "title": "New RTÉ drama series to tell the story of The Murder of Mr Moonlight",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.85,
+   "why": "A drama commission. The 2011 Tipperary murder is the subject, but no offence is being reported.",
+   "by": "claude"
+  },
+  {
+   "id": "4d240cbd9c697196",
+   "title": "Downton Abbey star to lead RTÉ's Mr Moonlight drama",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.85,
+   "why": "A drama commission. The 2011 Tipperary murder is the subject, but no offence is being reported.",
+   "by": "claude"
+  },
+  {
+   "id": "c71b97405f3768ab",
+   "title": "Mr. Moonlight RTE murder drama set to shock TV viewers next year",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.85,
+   "why": "Same drama commission, syndicated.",
+   "by": "claude"
+  },
+  {
+   "id": "f300e6e59fe9758d",
+   "title": "Boy, aged 12, dies after collision between train and car",
+   "division": "22",
+   "town": null,
+   "group": null,
+   "confidence": 0.85,
+   "why": "The same collision.",
+   "by": "claude"
+  },
+  {
+   "id": "ef9d3ef23b245e11",
+   "title": "Second serious collision hits Dublin to Mayo train line in one day",
+   "division": "22",
+   "town": null,
+   "group": null,
+   "confidence": 0.8,
+   "why": "Both collisions are on the Mayo line.",
+   "by": "claude"
+  },
+  {
+   "id": "7f34a385beada99c",
+   "title": "Reports from prison and probation service ordered for Offaly man",
+   "division": "41",
+   "town": null,
+   "group": "08",
+   "confidence": 0.85,
+   "why": "Eleven thefts of alcohol, Co Offaly.",
+   "by": "claude"
+  },
+  {
+   "id": "726600945cb2546f",
+   "title": "Two appear in court charged over €210k heroin seizure in Cork",
+   "division": "31",
+   "town": null,
+   "group": "10",
+   "confidence": 0.85,
+   "why": "A Cork city seizure.",
+   "by": "claude"
+  },
+  {
+   "id": "cb826457852e6b1b",
+   "title": "Man brought to Letterkenny court over alleged breach of safety order",
+   "division": "12",
+   "town": "Letterkenny",
+   "group": "15",
+   "confidence": 0.8,
+   "why": "A breach of a court order, Co Donegal.",
+   "by": "claude"
+  },
+  {
+   "id": "d793c73bd0328d1b",
+   "title": "‘No record’ of Garda activity after initial response to disappearance of man who died by suicide",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.85,
+   "why": "A death by suicide and the Garda response to it. No offence.",
+   "by": "claude"
+  },
+  {
+   "id": "fa8b76f482ad1a3f",
+   "title": "'You may be unknowingly shielding a killer' - Gardai renew appeal for information on murder of Raonaid Murray, 17",
+   "division": "65",
+   "town": "Dún Laoghaire",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "The same 1999 Dún Laoghaire case.",
+   "by": "claude"
+  },
+  {
+   "id": "3d9d9c6cca64e9a2",
+   "title": "Drumcree dispute led to one of worst Troubles atrocities",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.95,
+   "why": "Northern Ireland, outside the CSO's recorded-crime geography.",
+   "by": "claude"
+  },
+  {
+   "id": "563a7d69d8aeb010",
+   "title": "Limerick man with 108 previous convictions stole from same shop twice in one week",
+   "division": "35",
+   "town": "Limerick",
+   "group": "08",
+   "confidence": 0.9,
+   "why": "Repeat theft from a Limerick shop.",
+   "by": "claude"
+  },
+  {
+   "id": "e37e5d9a9384d2d2",
+   "title": "Raonaid Murray: Gardaí ask witness who provided alibi for suspected killer to come forward",
+   "division": "65",
+   "town": "Glenageary",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "Murdered near her home in Glenageary, DMR East. A 1999 cold case.",
+   "by": "claude"
+  },
+  {
+   "id": "42524410a4194f02",
+   "title": "Man hospitalised after train hits tractor on Laois Offaly line",
+   "division": "41",
+   "town": "Tullamore",
+   "group": null,
+   "confidence": 0.8,
+   "why": "The same Laois/Offaly line collision.",
+   "by": "claude"
+  },
+  {
+   "id": "c135453f5d7fd2b5",
+   "title": "‘Mary Magdalene’ claim after woman steals €300 worth of Limerick jerseys and legs of lamb",
+   "division": "35",
+   "town": "Limerick",
+   "group": "08",
+   "confidence": 0.85,
+   "why": "A theft in Limerick.",
+   "by": "claude"
+  },
+  {
+   "id": "df14148521265d6d",
+   "title": "Gardai masterplan to cut Galway road deaths",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.85,
+   "why": "A road-safety strategy, not an offence.",
+   "by": "claude"
+  },
+  {
+   "id": "305d1371350106a0",
+   "title": "Teenager (17) who allegedly drove stolen BMW on wrong side of Cork’s N40 refused bail",
+   "division": "31",
+   "town": null,
+   "group": "14",
+   "confidence": 0.8,
+   "why": "The N40 runs through Cork city.",
+   "by": "claude"
+  },
+  {
+   "id": "cde2224fe3692e35",
+   "title": "Gardai renew appeal on missing Limerick teenager",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "A missing-person appeal. No offence.",
+   "by": "claude"
+  },
+  {
+   "id": "014d4c068e3414c4",
+   "title": "Martin Foley challenges CAB's bid to sell his Dublin home",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.85,
+   "why": "A CAB asset case, not a recorded offence.",
+   "by": "claude"
+  },
+  {
+   "id": "9498b97fdb416e83",
+   "title": "Popular pub transformed into film set for major Tullamore D.E.W. advert",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "An advert shoot. 'Shooting' matched the prefilter.",
+   "by": "claude"
+  },
+  {
+   "id": "3facf653c41fc682",
+   "title": "Limerick gardai renew appeal for missing teenager amid concern for her wellbeing",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "The same missing-person appeal.",
+   "by": "claude"
+  },
+  {
+   "id": "72181407049aa2b2",
+   "title": "LIVE: Gardaí issue urgent dashcam appeal after man killed in Leitrim crash",
+   "division": "13",
+   "town": null,
+   "group": null,
+   "confidence": 0.8,
+   "why": "A fatal collision in Co Leitrim; no offence alleged.",
+   "by": "claude"
+  },
+  {
+   "id": "2004c561697d8b46",
+   "title": "Martin ‘The Viper’ Foley tells judge he would be homeless if Cab seizes Kimmage house",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.85,
+   "why": "The same CAB asset case. Kimmage is his home, not an offence location.",
+   "by": "claude"
+  },
+  {
+   "id": "834c19298655d19e",
+   "title": "Donegal man (60s) in court on eight sexual assault charges",
+   "division": "12",
+   "town": null,
+   "group": "02",
+   "confidence": 0.9,
+   "why": "Co Donegal.",
+   "by": "claude"
+  },
+  {
+   "id": "58d9318f68719cce",
+   "title": "President Donald Trump's visit to Clare adds layer of 'complexity' to court proceedings, says Limerick judge",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "Court scheduling around a state visit.",
+   "by": "claude"
+  },
+  {
+   "id": "dcc33c7fdc0cadbe",
+   "title": "Denis O'Brien has launched a new legal case against Meta's headquarters in Dublin",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "A civil action.",
+   "by": "claude"
+  },
+  {
+   "id": "a535f1a0c1f32bc9",
+   "title": "Man was arrested and released without charge after 7-minute Cork street rampage",
+   "division": "31",
+   "town": null,
+   "group": "03",
+   "confidence": 0.85,
+   "why": "Assaults on a Cork city street.",
+   "by": "claude"
+  },
+  {
+   "id": "2ece6aaa449d39bb",
+   "title": "Gardai hunting thugs who used stolen vehicle to ram patrol car in Kildare",
+   "division": "45",
+   "town": null,
+   "group": "12",
+   "confidence": 0.85,
+   "why": "A Garda car rammed in Co Kildare.",
+   "by": "claude"
+  },
+  {
+   "id": "f62c8e60a141090f",
+   "title": "Manhunt underway for gang who rammed Garda car in early morning Kildare confrontation",
+   "division": "45",
+   "town": null,
+   "group": "12",
+   "confidence": 0.85,
+   "why": "The same Kildare incident.",
+   "by": "claude"
+  },
+  {
+   "id": "2d40cd61e76a9e0b",
+   "title": "Driver in court charged with operating unlicenced Galway taxi",
+   "division": "23",
+   "town": null,
+   "group": "16",
+   "confidence": 0.7,
+   "why": "A licensing offence in Galway.",
+   "by": "claude"
+  },
+  {
+   "id": "335b67532d2855a2",
+   "title": "Girl (2) rushed to hospital after allegedly consuming cocaine at party, court hears",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.7,
+   "why": "Athlone is the court. The party's location is not given, and a court's town is not the offence's town.",
+   "by": "claude"
+  },
+  {
+   "id": "b4e994c97b3d445b",
+   "title": "Girl (2) taken to hospital after allegedly consuming cocaine at party, court hears",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.7,
+   "why": "Same case, same reason.",
+   "by": "claude"
+  },
+  {
+   "id": "3eb35fae2ce8bb0f",
+   "title": "Galway residents told 'do not engage with this man' and ring gardai immediately if spotted",
+   "division": "23",
+   "town": null,
+   "group": null,
+   "confidence": 0.7,
+   "why": "A Garda warning about a man targeting elderly people in Galway; the offence type is not stated.",
+   "by": "claude"
+  },
+  {
+   "id": "a183d7439a884465",
+   "title": "Teen car thief evaded Garda capture by swimming across river at 3am after ‘crime spree’",
+   "division": "21",
+   "town": "Tulla",
+   "group": "08",
+   "confidence": 0.9,
+   "why": "Two car thefts in Tulla and Scarriff, Co Clare.",
+   "by": "claude"
+  },
+  {
+   "id": "44973346c1107f68",
+   "title": "Leitrim Gardaí appeal for witnesses following fatal road collision",
+   "division": "13",
+   "town": null,
+   "group": null,
+   "confidence": 0.8,
+   "why": "The same Leitrim collision.",
+   "by": "claude"
+  },
+  {
+   "id": "8807225998a90843",
+   "title": "Tourism student denied bail over €50,000 cannabis package sent to Dublin hostel",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.7,
+   "why": "A Dublin hostel, no area named — the six DMR Divisions cannot be separated.",
+   "by": "claude"
+  },
+  {
+   "id": "4046945474bad5db",
+   "title": "Criminal Dean Thornton appears to take swipe at paralysed feud figure Owen Maguire in new rap",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.8,
+   "why": "A music release referencing past convictions.",
+   "by": "claude"
+  },
+  {
+   "id": "70bd40c0e3129ee8",
+   "title": "Disruption in Clare courts concludes as legal aid solicitors end protest",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "A legal-aid dispute, not an offence.",
+   "by": "claude"
+  },
+  {
+   "id": "02b3b097dd1f2ad6",
+   "title": "Dolly Parton to get new Hollywood star after vandalism",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.95,
+   "why": "Hollywood, California. The prefilter matched Hollywood, Co Wicklow.",
+   "by": "claude"
+  },
+  {
+   "id": "f3dd03d2e9c499f0",
+   "title": "Man appears in court charged in connection with estimated €1m cocaine seizure at Cork Airport",
+   "division": "31",
+   "town": null,
+   "group": "10",
+   "confidence": 0.85,
+   "why": "Cork Airport, in Cork City Division.",
+   "by": "claude"
+  },
+  {
+   "id": "52b79255678aace8",
+   "title": "Swords, scramblers, slingshots, caravans, dogs and horses among haul seized in Cork searches",
+   "division": "31",
+   "town": null,
+   "group": "11",
+   "confidence": 0.8,
+   "why": "Cork city searches. 'Swords' here is a weapon, not the Co Dublin town.",
+   "by": "claude"
+  },
+  {
+   "id": "b36bb2b781348629",
+   "title": "WATCH: Laois musician performs at Other Voices in Emo Court",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.95,
+   "why": "Music coverage. 'Other Voices' matched the prefilter.",
+   "by": "claude"
+  },
+  {
+   "id": "4722b15204450fbb",
+   "title": "Mayo men to appear before Circuit Court in relation to Castlebar assault",
+   "division": "22",
+   "town": "Castlebar",
+   "group": "03",
+   "confidence": 0.9,
+   "why": "A Castlebar assault, Co Mayo.",
+   "by": "claude"
+  },
+  {
+   "id": "d7f4dd9e73ff5dae",
+   "title": "Tributes from heartbroken family of murdered Brazilian woman",
+   "division": "35",
+   "town": "Limerick",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "A Limerick murder victim.",
+   "by": "claude"
+  },
+  {
+   "id": "f459e384a0044b76",
+   "title": "High Court dismisses Tipperary man's challenge against prison detention",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.75,
+   "why": "A detention challenge; the theft offences are not located.",
+   "by": "claude"
+  },
+  {
+   "id": "e7e2423c1b0b29b7",
+   "title": "Offaly home 'attacked' after online grooming 'sting'",
+   "division": "41",
+   "town": "Daingean",
+   "group": "12",
+   "confidence": 0.85,
+   "why": "A house in Daingean attacked.",
+   "by": "claude"
+  },
+  {
+   "id": "ae173696d5f7a7cb",
+   "title": "Gardaí investigating after lorry collides with bridge in Limerick City",
+   "division": "35",
+   "town": "Limerick",
+   "group": null,
+   "confidence": 0.75,
+   "why": "A Limerick city bridge strike; no offence stated.",
+   "by": "claude"
+  },
+  {
+   "id": "f746cac84cf7b0f1",
+   "title": "Four arrested after suspected knife attack in south Dublin suburb of Ranelagh",
+   "division": "61",
+   "town": "Ranelagh",
+   "group": "03",
+   "confidence": 0.85,
+   "why": "Ranelagh is DMR South Central.",
+   "by": "claude"
+  },
+  {
+   "id": "509f18459b388b0f",
+   "title": "Man facing raft of theft and burglary charges in Donegal granted bail",
+   "division": "12",
+   "town": null,
+   "group": "07",
+   "confidence": 0.85,
+   "why": "Co Donegal.",
+   "by": "claude"
+  },
+  {
+   "id": "7c480a528dea0436",
+   "title": "Slash hooks, swords, slingshots, dogs and horses seized by Gardaí during major Cork crime op",
+   "division": "31",
+   "town": null,
+   "group": "11",
+   "confidence": 0.8,
+   "why": "The same Cork operation.",
+   "by": "claude"
+  },
+  {
+   "id": "fef084908cb6b6d1",
+   "title": "Man charged after estimated €1m of cocaine ‘bricks’ seized in suitcase at Cork Airport",
+   "division": "31",
+   "town": null,
+   "group": "10",
+   "confidence": 0.85,
+   "why": "The same Cork Airport seizure.",
+   "by": "claude"
+  },
+  {
+   "id": "934f3b003d9898a0",
+   "title": "Jewellery stolen from woman in her 80s after she was followed to her home in Dublin",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.7,
+   "why": "'In Dublin' only.",
+   "by": "claude"
+  },
+  {
+   "id": "345bb704bd7ca75e",
+   "title": "Woman in court accused of using angle grinder to gain access to repossessed Dublin home",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.7,
+   "why": "A repossessed Dublin home, no area given.",
+   "by": "claude"
+  },
+  {
+   "id": "a845a92841265c48",
+   "title": "Shortage of gardaí in Carrick-on-Suir 'giving confidence to criminals', councillor warns",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "Policing-resources comment, no specific offence.",
+   "by": "claude"
+  },
+  {
+   "id": "75dac3406cf0febe",
+   "title": "Irish men win ECHR appeal over manslaughter convictions",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "The killing was in the Netherlands.",
+   "by": "claude"
+  },
+  {
+   "id": "59a3e1a96c5308e7",
+   "title": "Slash hooks and e-scooters seized in Garda operation targeting criminal activity in Cork",
+   "division": "31",
+   "town": null,
+   "group": "11",
+   "confidence": 0.8,
+   "why": "The same Cork operation.",
+   "by": "claude"
+  },
+  {
+   "id": "345d01ae7b856af7",
+   "title": "Lands for expanded Garda College may never be developed",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "A property story about Garda estate.",
+   "by": "claude"
+  },
+  {
+   "id": "ad0e21dcf2a3708e",
+   "title": "'Explain this one to the Judge' - Kilkenny gardaí make late night catch",
+   "division": "53",
+   "town": "Kilkenny",
+   "group": null,
+   "confidence": 0.7,
+   "why": "A late-night Garda seizure in Kilkenny; the offence type is not stated.",
+   "by": "claude"
+  },
+  {
+   "id": "5136a63aadb503a3",
+   "title": "Woman accused of using angle grinder to gain access to repossessed Dublin home",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.7,
+   "why": "The same case, no area given.",
+   "by": "claude"
+  },
+  {
+   "id": "87ce39d1d8a4573b",
+   "title": "Elderly woman robbed in her driveway after being followed by suspect in north Dublin",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.7,
+   "why": "'North Dublin' covers more than one Division.",
+   "by": "claude"
+  },
+  {
+   "id": "f340512a9d93e345",
+   "title": "Man, 33, charged with murder of his mother in Galway",
+   "division": "23",
+   "town": "Galway",
+   "group": "01",
+   "confidence": 0.95,
+   "why": "Ballybrit, Galway city.",
+   "by": "claude"
+  },
+  {
+   "id": "92da8302dd47322f",
+   "title": "Man (33) charged with murder of his mother in Galway city",
+   "division": "23",
+   "town": "Galway",
+   "group": "01",
+   "confidence": 0.95,
+   "why": "The same case.",
+   "by": "claude"
+  },
+  {
+   "id": "97b9a3643b4c34d0",
+   "title": "Watch: Man dubbed a 'menace' to Cork city in 7-minute rampage on busy street",
+   "division": "31",
+   "town": null,
+   "group": "03",
+   "confidence": 0.85,
+   "why": "The same Cork city assaults.",
+   "by": "claude"
+  },
+  {
+   "id": "688248000cd8b0cb",
+   "title": "Son charged with murder of mother at Galway home",
+   "division": "23",
+   "town": "Galway",
+   "group": "01",
+   "confidence": 0.95,
+   "why": "The same case.",
+   "by": "claude"
+  },
+  {
+   "id": "cf9493474c99d35f",
+   "title": "Laois musician performs at Other Voices in Emo Court",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.95,
+   "why": "Music coverage. 'Other Voices' matched the prefilter.",
+   "by": "claude"
+  },
+  {
+   "id": "83a35c8707826825",
+   "title": "Court rules against daa over car hire firm's airport use",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "Competition law, not recorded crime.",
+   "by": "claude"
+  },
+  {
+   "id": "564146ec0a522a72",
+   "title": "Man, 33, charged with murder of his mother in Galway",
+   "division": "23",
+   "town": "Galway",
+   "group": "01",
+   "confidence": 0.95,
+   "why": "Ballybrit, Galway city.",
+   "by": "claude"
+  },
+  {
+   "id": "4ba4458d0c5c47e6",
+   "title": "Gardai hunting woman in red puffer jacket after violent robbery in north Dublin",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.6,
+   "why": "Alfie Byrne Road straddles the Fairview/East Wall boundary between two Divisions.",
+   "by": "claude"
+  },
+  {
+   "id": "e1bd31c7bc69d044",
+   "title": "Several cases adjourned following major IT issues in Limerick District Court",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "Court IT failure, not an offence.",
+   "by": "claude"
+  },
+  {
+   "id": "79e329526684be8b",
+   "title": "Kilkenny Law Festival promises to put the law on trial!",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.95,
+   "why": "A festival listing.",
+   "by": "claude"
+  },
+  {
+   "id": "a778b2d8916c3e8b",
+   "title": "Gardai confirm 'firearms' seen in Dublin car park social media clip were airsoft guns",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.85,
+   "why": "Gardaí established the guns were airsoft — no offence stands.",
+   "by": "claude"
+  },
+  {
+   "id": "333515c8ebe9d123",
+   "title": "Two arrested after seizure of €210k worth of suspected heroin in Cork city",
+   "division": "31",
+   "town": null,
+   "group": "10",
+   "confidence": 0.9,
+   "why": "Cork city.",
+   "by": "claude"
+  },
+  {
+   "id": "6862655aa43a264c",
+   "title": "High-impact Garda search operation under way in Cork city",
+   "division": "31",
+   "town": null,
+   "group": "10",
+   "confidence": 0.9,
+   "why": "The article names Cork City Garda Division.",
+   "by": "claude"
+  },
+  {
+   "id": "ff54f4b8d31bad84",
+   "title": "'High impact' Garda operation in Cork cracking down on criminals after major heroin bust",
+   "division": "31",
+   "town": null,
+   "group": "10",
+   "confidence": 0.85,
+   "why": "The same Cork city operation.",
+   "by": "claude"
+  },
+  {
+   "id": "a2cd2f3879b47d98",
+   "title": "Man due in court after €1 million cocaine seizure at Cork Airport",
+   "division": "31",
+   "town": null,
+   "group": "10",
+   "confidence": 0.9,
+   "why": "The article names the Cork City Divisional Drugs Unit.",
+   "by": "claude"
+  },
+  {
+   "id": "ea15b09e0d409a33",
+   "title": "Donegal Gardaí warn public of latest ‘hit-and-run’ scam calls",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.8,
+   "why": "A general warning about scam calls, not a located offence.",
+   "by": "claude"
+  },
+  {
+   "id": "5b72afab7e937f62",
+   "title": "Dublin babysitter with 'longstanding animosity' 'burgled home with gun and knife'",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.7,
+   "why": "The burglary is 'on Dublin's north side'; Coolock is the accused's address.",
+   "by": "claude"
+  },
+  {
+   "id": "c9a9341e959855a2",
+   "title": "Community First Responders hold recruitment evening in Killygordon",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.95,
+   "why": "A recruitment evening for first responders.",
+   "by": "claude"
+  },
+  {
+   "id": "4bc595e469226832",
+   "title": "Longford’s Little Blue Hero! ​Big day for Honorary Garda Rebecca Reid",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.95,
+   "why": "An awards story.",
+   "by": "claude"
+  },
+  {
+   "id": "8e68e2c0703dec92",
+   "title": "N67 to be closed off for Irish Open weekend as Doonbeg buckles up for biggest security operation in the State this year",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "A traffic and security plan for a golf tournament.",
+   "by": "claude"
+  },
+  {
+   "id": "83a2c64629843e62",
+   "title": "Two Irish men win European court appeal over convictions for killing Dublin drug dealer in Netherlands",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "The same Dutch case. 'Ennis' matched a Co Clare place.",
+   "by": "claude"
+  },
+  {
+   "id": "550f052ad7fefa50",
+   "title": "New Galway road strategy aims to reduce deaths and serious injury by half",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.85,
+   "why": "The same strategy.",
+   "by": "claude"
+  },
+  {
+   "id": "7764954da593febe",
+   "title": "Man and woman arrested in Cork following seizure of heroin with street value of €200,000",
+   "division": "31",
+   "town": null,
+   "group": "10",
+   "confidence": 0.85,
+   "why": "The same Cork city seizure.",
+   "by": "claude"
+  },
+  {
+   "id": "388551be9beb75df",
+   "title": "Family's ex-babysitter with 'longstanding animosity' allegedly burgled home brandishing gun",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.7,
+   "why": "Same case, same reason.",
+   "by": "claude"
+  },
+  {
+   "id": "54466137d625308c",
+   "title": "Two men arrested after kilo of suspected cocaine seized following an 'intelligence-led operation'",
+   "division": "61",
+   "town": null,
+   "group": "10",
+   "confidence": 0.9,
+   "why": "The Dublin 8 area, and the article names DMR South Central's drugs unit.",
+   "by": "claude"
+  },
+  {
+   "id": "f234a2e413d01cd2",
+   "title": "Tipperary gardaí arrest two motorists on suspicion of drug driving",
+   "division": "51",
+   "town": null,
+   "group": "14",
+   "confidence": 0.9,
+   "why": "Drug driving in Co Tipperary.",
+   "by": "claude"
+  },
+  {
+   "id": "77734b595c37407f",
+   "title": "Waterford Gardaí warn of scam calls claiming fines are owed",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.8,
+   "why": "A general warning about scam calls.",
+   "by": "claude"
+  },
+  {
+   "id": "1407d1e32a4d80db",
+   "title": "An Garda Síochána now recruiting for role that could fetch starting salary of over €133,000",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.95,
+   "why": "A recruitment notice. No offence.",
+   "by": "claude"
+  },
+  {
+   "id": "75c2d25923d88989",
+   "title": "An Garda Síochána now recruiting for role that could fetch starting salary of over €133,000",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.95,
+   "why": "A recruitment notice. No offence.",
+   "by": "claude"
+  },
+  {
+   "id": "5b71a029df70456b",
+   "title": "An Garda Síochána now recruiting for role that could fetch starting salary of over €133,000",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.95,
+   "why": "A recruitment notice. No offence.",
+   "by": "claude"
+  },
+  {
+   "id": "46182dfd77287f69",
+   "title": "An Garda Síochána now recruiting for role that could fetch starting salary of over €133,000",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.95,
+   "why": "A recruitment notice. No offence.",
+   "by": "claude"
+  },
+  {
+   "id": "bcfe6120a5baf721",
+   "title": "An Garda Síochána now recruiting for role that could fetch starting salary of over €133,000",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.95,
+   "why": "A recruitment notice. No offence.",
+   "by": "claude"
+  },
+  {
+   "id": "9ffb6e3ba1389e39",
+   "title": "An Garda Síochána now recruiting for role that could fetch starting salary of over €133,000",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.95,
+   "why": "A recruitment notice. No offence.",
+   "by": "claude"
+  },
+  {
+   "id": "b5725700f4996a6b",
+   "title": "An Garda Síochána now recruiting for role that could fetch starting salary of over €133,000",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.95,
+   "why": "A recruitment notice. No offence.",
+   "by": "claude"
+  },
+  {
+   "id": "b1b21635cc423f6f",
+   "title": "An Garda Síochána now recruiting for role that could fetch starting salary of over €133,000",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.95,
+   "why": "A recruitment notice. No offence.",
+   "by": "claude"
+  },
+  {
+   "id": "eadbd2db8507ae8d",
+   "title": "An Garda Síochána now recruiting for role that could fetch starting salary of over €133,000",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.95,
+   "why": "A recruitment notice. No offence.",
+   "by": "claude"
+  },
+  {
+   "id": "10dceff44e9e2f34",
+   "title": "Nearly 400 children homeless in the Mid West",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.95,
+   "why": "Homelessness figures.",
+   "by": "claude"
+  },
+  {
+   "id": "388e0c44bbd3e373",
+   "title": "Gardaí hope postmortem provides answers into fisherman’s death off west Cork coast",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.85,
+   "why": "A death at sea with no offence alleged.",
+   "by": "claude"
+  },
+  {
+   "id": "3bb702bc35c8e78c",
+   "title": "Dublin family’s former babysitter accused of armed burglary at their home",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.7,
+   "why": "Same case, same reason.",
+   "by": "claude"
+  },
+  {
+   "id": "743c82452c50b856",
+   "title": "Family of Leopardstown attack victim post hospital photo hours before he lost fight for life",
+   "division": "65",
+   "town": "Leopardstown",
+   "group": "03",
+   "confidence": 0.85,
+   "why": "The Leopardstown brawl. Beaumont is the hospital, not the offence location.",
+   "by": "claude"
+  },
+  {
+   "id": "54d9f3e10d2392af",
+   "title": "Cork Gardai find stash of stolen vapes, cash and scratch cards in derelict house",
+   "division": "33",
+   "town": null,
+   "group": "07",
+   "confidence": 0.8,
+   "why": "Linked to a West Cork burglary investigation.",
+   "by": "claude"
+  },
+  {
+   "id": "b3539855f3c445de",
+   "title": "Leopardstown attack victim dies as family post hospital photo hours before he lost fight for life",
+   "division": "65",
+   "town": "Leopardstown",
+   "group": "03",
+   "confidence": 0.85,
+   "why": "The same brawl; Beaumont is the hospital.",
+   "by": "claude"
+  },
+  {
+   "id": "f823489581df1a4b",
+   "title": "Man ‘catastrophically’ injured in Leopardstown brawl dies in hospital",
+   "division": "65",
+   "town": "Leopardstown",
+   "group": "03",
+   "confidence": 0.9,
+   "why": "Leopardstown, heard at Dún Laoghaire District Court — DMR East.",
+   "by": "claude"
+  },
+  {
+   "id": "540cfbbb372302f7",
+   "title": "US billionaire's planned expansion to €4.75m Kinsale home shot down on appeal",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.95,
+   "why": "A planning appeal. 'Shot down' matched the prefilter.",
+   "by": "claude"
+  },
+  {
+   "id": "87dd87c38006dd98",
+   "title": "Letterkenny Gardaí seek man who stole valuable e-scooter",
+   "division": "12",
+   "town": "Letterkenny",
+   "group": "08",
+   "confidence": 0.9,
+   "why": "An e-scooter theft in Letterkenny.",
+   "by": "claude"
+  },
+  {
+   "id": "eeb8b4ab13a9cbb6",
+   "title": "Man injured in violent disturbance in Dublin has died – gardaí",
+   "division": "65",
+   "town": "Leopardstown",
+   "group": "03",
+   "confidence": 0.75,
+   "why": "Syndicated wire copy for the Leopardstown brawl; names only 'Dublin'.",
+   "by": "claude"
+  },
+  {
+   "id": "4862c83d8b68e410",
+   "title": "Man injured in violent disturbance in Dublin has died – gardaí",
+   "division": "65",
+   "town": "Leopardstown",
+   "group": "03",
+   "confidence": 0.75,
+   "why": "Syndicated wire copy for the Leopardstown brawl; names only 'Dublin'.",
+   "by": "claude"
+  },
+  {
+   "id": "939982d1e95f45fa",
+   "title": "Man injured in violent disturbance in Dublin has died – gardaí",
+   "division": "65",
+   "town": "Leopardstown",
+   "group": "03",
+   "confidence": 0.75,
+   "why": "Syndicated wire copy for the Leopardstown brawl; names only 'Dublin'.",
+   "by": "claude"
+  },
+  {
+   "id": "2f3c0d1ac90b799e",
+   "title": "Man injured in violent disturbance in Dublin has died – gardaí",
+   "division": "65",
+   "town": "Leopardstown",
+   "group": "03",
+   "confidence": 0.75,
+   "why": "Syndicated wire copy for the Leopardstown brawl; names only 'Dublin'.",
+   "by": "claude"
+  },
+  {
+   "id": "e2af3df21862afc2",
+   "title": "Man injured in violent disturbance in Dublin has died – gardaí",
+   "division": "65",
+   "town": "Leopardstown",
+   "group": "03",
+   "confidence": 0.75,
+   "why": "Syndicated wire copy for the Leopardstown brawl; names only 'Dublin'.",
+   "by": "claude"
+  },
+  {
+   "id": "7f987c4519a2cd09",
+   "title": "Man injured in violent disturbance in Dublin has died – gardaí",
+   "division": "65",
+   "town": "Leopardstown",
+   "group": "03",
+   "confidence": 0.75,
+   "why": "Syndicated wire copy for the Leopardstown brawl; names only 'Dublin'.",
+   "by": "claude"
+  },
+  {
+   "id": "71d44b805545fe27",
+   "title": "Man injured in violent disturbance in Dublin has died – gardaí",
+   "division": "65",
+   "town": "Leopardstown",
+   "group": "03",
+   "confidence": 0.75,
+   "why": "Syndicated wire copy for the Leopardstown brawl; names only 'Dublin'.",
+   "by": "claude"
+  },
+  {
+   "id": "e174a0644d91cebd",
+   "title": "Man assaulted in Dublin 'large-scale confrontation' dies",
+   "division": "65",
+   "town": "Leopardstown",
+   "group": "03",
+   "confidence": 0.75,
+   "why": "The same incident, named only as Dublin.",
+   "by": "claude"
+  },
+  {
+   "id": "a7c32085c5fe1ef7",
+   "title": "Bench warrant issued as Irish Reality TV star flees Australia before court case",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "The charges and the failure to appear are in Australia. Donegal is only where he is from.",
+   "by": "claude"
+  },
+  {
+   "id": "298fcf51f46d9eea",
+   "title": "Bench warrant issued as Irish Reality TV star flees Australia before court case",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "The charges and the failure to appear are in Australia. Donegal is only where he is from.",
+   "by": "claude"
+  },
+  {
+   "id": "2cf24e85556335a4",
+   "title": "Bench warrant issued as Irish Reality TV star flees Australia before court case",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "The charges and the failure to appear are in Australia. Donegal is only where he is from.",
+   "by": "claude"
+  },
+  {
+   "id": "39ad4301a1f9fd7b",
+   "title": "Bench warrant issued as Irish Reality TV star flees Australia before court case",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "The charges and the failure to appear are in Australia. Donegal is only where he is from.",
+   "by": "claude"
+  },
+  {
+   "id": "7966287727632918",
+   "title": "Bench warrant issued as Irish Reality TV star flees Australia before court case",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "The charges and the failure to appear are in Australia. Donegal is only where he is from.",
+   "by": "claude"
+  },
+  {
+   "id": "167c3d6a3c7774a2",
+   "title": "Bench warrant issued as Irish Reality TV star flees Australia before court case",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "The charges and the failure to appear are in Australia. Donegal is only where he is from.",
+   "by": "claude"
+  },
+  {
+   "id": "7d3eb4a4fa42e6b5",
+   "title": "Bench warrant issued as Irish Reality TV star flees Australia before court case",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "The charges and the failure to appear are in Australia. Donegal is only where he is from.",
+   "by": "claude"
+  },
+  {
+   "id": "4660380a78fe679e",
+   "title": "Bench warrant issued as Irish Reality TV star flees Australia before court case",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "The charges and the failure to appear are in Australia. Donegal is only where he is from.",
+   "by": "claude"
+  },
+  {
+   "id": "c40850fb19d3075e",
+   "title": "Bench warrant issued as Irish Reality TV star flees Australia before court case",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "The charges and the failure to appear are in Australia. Donegal is only where he is from.",
+   "by": "claude"
+  },
+  {
+   "id": "25fd8ec202bf8c56",
+   "title": "Man dies in hospital from injuries sustained during 'violent disorder' in Dublin",
+   "division": "65",
+   "town": "Leopardstown",
+   "group": "03",
+   "confidence": 0.75,
+   "why": "The same incident.",
+   "by": "claude"
+  },
+  {
+   "id": "0ca90cc3ea352970",
+   "title": "Don’t steal the bikkies: Understanding the free legal aid system from the other side of the bars",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "An explainer on the legal-aid protest.",
+   "by": "claude"
+  },
+  {
+   "id": "7ab4e47f052e4935",
+   "title": "Man dies from ‘catastrophic’ injuries after being struck in head with shovel in Dublin business-park brawl",
+   "division": "65",
+   "town": "Leopardstown",
+   "group": "03",
+   "confidence": 0.8,
+   "why": "The same business-park brawl.",
+   "by": "claude"
+  },
+  {
+   "id": "08e4cd721d571fde",
+   "title": "Man taken to hospital following Buncrana assault",
+   "division": "12",
+   "town": "Buncrana",
+   "group": "03",
+   "confidence": 0.9,
+   "why": "An assault in Buncrana.",
+   "by": "claude"
+  },
+  {
+   "id": "5bf9cd1d64e79084",
+   "title": "Galway college students told try last chance accommodation 'method' to secure housing",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.95,
+   "why": "Student accommodation.",
+   "by": "claude"
+  },
+  {
+   "id": "96a851b1265ce415",
+   "title": "Dublin family's former babysitter charged over alleged burglary with gun at their home",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.7,
+   "why": "Same case, same reason.",
+   "by": "claude"
+  },
+  {
+   "id": "a30396a6bc76f85d",
+   "title": "Over 100 criminal solicitors walk out over aid dispute",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "The same legal-aid protest.",
+   "by": "claude"
+  },
+  {
+   "id": "f510b60c84a58c3e",
+   "title": "Pedestrian hospitalised following Letterkenny collision",
+   "division": "12",
+   "town": "Letterkenny",
+   "group": null,
+   "confidence": 0.8,
+   "why": "A collision with no offence stated.",
+   "by": "claude"
+  },
+  {
+   "id": "f62668d7ec303175",
+   "title": "Gardaí probe arson attack on car in east Donegal",
+   "division": "12",
+   "town": null,
+   "group": "12",
+   "confidence": 0.9,
+   "why": "Arson, east Co Donegal.",
+   "by": "claude"
+  },
+  {
+   "id": "08bd2ee4afec3006",
+   "title": "Gardaí seek youths over attack on south Donegal church",
+   "division": "12",
+   "town": null,
+   "group": "12",
+   "confidence": 0.85,
+   "why": "Damage to a church, south Co Donegal.",
+   "by": "claude"
+  },
+  {
+   "id": "2eada0b3eb41276b",
+   "title": "Half a million euro lost to rent scams in Limerick this year",
+   "division": "35",
+   "town": "Limerick",
+   "group": "09",
+   "confidence": 0.85,
+   "why": "Over 230 rental scams reported to Limerick Gardaí.",
+   "by": "claude"
   }
  ]
 }
