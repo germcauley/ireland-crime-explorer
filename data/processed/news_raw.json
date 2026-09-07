@@ -1,9 +1,3439 @@
 {
  "meta": {
-  "fetchedAt": "2026-09-06T09:10:01.309961+00:00",
+  "fetchedAt": "2026-09-07T09:57:45.085370+00:00",
   "feedCount": 25
  },
  "articles": [
+  {
+   "id": "4abc604db6b63190",
+   "title": "Donegal firefighters treated to first-class send-off for epic 9/11 tribute cycle",
+   "description": "",
+   "url": "https://www.donegaldaily.com/news/donegal-firefighters-get-first-class-send-off-for-epic-9-11-tribute-cycle-648440",
+   "source": "Donegal Daily",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T10:20:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.271745+00:00"
+  },
+  {
+   "id": "3d733bc7fa54176e",
+   "title": "Sweeney claims President’s Prize in Barnhill thriller",
+   "description": "",
+   "url": "https://www.donegaldaily.com/sport/sweeney-claims-presidents-prize-in-barnhill-thriller-648442",
+   "source": "Donegal Daily",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T10:02:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.271787+00:00"
+  },
+  {
+   "id": "4c42161fd4b94a4a",
+   "title": "Big day for Longford club footballer Mel as he weds fianceé Caoimhe",
+   "description": "Newlyweds Mel Farrell Caoimhe Lawlor celebrated their special day recently.",
+   "url": "https://www.longfordleader.ie/community/big-day-for-longford-club-footballer-mel-as-he-weds-fiancee-caoimhe-8970860",
+   "source": "Longford Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T09:56:05+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.210761+00:00"
+  },
+  {
+   "id": "4815c50bd25469ba",
+   "title": "Woman arrested on suspicion of drink and drug driving after Strabane crash",
+   "description": "A woman has been arrested on suspicion of driving while unfit through drink and drugs following a road traffic collision in Strabane last night. The collision happened on the Urney Road shortly before 8.30pm, with both drivers taken to hospital. The male driver was taken to be checked over, while the female driver was arrested […]",
+   "url": "https://highlandradio.com/2026/09/07/woman-arrested-on-suspicion-of-drink-and-drug-driving-after-strabane-crash/",
+   "source": "Highland Radio",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T09:51:04+00:00",
+   "fetchedAt": "2026-09-07T09:57:43.222281+00:00"
+  },
+  {
+   "id": "61fd819da1be6629",
+   "title": "Uk govt condemns 'thuggish' Portsmouth migration protest",
+   "description": "Britain's government has condemned as \"thuggish\" hundreds of demonstrators who blocked roads vowing to prevent asylum seekers leaving the southern English city of Portsmouth after they arrived by small boat.",
+   "url": "https://www.rte.ie/news/uk/2026/0907/1590562-portsmouth-asylum-seekers/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-07T09:48:27+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.375348+00:00"
+  },
+  {
+   "id": "ce744b6acef2d098",
+   "title": "Boy (17) arrested on suspicion of attempted murder after Belfast stabbing",
+   "description": "The victim, a man in his 20s, was taken to hospital to be treated for injuries which are not believed to be life-threatening.",
+   "url": "https://www.thejournal.ie/boy-17-arrested-suspicion-attempted-murder-belfast-stabbing-7154832-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-07T09:46:21+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.949670+00:00"
+  },
+  {
+   "id": "1e7527c40989b4f8",
+   "title": "Sixth annual Offaly Association golf classic set to raise in excess of €30,000 for Offaly GAA",
+   "description": "Exiles organise annual golf classic for Offaly GAA",
+   "url": "https://www.offalyexpress.ie/sport/gaa/sixth-annual-offaly-association-golf-classic-set-to-raise-in-excess-of-eu30000-8970732",
+   "source": "Offaly Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T09:44:45+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.026809+00:00"
+  },
+  {
+   "id": "58f3cd049cdf7ad2",
+   "title": "Defective Blocks Committee delegation meets Housing officials today",
+   "description": "A delegation from Donegal County Council’s Defective Concrete Blocks Committee is in Dublin today to meet with officials from the Department of Housing. The meeting is understood to be getting underway around now in Leinster House. Each political party on the DCB Committee has one representative attending the meeting.",
+   "url": "https://highlandradio.com/2026/09/07/defective-blocks-committee-delegation-meets-housing-officials-today/",
+   "source": "Highland Radio",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T09:40:01+00:00",
+   "fetchedAt": "2026-09-07T09:57:43.222346+00:00"
+  },
+  {
+   "id": "58702fb9ebcb3028",
+   "title": "Gardaí, Colombian police sign drug trafficking agreement",
+   "description": "An Garda Síochána has signed a Memorandum of Understanding with the Colombian national police as part of ongoing cooperation in tackling organised crime and international drug trafficking.",
+   "url": "https://www.rte.ie/news/ireland/2026/0907/1590561-gardai-colombian-police/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-07T09:39:21+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.375561+00:00"
+  },
+  {
+   "id": "ce5aba36151e3f6e",
+   "title": "72 properties without power in East Donegal",
+   "description": "72 properties are without power in East Donegal this morning. ESB says a fault was reported at around 9.40am in Rossgeir. It’s expected to be restored by 12:30pm.",
+   "url": "https://highlandradio.com/2026/09/07/72-properties-without-power-in-east-donegal/",
+   "source": "Highland Radio",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T09:35:16+00:00",
+   "fetchedAt": "2026-09-07T09:57:43.222393+00:00"
+  },
+  {
+   "id": "c715c89c1186e21f",
+   "title": "Profile of an Offaly parkrunner: Meet Noeleen",
+   "description": "Meet Noeleen Dempsey from Clonbullogue, who recently started taking part in Mountlucas parkrun.",
+   "url": "https://www.offalyexpress.ie/news/profile-of-an-offaly-parkrunner-meet-noeleen-8970560",
+   "source": "Offaly Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T09:29:45+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.026839+00:00"
+  },
+  {
+   "id": "e6549551f21054b4",
+   "title": "New honey labelling rules welcomed by Tipperary beekeeper",
+   "description": "Beekeeper and honey producer Aoife Nic Giolla Coda says greater transparency will help consumers identify Irish honey and support local beekeepers",
+   "url": "https://www.tipperarylive.ie/news/clonmel/new-honey-labelling-rules-welcomed-by-tipperary-beekeeper-8970395",
+   "source": "Tipperary Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T09:16:53+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.131778+00:00"
+  },
+  {
+   "id": "39969f3ac37c1cc0",
+   "title": "Doagh Famine Village comeback story set for Nationwide spotlight tonight",
+   "description": "",
+   "url": "https://www.donegaldaily.com/lifestyle/doagh-famine-village-comeback-story-set-for-nationwide-spotlight-tonight-648434",
+   "source": "Donegal Daily",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T09:16:20+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.271812+00:00"
+  },
+  {
+   "id": "a19ac15cc9a19944",
+   "title": "NFL Goes Worldwide as 2026 Season Opens in Seattle and Melbourne",
+   "description": "The NFL returns this week with a blockbuster start to the 2026 campaign, headlined by a Super Bowl 60 rematch and the league’s first‑ever regular‑season game in Australia. With nine international fixtures scheduled this year, the opening weekend already shows how global the sport has become. The action begins in the early hours of Thursday […]",
+   "url": "https://wlrfm.com/sport/nfl-goes-worldwide-as-2026-season-opens-in-seattle-and-melbourne-4489229/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T09:15:12+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.023607+00:00"
+  },
+  {
+   "id": "bfcc3fd15254c4c9",
+   "title": "'Only a baby': Boy, 2, killed in horror collision had just started preschool",
+   "description": "A male driver of the vehicle, aged in his 30s, was subsequently arrested at a different location by gardaí on suspicion of driving under the influence of an intoxicant",
+   "url": "https://www.connachttribune.ie/national/only-a-baby-boy-2-killed-in-horror-collision-had-just-started-preschool-8970194",
+   "source": "Connacht Tribune",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T09:15:08+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.647264+00:00"
+  },
+  {
+   "id": "dd09d6c24f7f7c84",
+   "title": "'Only a baby': Boy, 2, killed in horror collision had just started preschool",
+   "description": "A male driver of the vehicle, aged in his 30s, was subsequently arrested at a different location by gardaí on suspicion of driving under the influence of an intoxicant",
+   "url": "https://www.mayonews.ie/national/only-a-baby-boy-2-killed-in-horror-collision-had-just-started-preschool-8970194",
+   "source": "Mayo News",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T09:15:08+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.616466+00:00"
+  },
+  {
+   "id": "7822c5c882359f07",
+   "title": "'Only a baby': Boy, 2, killed in horror collision had just started preschool",
+   "description": "A male driver of the vehicle, aged in his 30s, was subsequently arrested at a different location by gardaí on suspicion of driving under the influence of an intoxicant",
+   "url": "https://www.kilkennypeople.ie/national/only-a-baby-boy-2-killed-in-horror-collision-had-just-started-preschool-8970194",
+   "source": "Kilkenny People",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T09:15:08+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.971156+00:00"
+  },
+  {
+   "id": "a620a2ccf76efff3",
+   "title": "'Only a baby': Boy, 2, killed in horror collision had just started preschool",
+   "description": "A male driver of the vehicle, aged in his 30s, was subsequently arrested at a different location by gardaí on suspicion of driving under the influence of an intoxicant",
+   "url": "https://www.leinsterexpress.ie/national/only-a-baby-boy-2-killed-in-horror-collision-had-just-started-preschool-8970194",
+   "source": "Leinster Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T09:15:08+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.007056+00:00"
+  },
+  {
+   "id": "2bd3539a3c47cf1c",
+   "title": "'Only a baby': Boy, 2, killed in horror collision had just started preschool",
+   "description": "A male driver of the vehicle, aged in his 30s, was subsequently arrested at a different location by gardaí on suspicion of driving under the influence of an intoxicant",
+   "url": "https://www.offalyexpress.ie/national/only-a-baby-boy-2-killed-in-horror-collision-had-just-started-preschool-8970194",
+   "source": "Offaly Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T09:15:08+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.026873+00:00"
+  },
+  {
+   "id": "48bfc96e097717ef",
+   "title": "'Only a baby': Boy, 2, killed in horror collision had just started preschool",
+   "description": "A male driver of the vehicle, aged in his 30s, was subsequently arrested at a different location by gardaí on suspicion of driving under the influence of an intoxicant",
+   "url": "https://www.longfordleader.ie/national/only-a-baby-boy-2-killed-in-horror-collision-had-just-started-preschool-8970194",
+   "source": "Longford Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T09:15:08+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.210801+00:00"
+  },
+  {
+   "id": "7242443985684114",
+   "title": "'Only a baby': Boy, 2, killed in horror collision had just started preschool",
+   "description": "A male driver of the vehicle, aged in his 30s, was subsequently arrested at a different location by gardaí on suspicion of driving under the influence of an intoxicant",
+   "url": "https://www.leitrimobserver.ie/national/only-a-baby-boy-2-killed-in-horror-collision-had-just-started-preschool-8970194",
+   "source": "Leitrim Observer",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T09:15:08+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.392147+00:00"
+  },
+  {
+   "id": "f327ffa371763135",
+   "title": "'Only a baby': Boy, 2, killed in horror collision had just started preschool",
+   "description": "A male driver of the vehicle, aged in his 30s, was subsequently arrested at a different location by gardaí on suspicion of driving under the influence of an intoxicant",
+   "url": "https://www.tipperarylive.ie/national/only-a-baby-boy-2-killed-in-horror-collision-had-just-started-preschool-8970194",
+   "source": "Tipperary Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T09:15:08+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.131819+00:00"
+  },
+  {
+   "id": "bc9786ac09310303",
+   "title": "U2 and Maeve Binchy to appear on new commemorative coins",
+   "description": "The bank’s coin will be released later this month, while the coin celebrating the late Irish author will be launched in October.",
+   "url": "https://www.thejournal.ie/commemorative-coins-u2-maeve-binchy-central-bank-7154783-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-07T09:14:59+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.949701+00:00"
+  },
+  {
+   "id": "8e2e079c24a54b96",
+   "title": "More than 1,100 asylum seekers have voluntarily left the State this year",
+   "description": "Department of Justice paid more than €222,000 in ‘reintegration assistance’ fees in first half of year",
+   "url": "https://www.irishtimes.com/ireland/social-affairs/2026/09/07/more-than-1100-asylum-seekers-have-voluntarily-left-the-state-this-year/",
+   "source": "Irish Times",
+   "scope": "national",
+   "publishedAt": "2026-09-07T09:12:56+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.905401+00:00"
+  },
+  {
+   "id": "ca6dafea670beee4",
+   "title": "Toddler killed in Limerick hit-and-run started preschool days before he died",
+   "description": "Peter Mulcaire enjoyed his first day of school just days before the incident",
+   "url": "https://www.corkbeo.ie/news/local-news/toddler-killed-limerick-hit-run-34577745",
+   "source": "Cork Beo",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T09:12:22+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.845586+00:00"
+  },
+  {
+   "id": "1bf581ae71bb0cd3",
+   "title": "'Once off capital allocation': New funding model for Longford Family Resource Centres",
+   "description": "The new initiative will provide each of Ireland’s 136 Family Resource Centres (FRCs) with a once-off capital allocation of €10,000 in 2026.",
+   "url": "https://www.longfordleader.ie/community/once-off-capital-funds-allocation-for-longford-family-resource-centres-8970343",
+   "source": "Longford Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T09:10:32+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.210837+00:00"
+  },
+  {
+   "id": "695a363987278969",
+   "title": "Fixture confirmed for next phase of Donegal Club Championship",
+   "description": "After a hectic Super Sunday in the Donegal senior football championship, The Donegal CCC have confirmed the fixture details for next weekends preliminary quarter finals. Four Master will host St Michael’s on Saturday 12th September at 3.30pm with MacCumhaills and Downings meeting in Ballybofey at 7.30pm. Then on Sunday, it’s derby day for rival parishes, […]",
+   "url": "https://highlandradio.com/2026/09/07/fixture-confirmed-for-next-phase-of-donegal-club-championship/",
+   "source": "Highland Radio",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T09:09:58+00:00",
+   "fetchedAt": "2026-09-07T09:57:43.222456+00:00"
+  },
+  {
+   "id": "84bfdc361bf89c4b",
+   "title": "Ireland weather: Latest on storm fears as thunder set to roll before Donald Trump visit",
+   "description": "Golfing fans might need to pack their umbrella for the Irish Open this week",
+   "url": "https://www.irishmirror.ie/weather/ireland-weather-forecast-met-eireann-37634279",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-07T09:05:47+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.637443+00:00"
+  },
+  {
+   "id": "8d4d4a10b8e2d47e",
+   "title": "SHAWS NEW SPONSOR OF WLR’S BIG BREAKFAST BLAA",
+   "description": "WLR is delighted to announce Shaws as the new sponsor of The Big Breakfast Blaa with Ollie & Dymphna, bringing together two brands with deep roots in Waterford City and County. The new partnership comes at an exciting time for the Big Breakfast Blaa, which has recorded its strongest JNLR audience figures in years, as […]",
+   "url": "https://wlrfm.com/news/shaws-new-sponsor-of-wlrs-big-breakfast-blaa-4489219/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T09:04:42+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.023678+00:00"
+  },
+  {
+   "id": "3eef4f167b513859",
+   "title": "Clocks will move back a day earlier this year",
+   "description": "Clocks will go back by one hour on Sunday, October 25th, as Ireland moves to winter time",
+   "url": "https://www.irishtimes.com/ireland/2026/09/07/clocks-will-move-back-a-day-earlier-this-year/",
+   "source": "Irish Times",
+   "scope": "national",
+   "publishedAt": "2026-09-07T09:03:16+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.905433+00:00"
+  },
+  {
+   "id": "c81b1f3e9fb162b8",
+   "title": "Connect trade union to begin industrial action over public pay",
+   "description": "Action involving tradespeople to begin in three weeks’ time after Government ‘refused to engage’ over pay mechanism, says union leader",
+   "url": "https://www.irishtimes.com/ireland/2026/09/07/connect-trade-union-to-begin-industrial-action-over-public-pay/",
+   "source": "Irish Times",
+   "scope": "national",
+   "publishedAt": "2026-09-07T09:01:18+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.905464+00:00"
+  },
+  {
+   "id": "de5c6de6248e9ef4",
+   "title": "Mayo University Hospital introduces new end-of-life care policy",
+   "description": "The policy is focused on dignity, choice and compassionate care.",
+   "url": "https://www.mayonews.ie/news/mayo-university-hospital-introduces-new-end-of-life-care-policy-8960283",
+   "source": "Mayo News",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T09:00:27+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.616497+00:00"
+  },
+  {
+   "id": "84b67b2535c082dd",
+   "title": "Specimens of Change Exhibition officially open in Limerick Museum",
+   "description": "Rarely seen fossils, animals and plants feature in Limerick Museum’s new display",
+   "url": "https://www.limerickleader.ie/community/specimens-of-change-exhibition-officially-open-in-limerick-museum-8955755",
+   "source": "Limerick Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T09:00:24+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.671881+00:00"
+  },
+  {
+   "id": "019fbb6e94396ed2",
+   "title": "Kilkenny Deaths - Monday, September 7, 2026",
+   "description": "Condolences to the families and friends of those who have recently died.",
+   "url": "https://www.kilkennypeople.ie/deaths/kilkenny-deaths-monday-september-7-2026-8970248",
+   "source": "Kilkenny People",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T08:57:31+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.971185+00:00"
+  },
+  {
+   "id": "eb056f64676a4ebb",
+   "title": "Next shoppers 'delighted' with 'comfy' €38 corduroy trousers that are 'so soft'",
+   "description": "With a 4.5 rating from reviewers, shoppers say they're soft, well-fitting, and a great alternative to jeans this autumn and winter.",
+   "url": "https://www.dublinlive.ie/whats-on/shopping/next-shoppers-delighted-comfy-38-34577552",
+   "source": "Dublin Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T08:57:12+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.942863+00:00"
+  },
+  {
+   "id": "737e47b5d891b673",
+   "title": "Top four finish for LAC at Waterside Half-Marathon",
+   "description": "",
+   "url": "https://www.donegaldaily.com/sport/top-four-finish-for-lac-at-waterside-half-marathon-648429",
+   "source": "Donegal Daily",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T08:54:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.271832+00:00"
+  },
+  {
+   "id": "be4c186289ad330d",
+   "title": "Reputation of State 'on the line' during Trump visit",
+   "description": "A former assistant garda commissioner has said that the reputation of the State is \"on the line\" regarding the security operation surrounding the upcoming visit of US President Donald Trump.",
+   "url": "https://www.rte.ie/news/ireland/2026/0907/1590549-trump-visit-security/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-07T08:50:16+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.375379+00:00"
+  },
+  {
+   "id": "d5bb57755c18999b",
+   "title": "Free shuttle buses and free family events for Cork's Culture Night 2026",
+   "description": "Hop on, hop off - free for Culture Night",
+   "url": "https://www.corkbeo.ie/culture/whats-on-news/free-shuttle-buses-free-family-34577643",
+   "source": "Cork Beo",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T08:47:50+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.845615+00:00"
+  },
+  {
+   "id": "528d9ebe29647075",
+   "title": "Breakdown in Dublin tunnel and M50 delays - live traffic updates",
+   "description": "We'll bring you all the latest Dublin traffic and travel updates throughout the morning",
+   "url": "https://www.dublinlive.ie/news/dublin-news/breakdown-dublin-tunnel-m50-delays-34577205",
+   "source": "Dublin Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T08:46:54+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.942895+00:00"
+  },
+  {
+   "id": "a32a2c881d79366a",
+   "title": "Caoimhe Kenny does Ireland proud on Miss World stage",
+   "description": "",
+   "url": "https://www.donegaldaily.com/news/caoimhe-kenny-does-ireland-proud-on-miss-world-stage-648419",
+   "source": "Donegal Daily",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T08:45:23+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.271852+00:00"
+  },
+  {
+   "id": "b5eec5813a4cb618",
+   "title": "From matchmaking to millionaire-making as Lisdoonvarna player wins €1m",
+   "description": "*Staff at Spar Lisdoonvarna Brid Sammon, Khushboo Ayub and Joanna Klucznik || Photograph by Eamon Ward A LISDOONVARNA Lotto player has become a €1 million millionaire after buying the winning Lotto Plus ticket at a local shop during the town’s famous Matchmaking Festival. The winning ticket was purchased at Spar Lisdoonvarna on Saturday, September 5, … From matchmaking to millionaire-making as Lis",
+   "url": "https://www.clareecho.ie/from-matchmaking-to-millionaire-making-as-lisdoonvarna-player-wins-e1m/?utm_source=rss&utm_medium=rss&utm_campaign=from-matchmaking-to-millionaire-making-as-lisdoonvarna-player-wins-e1m",
+   "source": "Clare Echo",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T08:39:14+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.219970+00:00"
+  },
+  {
+   "id": "a1c3f4c15a665587",
+   "title": "Five dead as Amazon plane bursts into flames in Miami - Everything we know so far",
+   "description": "The aircraft struck vehicles and burst into flames",
+   "url": "https://www.irishmirror.ie/news/world-news/amazon-plane-crash-miami-deaths-37634413",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-07T08:38:27+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.637474+00:00"
+  },
+  {
+   "id": "6c822c9d62d44e7e",
+   "title": "CAO points drop for half of University of Galway courses in first round",
+   "description": "The University of Galway has seen a drop in CAO points for more than half of its courses examined in a comparison of 2025 and 2026 Round 1 figures.",
+   "url": "https://www.connachttribune.ie/news/galway-city/cao-points-fall-across-half-of-university-of-galway-courses-in-first-round-8970091",
+   "source": "Connacht Tribune",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T08:35:59+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.647299+00:00"
+  },
+  {
+   "id": "00d64a76c026cf6d",
+   "title": "Showery and mild day in store for Donegal",
+   "description": "",
+   "url": "https://www.donegaldaily.com/news/showery-and-mild-day-in-store-for-donegal-648426",
+   "source": "Donegal Daily",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T08:34:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.271874+00:00"
+  },
+  {
+   "id": "a79de4d6795bd9d0",
+   "title": "Ireland records fourth highest obesity rate in Europe",
+   "description": "Ireland now has the fourth highest obesity rate in Europe. New figures published by the European Commission shows 22 point 1 per cent of adults here were classified as obese last year. That rate is considerably higher than the EU average of 16 point 3 per cent. Only Malta, Latvia and Finland had higher rates […]",
+   "url": "https://highlandradio.com/2026/09/07/ireland-records-fourth-highest-obesity-rate-in-europe/",
+   "source": "Highland Radio",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T08:28:13+00:00",
+   "fetchedAt": "2026-09-07T09:57:43.222508+00:00"
+  },
+  {
+   "id": "068263144107b7a0",
+   "title": "Budget to support those 'who get up early every morning'",
+   "description": "Tánaiste and Minister for Finance Simon Harris has said this year's Budget will support people \"who get up early every morning and go to work\".",
+   "url": "https://www.rte.ie/news/ireland/2026/0907/1590548-budget-harris/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-07T08:26:49+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.375239+00:00"
+  },
+  {
+   "id": "e268b0e45bbd6c80",
+   "title": "Evil mum killed son, 7, and left him with genital injuries so gruesome medics had to leave",
+   "description": "Sabrina Ho was convicted of murder and sentenced to life after her son Phoenix died in April 2022 following weeks of abuse — she has now joined a prison pen pal site seeking a relationship",
+   "url": "https://www.irishmirror.ie/news/world-news/evil-mum-killed-son-7-37627840",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-07T08:26:38+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.637514+00:00"
+  },
+  {
+   "id": "456ca692ea864b0c",
+   "title": "Irish cinematographer Darran Tiernan among Emmy winners",
+   "description": "Irish cinematographer Darran Tiernan was among the winners at the Emmy Awards in Los Angeles at the weekend.",
+   "url": "https://www.rte.ie/entertainment/2026/0907/1590545-irish-cinematographer-darran-tiernan-among-emmy-winners/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-07T08:24:30+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.375462+00:00"
+  },
+  {
+   "id": "7260f8928fed453d",
+   "title": "Met Eireann weather for the week as big change forecast",
+   "description": "A new twist is in store on the weather front",
+   "url": "https://www.connachttribune.ie/news/weather/met-eireann-weather-week-forecast-8969940",
+   "source": "Connacht Tribune",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T08:23:02+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.647322+00:00"
+  },
+  {
+   "id": "e2ef22790b340568",
+   "title": "Offaly man fought the good fight, both on the playing field and in civic life",
+   "description": "Presented by Aidan Barry and Shaun Wrafter",
+   "url": "https://www.offalyexpress.ie/news/offaly-man-fought-the-good-fight-both-on-the-playing-field-and-in-civic-life-8961400",
+   "source": "Offaly Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T08:22:12+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.026896+00:00"
+  },
+  {
+   "id": "c792c99a0df92967",
+   "title": "Eleven Family Resource Centres across Donegal receive €10k funding",
+   "description": "",
+   "url": "https://www.donegaldaily.com/news/eleven-family-resource-centres-across-donegal-receive-e10k-funding-648418",
+   "source": "Donegal Daily",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T08:20:23+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.271901+00:00"
+  },
+  {
+   "id": "adbac488ec5cf7c1",
+   "title": "Irish EuroMillions winner gave away half of €127m prize",
+   "description": "Frances Connolly, who won the €127m EuroMillions jackpot with her husband Paddy in 2019, has set up a charitable trust to support good causes and estimates she has given away half of her winnings",
+   "url": "https://www.dublinlive.ie/news/irish-euromillions-winner-gave-away-34577478",
+   "source": "Dublin Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T08:15:11+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.942932+00:00"
+  },
+  {
+   "id": "94cc53aafc49c1a3",
+   "title": "Large crowds gather in Belgrade for funeral of Serbian war criminal Ratko Mladic",
+   "description": "In addition to genocide, Mladic was convicted of persecuting and forcibly expelling Bosnian Muslims and Croats.",
+   "url": "https://www.thejournal.ie/ratko-mladic-funeral-7154779-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-07T08:11:49+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.949727+00:00"
+  },
+  {
+   "id": "62da3890b60c53d6",
+   "title": "Boy (17) arrested on suspicion of attempted murder after Belfast stabbing",
+   "description": "Injured man in his 20s in ‘stable condition’ in hospital following street fight on Sunday night",
+   "url": "https://www.irishtimes.com/crime-law/2026/09/07/boy-17-arrested-on-suspicion-of-attempted-murder-after-belfast-stabbing/",
+   "source": "Irish Times",
+   "scope": "national",
+   "publishedAt": "2026-09-07T08:07:40+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.905490+00:00"
+  },
+  {
+   "id": "9cb60561b52e64db",
+   "title": "Almost one in five shopfronts shuttered in Limerick",
+   "description": "ALMOST one in five shopfronts across Limerick are vacant. That’s according to the Q2 2026 Commercial Vacancy Rate Report by GeoDirectory. The report put the vacancy rate across Limerick for the quarter at 18.1 per cent – significantly above the national average of 14.5. Limerick City had the lowest vacancy rate in the county at […]",
+   "url": "https://www.limerickpost.ie/2026/09/07/almost-one-in-five-shopfronts-shuttered-in-limerick/",
+   "source": "Limerick Post",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T08:00:54+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.656444+00:00"
+  },
+  {
+   "id": "2182b6a4f9012716",
+   "title": "‘I was the first to benefit’: How Donogh O’Malley’s introduction of free secondary education changed Ireland",
+   "description": "Plaque unveiled on 60th anniversary of historic announcement in Clare village where O’Malley passed away",
+   "url": "https://www.irishtimes.com/ireland/education/2026/09/07/donogh-omalley-tributes-paid-to-minister-who-introduced-free-secondary-education/",
+   "source": "Irish Times",
+   "scope": "national",
+   "publishedAt": "2026-09-07T08:00:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.905521+00:00"
+  },
+  {
+   "id": "ddb34fe090a7484c",
+   "title": "Man, 60s, dies after being pulled from water off Donegal coast",
+   "description": "A man in his 60s has died after being pulled from the water off the coast of Donegal. The man was spotted in the water near Ned’s Point, outside Buncrana, at around 2.30pm on Saturday afternoon. Emergency services were called to the scene following the discovery. Letterkenny University Hospital (Pic: PA) The man was subsequently […]",
+   "url": "https://wlrfm.com/news/man-60s-dies-after-being-pulled-from-water-off-donegal-coast-4489065/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T07:57:26+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.023741+00:00"
+  },
+  {
+   "id": "9c8224cc39ffe47b",
+   "title": "Border industries face challenge from Ireland’s tax regime – Hospitality Ulster",
+   "description": "A sitting of the Northern Ireland Affairs Committee in Westminster has heard that taxation regimes on different sides of the border is putting pressure on Northern Ireland’s hospitality sector. Figures from the NI Statistics and Research agency suggests that in 2025 jobs in the hospitality sector decreased by 2000, from 57,000 to 55,000. Selina Horshi, […]",
+   "url": "https://highlandradio.com/2026/09/07/border-industries-face-challenge-from-irelands-tax-regime-hospitality-ulster/",
+   "source": "Highland Radio",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T07:56:46+00:00",
+   "fetchedAt": "2026-09-07T09:57:43.222597+00:00"
+  },
+  {
+   "id": "d6e36cc013b7224f",
+   "title": "Vogue Williams reveals name of newborn son after last-minute change of mind",
+   "description": "Vogue Williams has revealed the name of her newborn fourth child with Spencer Matthews after giving birth last week. The 40-year-old previously shared that they had changed their minds about the baby boy’s name at the last minute after receiving criticism from family members. Vogue announced the birth with an Instagram post on Tuesday, saying […]",
+   "url": "https://wlrfm.com/lifestyle/vogue-williams-reveals-name-of-newborn-son-after-last-minute-change-of-mind-4489148/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T07:56:25+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.023801+00:00"
+  },
+  {
+   "id": "137c26dbcc7e557a",
+   "title": "The 9 at 9: Monday",
+   "description": "Far-right victory in Germany, a plane crash in Florida and museum heists on the rise across Europe…",
+   "url": "https://www.thejournal.ie/9-at-9-monday-71-7154744-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-07T07:55:07+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.949750+00:00"
+  },
+  {
+   "id": "d3de0f794552fe87",
+   "title": "Gardai latest on East Cork village assault as man arrested",
+   "description": "He is being detained at a Garda station this morning",
+   "url": "https://www.corkbeo.ie/news/local-news/gardai-latest-east-cork-village-34577389",
+   "source": "Cork Beo",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T07:53:58+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.845637+00:00"
+  },
+  {
+   "id": "806958ab48b858d0",
+   "title": "Arsenal Come From Behind to Beat Chelsea and Maintain Perfect Start",
+   "description": "Arsenal have maintained their 100 per cent start to the new Premier League season after coming from behind to beat Chelsea 2-1 at the Emirates. Both sides had won their opening two matches of the campaign, but it is Arsenal who remain perfect after three games, alongside Manchester City. Chelsea made a dream start, taking […]",
+   "url": "https://wlrfm.com/sport/arsenal-come-from-behind-to-beat-chelsea-and-maintain-perfect-start-4489190/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T07:51:44+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.023858+00:00"
+  },
+  {
+   "id": "31fc881edff652cc",
+   "title": "Flood mourning day in Nepal as rescue efforts continue",
+   "description": "Grief-stricken Nepalis entered the traditional Hindu last day of mourning for the hundreds who died in the catastrophic flood along the country's border with China even as the government kept search operations going after four miracle rescues in recent days.",
+   "url": "https://www.rte.ie/news/world/2026/0907/1590543-nepal-mourning/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-07T07:45:42+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.375677+00:00"
+  },
+  {
+   "id": "d5804f860f55cefa",
+   "title": "Waterford Senior Football Championship Gets Underway This Weekend",
+   "description": "The Waterford Senior Football Championship gets underway this weekend, with eight teams beginning their bid to lift the JJ Kavanagh & Sons Senior Football Championship title. The championship is split into two groups of four, with the opening round taking place across Waterford on Sunday. In Group A, An Rinn face The Nire at Fraher […]",
+   "url": "https://wlrfm.com/sport/waterford-senior-football-championship-gets-underway-this-weekend-4489171/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T07:42:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.023917+00:00"
+  },
+  {
+   "id": "839ea68132a77611",
+   "title": "Jamaican delegation to petition UK's King Charles over slavery reparations",
+   "description": "The petition asks the British monarch to refer three questions on the legality of the transatlantic slave trade to Jamaica’s highest court of appeal based in London.",
+   "url": "https://www.thejournal.ie/jamaican-delegation-petition-slavery-reparations-king-charles-uk-7154765-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-07T07:39:02+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.949794+00:00"
+  },
+  {
+   "id": "9ac613e7be163032",
+   "title": "Five dead in Amazon cargo plane crash as fire crews battle blaze",
+   "description": "The Prime Air plane reportedly skidded off the runway at Miami International Airport",
+   "url": "https://www.dublinlive.ie/news/world-news/five-dead-amazon-cargo-plane-34577274",
+   "source": "Dublin Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T07:30:23+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.942955+00:00"
+  },
+  {
+   "id": "54b55e56d960bc0b",
+   "title": "Limerick star unlikely to feature in remaining group stage game of SHC",
+   "description": "Aidan O’Connor missed Ballybrown’s draw with Monaleen at the weekend and is unlikely to play again in the group stages",
+   "url": "https://www.limerickleader.ie/sport/hurling/limerick-star-unlikely-to-feature-in-remaining-group-stage-game-of-shc-8964772",
+   "source": "Limerick Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T07:30:21+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.671919+00:00"
+  },
+  {
+   "id": "02d6262aec9a37e0",
+   "title": "Fuel excise cuts should remain permanently, Tóibín says",
+   "description": "Aontú leader Peadar Tóibín has said the Government needs to stop wasting taxpayers money and called for temporary cuts to fuel prices to be made permanent.",
+   "url": "https://www.rte.ie/news/politics/2026/0907/1590540-aontu-party/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-07T07:22:36+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.375734+00:00"
+  },
+  {
+   "id": "ea7bedb38697d9c9",
+   "title": "Graham Thompson wins the Danny Gormley Memorial Knockalla Hillclimb",
+   "description": "In the Danny Gormley Memorial Knockalla Hillclimb, Graham Thompson was the winner in a GTR Turbo, followed by Shane Bell in a Subaru GC8 and Barry Morris in a Darrian GTR+. There was a great entry for the event which was run over two days.",
+   "url": "https://highlandradio.com/2026/09/07/graham-thompson-wins-the-danny-gormley-memorial-knockalla-hillclimb/",
+   "source": "Highland Radio",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T07:20:44+00:00",
+   "fetchedAt": "2026-09-07T09:57:43.222645+00:00"
+  },
+  {
+   "id": "62906c52e6b801ef",
+   "title": "Man, 30s, arrested after assault near playground in Cork",
+   "description": "A man was reportedly assaulted and threatened by a lone male near a local playground in Cork on Friday",
+   "url": "https://www.irishmirror.ie/news/irish-news/crime/man-arrested-cork-assault-playground-37634119",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-07T07:18:27+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.637538+00:00"
+  },
+  {
+   "id": "f05505574c96951c",
+   "title": "N24 Tipperary nightly road closure for resurfacing",
+   "description": "Diversions are in place from the end of the month",
+   "url": "https://www.tipperarylive.ie/news/cahir/n24-tipperary-road-closure-for-two-weeks-for-resurfacing-8969487",
+   "source": "Tipperary Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T07:14:23+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.131841+00:00"
+  },
+  {
+   "id": "ee1af598ce1761c2",
+   "title": "Before he heads to Ireland, Republicans are hosting 'Trumpapalooza' in Texas",
+   "description": "The convention is designed to rally voters around the US president’s record ahead of the midterms in November, amid grim forecasts for the Republicans.",
+   "url": "https://www.thejournal.ie/trumpapalooza-convention-midterm-elections-trump-ireland-7154721-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-07T07:10:30+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.949826+00:00"
+  },
+  {
+   "id": "17f7e157402a3e3b",
+   "title": "Reducing income tax and cost of childcare on agenda at Fianna Fáil think-in",
+   "description": "Members of the Fianna Fáil parliamentary team will gather later in Co Offaly for the party’s annual think-in.",
+   "url": "https://www.irishmirror.ie/news/irish-news/politics/fianna-fail-think-in-budget-37634123",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-07T07:09:57+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.637599+00:00"
+  },
+  {
+   "id": "79ae0ae11b25d641",
+   "title": "Budget to be front and centre as Fianna Fáil holds annual think-in in Co Offaly today",
+   "description": "Fianna Fáil ministers indicated a possible delay to a Carbon Tax increase over the weekend.",
+   "url": "https://www.thejournal.ie/fianna-fail-think-in-budget-carbon-tax-7154713-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-07T07:01:04+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.949852+00:00"
+  },
+  {
+   "id": "d3bf54f634ac817c",
+   "title": "What you need to know about the new Apple TV series Last Seen",
+   "description": "The series kicks off next week.",
+   "url": "https://www.thejournal.ie/apple-tv-last-seen-7149677-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-07T07:00:43+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.949871+00:00"
+  },
+  {
+   "id": "f886be925097ca5d",
+   "title": "€80,000 in new capital funding for Mayo’s eight FRCs – Keogh",
+   "description": "The funding forms part of a new €1.36 million investment announced by Minister for Children, Disability and Equality Norma Foley",
+   "url": "https://www.mayonews.ie/news/eu80000-in-new-capital-funding-for-mayos-eight-frcs-keogh-8965554",
+   "source": "Mayo News",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T07:00:20+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.616534+00:00"
+  },
+  {
+   "id": "3d07d6ea8964fef4",
+   "title": "Ballyhoura groups celebrate environmental achievements",
+   "description": "Granagh Tidy Towns will lead a short guided walk showcasing some of the local projects and initiatives undertaken within the community",
+   "url": "https://www.limerickleader.ie/community/ballyhoura-groups-celebrate-environmental-achievements-8955688",
+   "source": "Limerick Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T07:00:10+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.671949+00:00"
+  },
+  {
+   "id": "caa2933a4389580c",
+   "title": "Solicitor James MacGuill, who acted in several landmark cases, dies aged 63",
+   "description": "MacGuill took test case that forced Government to reform Ireland’s criminal injuries compensation scheme",
+   "url": "https://www.irishtimes.com/crime-law/courts/2026/09/07/solicitor-james-macguill-who-acted-in-several-landmark-cases-dies-aged-63/",
+   "source": "Irish Times",
+   "scope": "national",
+   "publishedAt": "2026-09-07T07:00:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.905558+00:00"
+  },
+  {
+   "id": "fa9bd062c1b98979",
+   "title": "Vogue Williams reveals name of fourth child with Spencer Matthews",
+   "description": "Williams, 40, revealed the baby was named Remy Valentine Matthews as she shared a picture of him in a blue knitted jumper and white hat on Instagram.",
+   "url": "https://www.dublinlive.ie/news/celebs/vogue-williams-reveals-name-fourth-34577179",
+   "source": "Dublin Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T06:58:15+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.942982+00:00"
+  },
+  {
+   "id": "12a59edd708a381b",
+   "title": "Man, 30s, due in court after 3D firearm seized along with cocaine and cannabis",
+   "description": "A 3D printed firearm was seized following a raid on Friday",
+   "url": "https://www.irishmirror.ie/news/irish-news/crime/man-court-3d-firearm-cocaine-37634019",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-07T06:57:29+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.637623+00:00"
+  },
+  {
+   "id": "78cdd52d46de2c97",
+   "title": "Jakarta airport extends closure after volcano eruption",
+   "description": "Jakarta's main airport and three others have delayed reopening after halting operations due to a volcanic eruption and leaving hundreds of thousands stranded.",
+   "url": "https://www.rte.ie/news/world/2026/0907/1590532-indonesia-volcano-airports/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-07T06:52:13+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.375793+00:00"
+  },
+  {
+   "id": "069a53ac8588bd32",
+   "title": "Met Eireann warns of 'heavy and thundery rain' to kick off 'mixed' week",
+   "description": "Heavy rain will spread to most areas through this morning",
+   "url": "https://www.dublinlive.ie/news/met-eireann-warns-heavy-thundery-34577088",
+   "source": "Dublin Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T06:50:40+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.943015+00:00"
+  },
+  {
+   "id": "2d5982720a0a9533",
+   "title": "IFA hold pre-budget talks with Ministers",
+   "description": "The expansion of farm schemes and supports to mitigate the rising costs of production are among the key asks of the IFA for Budget 2027. An IFA delegation has met with Finance and Public Expenditure Ministers to discuss its pre-Budget submission. Francie Gorman, President of the Irish Farmers’ Association, says it’s been a very tough […]",
+   "url": "https://highlandradio.com/2026/09/07/ifa-make-hold-pre-budget-talks-with-ministers/",
+   "source": "Highland Radio",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T06:48:39+00:00",
+   "fetchedAt": "2026-09-07T09:57:43.222701+00:00"
+  },
+  {
+   "id": "77e217b636602a09",
+   "title": "Just one in five people believe they will be able to fully retire",
+   "description": "A new report by Irish Life also found that only one in three adults feel confident that they can financially sustain a longer life.",
+   "url": "https://www.thejournal.ie/one-in-five-believe-able-to-fully-retire-irish-life-7154684-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-07T06:45:22+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.949896+00:00"
+  },
+  {
+   "id": "77e5b58a7b6f6075",
+   "title": "'I'm being followed' - Teen killed in Co Clare hit and run texted friend",
+   "description": "Bryan Lowe urged friend to alert Gardai if he didn't make it home - his mother says he was 'murdered'",
+   "url": "https://www.corkbeo.ie/news/local-news/im-being-followed-teen-killed-34577113",
+   "source": "Cork Beo",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T06:44:49+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.845662+00:00"
+  },
+  {
+   "id": "76cfb71367cae2ad",
+   "title": "New forest creation more than doubled in Clare last year",
+   "description": "THE area of new forest created in Clare more than doubled in 2025, according to new forestry statistics published by the Department of Agriculture, Food and the Marine. A total of 228 hectares of new forest were planted in Clare in 2025, up from 108 hectares in 2024. That represents an increase of 120 hectares, or around … New forest creation more than doubled in Clare last year",
+   "url": "https://www.clareecho.ie/draft-new-forest-creation-more-than-doubled-in-clare-last-year/?utm_source=rss&utm_medium=rss&utm_campaign=draft-new-forest-creation-more-than-doubled-in-clare-last-year",
+   "source": "Clare Echo",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T06:40:26+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.220080+00:00"
+  },
+  {
+   "id": "63a48fee8185d191",
+   "title": "Traffic restrictions in place in Dublin as EU agriculture ministers meet",
+   "description": "There are also airspace restrictions over locations hosting EU presidency events.",
+   "url": "https://www.thejournal.ie/traffic-restrictions-dublin-eu-presidency-7154694-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-07T06:39:19+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.949918+00:00"
+  },
+  {
+   "id": "26cd8262b97de770",
+   "title": "Fresh concerns over radiology services at Carndonagh Hospital",
+   "description": "Concerns have been raised over staffing levels in the radiology department at Carndonagh Hospital. Previously the service operated on a three day basis every week with local representatives making calls for that to be extended to five days. However, since these calls earlier in the year the service has been operating on as little as […]",
+   "url": "https://highlandradio.com/2026/09/07/fresh-concerns-over-radiology-services-at-carndonagh-hospital/",
+   "source": "Highland Radio",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T06:37:39+00:00",
+   "fetchedAt": "2026-09-07T09:57:43.222756+00:00"
+  },
+  {
+   "id": "267055b2534d7f43",
+   "title": "Gardaí seize 3D-printed gun and drugs valued at €7,200 in Co Cork",
+   "description": "Man arrested following raid at a home in the Ballymacoda area in the east of the county",
+   "url": "https://www.irishtimes.com/crime-law/2026/09/07/gardai-seize-3d-printed-gun-and-drugs-valued-at-7000-in-co-cork/",
+   "source": "Irish Times",
+   "scope": "national",
+   "publishedAt": "2026-09-07T06:37:16+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.905584+00:00"
+  },
+  {
+   "id": "37f64caef061fd87",
+   "title": "McCabes Pharmacy launches next generation of community pharmacy with new app and rewards programme",
+   "description": "McCabes Pharmacy has unveiled its new McCabes Pharmacy app ahead of the nationwide launch of McCabes PLUS on 7 September 2026. The new loyalty programme is designed to make everyday healthcare more rewarding, convenient and connected, giving customers across Ireland access to a range of exclusive benefits, offers and rewards.",
+   "url": "https://www.dublinlive.ie/lifestyle/health-and-fitness/mccabes-pharmacy-launches-next-generation-34545954",
+   "source": "Dublin Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T06:36:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.943056+00:00"
+  },
+  {
+   "id": "412b7592d4cd5787",
+   "title": "McCabes Pharmacy launches next generation of community pharmacy with new app and rewards programme",
+   "description": "McCabes Pharmacy has unveiled its new McCabes Pharmacy app ahead of the nationwide launch of McCabes PLUS on 7 September 2026. The new loyalty programme is designed to make everyday healthcare more rewarding, convenient and connected, giving customers across Ireland access to a range of exclusive benefits, offers and rewards.",
+   "url": "https://www.corkbeo.ie/culture/family-kids/mccabes-pharmacy-launches-next-generation-34545953",
+   "source": "Cork Beo",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T06:34:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.845704+00:00"
+  },
+  {
+   "id": "e4895c818a90a818",
+   "title": "Gone to the dogs: Offaly dogs back in form as Derby reaches final stage",
+   "description": "Seven Offaly winners",
+   "url": "https://www.offalyexpress.ie/sport/gone-to-the-dogs-offaly-dogs-back-in-form-as-derby-reaches-final-stage-8963032",
+   "source": "Offaly Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T06:30:18+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.026949+00:00"
+  },
+  {
+   "id": "78c2ae4a5fae5c03",
+   "title": "Cocaine and 3-D printed gun seized in raid on Cork house",
+   "description": "Homemade firearm part of a worrying trend",
+   "url": "https://www.corkbeo.ie/news/local-news/cocaine-3-d-printed-gun-34577063",
+   "source": "Cork Beo",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T06:21:45+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.845724+00:00"
+  },
+  {
+   "id": "f3be4c29d116c443",
+   "title": "‘Heartbroken and traumatised’: Family of boy (16) killed in Cloonlara hit-and-run speak out",
+   "description": "Bryan Lowe from Cloonlara and Westbury ‘an absolute gentleman to meet on the corridor’ deputy principal of school says",
+   "url": "https://www.irishtimes.com/ireland/2026/09/05/boy-on-e-bike-killed-in-hit-and-run-on-clare-limerick-border/",
+   "source": "Irish Times",
+   "scope": "national",
+   "publishedAt": "2026-09-07T06:16:31+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.905613+00:00"
+  },
+  {
+   "id": "c806ce341e879f24",
+   "title": "Five people dead after Amazon cargo plane overshoots runway at Florida airport",
+   "description": "Miami-Dade County fire chief said three people were also transported to trauma centres in critical condition, while two others were treated at a local hospital.",
+   "url": "https://www.thejournal.ie/amazon-cargo-plane-miami-airport-7154605-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-07T06:15:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.949946+00:00"
+  },
+  {
+   "id": "a9a720c8ea710d37",
+   "title": "Plans lodged for 96 new homes and crèche in Waterford City",
+   "description": "Plans have been lodged for the construction of 96 new homes and a crèche in Waterford City. S&K Carey is seeking planning permission for the residential development at Killure Road in Kilcohan. The proposed development would consist of 56 houses alongside 40 apartments. Plans include 47 three-bedroom semi-detached homes, five four-bedroom semi-detached properties, two three-bedroom […]",
+   "url": "https://wlrfm.com/news/96-new-homes-creche-waterford-4489060/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T06:13:26+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.023985+00:00"
+  },
+  {
+   "id": "fe09555ccaef4983",
+   "title": "Protestors and riot police clash in Portsmouth as 'thuggish behaviour' breaks out after migrant boat rescue",
+   "description": "Riot police were deployed in Portsmouth as hundreds gathered to protest the arrival of a small boat thought to be carrying 140 asylum seekers",
+   "url": "https://www.irishmirror.ie/news/world-news/protestors-riot-police-clash-portsmouth-37634003",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-07T06:11:33+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.637653+00:00"
+  },
+  {
+   "id": "82cac717bfe904d6",
+   "title": "Co Clare comeback! GB and Ireland stage stunning fightback to land golf's Walker Cup in Lahinch",
+   "description": "The Walker Cup is the premier tream golf tournament for amateur players and pits the US against GB&I.",
+   "url": "https://www.thejournal.ie/walker-cup-final-round-2-7154685-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-07T06:10:34+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.949982+00:00"
+  },
+  {
+   "id": "55cdc219aee1b93d",
+   "title": "Merz under pressure from far-right election triumph",
+   "description": "German Chancellor Friedrich Merz will huddle with his CDU party to discuss and digest their thumping defeat at the hands of the far-right AfD party in a state election in the ex-communist east.",
+   "url": "https://www.rte.ie/news/world/2026/0907/1590525-germany-afd-election/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-07T06:09:09+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.375439+00:00"
+  },
+  {
+   "id": "35868a1ae4578841",
+   "title": "Longford local road closure: 5 days of emergency works",
+   "description": "A local road in Treel near Edgeworthstown will be closed from today Monday, September 7 to Friday, September 11.",
+   "url": "https://www.longfordleader.ie/traffic-updates/longford-local-road-closure-5-days-of-emergency-works-8961323",
+   "source": "Longford Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T06:00:56+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.210863+00:00"
+  },
+  {
+   "id": "570834044401aaa6",
+   "title": "Raising them right: Aren’t all families secretly a bit like The Traitors?",
+   "description": "Many parents up and down the country are watching The Traitors with their kids, so as fun as the show is, how do we explain all the lying?",
+   "url": "https://www.thejournal.ie/readme/the-traitors-7151443-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-07T06:00:49+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.950013+00:00"
+  },
+  {
+   "id": "fd15402fbe37a563",
+   "title": "Mother accused of the manslaughter of toddler charged with murder",
+   "description": "",
+   "url": "https://www.independent.ie/irish-news/courts/mother-accused-of-the-manslaughter-of-toddler-charged-with-murder/a/161068464.html",
+   "source": "Irish Independent · Courts",
+   "scope": "national",
+   "publishedAt": "2026-09-07T06:00:36+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.477841+00:00"
+  },
+  {
+   "id": "762fac9c12ff1624",
+   "title": "‘Friendly Sound of Country Music’ comes to Limerick",
+   "description": "Popular Offaly entertainment star John Hogan will also be on stage as special guest",
+   "url": "https://www.limerickleader.ie/whats-on/arts-and-entertainment/friendly-sound-of-country-music-comes-to-limerick-8955635",
+   "source": "Limerick Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T06:00:23+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.671975+00:00"
+  },
+  {
+   "id": "cdc5181703950bbd",
+   "title": "Gunmen burst into studio and shot newsreader dead live on air",
+   "description": "WARNING: DISTRESSING CONTENT Gleydson Carvalho was shot three times - once in the head and twice in the chest - by two gunmen who burst into his studio during his regular midday slot",
+   "url": "https://www.irishmirror.ie/news/world-news/gunmen-burst-studio-shot-newsreader-37627410",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-07T06:00:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.637682+00:00"
+  },
+  {
+   "id": "6afd208f30254860",
+   "title": "Multi-millionaire's desperate last act as he was trampled to death by elephants",
+   "description": "WARNING: DISTRESSING CONTENT His grieving wife said her husband \"lived big\" and had a \"life well-lived\" saying \"It took a giant to take a giant... May his life inspire you to LIVE.\"",
+   "url": "https://www.irishmirror.ie/news/world-news/multi-millionaires-desperate-last-act-37627326",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-07T06:00:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.637724+00:00"
+  },
+  {
+   "id": "89aab72bb20386ec",
+   "title": "Three Waterford Family Resource Centres to receive €30,000 in funding",
+   "description": "Three Family Resource Centres in Waterford are to receive a combined €30,000 under a new Government capital fund. Ballybeg Community Development Project, Sacred Heart Community and Childcare Project on the Old Tramore Road and St. Brigid’s Family and Community Care on Lower Yellow Road will each receive €10,000. The funding can be used by the […]",
+   "url": "https://wlrfm.com/news/family-resource-centres-funding-4489052/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T06:00:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.024047+00:00"
+  },
+  {
+   "id": "f895eb97d0cf5e06",
+   "title": "Far-right Alternative for Germany celebrates 'sensational' win in regional election",
+   "description": "The AfD in Saxony-Anhalt is one of a number classified as a right-wing extremist group by German security services.",
+   "url": "https://www.thejournal.ie/afd-far-right-germany-election-7154662-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-07T05:56:08+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.949641+00:00"
+  },
+  {
+   "id": "f64758b2a26caeed",
+   "title": "Descendants call for recognition of Laois 1916 volunteers",
+   "description": "On Easter Sunday 1916, a group of Laois volunteers demobilised a section of railway line under direct orders from Pádraig Pearse. 110 years later, their descendants have called for them to be awarded medals posthumously.",
+   "url": "https://www.rte.ie/news/2026/0907/1590509-1916-laois-descendants/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-07T05:49:34+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.375765+00:00"
+  },
+  {
+   "id": "10f157cee15f1a4f",
+   "title": "11 Donegal Family Resource Centres set to receive funding of €10,000 each",
+   "description": "11 Donegal Family Resource Centres are set to receive once-off capital funding of €10,000 each. Minister for Children, Disability and Equality, Norma Foley, has announced a €1.36 million investment in Ireland’s network of 136 FRCs. Among those in Donegal are Cara House, Donegal, Downstrands, Finn Valley, Mevagh, Raphoe, St. Johnston & Carrigans and The Forge […]",
+   "url": "https://highlandradio.com/2026/09/07/11-donegal-family-resource-centres-set-to-receive-funding-of-e10000-each/",
+   "source": "Highland Radio",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T05:48:33+00:00",
+   "fetchedAt": "2026-09-07T09:57:43.222821+00:00"
+  },
+  {
+   "id": "3126e58823b2708a",
+   "title": "Over 270,000 airport passengers stranded due to volcanic eruption in Indonesia",
+   "description": "The probability of an eruption remains high, the country’s geology agency warned.",
+   "url": "https://www.thejournal.ie/krakatoa-eruption-flights-cancelled-7154653-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-07T05:22:53+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.950036+00:00"
+  },
+  {
+   "id": "e38bc267bfc3f47d",
+   "title": "Students with additional needs are not alone in negotiating third-level life",
+   "description": "Third-level disability supports are there to support students with their learning and adjustment to college life",
+   "url": "https://www.irishtimes.com/ireland/education/2026/09/07/students-with-additional-needs-are-not-alone-in-negotiating-third-level-life/",
+   "source": "Irish Times",
+   "scope": "national",
+   "publishedAt": "2026-09-07T05:01:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.905638+00:00"
+  },
+  {
+   "id": "6ab3d9f479b28161",
+   "title": "A beginner’s guide to the 9-5 work week: Minimise your morning, don’t overshare",
+   "description": "Entering the world of work can be a little overwhelming; approach it like a marathon and you will be less likely to feel exhausted",
+   "url": "https://www.irishtimes.com/ireland/education/2026/09/07/a-beginners-guide-to-the-9-5-work-week-minimise-your-morning-dont-overshare/",
+   "source": "Irish Times",
+   "scope": "national",
+   "publishedAt": "2026-09-07T05:01:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.905666+00:00"
+  },
+  {
+   "id": "87a1718ca020f9d1",
+   "title": "‘I’d love a new interest or hobby, but not anything too formal or academic’",
+   "description": "Ask Brian: The social side is one of the most underrated benefits of adult education",
+   "url": "https://www.irishtimes.com/ireland/education/2026/09/07/id-love-a-new-interest-or-hobby-but-not-anything-too-formal-or-academic/",
+   "source": "Irish Times",
+   "scope": "national",
+   "publishedAt": "2026-09-07T05:01:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.905691+00:00"
+  },
+  {
+   "id": "f6246117fbf96afc",
+   "title": "Rules for seeking Irish citizenship to be tightened under proposals due to go to Cabinet",
+   "description": "Candidates would have to be resident in the country for eight years and undertake language test under proposed overhaul",
+   "url": "https://www.irishtimes.com/ireland/2026/09/07/rules-for-seeking-irish-citizenship-to-be-tightened-under-proposals-due-to-go-to-cabinet/",
+   "source": "Irish Times",
+   "scope": "national",
+   "publishedAt": "2026-09-07T05:00:01+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.905716+00:00"
+  },
+  {
+   "id": "a83e393d47eb5706",
+   "title": "Data centres in Ireland to be offered cut-price gas in return for possible supply disruption",
+   "description": "Data-centre expansion will make it hard to source enough gas to meet demand during extreme cold events, state regulator warns",
+   "url": "https://www.irishtimes.com/environment/2026/09/07/data-centres-to-get-cut-price-gas-in-exchange-for-possible-disruption-of-supply/",
+   "source": "Irish Times",
+   "scope": "national",
+   "publishedAt": "2026-09-07T05:00:01+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.905742+00:00"
+  },
+  {
+   "id": "acbc39b039544a59",
+   "title": "Presidential talks wedged within Trump's golf appearance",
+   "description": "Unlike US presidents who came before him, Donald Trump's visit to Ireland this week is about the fairways rather than searching for roots.",
+   "url": "https://www.rte.ie/news/2026/0907/1590493-trump-connolly/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-07T05:00:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.375315+00:00"
+  },
+  {
+   "id": "93183443f8f94686",
+   "title": "Legal aid fees dispute: Pressure mounts on Jim O’Callaghan as solicitors dig in",
+   "description": "Oireachtas justice committee to invite Minister to hearing as courts backlog worsens; Minister insists courts are ‘operating effectively’",
+   "url": "https://www.irishtimes.com/crime-law/courts/2026/09/07/pressure-mounts-on-ocallaghan-as-solicitors-dig-in-over-legal-aid-fees/",
+   "source": "Irish Times",
+   "scope": "national",
+   "publishedAt": "2026-09-07T05:00:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.905774+00:00"
+  },
+  {
+   "id": "b5256f62a198f183",
+   "title": "Construction begins on Dublin’s first middle-of-the-road cycle path",
+   "description": "Traffic lane on Amiens Street removed under next phase of Dublin City Centre Transport Plan",
+   "url": "https://www.irishtimes.com/ireland/dublin/2026/09/07/construction-begins-on-dublins-first-middle-of-the-road-cycle-path/",
+   "source": "Irish Times",
+   "scope": "national",
+   "publishedAt": "2026-09-07T05:00:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.905798+00:00"
+  },
+  {
+   "id": "97d609520fe639f5",
+   "title": "Derry dispatch: ‘Influencer’ Seamus Heaney plays a part in reclaiming city’s walls",
+   "description": "Message of murals transforming Derry is of a new, shared identity that goes beyond green, white and orange or red, white and blue",
+   "url": "https://www.irishtimes.com/ireland/2026/09/07/derry-dispatch-influencer-seamus-heaney-plays-a-part-in-reclaiming-citys-walls/",
+   "source": "Irish Times",
+   "scope": "national",
+   "publishedAt": "2026-09-07T05:00:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.905826+00:00"
+  },
+  {
+   "id": "aa4b2e0f92ca3b7b",
+   "title": "Landlord whose tenant caused ‘stress’ to heart attack victim must pay €10,000",
+   "description": "RTB",
+   "url": "https://www.irishtimes.com/ireland/housing-planning/2026/09/07/landlord-whose-tenant-caused-stress-to-heart-attack-victim-must-pay-10000/",
+   "source": "Irish Times",
+   "scope": "national",
+   "publishedAt": "2026-09-07T05:00:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.905845+00:00"
+  },
+  {
+   "id": "8c7a3686cd6fb84b",
+   "title": "The decline of the pub in Irish towns and the rise of the passionfruit martini",
+   "description": "One in four Irish pubs has closed over the past two decades as drinking and consumer habits have changed",
+   "url": "https://www.irishtimes.com/ireland/2026/09/07/pubs-decline-in-irelands-small-towns-and-villages-they-are-left-with-one-light-on/",
+   "source": "Irish Times",
+   "scope": "national",
+   "publishedAt": "2026-09-07T05:00:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.905870+00:00"
+  },
+  {
+   "id": "092f4fa9761af9c1",
+   "title": "Irish Rail fires IT firm behind much-delayed project and prepares to seek damages amid €50m writedown",
+   "description": "But software specialist Indra says critical information on railway network was not shared with project team",
+   "url": "https://www.irishtimes.com/transport/2026/09/07/irish-rail-to-seek-damages-from-it-firm-after-50m-writedown-on-train-control-project/",
+   "source": "Irish Times",
+   "scope": "national",
+   "publishedAt": "2026-09-07T05:00:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.905897+00:00"
+  },
+  {
+   "id": "cbd050cc5339e1bf",
+   "title": "‘Nothing short of laughable’ – Justice Minister criticised over legal aid dispute as courts at a ‘standstill’",
+   "description": "Solicitor says Jim O’Callaghan’s claims that proceedings are running ‘effectively’ is ‘simply nonsense’",
+   "url": "https://www.independent.ie/irish-news/courts/nothing-short-of-laughable-justice-minister-criticised-over-legal-aid-dispute-as-courts-at-a-standstill/a/161046886.html",
+   "source": "Irish Independent · Courts",
+   "scope": "national",
+   "publishedAt": "2026-09-07T04:30:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.477888+00:00"
+  },
+  {
+   "id": "e980f825033dfb09",
+   "title": "Man who called garda a ‘fat little tramp’ fined €200",
+   "description": "",
+   "url": "https://www.independent.ie/irish-news/courts/man-who-called-garda-a-fat-little-tramp-fined-200/a/160962539.html",
+   "source": "Irish Independent · Courts",
+   "scope": "national",
+   "publishedAt": "2026-09-07T04:30:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.477916+00:00"
+  },
+  {
+   "id": "4d0b6839057f3e2f",
+   "title": "Prisoner suffering drug withdrawal damaged smoke alarm in cell",
+   "description": "",
+   "url": "https://www.independent.ie/irish-news/courts/prisoner-suffering-drug-withdrawal-damaged-smoke-alarm-in-cell/a/160962507.html",
+   "source": "Irish Independent · Courts",
+   "scope": "national",
+   "publishedAt": "2026-09-07T04:30:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.477938+00:00"
+  },
+  {
+   "id": "1d6600cde31f5c9d",
+   "title": "Burglar allegedly ransacked mental health charity and school before stealing €1,650 from child’s piggy bank",
+   "description": "",
+   "url": "https://www.independent.ie/irish-news/courts/burglar-allegedly-ransacked-mental-health-charity-and-school-before-stealing-1650-from-childs-piggy-bank/a/160962469.html",
+   "source": "Irish Independent · Courts",
+   "scope": "national",
+   "publishedAt": "2026-09-07T04:30:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.477962+00:00"
+  },
+  {
+   "id": "844e158307c1d1fe",
+   "title": "‘I got to talk to people who had done the course or were teaching the course’",
+   "description": "Ronan Meleady is a fourth year law and politics student at the University of Limerick",
+   "url": "https://www.irishtimes.com/ireland/education/2026/09/07/i-got-to-talk-to-people-who-had-done-the-course-or-were-teaching-the-course/",
+   "source": "Irish Times",
+   "scope": "national",
+   "publishedAt": "2026-09-07T04:01:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.905921+00:00"
+  },
+  {
+   "id": "e5939bd3c891b87d",
+   "title": "Only one in five Irish people believe they will be able to fully retire and stop working, study finds",
+   "description": "Nearly 30 per cent reckon they will gradually reduce their working hours, while 24% expect to continue working part-time.",
+   "url": "https://www.irishmirror.ie/news/irish-news/only-one-five-irish-people-37632548",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-07T04:00:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.637751+00:00"
+  },
+  {
+   "id": "69bf102d09524ec7",
+   "title": "The Irish football tourist’s guide to supporting Troy Parrott - flights, match tickets and more",
+   "description": "There has been surge in Irish support for Real Betis following Troy Parrott's summer move to the La Liga side",
+   "url": "https://www.irishmirror.ie/news/irish-news/irish-football-tourists-guide-supporting-37633173",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-07T04:00:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.637780+00:00"
+  },
+  {
+   "id": "131b96f1366e7989",
+   "title": "Irish woman who gave away half of €127m EuroMillions prize says it's human nature to help",
+   "description": "Frances Connolly and her husband Patrick became the biggest EuroMillions winners on the island of Ireland following their life-changing win, topping Limerick woman Dolores McNamara's €115 million in 2005",
+   "url": "https://www.irishmirror.ie/news/irish-news/irish-woman-who-gave-away-37632512",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-07T04:00:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.637817+00:00"
+  },
+  {
+   "id": "b0c9b3166646aaf3",
+   "title": "Katie's last dance turned into a sacred Irish sing song as 83,000 serenaded the girl who became the measure of our dreams",
+   "description": "The Greatest Irish Sports Story ever told got the soundtrack to match on a night authographed with magic",
+   "url": "https://www.irishmirror.ie/news/news-opinion/katies-last-dance-turned-sacred-37633382",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-07T04:00:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.637846+00:00"
+  },
+  {
+   "id": "afa44277e3ac40d3",
+   "title": "Teenager killed in Clare hit-and-run text to say he was being followed before fatal collision",
+   "description": "Tragic Bryan Lowe, who was riding an e-bike, was found unresponsive on the side of the L3050 at Cottage Cross near Cloonlara in Clare on Friday night",
+   "url": "https://www.irishmirror.ie/news/irish-news/teenager-killed-hit-run-text-37633359",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-07T04:00:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.637874+00:00"
+  },
+  {
+   "id": "90ccd929105b3a1f",
+   "title": "Fianna Fáil think-in to focus on easing cost of living",
+   "description": "Members of the Fianna Fáil parliamentary team will gather later in Co Offaly for the party's annual think-in.",
+   "url": "https://www.rte.ie/news/politics/2026/0907/1590524-fianna-fail-think-in/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-07T03:25:59+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.375818+00:00"
+  },
+  {
+   "id": "da2210be8d0c70b4",
+   "title": "Fianna Fail members to gather for annual think-in",
+   "description": "Taoiseach and party leader Micheál Martin said the event would focus on easing cost-of-living pressures.",
+   "url": "https://www.limerickleader.ie/national/fianna-fail-members-to-gather-for-annual-think-in-8967387",
+   "source": "Limerick Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T01:45:52+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.672000+00:00"
+  },
+  {
+   "id": "23012acf664d0284",
+   "title": "Fianna Fail members to gather for annual think-in",
+   "description": "Taoiseach and party leader Micheál Martin said the event would focus on easing cost-of-living pressures.",
+   "url": "https://www.kilkennypeople.ie/national/fianna-fail-members-to-gather-for-annual-think-in-8967387",
+   "source": "Kilkenny People",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T01:45:52+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.971210+00:00"
+  },
+  {
+   "id": "119f3c29c94fab37",
+   "title": "Fianna Fail members to gather for annual think-in",
+   "description": "Taoiseach and party leader Micheál Martin said the event would focus on easing cost-of-living pressures.",
+   "url": "https://www.leinsterexpress.ie/national/fianna-fail-members-to-gather-for-annual-think-in-8967387",
+   "source": "Leinster Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T01:45:52+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.007089+00:00"
+  },
+  {
+   "id": "13916ebcb7e181c1",
+   "title": "Fianna Fail members to gather for annual think-in",
+   "description": "Taoiseach and party leader Micheál Martin said the event would focus on easing cost-of-living pressures.",
+   "url": "https://www.offalyexpress.ie/national/fianna-fail-members-to-gather-for-annual-think-in-8967387",
+   "source": "Offaly Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T01:45:52+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.026972+00:00"
+  },
+  {
+   "id": "14e626093e4075ab",
+   "title": "Fianna Fail members to gather for annual think-in",
+   "description": "Taoiseach and party leader Micheál Martin said the event would focus on easing cost-of-living pressures.",
+   "url": "https://www.longfordleader.ie/national/fianna-fail-members-to-gather-for-annual-think-in-8967387",
+   "source": "Longford Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T01:45:52+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.210887+00:00"
+  },
+  {
+   "id": "c9794a9a92797992",
+   "title": "Fianna Fail members to gather for annual think-in",
+   "description": "Taoiseach and party leader Micheál Martin said the event would focus on easing cost-of-living pressures.",
+   "url": "https://www.leitrimobserver.ie/national/fianna-fail-members-to-gather-for-annual-think-in-8967387",
+   "source": "Leitrim Observer",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T01:45:52+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.392180+00:00"
+  },
+  {
+   "id": "144b65a855c135fa",
+   "title": "Fianna Fail members to gather for annual think-in",
+   "description": "Taoiseach and party leader Micheál Martin said the event would focus on easing cost-of-living pressures.",
+   "url": "https://www.tipperarylive.ie/national/fianna-fail-members-to-gather-for-annual-think-in-8967387",
+   "source": "Tipperary Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-07T01:45:52+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.131866+00:00"
+  },
+  {
+   "id": "6d305b563e58071c",
+   "title": "Israeli strikes kill 11, including 2 children, in Lebanon",
+   "description": "Lebanese state media reported today that Israeli strikes overnight killed 11 people in a southern village, including two infants, a day after separate raids left seven dead.",
+   "url": "https://www.rte.ie/news/middle-east/2026/0907/1590523-middle-east/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-07T01:28:18+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.375408+00:00"
+  },
+  {
+   "id": "a51225862141cd4e",
+   "title": "EU set to give Greenland funding boost amid Trump threats",
+   "description": "The EU and Greenland will sign a new joint partnership involving a substantial increase in EU funding and investment.",
+   "url": "https://www.rte.ie/news/europe/2026/0907/1590522-eu-funding-greenland/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-07T00:28:09+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.375587+00:00"
+  },
+  {
+   "id": "e7e6a3c6a00a8b0c",
+   "title": "New US peace proposals 'more effective' - Ukraine",
+   "description": "The United States envoys have brought new, \"more effective\" proposals on ending the war with Russia to Ukraine, a senior Ukrainian presidential official said.",
+   "url": "https://www.rte.ie/news/world/2026/0907/1590521-ukraine-witkoff-kushner/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-06T23:51:06+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.375284+00:00"
+  },
+  {
+   "id": "f6dcb544f162ea39",
+   "title": "Five dead as Amazon cargo plane veers off Miami runway and bursts into flames",
+   "description": "The aircraft struck vehicles and burst into flames",
+   "url": "https://www.irishmirror.ie/news/world-news/five-dead-amazon-cargo-plane-37633906",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-06T23:42:51+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.637894+00:00"
+  },
+  {
+   "id": "bb1d85a008bcdeb2",
+   "title": "As heists become more common and more violent across Europe, Irish museums are taking note",
+   "description": "The prices of precious metals, especially gold and silver, have risen dramatically in recent years.",
+   "url": "https://www.thejournal.ie/irish-museums-security-heists-europe-7151375-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-06T23:05:29+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.949606+00:00"
+  },
+  {
+   "id": "ac8e1b8794d3fa85",
+   "title": "At least five dead after Amazon cargo plane crashes in US",
+   "description": "At least five people were killed when an Amazon cargo plane overshot a runway after it landed Sunday at Miami International Airport, crashed into vehicles and caught fire, officials said.",
+   "url": "https://www.rte.ie/news/world/2026/0907/1590515-us-cargo-plane-crash/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-06T23:05:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.375617+00:00"
+  },
+  {
+   "id": "1960492dc00adfed",
+   "title": "Government urged to mull consent of Attorney General for Troubles prosecutions",
+   "description": "The Joint Committee on Human Rights (JCHR) said improvements must to be made to the Northern Ireland Troubles Bill.",
+   "url": "https://www.limerickleader.ie/national/government-urged-to-mull-consent-of-attorney-general-for-troubles-prosecutions-8966369",
+   "source": "Limerick Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T23:01:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.672027+00:00"
+  },
+  {
+   "id": "83dd43e7ae488a9c",
+   "title": "Government urged to mull consent of Attorney General for Troubles prosecutions",
+   "description": "The Joint Committee on Human Rights (JCHR) said improvements must to be made to the Northern Ireland Troubles Bill.",
+   "url": "https://www.kilkennypeople.ie/national/government-urged-to-mull-consent-of-attorney-general-for-troubles-prosecutions-8966369",
+   "source": "Kilkenny People",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T23:01:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.971236+00:00"
+  },
+  {
+   "id": "890890de4f228cd5",
+   "title": "Government urged to mull consent of Attorney General for Troubles prosecutions",
+   "description": "The Joint Committee on Human Rights (JCHR) said improvements must to be made to the Northern Ireland Troubles Bill.",
+   "url": "https://www.leinsterexpress.ie/national/government-urged-to-mull-consent-of-attorney-general-for-troubles-prosecutions-8966369",
+   "source": "Leinster Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T23:01:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.007118+00:00"
+  },
+  {
+   "id": "0d8732063bc99438",
+   "title": "Government urged to mull consent of Attorney General for Troubles prosecutions",
+   "description": "The Joint Committee on Human Rights (JCHR) said improvements must to be made to the Northern Ireland Troubles Bill.",
+   "url": "https://www.offalyexpress.ie/national/government-urged-to-mull-consent-of-attorney-general-for-troubles-prosecutions-8966369",
+   "source": "Offaly Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T23:01:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.026999+00:00"
+  },
+  {
+   "id": "94fc7a283e4f3a52",
+   "title": "Government urged to mull consent of Attorney General for Troubles prosecutions",
+   "description": "The Joint Committee on Human Rights (JCHR) said improvements must to be made to the Northern Ireland Troubles Bill.",
+   "url": "https://www.longfordleader.ie/national/government-urged-to-mull-consent-of-attorney-general-for-troubles-prosecutions-8966369",
+   "source": "Longford Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T23:01:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.210912+00:00"
+  },
+  {
+   "id": "ec3a0ed18f8255bc",
+   "title": "Government urged to mull consent of Attorney General for Troubles prosecutions",
+   "description": "The Joint Committee on Human Rights (JCHR) said improvements must to be made to the Northern Ireland Troubles Bill.",
+   "url": "https://www.leitrimobserver.ie/national/government-urged-to-mull-consent-of-attorney-general-for-troubles-prosecutions-8966369",
+   "source": "Leitrim Observer",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T23:01:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.392209+00:00"
+  },
+  {
+   "id": "2ef49878fe720468",
+   "title": "Government urged to mull consent of Attorney General for Troubles prosecutions",
+   "description": "The Joint Committee on Human Rights (JCHR) said improvements must to be made to the Northern Ireland Troubles Bill.",
+   "url": "https://www.tipperarylive.ie/national/government-urged-to-mull-consent-of-attorney-general-for-troubles-prosecutions-8966369",
+   "source": "Tipperary Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T23:01:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.131895+00:00"
+  },
+  {
+   "id": "645f0d9e6df8b284",
+   "title": "Only one in five people expect to retire fully - survey",
+   "description": "Just one in five adults expect to fully retire and stop working in the traditional manner, according to new research from Irish Life.",
+   "url": "https://www.rte.ie/news/2026/0907/1590505-retirement-expectations/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-06T23:00:01+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.375488+00:00"
+  },
+  {
+   "id": "9192c9dd4c042c66",
+   "title": "Changes needed to British Govt's new legacy laws - report",
+   "description": "The British government's proposed new legacy laws give it \"maximum control\" over public disclosure of sensitive information and that should be changed, according to a new report.",
+   "url": "https://www.rte.ie/news/2026/0907/1590506-britain-legacy-laws/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-06T23:00:01+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.375516+00:00"
+  },
+  {
+   "id": "5c81af91c08d3820",
+   "title": "Queen of Kilkenny! Norrid-Mortensen wins Rás na mBan",
+   "description": "Danish rider Olympia Norrid-Mortensen secured overall victory in Rás na mBan on Sunday afternoon, clinging on to a one second advantage over Noémie Garnier of France in the sixth and final stage in Kilkenny City.",
+   "url": "https://www.kilkennypeople.ie/sport/queen-of-kilkenny-norrid-mortensen-wins-ras-na-mban-8966114",
+   "source": "Kilkenny People",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T22:50:41+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.971268+00:00"
+  },
+  {
+   "id": "3bcaa4641e101a85",
+   "title": "Viewers spot unexpected face ringside at Croke Park",
+   "description": "Katie Taylor’s emotional Croke Park finale had more than 80,000 fans watching on Saturday night – but some viewers were keeping an eye on the action outside the ring too. The Bray woman, 40, bowed out at the very top, beating Flora Pili on points in front of an electric Croker. But among those watching […]",
+   "url": "https://wlrfm.com/lifestyle/viewers-spot-unexpected-face-ringside-at-croke-park-4489103/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T22:33:58+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.024102+00:00"
+  },
+  {
+   "id": "7b7ffa78f9edafef",
+   "title": "Fury hits out at 'coward' Joshua in foul-mouthed tirade",
+   "description": "Tyson Fury has suggested his all-British blockbuster bout with Anthony Joshua is off and has challenged Oleksandr Usyk to a third fight.",
+   "url": "https://www.rte.ie/sport/boxing/2026/0906/1590518-fury-hits-out-at-coward-joshua-in-foul-mouthed-tirade/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-06T21:58:49+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.375642+00:00"
+  },
+  {
+   "id": "4faafa225915ed13",
+   "title": "Far-right party on track to win historic German election",
+   "description": "The AfD is poised to win the state elections in Saxony-Anhalt, the first far-right party to do so since the Nazis",
+   "url": "https://www.irishmirror.ie/news/world-news/far-right-party-track-win-37633799",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-06T21:40:22+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.637917+00:00"
+  },
+  {
+   "id": "913cf72437c7e47e",
+   "title": "The Traitors Ireland: Sheep, shields and betrayal",
+   "description": "Another Traitor found themselves in serious trouble as The Traitors Ireland returned to Slane Castle, while a chaotic encounter with some decidedly uncooperative sheep offered a brief break from the tension.",
+   "url": "https://www.rte.ie/entertainment/2026/0906/1590496-the-traitors-ireland-sheep-shields-and-betrayal/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-06T21:40:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.375706+00:00"
+  },
+  {
+   "id": "d48d314ddf34d8a3",
+   "title": "'I'm faithful yiz thicks': The players are 'on edge' as the drama ramps up on The Traitors",
+   "description": "Host Siobhán McSweeney voiced concern that the traitors are ‘pulling the wool’ over the eyes of the faithful.",
+   "url": "https://www.thejournal.ie/the-traitors-ireland-rte-season-two-episode-four-review-7154463-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-06T21:35:03+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.950063+00:00"
+  },
+  {
+   "id": "8ae1deac757b8f1e",
+   "title": "Vogue Williams reveals name of fourth child with Spencer Matthews",
+   "description": "She posted pictures of the couple’s other three children, sons Theodore and Otto and daughter Gigi, posing with the baby.",
+   "url": "https://www.limerickleader.ie/national/vogue-williams-reveals-name-of-fourth-child-with-spencer-matthews-8965809",
+   "source": "Limerick Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T21:20:36+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.672055+00:00"
+  },
+  {
+   "id": "d6b3883ee188585f",
+   "title": "Vogue Williams reveals name of fourth child with Spencer Matthews",
+   "description": "She posted pictures of the couple’s other three children, sons Theodore and Otto and daughter Gigi, posing with the baby.",
+   "url": "https://www.kilkennypeople.ie/national/vogue-williams-reveals-name-of-fourth-child-with-spencer-matthews-8965809",
+   "source": "Kilkenny People",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T21:20:36+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.971299+00:00"
+  },
+  {
+   "id": "232937c639d8c0bb",
+   "title": "Vogue Williams reveals name of fourth child with Spencer Matthews",
+   "description": "She posted pictures of the couple’s other three children, sons Theodore and Otto and daughter Gigi, posing with the baby.",
+   "url": "https://www.leinsterexpress.ie/national/vogue-williams-reveals-name-of-fourth-child-with-spencer-matthews-8965809",
+   "source": "Leinster Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T21:20:36+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.007150+00:00"
+  },
+  {
+   "id": "76dc24f897d3484c",
+   "title": "Vogue Williams reveals name of fourth child with Spencer Matthews",
+   "description": "She posted pictures of the couple’s other three children, sons Theodore and Otto and daughter Gigi, posing with the baby.",
+   "url": "https://www.offalyexpress.ie/national/vogue-williams-reveals-name-of-fourth-child-with-spencer-matthews-8965809",
+   "source": "Offaly Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T21:20:36+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.027027+00:00"
+  },
+  {
+   "id": "42b557d532ab17f4",
+   "title": "Vogue Williams reveals name of fourth child with Spencer Matthews",
+   "description": "She posted pictures of the couple’s other three children, sons Theodore and Otto and daughter Gigi, posing with the baby.",
+   "url": "https://www.longfordleader.ie/national/vogue-williams-reveals-name-of-fourth-child-with-spencer-matthews-8965809",
+   "source": "Longford Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T21:20:36+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.210941+00:00"
+  },
+  {
+   "id": "bb7e67361a32b30b",
+   "title": "Vogue Williams reveals name of fourth child with Spencer Matthews",
+   "description": "She posted pictures of the couple’s other three children, sons Theodore and Otto and daughter Gigi, posing with the baby.",
+   "url": "https://www.leitrimobserver.ie/national/vogue-williams-reveals-name-of-fourth-child-with-spencer-matthews-8965809",
+   "source": "Leitrim Observer",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T21:20:36+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.392243+00:00"
+  },
+  {
+   "id": "9808461e022fed3d",
+   "title": "Vogue Williams reveals name of fourth child with Spencer Matthews",
+   "description": "She posted pictures of the couple’s other three children, sons Theodore and Otto and daughter Gigi, posing with the baby.",
+   "url": "https://www.tipperarylive.ie/national/vogue-williams-reveals-name-of-fourth-child-with-spencer-matthews-8965809",
+   "source": "Tipperary Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T21:20:36+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.131929+00:00"
+  },
+  {
+   "id": "ca305497367d924b",
+   "title": "Waterford FC Head to Dalymount for FAI Cup Semi Final",
+   "description": "Waterford FC will face a trip to Dalymount Park to face Bohemians in the semi final of the Club Orange FAI Cup for the second time in five years. Following the draw this afternoon, the Blues will face Bohs twice in the space of a week in Phibsboro, as their SSE Airtricity Premier Division clash […]",
+   "url": "https://wlrfm.com/sport/waterford-fc-head-to-dalymount-for-fai-cup-semi-final-4489133/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T21:15:18+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.024155+00:00"
+  },
+  {
+   "id": "f1bd20cc763d18f7",
+   "title": "In pictures: Donegal fans help pack out Croker for Katie Taylor farewell",
+   "description": "",
+   "url": "https://www.donegaldaily.com/sports-galleries/in-pictures-donegal-fans-help-pack-out-croker-for-katie-taylor-farewell-648408",
+   "source": "Donegal Daily",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T21:09:04+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.271922+00:00"
+  },
+  {
+   "id": "166ecabb0602eb7e",
+   "title": "Strong Tipperary representation for Greyhound Derby Final",
+   "description": "Bockos Gold and Bouncing Monarch have secured their places in the €125,000-to-the-winner final of the 2026 Boyle Sports Irish Greyhound Derby at Shelbourne Park in Cork next Saturday night.",
+   "url": "https://www.tipperarylive.ie/news/strong-tipperary-representation-for-greyhound-derby-final-8965637",
+   "source": "Tipperary Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T21:01:33+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.131962+00:00"
+  },
+  {
+   "id": "ae30819ce6f1b557",
+   "title": "How much do you know about boxing?",
+   "description": "Last night marked the end of Katie Taylor’s illustrious sporting career.",
+   "url": "https://www.thejournal.ie/boxing-katie-taylor-quiz-7151322-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-06T21:00:39+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.950083+00:00"
+  },
+  {
+   "id": "d9731643916e1556",
+   "title": "Special Shane MacGown night from 'two people who knew him the best'",
+   "description": "A special night is to be held in Nenagh Arts Centre in November",
+   "url": "https://www.tipperarylive.ie/news/nenagh/special-shane-macgown-night-from-two-people-who-knew-him-the-best-8962441",
+   "source": "Tipperary Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T21:00:01+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.131983+00:00"
+  },
+  {
+   "id": "28531cae00e711ed",
+   "title": "ICYMI: Excitement builds ahead of big concert coming to Kilkenny City",
+   "description": "A date for your diaries if you’re in Kilkenny City next month!",
+   "url": "https://www.kilkennypeople.ie/news/kilkenny-city/icymi-excitement-builds-ahead-of-big-concert-coming-to-kilkenny-city-8965523",
+   "source": "Kilkenny People",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T20:41:43+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.971322+00:00"
+  },
+  {
+   "id": "8cf7f48605ba13c5",
+   "title": "Kilkenny motorists warned as major city roads to close this Sunday",
+   "description": "Road closures are in place in Kilkenny city centre",
+   "url": "https://www.kilkennypeople.ie/news/kilkenny-city/kilkenny-motorists-warned-as-major-city-roads-to-close-this-sunday-8962856",
+   "source": "Kilkenny People",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T20:21:51+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.971342+00:00"
+  },
+  {
+   "id": "b5939f243c797972",
+   "title": "Major upgrade plans approved for popular Kilkenny music venue",
+   "description": "Kilkenny County Council made a decision on the application earlier this week",
+   "url": "https://www.kilkennypeople.ie/news/major-upgrade-plans-approved-for-popular-kilkenny-music-venue-8965373",
+   "source": "Kilkenny People",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T20:15:52+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.971363+00:00"
+  },
+  {
+   "id": "917d0b78cc97bc64",
+   "title": "Newmarket-on-Fergus learn the hard way on the pain of fine margins as another relegation battle awaits",
+   "description": "*Newmarket-on-Fergus’ Michael Power. Photograph: Gerard O’Neill NEWMARKET-ON-FERGUS will look to put their “best foot forward” as they battle relegation for the second year running. Defeats to Kilmaley and Sixmilebridge left Newmarket-on-Fergus needing to beat Wolfe Tones by three points in the final round of the Clare SHC but while they achieved victory it was only … Newmarket-on-Fergus learn the",
+   "url": "https://www.clareecho.ie/newmarket-on-fergus-learn-the-hard-way-on-the-pain-of-fine-margins-as-another-relegation-battle-awaits/?utm_source=rss&utm_medium=rss&utm_campaign=newmarket-on-fergus-learn-the-hard-way-on-the-pain-of-fine-margins-as-another-relegation-battle-awaits",
+   "source": "Clare Echo",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T20:02:19+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.220196+00:00"
+  },
+  {
+   "id": "4204da1c4858fae3",
+   "title": "Homeowner left out of pocket as council denies liability for €20k flood damage from council flat",
+   "description": "A Dublin man’s property suffered more than €20,000 in damage after water originating from a council flat entered his private residence – but the council says it’s on the tenant.",
+   "url": "https://www.thejournal.ie/dublin-city-council-flood-liability-7151664-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-06T20:00:53+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.950119+00:00"
+  },
+  {
+   "id": "73dfa174d46a6868",
+   "title": "LIMERICK IN PHOTOS: Glentworth Social sounds for Twilight Thursday",
+   "description": "GLENTWORTH Street was rocking last week for The Glentworth Social, bringing some of the best in local Limerick tunes to the city for Twilight Thursday.",
+   "url": "https://www.limerickpost.ie/2026/09/06/limerick-in-photos-glentworth-social-sounds-for-twilight-thursday/",
+   "source": "Limerick Post",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T20:00:46+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.656489+00:00"
+  },
+  {
+   "id": "6acbdd251e7494c5",
+   "title": "PICTURES: Mungret see off Newcastle west to earn SHC promotion",
+   "description": "Mungret’s nine-point win sees them earn promotion to Group 1 in the Limerick SHC next year",
+   "url": "https://www.limerickleader.ie/sport/hurling/pictures-mungret-see-off-newcastle-west-to-earn-shc-promotion-8964706",
+   "source": "Limerick Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T20:00:42+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.672079+00:00"
+  },
+  {
+   "id": "12aaf66fbe0fad30",
+   "title": "Kilkenny gardaí take action following incident with 12 year old in city centre",
+   "description": "Gardaí seized an e-scooter in Kilkenny City on Sunday afternoon",
+   "url": "https://www.kilkennypeople.ie/news/kilkenny-city/kilkenny-gardai-take-action-following-incident-with-12-year-old-in-city-centre-8965325",
+   "source": "Kilkenny People",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T19:56:41+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.971386+00:00"
+  },
+  {
+   "id": "9da2682534dc8685",
+   "title": "Longford Slashers still the hurling kings in another title triumph",
+   "description": "Cablecomm Senior Hurling Championship Final",
+   "url": "https://www.longfordleader.ie/sport/gaa/longford-slashers-still-the-hurling-kings-in-another-title-triumph-8965187",
+   "source": "Longford Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T19:31:47+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.210960+00:00"
+  },
+  {
+   "id": "19684aa24d31b60d",
+   "title": "Geraldines stay top of the Premier League after draw with Fairview",
+   "description": "Kian Mitchell gave Geraldines the lead but a Conor Kavanagh penalty in the 78th minute saw Fairview draw level",
+   "url": "https://www.limerickleader.ie/sport/soccer/junior-soccer/geraldines-stay-top-of-the-premier-league-after-draw-with-fairview-8964596",
+   "source": "Limerick Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T19:30:20+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.672104+00:00"
+  },
+  {
+   "id": "8b87b0cc26339d7d",
+   "title": "Iconic Capel Street shop to shut its doors after almost 60 years",
+   "description": "Dublin’s Brenfer Bullseye was established in 1969 by Fergus O’Brien and his friend and business partner Brendan Whelan.",
+   "url": "https://www.thejournal.ie/brenfer-bullseye-closing-down-7150037-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-06T19:30:19+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.950144+00:00"
+  },
+  {
+   "id": "a109c647b73bb95b",
+   "title": "Garda appeal on Skoda Octavia following hit-and-run in which teen was killed",
+   "description": "TWO families in the Mid West were trying to come to terms with the deaths of their young sons in two separate hit-and-run incidents over the weekend. The fatal collisions occurred less than 24 hours of one another, in Limerick and Clare, leaving the victims’ loved ones and their local communities in shock. One of […]",
+   "url": "https://www.limerickpost.ie/2026/09/06/garda-appeal-on-skoda-octavia-following-hit-and-run-in-which-teen-was-killed/",
+   "source": "Limerick Post",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T19:30:06+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.656572+00:00"
+  },
+  {
+   "id": "e83eb96f1277af6a",
+   "title": "Grants of thousands for Tipperary Family Resource Centres",
+   "description": "An investment of €50,000 has been announced for county Tipperary",
+   "url": "https://www.tipperarylive.ie/news/grants-of-thousands-for-tipperary-family-resource-centres-8965195",
+   "source": "Tipperary Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T19:30:05+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.132005+00:00"
+  },
+  {
+   "id": "84d2136d36c17e43",
+   "title": "Letterkenny Rovers record historic National League win",
+   "description": "",
+   "url": "https://www.donegaldaily.com/sport/letterkenny-rovers-record-historic-national-league-win-648404",
+   "source": "Donegal Daily",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T19:24:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.271941+00:00"
+  },
+  {
+   "id": "4d6ff227929317f8",
+   "title": "Split days for Connacht Gold Leitrim SFC Quarter Finals as Leitrim GAA reveal fixture details",
+   "description": "Dates revealed for Connacht Gold Leitrim SFC Quarter-Finals",
+   "url": "https://www.leitrimobserver.ie/sport/gaa/split-days-for-connacht-gold-leitrim-sfc-quarter-finals-as-leitrim-gaa-reveal-fixture-details-8965151",
+   "source": "Leitrim Observer",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T19:21:23+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.392265+00:00"
+  },
+  {
+   "id": "dfe6a338af85bed4",
+   "title": "Zelensky to hold another 'more effective' meeting with US envoys to discuss Russia-Ukraine war",
+   "description": "The White House said Jared Kushner and Steve Witkoff discussed “substantive plans” for next steps to end the war in their meeting with the Russian leader on Saturday.",
+   "url": "https://www.thejournal.ie/us-ukraine-war-talks-7154578-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-06T19:07:27+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.950176+00:00"
+  },
+  {
+   "id": "4d7418c5fc2457ce",
+   "title": "Claremorris overcome Charlestown to secure top spot",
+   "description": "Niall Hurley impresses yet again for Claremorris as they blast into the last-eight",
+   "url": "https://www.mayonews.ie/sport/gaa/claremorris-overcome-charlestown-while-securing-top-spot-8962770",
+   "source": "Mayo News",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T19:02:52+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.616585+00:00"
+  },
+  {
+   "id": "5ae9003543fca91f",
+   "title": "Limerick shines at Katie Taylor farewell spectacular",
+   "description": "IN the corner of the now three-time undisputed World Boxing Champion Katie Taylor at Croke Park was an influential County Limerick man, namely Tomás Rohan of Newcastle West. He is a long-time trusted advisor and media co-ordinator to Taylor. At packed Croke Park for the historic Once Upon A Time fight night, Taylor bid an […]",
+   "url": "https://www.limerickpost.ie/2026/09/06/limerick-shines-at-katie-taylor-farewell-spectacular/",
+   "source": "Limerick Post",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T19:01:47+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.656630+00:00"
+  },
+  {
+   "id": "64b7982df4608e06",
+   "title": "PICTURES: Take a look inside this luxurious four-bed Tipperary home available for €595,000",
+   "description": "Take a look at the luxurious four-bedroom homes that have arrived in Ballina, Tipperary and listed for €595,000.",
+   "url": "https://www.tipperarylive.ie/property/pictures-take-a-look-inside-this-luxurious-four-bed-tipperary-home-for-eu595000-8950819",
+   "source": "Tipperary Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T19:00:43+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.132037+00:00"
+  },
+  {
+   "id": "fff432c15c6a3fbd",
+   "title": "How is your budget looking at the moment? Would you like to keep a Money Diary for us?",
+   "description": "We’re asking readers to keep a diary to let us know how your finances are looking.",
+   "url": "https://www.thejournal.ie/readme/money-diaries-spending-saving-100-7154367-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-06T19:00:10+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.950200+00:00"
+  },
+  {
+   "id": "c20d99960fc9d75a",
+   "title": "Motorists in Limerick estate warned of three-week road closure for 'tie in' works",
+   "description": "Limerick City and County Council says access will be maintained for local residents and emergency services",
+   "url": "https://www.limerickleader.ie/traffic-updates/motorists-in-limerick-estate-warned-of-three-week-road-closure-for-tie-in-works-8959724",
+   "source": "Limerick Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T19:00:08+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.672131+00:00"
+  },
+  {
+   "id": "49f53a8d0ab1c7e1",
+   "title": "Here's What Happened Today: Sunday",
+   "description": "The most important Irish and international stories you need to know today.",
+   "url": "https://www.thejournal.ie/evening-fix-6-september-2026-7154426-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-06T19:00:03+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.950219+00:00"
+  },
+  {
+   "id": "142a6286f4ee9193",
+   "title": "Boy, 2, killed in horror hit-and-run just started pre-school days before he died",
+   "description": "Tragic tot Peter Mulcaire, who is understood to be from Rathkeale in Limerick, was initially rushed to University Hospital Limerick by a family member but was pronounced dead a short time later",
+   "url": "https://www.irishmirror.ie/news/irish-news/boy-2-killed-horror-hit-37633400",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-06T19:00:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.637946+00:00"
+  },
+  {
+   "id": "527ee2f77dd3aa99",
+   "title": "Lahinch witnesses greatest comeback in Walker Cup history with victory for Team Great Britain & Ireland",
+   "description": "Great Britain & Ireland Captain Dean Robertson poses with his players & the trophy following their victory during the Sunday Singles on Day Two of the Walker Cup at Lahinch Golf Club on September 6, 2026 in Lahinch, County Clare. (Photo by Ross Parker/R&A/R&A via Getty Images) TEAM GREAT BRITAIN and Ireland won the fifty … Lahinch witnesses greatest comeback in Walker Cup history with victory for ",
+   "url": "https://www.clareecho.ie/lahinch-witnesses-greatest-comeback-in-walker-cup-history-with-victory-for-team-great-britain-ireland/?utm_source=rss&utm_medium=rss&utm_campaign=lahinch-witnesses-greatest-comeback-in-walker-cup-history-with-victory-for-team-great-britain-ireland",
+   "source": "Clare Echo",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T18:55:47+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.220322+00:00"
+  },
+  {
+   "id": "97420c453e1c88b6",
+   "title": "Gutsy Gaels earn draw as Crossmolina advance to last eight",
+   "description": "Despite terrible weather conditions, a huge crowd attended this game in Charlestown.",
+   "url": "https://www.mayonews.ie/sport/gaa/gutsy-gaels-earn-draw-as-crossmolina-advance-to-last-eight-8964791",
+   "source": "Mayo News",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T18:50:12+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.616608+00:00"
+  },
+  {
+   "id": "7392e49c8e72c43e",
+   "title": "PICTURES: Lovely Laois Homecoming Festival returns",
+   "description": "The night featured four Laois-based Unsung Heroes",
+   "url": "https://www.leinsterexpress.ie/whats-on/arts-and-entertainment/pictures-lovely-laois-homecoming-festival-returns-8964476",
+   "source": "Leinster Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T18:40:36+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.007170+00:00"
+  },
+  {
+   "id": "6d1ee30775c3353f",
+   "title": "Brilliant Breaffy advance to the quarter finals with two pointers key",
+   "description": "Breaffy kicked six two-pointers across the game as they produced a solid showing in Gilmartin Park.",
+   "url": "https://www.mayonews.ie/sport/gaa/brilliant-breaffy-advance-to-the-quarter-finals-with-two-pointers-key-8964887",
+   "source": "Mayo News",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T18:39:11+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.616633+00:00"
+  },
+  {
+   "id": "0589e8239db6da96",
+   "title": "Man in serious condition after being 'stabbed in back' in Co Armagh",
+   "description": "Officers arrested a man on suspicion of attempted murder after a victim was reportedly stabbed in the back",
+   "url": "https://www.irishmirror.ie/news/irish-news/man-serious-condition-after-being-37633616",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-06T18:38:14+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.637970+00:00"
+  },
+  {
+   "id": "7f860776004ac0c5",
+   "title": "Jubilant Shinrone fall into quarter-finals as Lusmagh head to relegation play off",
+   "description": "Molloy Environmental Systems Senior Hurling Championship Group 2 Round 5",
+   "url": "https://www.offalyexpress.ie/sport/gaa/jubilant-shinrone-fall-into-quarter-finals-as-lusmagh-head-to-relegation-play-off-8964932",
+   "source": "Offaly Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T18:34:43+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.027049+00:00"
+  },
+  {
+   "id": "630b0ff622fc2435",
+   "title": "Surprises in Rugby’s Munster Senior Cup",
+   "description": "THERE were some upsets in the quarter-finals of the Bank of Ireland Munster Senior Cup, as holders Highfield and Young Munster were both defeated. 2025 winners Nenagh Ormond knocked out holders Highfield with a 33-26 home win. UL Bohemian caused an upset at Annacotty with a 29-22 win against Young Munster. The sides were level […]",
+   "url": "https://www.limerickpost.ie/2026/09/06/surprises-in-rugbys-munster-senior-cup/",
+   "source": "Limerick Post",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T18:30:15+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.656685+00:00"
+  },
+  {
+   "id": "350e293500bbf34d",
+   "title": "Offaly man performs more heroics as Great Britain and Ireland take dramatic win in Walker Cup",
+   "description": "Grehan’s wins over world number one amateur set up home success",
+   "url": "https://www.offalyexpress.ie/sport/golf/grehan-performs-more-heroics-as-great-britain-and-ireland-take-dramatic-win-in-walker-cup-8964874",
+   "source": "Offaly Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T18:23:09+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.027072+00:00"
+  },
+  {
+   "id": "5ada072985fb7537",
+   "title": "Three-point win sends Abbeyleix through as Rathdowney-Errill crash out",
+   "description": "Abbeyleix needed to win and that they did on Sunday afternoon",
+   "url": "https://www.leinsterexpress.ie/sport/gaa/three-point-win-sends-abbeyleix-through-as-rathdowney-errill-crash-out-8964833",
+   "source": "Leinster Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T18:16:47+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.007191+00:00"
+  },
+  {
+   "id": "d994244153afb2db",
+   "title": "First defeat for Xabi Alonso's Chelsea as Arsenal dig deep to prevail",
+   "description": "Martin Ødegaard scored the winning goal as the Gunners maintained their 100% start.",
+   "url": "https://www.thejournal.ie/arsenal-chelsea-report-3-2-7154556-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-06T18:15:48+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.950240+00:00"
+  },
+  {
+   "id": "2d745813b43d2bd3",
+   "title": "Man (34) arrested on suspicion of attempted murder in Co Armagh",
+   "description": "A man in his 40s was stabbed in the back several times and is in serious condition in hospital.",
+   "url": "https://www.thejournal.ie/man-arrested-attempted-murder-lurgan-7154545-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-06T18:13:14+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.950263+00:00"
+  },
+  {
+   "id": "6da9be1d9d0e515c",
+   "title": "‘I am and have always been their mother’ – Woman with strong Galway ties fights for her children’s citizenship",
+   "description": "In Spain, Brenda Kelleher is recognised as the legal mother of her three children - Fionn, Nayra and Lennon Kelleher-Torres. In Ireland, she is not",
+   "url": "https://www.connachttribune.ie/news/galway-city/woman-fight-for-galway-kids-8957614",
+   "source": "Connacht Tribune",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T18:11:15+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.647359+00:00"
+  },
+  {
+   "id": "4965dc871051afd8",
+   "title": "Donegal women affected by cancer build solidarity through art",
+   "description": "",
+   "url": "https://www.donegaldaily.com/health/donegal-women-affected-by-cancer-build-solidarity-through-art-648394",
+   "source": "Donegal Daily",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T18:03:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.271963+00:00"
+  },
+  {
+   "id": "f719cad67203ede4",
+   "title": "Roads in Mayo town centre to close across weekend for local horse fair",
+   "description": "The local Horse Fair and Heritage Day command crowds in the town every year",
+   "url": "https://www.mayonews.ie/news/roads-in-mayo-town-centre-to-close-across-weekend-for-local-horse-fair-8957428",
+   "source": "Mayo News",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T18:00:39+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.616655+00:00"
+  },
+  {
+   "id": "8b10b1bb3277ea0a",
+   "title": "PICTURES | Fabulous Longford support at Trek for Theresa fundraiser in Ardagh",
+   "description": "Longford and Ardagh comes together as a community to honour the memory of Theresa McDermott Quinn and support Oscar’s Kids",
+   "url": "https://www.longfordleader.ie/news/pictures-fabulous-longford-support-at-trek-for-theresa-fundraiser-in-ardagh-8964505",
+   "source": "Longford Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T18:00:33+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.210989+00:00"
+  },
+  {
+   "id": "4df8caad4773f321",
+   "title": "Here are the three derelict buildings that Ireland's councils asked to CPO in August",
+   "description": "Two councils sought to acquire properties last month.",
+   "url": "https://www.thejournal.ie/ireland-derelict-houses-cpo-councils-7147582-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-06T18:00:16+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.950284+00:00"
+  },
+  {
+   "id": "9ef40ba62fcef5e1",
+   "title": "Man appears in Portlaoise court accused of murder",
+   "description": "Eugen Constantin (72) appeared before Portlaoise District Court via video link",
+   "url": "https://www.leinsterexpress.ie/news/crime-courts/man-appears-in-portlaoise-court-accused-of-murder-8961466",
+   "source": "Leinster Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T17:40:47+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.007211+00:00"
+  },
+  {
+   "id": "2198d64df7226084",
+   "title": "Leitrim Traitors Ireland star was forced into GAA retirement after breaking back in match",
+   "description": "Donal Casey thought he was celebrating the greatest day of his football career when Leitrim Gaels lifted the Fenagh Cup. Instead, a devastating neck injury ended his playing days. In a candid interview with John Connolly earlier this year, the 24-year-old reflects on retirement, recovery and perspective.​",
+   "url": "https://www.leitrimobserver.ie/whats-on/arts-and-entertainment/leitrim-traitors-ireland-star-was-forced-into-gaa-retirement-after-breaking-back-in-match-8960297",
+   "source": "Leitrim Observer",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T17:30:29+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.392314+00:00"
+  },
+  {
+   "id": "8be5b6ca3c98058b",
+   "title": "Man and woman arrested on suspicion of attempted murder in Newry",
+   "description": "Police have appealed for information after they responded to a report of an altercation at a property",
+   "url": "https://www.irishtimes.com/ireland/2026/09/06/man-and-woman-arrested-on-suspicion-of-attempted-murder-in-newry/",
+   "source": "Irish Times",
+   "scope": "national",
+   "publishedAt": "2026-09-06T17:27:55+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.905943+00:00"
+  },
+  {
+   "id": "91163b880a59c1f8",
+   "title": "Borris-Kilcotton snatch victory from Rosenallis in added time",
+   "description": "Both teams had already secured quarter-final places before Sunday’s final group game",
+   "url": "https://www.leinsterexpress.ie/sport/gaa/borris-kilcotton-snatch-victory-from-rosenallis-in-added-time-8964514",
+   "source": "Leinster Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T17:16:27+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.007235+00:00"
+  },
+  {
+   "id": "c4d7c9715e6ab23f",
+   "title": "Social welfare: Thousands can apply for little-known payment to cover essential expenses",
+   "description": "Anyone receiving a social welfare payment or on a low income can apply for the payment",
+   "url": "https://www.dublinlive.ie/news/dublin-news/social-welfare-thousands-can-apply-34576530",
+   "source": "Dublin Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T17:12:22+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.943079+00:00"
+  },
+  {
+   "id": "b2b43daaa8de961f",
+   "title": "Gardaí issue big update in case of missing 15-year old Midlands girl",
+   "description": "Gardaí had sought the public’s assistance in tracing the whereabouts of Lisa Power who was reported missing from Co. Westmeath on Wednesday, September 2",
+   "url": "https://www.longfordleader.ie/news/gardai-issue-big-update-in-case-of-missing-15-year-old-midlands-girl-8964479",
+   "source": "Longford Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T17:10:58+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.211021+00:00"
+  },
+  {
+   "id": "de2e82721a3bbb67",
+   "title": "Far-right AfD party set for big win in key Germany state, exit polls show",
+   "description": "It was however too early tell whether the AfD will have enough votes for an absolute majority that would allow it to govern a state alone for the first time.",
+   "url": "https://www.thejournal.ie/afd-win-exit-poll-saxony-anhalt-7154444-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-06T17:08:36+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.950312+00:00"
+  },
+  {
+   "id": "440f39ccaf45be4f",
+   "title": "PICTURES: Look inside renovated Offaly home featured on RTÉ series",
+   "description": "A dramatic and impressive renovation of a house in Clara, Co Offaly featured on RTÉ’s Cheap Irish Homes during the week.",
+   "url": "https://www.offalyexpress.ie/community/pictures-look-inside-renovated-offaly-home-featured-on-rte-series-8964440",
+   "source": "Offaly Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T17:02:36+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.027101+00:00"
+  },
+  {
+   "id": "32fe636fd3f46769",
+   "title": "Derbies galore for Clare SFC quarter-finals",
+   "description": "*Eoghan Thynne and Luke Pyne in action during the Clare SFC quarter-finals. Photograph: Gerard O’Neill. LOCAL DERBIES and a repeat of last year’s Clare SFC final are among the pairings for the quarter-finals. Champions Éire Óg and St Joseph’s Doora/Barefield will face off in a repeat of last year’s county final while there will rivalries … Derbies galore for Clare SFC quarter-finals",
+   "url": "https://www.clareecho.ie/derbies-galore-for-clare-sfc-quarter-finals/?utm_source=rss&utm_medium=rss&utm_campaign=derbies-galore-for-clare-sfc-quarter-finals",
+   "source": "Clare Echo",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T17:01:25+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.220416+00:00"
+  },
+  {
+   "id": "a938a601199b2a8f",
+   "title": "Limerick man accused of trying to escape garda custody refused bail for second time",
+   "description": "Limerick District Court heard that Mr Sheehan was charged with 18 offences on August 19 and has been refused High Court bail previously",
+   "url": "https://www.limerickleader.ie/news/crime-courts/limerick-man-accused-of-trying-to-escape-garda-custody-refused-bail-for-second-time-8956480",
+   "source": "Limerick Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T17:00:59+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.672160+00:00"
+  },
+  {
+   "id": "60c40c7f5e634398",
+   "title": "PICTURES: Beautiful family home hits the market in Laois for under €400K",
+   "description": "Set in the heart of Errill village, this four-bedroom home is ideal for families",
+   "url": "https://www.leinsterexpress.ie/property/pictures-beautiful-family-home-hits-the-market-in-laois-for-under-eu400k-8960936",
+   "source": "Leinster Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T17:00:49+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.007261+00:00"
+  },
+  {
+   "id": "94bfd911487b6979",
+   "title": "Clonmel Credit Union awards €12,000 to six local students for third-level education",
+   "description": "Clonmel Credit Union has awarded €12,000 to six local students to help offset the escalating costs of third-level education, including rent, transport, fees, technology, and the wider cost of living.",
+   "url": "https://www.tipperarylive.ie/news/clonmel/clonmel-credit-union-student-bursary-awards-8962979",
+   "source": "Tipperary Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T17:00:36+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.132073+00:00"
+  },
+  {
+   "id": "2a6864ab80aef0cd",
+   "title": "Baby girl dies after 'cardiac arrest' on camping trip at fishing lake",
+   "description": "Paramedics rushed to the scene early yesterday morning, but were unable to save the youngster",
+   "url": "https://www.dublinlive.ie/news/world-news/baby-girl-dies-after-cardiac-34576468",
+   "source": "Dublin Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T17:00:15+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.943101+00:00"
+  },
+  {
+   "id": "de83ae1c60746f48",
+   "title": "Film Column – The End of Oak Street",
+   "description": "ANNE Hathaway turns up as a despairing housewife in The End of Oak Street — a throwback to the Day-Glo eighties complete with hungry dinosaurs, kids on BMX bikes, and more nostalgia than you can muster. Think E.T. crossed with Back to the Future, Jurassic Park, and Jumanji and you are in the right Spielberg/Amblin […]",
+   "url": "https://www.limerickpost.ie/2026/09/06/film-column-the-end-of-oak-street/",
+   "source": "Limerick Post",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T17:00:06+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.656740+00:00"
+  },
+  {
+   "id": "d5f6dd66fb18242f",
+   "title": "Killybegs Coast Guard to host open night for new volunteers",
+   "description": "",
+   "url": "https://www.donegaldaily.com/news/killybegs-coast-guard-to-host-open-night-for-new-volunteers-648402",
+   "source": "Donegal Daily",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T17:00:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.271982+00:00"
+  },
+  {
+   "id": "261c2b50b3c6667b",
+   "title": "Shinrone the big winners as Ballinamere edge out Belmont for semi-final berth",
+   "description": "Molloy Environmental Systems Senior Hurling Championship Group 2 Round 5",
+   "url": "https://www.offalyexpress.ie/sport/gaa/shinrone-the-big-winners-as-ballinamere-edge-out-belmont-for-semi-final-berth-8964358",
+   "source": "Offaly Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T16:59:05+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.027122+00:00"
+  },
+  {
+   "id": "e620473e81740393",
+   "title": "Former BBC journalist Stephen Walker dies aged 61",
+   "description": "Stephen Walker had penned biographies on John Hume and David Trimble.",
+   "url": "https://www.thejournal.ie/stephen-walker-death-7154417-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-06T16:42:16+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.950331+00:00"
+  },
+  {
+   "id": "912797073fe2eccb",
+   "title": "Tasty ties as draw made for Mayo Club Championship quarter-finals",
+   "description": "After a hectic weekend of action across the Senior and Intermediate grades, we now know who remains in the race for glory",
+   "url": "https://www.mayonews.ie/sport/gaa/tasty-ties-as-draw-made-for-mayo-club-championship-quarter-finals-8962942",
+   "source": "Mayo News",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T16:40:41+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.616680+00:00"
+  },
+  {
+   "id": "89837e5389403bbd",
+   "title": "Treaty United star named in Ireland squad for upcoming friendlies",
+   "description": "Treaty United’s Ellen Goggin has been named in the Republic of Ireland WU17 squad",
+   "url": "https://www.limerickleader.ie/sport/soccer/treaty-united/treaty-united-star-named-in-ireland-squad-for-upcoming-friendlies-8960627",
+   "source": "Limerick Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T16:30:55+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.672184+00:00"
+  },
+  {
+   "id": "932efb66a1d8d431",
+   "title": "Seven September hacks to help cut your winter energy bills",
+   "description": "As autumn temperatures dip, energy bills in Ireland are set to rise",
+   "url": "https://www.dublinlive.ie/lifestyle/seven-september-hacks-help-cut-34576363",
+   "source": "Dublin Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T16:29:53+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.943122+00:00"
+  },
+  {
+   "id": "8c521fe14576599c",
+   "title": "Man United left frustrated by 96th-minute equaliser",
+   "description": "New signing Ainsley Maitland-Niles got Everton out of jail.",
+   "url": "https://www.thejournal.ie/man-united-left-frustrated-by-96th-minute-equaliser-2-7154418-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-06T16:17:44+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.950348+00:00"
+  },
+  {
+   "id": "e2892d7189e72f83",
+   "title": "Housing and homelessness overtake substance use as biggest support need",
+   "description": "HOUSING and homelessness have overtaken substance use as the most common reason people sought support from Ana Liffey in 2025, according to the charity’s latest annual report. Ana Liffey is a low-threshold, harm-reduction charity providing support to people experiencing addiction, homelessness and other social harms. Its Midwest services operate across Clare, Limerick and North Tipperary. … Housin",
+   "url": "https://www.clareecho.ie/housing-and-homelessness-overtake-substance-use-as-biggest-support-need/?utm_source=rss&utm_medium=rss&utm_campaign=housing-and-homelessness-overtake-substance-use-as-biggest-support-need",
+   "source": "Clare Echo",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T16:15:31+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.220518+00:00"
+  },
+  {
+   "id": "59047285a9c5fc88",
+   "title": "Baby girl dies during camping trip as police probe 'unexplained death'",
+   "description": "Police say the unexplained death is being treated as an 'isolated incident'",
+   "url": "https://www.irishmirror.ie/news/world-news/baby-girl-dies-during-camping-37633389",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-06T16:14:15+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.637990+00:00"
+  },
+  {
+   "id": "dd599f7434064a59",
+   "title": "SN Gort a’ Choirce adopts Saint Carlo Acutis as patron",
+   "description": "",
+   "url": "https://www.donegaldaily.com/education/sn-gort-a-choirce-adopts-saint-carlo-acutis-as-patron-648399",
+   "source": "Donegal Daily",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T15:55:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.272004+00:00"
+  },
+  {
+   "id": "256724af27b04f88",
+   "title": "Cape Verde in mourning after 25 people, mostly children, killed after bus plunges into ravine",
+   "description": "The children were on an excursion to a village inside a volcanic crater, organised by the school bus driver.",
+   "url": "https://www.thejournal.ie/cape-verde-mourning-bus-crash-7154386-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-06T15:52:42+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.950372+00:00"
+  },
+  {
+   "id": "9825de2bc39f2c08",
+   "title": "Lucky punter from Clare becomes instant millionaire following Saturday’s Lotto draw",
+   "description": "Lotto bosses confirmed the winning ticket was sold in the Spar in Lisdoonvarna following a “special Guaranteed Millionaire event”.",
+   "url": "https://www.irishmirror.ie/news/irish-news/lucky-punter-clare-becomes-instant-37633293",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-06T15:40:59+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.638019+00:00"
+  },
+  {
+   "id": "b0a487479fe3f1e7",
+   "title": "Maitland-Niles Stunner Rescues Everton in Dramatic United Draw",
+   "description": "Everton have maintained their unbeaten start to the Premier League season after Ainsley Maitland-Niles struck in the sixth minute of stoppage time to snatch a dramatic 2-2 draw against Manchester United at Hill Dickinson Stadium. It looked like United had done enough to take all three points after goals from Bryan Mbeumo and substitute Benjamin […]",
+   "url": "https://wlrfm.com/sport/maitland-niles-stunner-rescues-everton-in-dramatic-united-draw-4489100/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T15:35:34+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.024210+00:00"
+  },
+  {
+   "id": "c7768b5a1034d506",
+   "title": "New Traveller and Roma employment support pilot launched by Ballyhoura Development",
+   "description": "BALLYHOURA Development was selected to deliver a new Traveller and Roma employment support pilot programme across East Limerick and North Cork as part of the national expansion of the Traveller and Roma Local Employment Initiative (TRLEI). Kicking off in September and running for four months, the pilot will provide targeted, culturally appropriate employment, education, training […]",
+   "url": "https://www.limerickpost.ie/2026/09/06/new-traveller-and-roma-employment-support-pilot-launched-by-ballyhoura-development/",
+   "source": "Limerick Post",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T15:30:41+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.656802+00:00"
+  },
+  {
+   "id": "78371fe0298ee8b3",
+   "title": "All we know so far about new state savings scheme set to rollout soon",
+   "description": "Finance Minister Simon Harris has unveiled plans for a new State-backed personal investment scheme for Irish residents, offering a tax-free threshold on savings up to €28,000 and a flat-rate annual tax above that",
+   "url": "https://www.dublinlive.ie/news/know-far-new-state-savings-34576212",
+   "source": "Dublin Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T15:22:24+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.943154+00:00"
+  },
+  {
+   "id": "1c753442d92de33f",
+   "title": "Met Eireann warns 11 counties of ‘heavy thundery’ rain ahead of unsettled week",
+   "description": "Met Éireann has warned 11 counties to expect spells of ‘heavy thundery’ rain as the weather becomes more unsettled heading into a new week. After a few days of high humidity and mixed conditions, the summer weather appears to be nearing its end, though mild temperatures could stick around for a while yet. Next week, […]",
+   "url": "https://wlrfm.com/news/met-eireann-warns-11-counties-of-heavy-thundery-rain-ahead-of-unsettled-week-4489093/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T15:20:46+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.024273+00:00"
+  },
+  {
+   "id": "dd767c06a6143975",
+   "title": "Boy (2) killed in Co Limerick hit-and-run named locally",
+   "description": "Driver did not remain at the scene but man arrested on suspicion of driving under the influence at another location",
+   "url": "https://www.irishtimes.com/ireland/2026/09/05/boy-2-hit-and-killed-by-jeep-in-co-limerick-named-locally/",
+   "source": "Irish Times",
+   "scope": "national",
+   "publishedAt": "2026-09-06T15:20:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.905966+00:00"
+  },
+  {
+   "id": "4a759e538442feb2",
+   "title": "'Mass stabbing' at hotel during event leaves four people injured",
+   "description": "Police believe there were around 100 people at the event when violence broke out late on Saturday night",
+   "url": "https://www.irishmirror.ie/news/world-news/mass-stabbing-hotel-during-event-37633229",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-06T15:15:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.638041+00:00"
+  },
+  {
+   "id": "bc371ea638f6d6db",
+   "title": "Budget for youth justice rises by €14m in four years",
+   "description": "The budget for youth justice measures has increased increased by €14 million in the last four years.",
+   "url": "https://www.rte.ie/news/2026/0906/1590489-youth-justice-measures/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-06T15:12:55+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.376053+00:00"
+  },
+  {
+   "id": "ed6edc0b6f502ddf",
+   "title": "BREAKING: Evergreen return to FAI Junior Cup Final after near decade away",
+   "description": "Full match report to follow on Kilkenny Live/ the Kilkenny People newspaper",
+   "url": "https://www.kilkennypeople.ie/news/breaking-evergreen-return-to-fai-junior-cup-final-after-near-decade-away-8963679",
+   "source": "Kilkenny People",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T15:08:43+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.971407+00:00"
+  },
+  {
+   "id": "f45f276946197f68",
+   "title": "Over 150,000 passengers stranded as airports close after Indonesian volcano erupts",
+   "description": "Krakatoa is an relatively active volcano. In 2018, a tsunami triggered by a collapse of parts of Anak Krakatoa killed 429 people and left thousands displaced.",
+   "url": "https://www.thejournal.ie/krakatoa-indonesia-eruption-7154315-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-06T15:07:57+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.950400+00:00"
+  },
+  {
+   "id": "1c8c03ec2f48ffa8",
+   "title": "Lotto winner bags €1 million as winning ticket traced to Irish shop",
+   "description": "The National Lottery has confirmed where the winning ticket was sold",
+   "url": "https://www.dublinlive.ie/news/lotto-winner-bags-1-million-34576166",
+   "source": "Dublin Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T15:07:18+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.943175+00:00"
+  },
+  {
+   "id": "ee7801c21cf8617b",
+   "title": "Busy September sees plenty of events and activities at Mayo museum",
+   "description": "Admission to the National Museum of Ireland, Turlough Park House & Gardens is free.",
+   "url": "https://www.mayonews.ie/news/busy-september-sees-plenty-of-events-and-activities-at-mayo-museum-8959053",
+   "source": "Mayo News",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T15:00:46+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.616705+00:00"
+  },
+  {
+   "id": "9319e553535bf4e0",
+   "title": "Enterprising Longford women urged to apply for ‘innovative’ business programme",
+   "description": "Brónagh Rogers of Bean & Bread in Granard successfully completed ACORNS 10 recently and she has encouraged others to join.",
+   "url": "https://www.longfordleader.ie/business/longford-women-urged-to-apply-for-innovative-business-programme-8962752",
+   "source": "Longford Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T14:59:24+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.211052+00:00"
+  },
+  {
+   "id": "59d1c458a192ef4b",
+   "title": "Katie Taylor pays tribute to family after retirement fight win over Flora Pili",
+   "description": "Katie Taylor defeated Flora Pili via unanimous decision in front of 83,000 people at Croke Park to bring the curtain down on her career",
+   "url": "https://www.dublinlive.ie/sport/katie-taylor-pays-tribute-family-34576087",
+   "source": "Dublin Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T14:55:10+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.943202+00:00"
+  },
+  {
+   "id": "f64a74b9030e9e42",
+   "title": "Man arrested as officer left with 'significant facial injury' after being head-butted",
+   "description": "As the suspect was in a police vehicle having his seatbelt applied, he head-butted an officer to his eye - causing bruising and swelling – and went on to kick the officer multiple times",
+   "url": "https://www.irishmirror.ie/news/irish-news/man-arrested-officer-left-significant-37633217",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-06T14:51:40+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.638073+00:00"
+  },
+  {
+   "id": "0c2ee6d50f6a1467",
+   "title": "Tusla 'dip into own pockets' for solicitor for teen unable to avail of legal aid due to strike",
+   "description": "Holly Laher said Tusla “felt they had no other choice than to engage with us privately in respect to this, given the minister has made the system unworkable”.",
+   "url": "https://www.thejournal.ie/tusla-engage-solicitor-teen-unable-avail-legal-aid-ongoing-fees-dispute-7154337-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-06T14:45:58+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.950430+00:00"
+  },
+  {
+   "id": "24a44e8ab77d393a",
+   "title": "McDonald's worker ignores drive-thru customers who use 'rude' common greeting",
+   "description": "A McDonald's employee has shared a common drive-thru customer behaviour that could result in them being ignored",
+   "url": "https://www.dublinlive.ie/lifestyle/mcdonalds-worker-ignores-drive-thru-34576028",
+   "source": "Dublin Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T14:39:39+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.943226+00:00"
+  },
+  {
+   "id": "b2307e907707a1b2",
+   "title": "Man charged with assaulting police officers in Strabane",
+   "description": "",
+   "url": "https://www.donegaldaily.com/news/man-charged-with-assaulting-police-officers-in-strabane-648389",
+   "source": "Donegal Daily",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T14:30:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.272023+00:00"
+  },
+  {
+   "id": "1cdc6dad09e7b5ce",
+   "title": "Gardaí seeking driver or occupants of Skoda Octavia about fatal hit and run",
+   "description": "Bryan Lowe (16) was killed in incident on Clare-Limerick border on Friday morning",
+   "url": "https://www.irishtimes.com/crime-law/2026/09/06/gardai-seeking-driver-or-occupants-of-skoda-octavia-about-fatal-hit-and-run/",
+   "source": "Irish Times",
+   "scope": "national",
+   "publishedAt": "2026-09-06T14:28:36+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.905989+00:00"
+  },
+  {
+   "id": "52f2ef2578b735c4",
+   "title": "Popular Irish name is the most mispronounced in the world",
+   "description": "Irish names often prove challenging for English speakers to decipher",
+   "url": "https://www.dublinlive.ie/news/popular-irish-name-most-mispronounced-34575954",
+   "source": "Dublin Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T14:24:57+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.943245+00:00"
+  },
+  {
+   "id": "d4ea2f6671937fe1",
+   "title": "Gardaí release image of car sought after fatal hit-and-run as witness appeal intensifies",
+   "description": "Gardaí have released an image of a car they are seeking in connection with a fatal road traffic collision on the Clare-Limerick border. 16-year-old Bryan Lowe died after he was found unresponsive by the roadside in Cloonlara shortly after 11pm on Friday, September 4. The e-bike rider was found on the L3050 at Cottage Cross […]",
+   "url": "https://wlrfm.com/news/gardai-release-image-of-car-sought-after-fatal-hit-and-run-as-witness-appeal-intensifies-4489054/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T14:23:31+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.024332+00:00"
+  },
+  {
+   "id": "071ef8ec2194d693",
+   "title": "Contracts signed for Tipperary road safety works",
+   "description": "The works are due to be finished by mid-2027",
+   "url": "https://www.tipperarylive.ie/news/contracts-signed-for-tipperary-road-safety-works-8963290",
+   "source": "Tipperary Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T14:21:15+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.132092+00:00"
+  },
+  {
+   "id": "3262bdea06c75198",
+   "title": "Long delays on road outside Limerick following collision",
+   "description": "Motorists have been advised to expect delays to their journey",
+   "url": "https://www.limerickleader.ie/news/long-delays-on-road-outside-limerick-following-collision-8963174",
+   "source": "Limerick Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T14:07:28+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.672203+00:00"
+  },
+  {
+   "id": "3f3aba0902803830",
+   "title": "Gardaí issue appeal for Skoda car after fatal hit-and-run in Co Clare",
+   "description": "Bryan Lowe (16) was found unresponsive by the roadside on Friday.",
+   "url": "https://www.thejournal.ie/gardai-appeal-driver-skoda-octavia-hit-and-run-cloonlara-clare-7154324-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-06T14:04:23+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.950452+00:00"
+  },
+  {
+   "id": "100e2d93c7de65db",
+   "title": "Three-month-old girl dies while ‘camping with family’ as investigation launched into 'unexplained' death",
+   "description": "Emergency services attended the scene following reports of a child in cardiac arrest, and the death is being treated as \"unexplained\" by police",
+   "url": "https://www.irishmirror.ie/news/world-news/three-month-old-girl-dies-37632936",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-06T14:01:56+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.638106+00:00"
+  },
+  {
+   "id": "1ddaf7ea5447760e",
+   "title": "Bumper market in aid of local Kilkenny charity to take place next month",
+   "description": "The charity raises vital funds for local people in homelessness",
+   "url": "https://www.kilkennypeople.ie/whats-on/bumper-market-in-aid-of-local-kilkenny-charity-to-take-place-next-month-8960940",
+   "source": "Kilkenny People",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T14:00:55+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.971428+00:00"
+  },
+  {
+   "id": "a6afb657aaa0d349",
+   "title": "Tipperary people urged to get involved as new PMOS Ireland organisation launches",
+   "description": "PMOS Ireland calls on people across Tipperary to become county representatives and help put local voices at the heart of national awareness",
+   "url": "https://www.tipperarylive.ie/news/local-news/tipperary-people-urged-to-get-involved-as-new-pmos-ireland-organisation-launches-8961111",
+   "source": "Tipperary Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T14:00:22+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.132119+00:00"
+  },
+  {
+   "id": "79aaab8ff6b99c92",
+   "title": "Lawlink – My siblings and I want to sell the home our aunt left to the family, but our dad wants to keep it – what do we do?",
+   "description": "Q. My aunt passed away a number of years ago and left her home to my dad, my two brothers, and I. We each own a quarter, and have used the place primarily as a holiday home. We sometimes rent it out, and it just about covers LPT, electricity, etc. Dad is getting on in […]",
+   "url": "https://www.limerickpost.ie/2026/09/06/lawlink-my-siblings-and-i-want-to-sell-the-home-our-aunt-left-to-the-family-but-our-dad-wants-to-keep-it-what-do-we-do/",
+   "source": "Limerick Post",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T14:00:05+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.656866+00:00"
+  },
+  {
+   "id": "f0427b752e92275c",
+   "title": "Aghamore comeback to book last-eight spot and end historic ’Tubber run",
+   "description": "Liam Lavin and Fergal Boland excelled for Aghamore as they punched their ticket to the quarter-finals of the race for the Moclair Cup",
+   "url": "https://www.mayonews.ie/sport/gaa/aghamore-comeback-to-book-last-eight-spot-and-end-historic-tubber-run-8963035",
+   "source": "Mayo News",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T13:52:22+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.616739+00:00"
+  },
+  {
+   "id": "53655d809d19ae93",
+   "title": "Gardaí hunt Skoda driver after teen, 16, knocked down and killed in Clare hit-and-run",
+   "description": "On Friday, teenager Bryan Lowe died after he was struck by a vehicle, which drove off",
+   "url": "https://www.irishmirror.ie/news/irish-news/gardai-hunt-skoda-driver-after-37633002",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-06T13:49:46+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.638131+00:00"
+  },
+  {
+   "id": "aad578e3d21c3209",
+   "title": "Gardai investigating fatal hit-and-run appeal for information about car",
+   "description": "Gardaí are also seeking witnesses to the incident in Cloonlara, on the Clare-Limerick border, on Friday.",
+   "url": "https://www.limerickleader.ie/national/gardai-investigating-fatal-hit-and-run-appeal-for-information-about-car-8964308",
+   "source": "Limerick Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T13:47:07+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.672227+00:00"
+  },
+  {
+   "id": "dba5453f1ced9029",
+   "title": "Gardai investigating fatal hit-and-run appeal for information about car",
+   "description": "Gardaí are also seeking witnesses to the incident in Cloonlara, on the Clare-Limerick border, on Friday.",
+   "url": "https://www.kilkennypeople.ie/national/gardai-investigating-fatal-hit-and-run-appeal-for-information-about-car-8964308",
+   "source": "Kilkenny People",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T13:47:07+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.971451+00:00"
+  },
+  {
+   "id": "6cfe116a8fac3d01",
+   "title": "Gardai investigating fatal hit-and-run appeal for information about car",
+   "description": "Gardaí are also seeking witnesses to the incident in Cloonlara, on the Clare-Limerick border, on Friday.",
+   "url": "https://www.leinsterexpress.ie/national/gardai-investigating-fatal-hit-and-run-appeal-for-information-about-car-8964308",
+   "source": "Leinster Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T13:47:07+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.007285+00:00"
+  },
+  {
+   "id": "ea018e8da8a11b1f",
+   "title": "Gardai investigating fatal hit-and-run appeal for information about car",
+   "description": "Gardaí are also seeking witnesses to the incident in Cloonlara, on the Clare-Limerick border, on Friday.",
+   "url": "https://www.offalyexpress.ie/national/gardai-investigating-fatal-hit-and-run-appeal-for-information-about-car-8964308",
+   "source": "Offaly Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T13:47:07+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.027168+00:00"
+  },
+  {
+   "id": "1a0ae1c2ddcf0bc9",
+   "title": "Gardai investigating fatal hit-and-run appeal for information about car",
+   "description": "Gardaí are also seeking witnesses to the incident in Cloonlara, on the Clare-Limerick border, on Friday.",
+   "url": "https://www.longfordleader.ie/national/gardai-investigating-fatal-hit-and-run-appeal-for-information-about-car-8964308",
+   "source": "Longford Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T13:47:07+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.211076+00:00"
+  },
+  {
+   "id": "19e8df741b8609c0",
+   "title": "Gardai investigating fatal hit-and-run appeal for information about car",
+   "description": "Gardaí are also seeking witnesses to the incident in Cloonlara, on the Clare-Limerick border, on Friday.",
+   "url": "https://www.leitrimobserver.ie/national/gardai-investigating-fatal-hit-and-run-appeal-for-information-about-car-8964308",
+   "source": "Leitrim Observer",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T13:47:07+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.392339+00:00"
+  },
+  {
+   "id": "7d23ee154ca04c3c",
+   "title": "Gardai investigating fatal hit-and-run appeal for information about car",
+   "description": "Gardaí are also seeking witnesses to the incident in Cloonlara, on the Clare-Limerick border, on Friday.",
+   "url": "https://www.tipperarylive.ie/national/gardai-investigating-fatal-hit-and-run-appeal-for-information-about-car-8964308",
+   "source": "Tipperary Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T13:47:07+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.132143+00:00"
+  },
+  {
+   "id": "f47b5ad98b661222",
+   "title": "Donegal man who killed eight in State’s worst crash lands lorry driving job",
+   "description": "",
+   "url": "https://www.donegaldaily.com/news/donegal-man-who-killed-eight-in-states-worst-crash-lands-lorry-driving-job-648384",
+   "source": "Donegal Daily",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T13:43:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.272049+00:00"
+  },
+  {
+   "id": "7563e61d74ab8659",
+   "title": "Clocks to go back earlier in 2026 as long nights just weeks away",
+   "description": "The clocks will go back one hour at 2am on Sunday, October 25, 2026, marking the end of daylight saving time in Ireland and the return to GMT",
+   "url": "https://www.dublinlive.ie/news/clocks-go-back-earlier-2026-34575830",
+   "source": "Dublin Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T13:38:12+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.943270+00:00"
+  },
+  {
+   "id": "95c171d6a88c6b82",
+   "title": "Gardai issue appeal after boy, 16, killed in crash outside Limerick",
+   "description": "The teenager has been named as Bryan Lowe, a sixth-class pupil at St Munchin’s College in Limerick",
+   "url": "https://www.limerickleader.ie/news/gardai-issue-appeal-after-boy-16-killed-in-crash-outside-limerick-8963014",
+   "source": "Limerick Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T13:31:56+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.672251+00:00"
+  },
+  {
+   "id": "307588105a55df84",
+   "title": "Gardaí looking for car occupants after Clare hit-and-run",
+   "description": "Gardaí are searching for the drivers or occupants of a car they believe was involved in a fatal hit-and-run incident in Clonlara, Co Clare on Friday.",
+   "url": "https://www.rte.ie/news/2026/0906/1590488-clare-hit-and-run/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-06T13:31:55+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.375890+00:00"
+  },
+  {
+   "id": "7b8add1168607d49",
+   "title": "New commercial partnership confirmed ahead of Ryder Cup in Limerick",
+   "description": "Brands served during the event will include Heineken, Heineken 0.0%, Birra Moretti, Murphy’s, Beamish and Orchard Thieves",
+   "url": "https://www.limerickleader.ie/sport/ryder-cup/new-commercial-partnership-confirmed-ahead-of-ryder-cup-in-limerick-8957930",
+   "source": "Limerick Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T13:30:50+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.672277+00:00"
+  },
+  {
+   "id": "a0e6c133dec5eacb",
+   "title": "LIVE UPDATES: Rathdowney-Errill v Abbeyleix; Rosenallis v Borris-Kilcotton",
+   "description": "It’s the final round of fixtures in the Senior Hurling Championship",
+   "url": "https://www.leinsterexpress.ie/sport/gaa/live-updates-rathdowney-errill-v-abbeyleix-rosenallis-v-borris-kilcotton-8963013",
+   "source": "Leinster Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T13:30:25+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.007307+00:00"
+  },
+  {
+   "id": "3b2ce01c2cbb4a2f",
+   "title": "Gardaí release details as they search for Cork reg car after fatal Clare hit-and-run",
+   "description": "Authorities hunting for a Skoda Octavia",
+   "url": "https://www.corkbeo.ie/news/gardai-release-details-search-cork-34575782",
+   "source": "Cork Beo",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T13:23:08+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.845747+00:00"
+  },
+  {
+   "id": "90c741a79717be78",
+   "title": "'No decision made' yet on whether to delay carbon tax hike again, Chambers says",
+   "description": "The Minister for Public Expenditure also said there would have to be “corrective action” taken over HSE spending.",
+   "url": "https://www.thejournal.ie/jack-chambers-budget-2027-carbon-tax-healh-overruns-7154289-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-06T13:18:47+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.950477+00:00"
+  },
+  {
+   "id": "8281c4b1efe109db",
+   "title": "RTE viewers echo same complaint over Katie Taylor fight night coverage",
+   "description": "RTE viewers all shared the same complaint over the broadcaster’s coverage of Saturday night’s extensive boxing event in Croke Park. While the national broadcaster ensured that the nation could witness Katie Taylor’s final bout in the ring, many fans were left annoyed by its disappointing undercard display. RTE showed the entertaining clash between Paddy Donovan […]",
+   "url": "https://wlrfm.com/news/rte-viewers-echo-same-complaint-over-katie-taylor-fight-night-coverage-4489017/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T13:18:32+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.024393+00:00"
+  },
+  {
+   "id": "1713e49f67db2837",
+   "title": "Taoiseach to address global issues with Trump in Dublin",
+   "description": "The meeting between the Taoiseach and the US President in Dublin next Saturday will address global issues according to the Minister for Public Expenditure.",
+   "url": "https://www.rte.ie/news/politics/2026/0906/1590487-taoiseach-donald-trump/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-06T13:15:12+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.375999+00:00"
+  },
+  {
+   "id": "89984781467364d0",
+   "title": "Man, 60s, dies after being pulled from water in Donegal rescue operation",
+   "description": "The man was pulled from the water at Ned's Point near Buncrana and was pronounced dead at the scene",
+   "url": "https://www.dublinlive.ie/news/man-60s-dies-after-being-34575745",
+   "source": "Dublin Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T13:12:53+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.943292+00:00"
+  },
+  {
+   "id": "8ba90275c2212fe7",
+   "title": "Confusion reigns at end of Mayo club hurling final",
+   "description": "Scoreboard slip at Mayo hurling decider leads to muddle at final whistle",
+   "url": "https://www.mayonews.ie/sport/confusion-reigns-at-end-of-mayo-club-hurling-final-8962999",
+   "source": "Mayo News",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T13:05:17+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.616762+00:00"
+  },
+  {
+   "id": "1699ba20b416cdf4",
+   "title": "What's next for Katie Taylor after historic Croke Park win - including stage show and movie",
+   "description": "If you missed out on watching Katie Taylor live, you can catch her next year as she tours around Ireland",
+   "url": "https://www.corkbeo.ie/sport/whats-next-katie-taylor-after-34575723",
+   "source": "Cork Beo",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T13:03:57+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.845774+00:00"
+  },
+  {
+   "id": "5dff36dbd7d99739",
+   "title": "East Clare President’s Prize for Minogue & O’Reilly wins senior men’s captains prize in Ennis",
+   "description": "*Michael O’Reilly accepts John Lillis’ senior men’s captains prize. President Alan O’Neill’s prize was played for at East Clare last weekend when the overall winner was Danny Minogue. Teddy O’Hanlon (18) had 45 points to win the men’s section and he was followed by Pat Madden (14) with 44 points with Pierce O’Shiel (21) next … East Clare President’s Prize for Minogue & O’Reilly wins senior men’s c",
+   "url": "https://www.clareecho.ie/east-clare-presidents-prize-for-minogue-oreilly-wins-senior-mens-captains-prize-in-ennis/?utm_source=rss&utm_medium=rss&utm_campaign=east-clare-presidents-prize-for-minogue-oreilly-wins-senior-mens-captains-prize-in-ennis",
+   "source": "Clare Echo",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T13:03:56+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.220661+00:00"
+  },
+  {
+   "id": "5c2e02223fbc03fa",
+   "title": "Longford residents urged to take first national survey on important topic",
+   "description": "The Research in Ireland Barometer 2026 is a national project designed to deliver a deeper understanding of how Ireland views research.",
+   "url": "https://www.longfordleader.ie/news/longford-residents-urged-to-take-first-national-survey-on-key-topic-8961922",
+   "source": "Longford Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T13:01:35+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.211102+00:00"
+  },
+  {
+   "id": "eb13df71f5780c1b",
+   "title": "MAKING CENTS: Five ways to protect your savings from rising inflation",
+   "description": "Key steps to help save a penny or two",
+   "url": "https://www.limerickleader.ie/news/opinion/making-cents-liam-croke/five-ways-to-protect-your-savings-from-rising-inflation-8957995",
+   "source": "Limerick Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T13:00:53+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.672295+00:00"
+  },
+  {
+   "id": "c4db490f538e7381",
+   "title": "How to watch Breaffy v Knockmore in Mayo Senior Football Championship",
+   "description": "Two of the main contenders to hoist the Moclair Cup aloft are on a collision course in Kiltimagh",
+   "url": "https://www.mayonews.ie/sport/gaa/how-to-watch-breaffy-v-knockmore-in-mayo-senior-football-championship-8954142",
+   "source": "Mayo News",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T13:00:16+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.616786+00:00"
+  },
+  {
+   "id": "12b373c69b744099",
+   "title": "Infantino will stand for re-election as Fifa president",
+   "description": "This is the first time that Fifa has confirmed that Infantino will be standing since the scandal over attempts to privatise the World Cup.",
+   "url": "https://www.thejournal.ie/fifa-re-election-infantino-7154286-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-06T12:51:38+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.950502+00:00"
+  },
+  {
+   "id": "019c40817a3667cd",
+   "title": "Gaoth Dobhair crews impress at International Currach Championships",
+   "description": "",
+   "url": "https://www.donegaldaily.com/sport/gaoth-dobhair-crews-impress-at-international-currach-championships-648377",
+   "source": "Donegal Daily",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T12:47:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.272070+00:00"
+  },
+  {
+   "id": "156fa741f1570e56",
+   "title": "‘We’ll never get a woman like Katie Taylor again’: Fans reflect on boxer’s lasting legacy",
+   "description": "Bray fighter (40) competes in her final bout on a stage few ever do – in front of 82,000 people at Croke Park",
+   "url": "https://www.irishtimes.com/ireland/2026/09/05/well-never-get-a-woman-like-katie-taylor-again-fans-look-forward-to-croke-park-clash/",
+   "source": "Irish Times",
+   "scope": "national",
+   "publishedAt": "2026-09-06T12:45:35+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.906017+00:00"
+  },
+  {
+   "id": "019d99441828de6d",
+   "title": "'Violence and intimidation' in Leitrim housing estates leads to bigger garda presence",
+   "description": "A Carrick-on-Shannon councillor says progress has been made on anti-social behaviour in Carrick-on-Shannon, with Gardaí and Leitrim County Council taking stronger action.",
+   "url": "https://www.leitrimobserver.ie/news/carrick-on-shannon/violence-and-intimidation-in-leitrim-housing-estates-leads-to-bigger-garda-presence-8960411",
+   "source": "Leitrim Observer",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T12:30:17+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.392369+00:00"
+  },
+  {
+   "id": "eb7ab68c24651384",
+   "title": "Star-studded Phoenix Park event raises thousands for charity",
+   "description": "The glamorous crowd gathered to show their support for Debra, a charity that assists around 300 people across Ireland living with epidermolysis bullosa (EB)",
+   "url": "https://www.dublinlive.ie/news/dublin-news/star-studded-phoenix-park-event-34575450",
+   "source": "Dublin Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T12:23:11+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.943317+00:00"
+  },
+  {
+   "id": "1a077608d125a0f6",
+   "title": "Man and woman arrested on suspicion of attempted murder following stabbing incident in Newry",
+   "description": "Police have appealed for information",
+   "url": "https://www.irishmirror.ie/news/irish-news/man-woman-arrested-suspicion-attempted-37632776",
+   "source": "Irish Mirror",
+   "scope": "national",
+   "publishedAt": "2026-09-06T12:19:17+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.638150+00:00"
+  },
+  {
+   "id": "99ed62bffee197f1",
+   "title": "Man and woman (30s) arrested following stabbing of man in Newry",
+   "description": "A man with stab wounds was found inside a property in the woodhill area of the city.",
+   "url": "https://www.thejournal.ie/man-woman-arrested-stabbing-newry-7154272-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-06T12:15:06+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.950524+00:00"
+  },
+  {
+   "id": "a80a6633f52d6295",
+   "title": "As Katie Taylor bowed out of her boxing career, the Bray crowd cheered on their hometown hero",
+   "description": "Generations have grown up alongside Katie Taylor’s career and the Bray crowd were bursting with pride.",
+   "url": "https://www.thejournal.ie/katie-taylor-bray-3-7154141-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-06T12:10:32+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.950559+00:00"
+  },
+  {
+   "id": "6c247b7ed51562da",
+   "title": "Melvin Gaels has appointed Sligo's Nicola Brennan as the manager of their men's first team",
+   "description": "Sligo footballer Nicola Brennan will become the first woman ever to take the reins of a men’s club team when the side line out next Saturday",
+   "url": "https://www.leitrimobserver.ie/news/leitrim-gaa-club-appoints-first-ever-woman-as-manager-of-mens-team-8962718",
+   "source": "Leitrim Observer",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T12:08:13+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.392400+00:00"
+  },
+  {
+   "id": "0a967a498df70da2",
+   "title": "Man (29) charged after car travelling at high speed collides with another in Co Tyrone",
+   "description": "Police said that a black Seat Leon was travelling at high speed along the A5 and collided twice with another car.",
+   "url": "https://www.thejournal.ie/man-arrested-strabane-dangerous-driving-7153662-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-06T12:07:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.950584+00:00"
+  },
+  {
+   "id": "1d478f0d342f31ee",
+   "title": "HSE and ATU Mayo highlight suicide prevention and student wellbeing",
+   "description": "‘World Suicide Prevention Day’ takes place on Thursday, September 10.",
+   "url": "https://www.mayonews.ie/news/hse-and-atu-mayo-highlight-suicide-prevention-and-student-wellbeing-8958895",
+   "source": "Mayo News",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T12:00:26+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.616809+00:00"
+  },
+  {
+   "id": "1b1fd4c6ae6bdf39",
+   "title": "Pictures: Crowds gather for special mass in south Kilkenny",
+   "description": "Locals have gathered at the site to celebrate an open air mass for hundreds of years. All photos from Sean Maher",
+   "url": "https://www.kilkennypeople.ie/news/video-and-photogallery/pictures-crowds-gather-for-special-mass-in-south-kilkenny-8960470",
+   "source": "Kilkenny People",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T12:00:17+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.971475+00:00"
+  },
+  {
+   "id": "c944e749101f6c9e",
+   "title": "Thieves and joyriders prowling for cars in Cork city estates",
+   "description": "Residents have been urged to double-check their cars have been locked",
+   "url": "https://www.corkbeo.ie/news/local-news/thieves-joyriders-prowling-cars-cork-34575103",
+   "source": "Cork Beo",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T11:47:52+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.845794+00:00"
+  },
+  {
+   "id": "0898526e7b08b67c",
+   "title": "Farage wraps up party conference as he says he 'wasn't listening' during foreign donor talks filmed undercover",
+   "description": "During the conference, several men attack a woman, pulling her hair and hitting her with a walking stick.",
+   "url": "https://www.thejournal.ie/reform-uk-party-conference-farage-7154247-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-06T11:42:48+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.950609+00:00"
+  },
+  {
+   "id": "6e5727bc2a1681b0",
+   "title": "NTA puts €6m value on Adare Ryder Cup park and ride and train and ride services",
+   "description": "*Photo via Ryder Cup website THE National Transport Authority (NTA) has put a €6m estimate on a contract to provide ‘park and ride’ and ‘train and ride’ services for the 2027 Ryder Cup in Adare, Co Limerick. In tender documents published today, the NTA is seeking transport firms to operate the passenger transport services for … NTA puts €6m value on Adare Ryder Cup park and ride and train and ride",
+   "url": "https://www.clareecho.ie/nta-puts-e6m-value-on-adare-ryder-cup-park-and-ride-and-train-and-ride-services/?utm_source=rss&utm_medium=rss&utm_campaign=nta-puts-e6m-value-on-adare-ryder-cup-park-and-ride-and-train-and-ride-services",
+   "source": "Clare Echo",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T11:35:39+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.220764+00:00"
+  },
+  {
+   "id": "923711ea3e080128",
+   "title": "Driver flees scene of latest Donegal hit-and-run crash",
+   "description": "",
+   "url": "https://www.donegaldaily.com/lead-stories/driver-flees-scene-of-latest-donegal-hit-and-run-crash-648374",
+   "source": "Donegal Daily",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T11:31:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.272088+00:00"
+  },
+  {
+   "id": "dd3e87088f5c0033",
+   "title": "Katie Taylor photo special: Relive all the best moments from epic Croke Park night",
+   "description": "The Bray Bomber brought the curtain down on her incredible career in perfect fashion with victory over Flora Pili",
+   "url": "https://www.dublinlive.ie/sport/boxing/gallery/katie-taylor-photo-special-relive-34575403",
+   "source": "Dublin Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T11:30:55+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.943340+00:00"
+  },
+  {
+   "id": "0ac1353d2088f015",
+   "title": "Zelensky says war is likely to continue into winter",
+   "description": "War with Russia \"at the moment\" looked likely to continue into winter, Ukrainian President Volodymyr Zelensky said today, after talks with US envoys visiting Kyiv.",
+   "url": "https://www.rte.ie/news/2026/0906/1590482-ukraine-kushner-witkoff/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-06T11:27:59+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.376846+00:00"
+  },
+  {
+   "id": "3a33460121958fcf",
+   "title": "Katie Taylor Croke Park RECAP from historic night in Dublin",
+   "description": "Katie Taylor takes on France's Flora Pili in her final fight before retiring",
+   "url": "https://www.dublinlive.ie/sport/boxing/katie-taylor-croke-park-live-34573994",
+   "source": "Dublin Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T11:24:43+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.943359+00:00"
+  },
+  {
+   "id": "826c71ecff7ad9e8",
+   "title": "Longford Town slip up in losing out to Kerry FC",
+   "description": "SSE Airtricity League First Division - Round 30",
+   "url": "https://www.longfordleader.ie/sport/soccer/longford-town-slip-up-in-losing-out-to-kerry-fc-8962920",
+   "source": "Longford Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T11:17:02+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.211120+00:00"
+  },
+  {
+   "id": "fc4124aa677db218",
+   "title": "Two big Lotto wins in Munster as lucky punter scoops €1 million prize",
+   "description": "Two other players collected five-figure sums",
+   "url": "https://www.corkbeo.ie/news/two-big-lotto-wins-munster-34575243",
+   "source": "Cork Beo",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T11:15:13+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.845820+00:00"
+  },
+  {
+   "id": "01bcf7f3bb2563a6",
+   "title": "Man to face special court sitting after Cork city centre street rampage",
+   "description": "The man is already well-known to Gardaí",
+   "url": "https://www.corkbeo.ie/news/local-news/man-face-special-court-sitting-34575321",
+   "source": "Cork Beo",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T11:14:59+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.845839+00:00"
+  },
+  {
+   "id": "9c8c1cf52d762c19",
+   "title": "Courts at a 'standstill' amid criminal legal aid dispute",
+   "description": "More than 25 bench warrants were issued by a single judge in under two hours, as the impact of the defence solicitors' strike continues to be felt by court users.",
+   "url": "https://www.rte.ie/news/courts/2026/0906/1590481-legal-aid-dispute/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-06T11:02:34+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.375941+00:00"
+  },
+  {
+   "id": "fb900360b912f67d",
+   "title": "SPOTLIGHT: Raising a glass to Rocky’s ‘Commercial’ success in Limerick",
+   "description": "A toast to a Limerick pub providing a platform for new artist",
+   "url": "https://www.limerickleader.ie/news/opinion/spotlight-kieran-beville/raising-a-glass-to-rockys-commercial-success-in-limerick-8957976",
+   "source": "Limerick Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T11:00:44+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.672320+00:00"
+  },
+  {
+   "id": "f31fa46a70db68cc",
+   "title": "Amazing full circle moment as Longford wrestler to perform before home crowd",
+   "description": "Wrestling star Matthew ‘Bullett’ Smyth will be returning home to Longford to participate in an event in Temperance Hall on Sunday, September 13.",
+   "url": "https://www.longfordleader.ie/whats-on/amazing-full-circle-moment-as-longford-wrestler-to-perform-before-home-crowd-8960966",
+   "source": "Longford Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T11:00:44+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.211149+00:00"
+  },
+  {
+   "id": "85c819ee33216480",
+   "title": "‘A fantastic town’: Out and about in Abbeyfeale with Cllr Liam Galvin",
+   "description": "FINE Gael councillor Liam Galvin is a man after my own heart. He’s a straight-talking politician that doesn’t mince his words. In fairness, you’re unlikely to ever find Cllr Galvin sitting on the fence, especially when it comes to his role as a local representative. I met the candid alderman, recently elected Cathaoirleach of Newcastle West […]",
+   "url": "https://www.limerickpost.ie/2026/09/06/a-fantastic-town-out-and-about-in-abbeyfeale-with-cllr-liam-galvin/",
+   "source": "Limerick Post",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T11:00:03+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.656927+00:00"
+  },
+  {
+   "id": "9ecd1e68ba8ab4ae",
+   "title": "RTE viewers hit out with same complaint over Katie Taylor Croke Park coverage",
+   "description": "RTE did not show Dublin heavyweight Thomas Carty's dramatic clash with Dave Allen on the undercard of Katie Taylor's historic Croke Park fight on Saturday night",
+   "url": "https://www.dublinlive.ie/sport/rte-viewers-hit-out-same-34575280",
+   "source": "Dublin Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T10:55:42+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.943386+00:00"
+  },
+  {
+   "id": "1bbbef2bf90ea341",
+   "title": "Pics: A night to remember as Katie Taylor triumphs in final fight",
+   "description": "It was a night that will go down not only in boxing history but in Irish history as well, as Katie Taylor fought her last fight in Croke Park. The fight, for which tickets had sold out in 30 minutes, saw the Bray native beat French boxer Flora Pili. The highly anticipated event did not […]",
+   "url": "https://wlrfm.com/sport/pics-a-night-to-remember-as-katie-taylor-triumphs-in-final-fight-4488989/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T10:50:27+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.024445+00:00"
+  },
+  {
+   "id": "cbd41834a5cda5c0",
+   "title": "Iin Pictures Memory Lane: Glory for Laois GAA in Croke Park",
+   "description": "Laois contested the Leinster GAA Minor Football Championship Final in Croke Park in 2005",
+   "url": "https://www.leinsterexpress.ie/news/nostalgia/iin-pictures-memory-lane-glory-for-laois-gaa-in-croke-park-8961604",
+   "source": "Leinster Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T10:40:33+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.007328+00:00"
+  },
+  {
+   "id": "14eb969cc582d521",
+   "title": "Red carpet rolled out in Tipperary for Newfoundland visitors",
+   "description": "A group of 44 tourists from Canada’s most Irish province visited Carrick-on-Suir for a weekend as part of a cultural exchange trip",
+   "url": "https://www.tipperarylive.ie/news/red-carpet-rolled-out-in-tipperary-for-newfoundland-visitors-8962811",
+   "source": "Tipperary Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T10:37:25+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.132170+00:00"
+  },
+  {
+   "id": "ad7d4483cb0b738c",
+   "title": "Hundreds of flights grounded and airport closed after volcano erupts",
+   "description": "Soekarno-Hatta International Airport was ordered closed until at least 5.30pm as the Anak Krakatau ash cloud stranded around 22,800 passengers",
+   "url": "https://www.dublinlive.ie/news/world-news/hundreds-flights-grounded-airport-closed-34575185",
+   "source": "Dublin Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T10:33:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.943410+00:00"
+  },
+  {
+   "id": "fdd0abeb3dfcf015",
+   "title": "Courts at a ‘standstill’ as minister criticised for criminal legal aid dispute",
+   "description": "Justice Minister Jim O’Callaghan has defended his reforms to the legal aid fee structure which prompted a withdrawal of services by lawyers.",
+   "url": "https://www.limerickleader.ie/national/courts-at-a-standstill-as-minister-criticised-for-criminal-legal-aid-dispute-8962988",
+   "source": "Limerick Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T10:31:24+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.672351+00:00"
+  },
+  {
+   "id": "98383a75bc44a084",
+   "title": "Courts at a ‘standstill’ as minister criticised for criminal legal aid dispute",
+   "description": "Justice Minister Jim O’Callaghan has defended his reforms to the legal aid fee structure which prompted a withdrawal of services by lawyers.",
+   "url": "https://www.kilkennypeople.ie/national/courts-at-a-standstill-as-minister-criticised-for-criminal-legal-aid-dispute-8962988",
+   "source": "Kilkenny People",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T10:31:24+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.971507+00:00"
+  },
+  {
+   "id": "dfc7637936e177ef",
+   "title": "Courts at a ‘standstill’ as minister criticised for criminal legal aid dispute",
+   "description": "Justice Minister Jim O’Callaghan has defended his reforms to the legal aid fee structure which prompted a withdrawal of services by lawyers.",
+   "url": "https://www.leinsterexpress.ie/national/courts-at-a-standstill-as-minister-criticised-for-criminal-legal-aid-dispute-8962988",
+   "source": "Leinster Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T10:31:24+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.007361+00:00"
+  },
+  {
+   "id": "173c53564440bedd",
+   "title": "Courts at a ‘standstill’ as minister criticised for criminal legal aid dispute",
+   "description": "Justice Minister Jim O’Callaghan has defended his reforms to the legal aid fee structure which prompted a withdrawal of services by lawyers.",
+   "url": "https://www.offalyexpress.ie/national/courts-at-a-standstill-as-minister-criticised-for-criminal-legal-aid-dispute-8962988",
+   "source": "Offaly Express",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T10:31:24+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.027199+00:00"
+  },
+  {
+   "id": "9c9163d39ceeb48f",
+   "title": "Courts at a ‘standstill’ as minister criticised for criminal legal aid dispute",
+   "description": "Justice Minister Jim O’Callaghan has defended his reforms to the legal aid fee structure which prompted a withdrawal of services by lawyers.",
+   "url": "https://www.longfordleader.ie/national/courts-at-a-standstill-as-minister-criticised-for-criminal-legal-aid-dispute-8962988",
+   "source": "Longford Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T10:31:24+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.211180+00:00"
+  },
+  {
+   "id": "d9efef9d57deb74b",
+   "title": "Courts at a ‘standstill’ as minister criticised for criminal legal aid dispute",
+   "description": "Justice Minister Jim O’Callaghan has defended his reforms to the legal aid fee structure which prompted a withdrawal of services by lawyers.",
+   "url": "https://www.leitrimobserver.ie/national/courts-at-a-standstill-as-minister-criticised-for-criminal-legal-aid-dispute-8962988",
+   "source": "Leitrim Observer",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T10:31:24+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.392433+00:00"
+  },
+  {
+   "id": "93be9cf9a811b239",
+   "title": "Courts at a ‘standstill’ as minister criticised for criminal legal aid dispute",
+   "description": "Justice Minister Jim O’Callaghan has defended his reforms to the legal aid fee structure which prompted a withdrawal of services by lawyers.",
+   "url": "https://www.tipperarylive.ie/national/courts-at-a-standstill-as-minister-criticised-for-criminal-legal-aid-dispute-8962988",
+   "source": "Tipperary Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T10:31:24+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.132201+00:00"
+  },
+  {
+   "id": "96802f38397e3c00",
+   "title": "Limerick athletes to the fore in competitive Curraghchase 10k run",
+   "description": "IT WAS another big weekend of athletics action across the region",
+   "url": "https://www.limerickleader.ie/sport/athletics/limerick-athletes-to-the-fore-in-competitive-curraghchase-10k-run-8955672",
+   "source": "Limerick Leader",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T10:30:39+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.672372+00:00"
+  },
+  {
+   "id": "d7d995dfa48a22fd",
+   "title": "‘Transformational’ potential for Shannon as 20-acre town centre site acquired",
+   "description": "*The site is located in Shannon Town Centre || Inset: Michael Guinee of Ei Electronics SHANNON Chamber has described the acquisition of a 20-acre town centre site as a potentially “transformational” opportunity for the future of the town. Shannon Gateway Projects, established by Ei Electronics founder Michael Guinee, recently announced it had acquired the strategically … ‘Transformational’ potenti",
+   "url": "https://www.clareecho.ie/transformational-potential-for-shannon-as-20-acre-town-centre-site-acquired/?utm_source=rss&utm_medium=rss&utm_campaign=transformational-potential-for-shannon-as-20-acre-town-centre-site-acquired",
+   "source": "Clare Echo",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T10:30:09+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.220874+00:00"
+  },
+  {
+   "id": "6dae86970d733d39",
+   "title": "How to watch Aghamore v Ballintubber in Mayo Senior Club Championship",
+   "description": "Both of these sides meet in Claremorris with their Moclair Cup dreams hanging by a thread",
+   "url": "https://www.mayonews.ie/sport/gaa/how-to-watch-aghamore-v-ballintubber-in-mayo-senior-club-championship-8954095",
+   "source": "Mayo News",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T10:30:06+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.616832+00:00"
+  },
+  {
+   "id": "1cdd55f3cee1187a",
+   "title": "Tipperary's Hill House features in tonight's At Your Service",
+   "description": "The Brennan brothers kick off the 14th season of the show with Ray and Veronica Vere Hunt",
+   "url": "https://www.tipperarylive.ie/news/cashel/tipperary-features-in-tonights-at-your-service-8962865",
+   "source": "Tipperary Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T10:26:42+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.132223+00:00"
+  },
+  {
+   "id": "646cb08f4144cba3",
+   "title": "Scenic Tipperary features on Tracks and Trails TV show",
+   "description": "Mike Moroney led the crew to Lake Muskry",
+   "url": "https://www.tipperarylive.ie/news/tipperary-town/scenic-tipperary-features-on-tracks-and-trails-tv-show-8962877",
+   "source": "Tipperary Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T10:25:15+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.132241+00:00"
+  },
+  {
+   "id": "422e6bc26af57be7",
+   "title": "Germany's far-right party AfD take lead in state election",
+   "description": "Voting in the eastern German state of Saxony-Anhalt is under way in a closely watched election that could see the Alternative for Germany (AfD) become the first far-right party to take power at a state level since World War II.",
+   "url": "https://www.rte.ie/news/europe/2026/0906/1590479-germany-vote/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-06T10:24:08+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.375973+00:00"
+  },
+  {
+   "id": "5d6758b1d19508d2",
+   "title": "No water for homes in Ballincollig and Blarney as burst main repairs get underway",
+   "description": "Crews were dispatched to identify the issue this morning",
+   "url": "https://www.corkbeo.ie/news/local-news/no-water-homes-ballincollig-blarney-34575152",
+   "source": "Cork Beo",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T10:17:58+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.845859+00:00"
+  },
+  {
+   "id": "0ad2e201a5aba968",
+   "title": "All of the stars that lined Croke Park in support of Katie Taylor",
+   "description": "From Hollywood to Drumcondra! A whopping 83,000 people lined Croke Park on Saturday night to watch Katie Taylor’s ‘last dance’ as she beat Flora Pili in her last ever fight. And among the fans chanting the Bray Bomber’s name were some famous faces, some of whom made the journey across the pond to see Katie […]",
+   "url": "https://wlrfm.com/lifestyle/all-of-the-stars-that-lined-croke-park-in-support-of-katie-taylor-4488970/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T10:13:55+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.024500+00:00"
+  },
+  {
+   "id": "b351b70244301357",
+   "title": "Waterford businesses encouraged to apply for share of €40m innovation fund",
+   "description": "Businesses and research organisations in Waterford will have an opportunity to learn how they can compete for a share of €40 million in Government innovation funding later this month. A regional event for the next round of the Disruptive Technologies Innovation Fund will take place at the Tower Hotel in Waterford on September 24th. The […]",
+   "url": "https://wlrfm.com/news/businesses-40m-innovation-fund-4488968/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T10:10:50+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.024569+00:00"
+  },
+  {
+   "id": "ab3b7ddbd5499983",
+   "title": "​Why does resting feel so hard?",
+   "description": "The busyness can feel productive. It can even feel virtuous. But a lot of the time it's actually just very hard to be still.",
+   "url": "https://www.tipperarylive.ie/news/opinion/why-does-resting-feel-so-hard-8956858",
+   "source": "Tipperary Live",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T10:09:28+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.132265+00:00"
+  },
+  {
+   "id": "9ec4f665d3074418",
+   "title": "Late goals heartbreak for Cockhill Celtic again",
+   "description": "",
+   "url": "https://www.donegaldaily.com/sport/late-goals-heartbreak-for-cockhill-celtic-again-648370",
+   "source": "Donegal Daily",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T10:07:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.272107+00:00"
+  },
+  {
+   "id": "ffaf9ad548955995",
+   "title": "Waterford GAA clubs were in action across several championship and league competitions over the weekend.",
+   "description": "In the Intermediate Football Championship League Division One, Bonmahon and Newtown Football Club played out a draw, finishing 1-8 apiece. Fenor claimed the points against De La Salle, winning 2-10 to 1-8. Ballyduff Lower defeated St Marys Juvenile 4-10 to 3-7 in the Under-16 Football Championship Division Three. There were several Under-12 Hurling finals. Brickey […]",
+   "url": "https://wlrfm.com/sport/waterford-gaa-clubs-were-in-action-across-several-championship-and-league-competitions-over-the-weekend-4488983/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T10:01:58+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.024630+00:00"
+  },
+  {
+   "id": "d1d7e34686325437",
+   "title": "THE LAST POINT: Proposed new rules but the same old furore",
+   "description": "THE LAST POINT",
+   "url": "https://www.leitrimobserver.ie/sport/gaa/the-last-point-proposed-new-rules-but-the-same-old-furore-8956271",
+   "source": "Leitrim Observer",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T10:00:34+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.392460+00:00"
+  },
+  {
+   "id": "502f7a16bfe8a507",
+   "title": "Germany's far-right AfD eyes historic breakthrough in eastern state election",
+   "description": "The latest poll gave the party a commanding lead of 41%.",
+   "url": "https://www.thejournal.ie/germany-saxony-anhalt-election-afd-ulrich-siegmund-7154219-Sep2026/",
+   "source": "The Journal",
+   "scope": "national",
+   "publishedAt": "2026-09-06T09:59:14+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.950629+00:00"
+  },
   {
    "id": "47d8994797703b10",
    "title": "National: Boy (2) killed in hit-and-run - driver arrested",
@@ -13,6 +3443,46 @@
    "scope": "regional",
    "publishedAt": "2026-09-06T09:50:00+00:00",
    "fetchedAt": "2026-09-06T09:09:59.102611+00:00"
+  },
+  {
+   "id": "457a0ce7d12e7a8a",
+   "title": "Haaland reaches 300 goals as Manchester City maintain perfect start",
+   "description": "Erling Haaland reached a major career landmark as Manchester City maintained their 100 per cent start to the Premier League season with a 1-0 victory over Coventry City. Haaland scored the only goal of the game, heading home Antoine Semenyo’s cross after Enzo Fernandez had supplied the delivery. The goal was Haaland’s 300th at club […]",
+   "url": "https://wlrfm.com/sport/haaland-reaches-300-goals-as-manchester-city-maintain-perfect-start-4488964/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T09:37:01+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.024684+00:00"
+  },
+  {
+   "id": "680016992bb65a74",
+   "title": "Munster Rugby summer camp a huge success",
+   "description": "THIS year’s HelloFresh Munster Rugby Summer Camps have been hailed a great success. Across more than 20 venues, around 1,350 children took part, while an additional 650 attended School Of Excellence, Excellence Camps and Inclusion Camps. Speaking about this year’s camps, Participation Programmes Coordinator, Ray Gadsden said: “It was another highly successful summer camp programme […]",
+   "url": "https://www.limerickpost.ie/2026/09/06/munster-rugby-summer-camp-a-huge-success/",
+   "source": "Limerick Post",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T09:30:44+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.656981+00:00"
+  },
+  {
+   "id": "6f343272aa33e038",
+   "title": "Maura Higgins set for jaw-dropping payday for ‘Dancing with the Stars’ gig",
+   "description": "Longford’s own Maura Higgins is set for a bumper payday as the Love Island beauty joins Dancing with the Stars US. Maura stands to earn €108,000 even if she is booted out in the opening fortnight. She is on course to bank a staggering €325,000 pay cheque if she makes it to the business end […]",
+   "url": "https://wlrfm.com/lifestyle/maura-higgins-set-for-jaw-dropping-e325k-payday-for-dancing-with-the-stars-gig-4488864/",
+   "source": "WLR FM",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T09:29:04+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.024741+00:00"
+  },
+  {
+   "id": "9a5bbd4f8c4d33a0",
+   "title": "Two-year-old boy killed in Limerick hit and run named locally",
+   "description": "Prayers for the young boy were said at Sunday mass services across the county this morning",
+   "url": "https://www.corkbeo.ie/news/local-news/two-year-old-boy-killed-34574909",
+   "source": "Cork Beo",
+   "scope": "regional",
+   "publishedAt": "2026-09-06T09:14:24+00:00",
+   "fetchedAt": "2026-09-07T09:57:42.845881+00:00"
   },
   {
    "id": "230cf5fbe97d3817",
@@ -235,6 +3705,16 @@
    "fetchedAt": "2026-09-06T09:09:57.247391+00:00"
   },
   {
+   "id": "ce854f514405af6e",
+   "title": "Rathkeale 'in shock' at death of boy, 2, in hit-and-run",
+   "description": "A two-year-old boy, who died in a hit-and-run incident in Co Limerick, has been named locally as Peter Mulcaire.",
+   "url": "https://www.rte.ie/news/munster/2026/0906/1590474-rathkeale-limerick/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-06T07:30:31+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.375841+00:00"
+  },
+  {
    "id": "aafb7c9f194bdc10",
    "title": "Limerick sports stars to take part in Irish Open pro-am",
    "description": "Limerick’s Gearoid Hegarty and former Muntster Rugby scrum-half Conor Murray will be taking part in this month’s Irish Open Pro-Am at Doonbeg",
@@ -273,6 +3753,16 @@
    "scope": "national",
    "publishedAt": "2026-09-06T07:04:22+00:00",
    "fetchedAt": "2026-09-06T09:09:57.248681+00:00"
+  },
+  {
+   "id": "fcefaf3c90eb39ee",
+   "title": "Iran says it will declare 'prohibited zone' near Strait",
+   "description": "Iran's top security chief Mohsen Rezaei said his country would establish a \"prohibited zone\" near the strategic Strait of Hormuz, state media reported.",
+   "url": "https://www.rte.ie/news/us/2026/0906/1590473-iran-united-states/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-06T07:04:22+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.376457+00:00"
   },
   {
    "id": "5e58cd47cc04b07a",
@@ -3833,6 +7323,16 @@
    "scope": "national",
    "publishedAt": "2026-09-04T23:05:55+00:00",
    "fetchedAt": "2026-09-05T08:50:15.389632+00:00"
+  },
+  {
+   "id": "8aff879a10f1be46",
+   "title": "Taylor delivers a sporting spectacle of unmatched joy",
+   "description": "It's unlikely the country will witness another event of such joy and national satisfaction for a very long time, writes Mikey Stafford.",
+   "url": "https://www.rte.ie/sport/boxing/2026/0905/1590465-taylor-delivers-a-sporting-spectacle-of-unmatched-joy/",
+   "source": "RTÉ News",
+   "scope": "national",
+   "publishedAt": "2026-09-04T23:00:00+00:00",
+   "fetchedAt": "2026-09-07T09:57:41.376023+00:00"
   },
   {
    "id": "fad42e3d9adbe47f",
