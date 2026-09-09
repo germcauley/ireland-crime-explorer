@@ -49,6 +49,8 @@ export type DashboardData = {
     latestCompleteYear: number;
     years: number[];
     quarters: string[];
+    /** The quarters CJQ10 actually carries figures for. */
+    divisionQuarters: string[];
     defaultQuarterStartIndex: number;
     dataNote: string;
     fraudNote: string;

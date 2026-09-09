@@ -14,10 +14,14 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 RAW_PATH = ROOT / "data" / "raw" / "cja11.json"
-CJQ06_PATH = ROOT / "data" / "raw" / "cjq06.json"
+# CJQ06 was archived on 2026-06-25 and replaced by CJQ10, which reports on the
+# 21-Division structure of the current Garda operating model. The superseded
+# series is frozen in public/data/archive-cjq06.json.
+CJQ10_PATH = ROOT / "data" / "raw" / "cjq10.json"
 POINTS_PATH = ROOT / "data" / "geography" / "dublin_garda_stations.geojson"
-DIVISION_ZIP_PATH = ROOT / "data" / "geography" / "garda_divisions.zip"
-DIVISION_GEOJSON_PATH = ROOT / "data" / "geography" / "garda_divisions.geojson"
+# Built by build_new_divisions.py: the CSO publishes boundaries for the old 28
+# only, so the current 21 are assembled from them.
+DIVISION_GEOJSON_PATH = ROOT / "data" / "geography" / "garda_divisions_2025.geojson"
 METADATA_PATH = ROOT / "data" / "geography" / "station_metadata.csv"
 PLACES_PATH = ROOT / "data" / "geography" / "place_lookup.csv"
 PROCESSED_DIR = ROOT / "data" / "processed"
@@ -27,30 +31,27 @@ OFFENCE_DIMENSION = "C02480V03003"
 STATION_DIMENSION = "C03037V05454"
 YEAR_DIMENSION = "TLIST(A1)"
 
-DIVISION_DIMENSION = "C02481V03160"
+DIVISION_DIMENSION = "C02481V05453"
 QUARTER_DIMENSION = "TLIST(Q1)"
 
 IRISH_GRID_EPSG = "EPSG:29903"
 WGS84_EPSG = "EPSG:4326"
 
 def normalise_division_label(label: str) -> str:
-    """CJQ06 division label -> canonical name.
+    """CJQ10 division label -> canonical name.
 
-    Matches the CJA11 station "division" field and (after stripping
-    " Division") the CSO boundary shapefile's DIVISION field. CJQ06 spells
-    the DMR divisions "Northern"/"Southern"/"Eastern"/"Western"; CJA11 and
-    the boundary file use "North"/"South"/"East"/"West".
+    CJQ10 writes "D.M.R." and, alone among the twenty-one, spells Laois Offaly
+    without the slash every other paired Division uses.
     """
     name = re.sub(r"\s*Garda Division\s*$", "", label).strip()
     name = name.replace("D.M.R.", "DMR")
-    name = name.replace("Northern", "North").replace("Southern", "South")
-    name = name.replace("Eastern", "East").replace("Western", "West")
+    name = name.replace("Laois Offaly", "Laois/Offaly")
     return f"{name} Division"
 
 
 def read_division_code_map() -> dict[str, str]:
-    """All 28 national CJQ06 division codes -> canonical name."""
-    cube = json.loads(CJQ06_PATH.read_text(encoding="utf-8"))
+    """All 21 national CJQ10 division codes -> canonical name."""
+    cube = json.loads(CJQ10_PATH.read_text(encoding="utf-8"))
     dimension = cube["dimension"][DIVISION_DIMENSION]
     codes = ordered_codes(dimension)
     labels = dimension["category"]["label"]
@@ -239,47 +240,25 @@ def read_csv_by_key(path: Path, key: str) -> dict[str, dict[str, str]]:
 
 
 def convert_division_boundaries(division_code_map: dict[str, str]) -> dict[str, dict[str, Any]]:
-    """Reproject the CSO Garda Division shapefile to WGS84 GeoJSON.
+    """Canonical division name -> geometry, for the current 21 Divisions.
 
-    Returns canonical division name -> GeoJSON geometry for all 28 national
-    divisions, and also writes the full FeatureCollection to data/geography
-    for reference/QA.
+    Assembled by build_new_divisions.py rather than read from a CSO shapefile:
+    the CSO publishes boundaries for the superseded 28 only.
     """
-    import shapefile
-    from pyproj import Transformer
-    from shapely.geometry import mapping, shape
-    from shapely.ops import transform as shapely_transform
-
-    transformer = Transformer.from_crs(IRISH_GRID_EPSG, WGS84_EPSG, always_xy=True)
-    reader = shapefile.Reader(str(DIVISION_ZIP_PATH))
-
-    geometries: dict[str, dict[str, Any]] = {}
-    features = []
-    for shape_record in reader.shapeRecords():
-        record = shape_record.record
-        raw_geometry = shape(shape_record.shape.__geo_interface__).simplify(60, preserve_topology=True)
-        geometry = shapely_transform(transformer.transform, raw_geometry)
-        geojson_geometry = mapping(geometry)
-        division_name = f"{record['DIVISION']} Division"
-        geometries[division_name] = geojson_geometry
-        features.append(
-            {
-                "type": "Feature",
-                "properties": {"division": division_name},
-                "geometry": geojson_geometry,
-            }
+    if not DIVISION_GEOJSON_PATH.exists():
+        raise FileNotFoundError(
+            f"{DIVISION_GEOJSON_PATH} missing - run scripts/build_new_divisions.py"
         )
-
+    collection = json.loads(DIVISION_GEOJSON_PATH.read_text(encoding="utf-8"))
+    geometries = {
+        feature["properties"]["division"]: feature["geometry"]
+        for feature in collection["features"]
+    }
     expected_names = set(division_code_map.values())
     if set(geometries) != expected_names:
         missing = expected_names - set(geometries)
         extra = set(geometries) - expected_names
         raise ValueError(f"division boundary mismatch: missing={missing} extra={extra}")
-
-    DIVISION_GEOJSON_PATH.write_text(
-        json.dumps({"type": "FeatureCollection", "features": features}, ensure_ascii=False),
-        encoding="utf-8",
-    )
     return geometries
 
 
@@ -288,8 +267,8 @@ def clean_offence_label(label: str) -> str:
 
 
 def read_cjq06_cube(division_code_map: dict[str, str]) -> tuple[list[str], dict[str, Any]]:
-    """Parse CJQ06 into division-code -> {offence_code: {quarter: count}}."""
-    cube = json.loads(CJQ06_PATH.read_text(encoding="utf-8"))
+    """Parse CJQ10 into division-code -> {offence_code: {quarter: count}}."""
+    cube = json.loads(CJQ10_PATH.read_text(encoding="utf-8"))
     quarters = ordered_codes(cube["dimension"][QUARTER_DIMENSION])
     divisions = ordered_codes(cube["dimension"][DIVISION_DIMENSION])
     offences = ordered_codes(cube["dimension"][OFFENCE_DIMENSION])
@@ -509,9 +488,21 @@ def build_dashboard(rows: list[dict[str, Any]]) -> dict[str, Any]:
             "defaultQuarterStartIndex": quarter_labels.index(
                 next(q for q in quarter_labels if q >= "2019Q1")
             ),
-            "divisionSourceTable": "CSO CJQ06",
+            # CJQ10's dimension runs back to 2003Q1 but is null until the new
+            # Divisional structure took effect, so the app is told which
+            # quarters actually carry figures rather than inferring it.
+            "divisionQuarters": sorted(
+                {
+                    quarter_labels[index]
+                    for record in division_records
+                    for values in record["series"].values()
+                    for index, value in enumerate(values)
+                    if value is not None
+                }
+            ),
+            "divisionSourceTable": "CSO CJQ10",
             "divisionSourceLabel": (
-                "Central Statistics Office — recorded crime incidents by Garda Division and quarter"
+                "Central Statistics Office — recorded crime incidents by Garda Division and quarter (CJQ10)"
             ),
             "divisionGeography": "Garda Division boundary — all 28 national divisions",
             "divisionGeographyNote": (

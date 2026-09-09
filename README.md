@@ -9,9 +9,9 @@ https://ireland-crime-explorer.vercel.app/
 # Ireland Crime Explorer
 
 A map-first explorer of official recorded-crime incidents. Two geographies —
-28 national Garda Divisions, and the 41 Dublin Metropolitan Region station
-areas — compared between any two years, with one offence control that doubles
-as the offence breakdown.
+21 national Garda Divisions compared between any two quarters, and the 41
+Dublin Metropolitan Region station areas compared between any two years, with
+one offence control that doubles as the offence breakdown.
 
 The product is deliberately neutral. It shows counts, mix, trend and relative
 position, and it does not invent a neighbourhood "safety score".
@@ -25,8 +25,11 @@ where it ends.
 ## What is implemented
 
 - CSO CJA11 annual data for all 41 Dublin Metropolitan Region station rows
-- CSO CJQ06 quarterly data for all 28 national Garda Divisions — 16 offence
-  groups and their 69 official sub-categories, 85 codes in all — back to 2003
+- CSO CJQ10 quarterly data for all 21 national Garda Divisions — 16 offence
+  groups and their 69 official sub-categories, 85 codes in all — from 2025Q1,
+  when the current Garda operating model took effect
+- the superseded CJQ06 series, 28 Divisions back to 2003, frozen in
+  `public/data/archive-cjq06.json`
 - any-year-to-any-year comparison; areas with fewer than ten incidents in the
   baseline year are left blank rather than shown as a large swing
 - one offence control that filters the map and doubles as the breakdown,
@@ -134,20 +137,26 @@ Node.js 22.13 or later is required.
   therefore locates every area as a symbol and shades no territory at all.
 - CJA11 station detail excludes homicide and sexual-offence groups — that
   data isn't missing from the app, it's only available in Division view
-  (CJQ06 code `01`/`02`, including Murder/Manslaughter/Infanticide detail).
+  (CJQ10 code `01`/`02`, including Murder/Manslaughter/Infanticide detail).
   CSO's separate CJA08 murder-analysis table was evaluated and skipped: it's
   national-only, annual, with no area breakdown — strictly less detailed
-  than what CJQ06 already provides here, aside from a population-rate figure
+  than what CJQ10 already provides here, aside from a population-rate figure
   we don't otherwise have.
 - Fraud is non-comparable in 2023 and unavailable at station level from 2024.
 - CJA11 does not split broad theft into vehicle theft, shop theft and other theft
   at station level.
 - Closed-station incidents are reassigned to the station geography that assumed
   responsibility, and COVID restrictions affect 2020–2022 comparisons.
-- CJQ06 (Division level) fraud/deception counts stop from 2023Q3 for the same
-  financial-institution reporting-backlog reason as the CJA11 fraud gap.
-- Division geography (28 national areas, 6 of them covering Dublin) is much
+- CJQ10 (Division level) fraud/deception counts reflect the same
+  financial-institution reporting backlog as the CJA11 fraud gap.
+- CJQ06 was archived by the CSO on 25 June 2026 and replaced by CJQ10 on the
+  21-Division structure. The two are never spliced: where Divisions merged,
+  station reassignment and revision put them more than twenty per cent apart.
+  Four Divisions were untouched by the reorganisation — Galway, Donegal,
+  Limerick and Laois/Offaly — and match to the unit across the overlap.
+- Division geography (21 national areas, 6 of them covering Dublin) is much
   coarser than station geography (41 Dublin areas); it trades area detail for
   real boundaries, the full 85-category offence breakdown and a quarterly
-  cadence. Station-level detail (CJA11) is Dublin-only — CSO does not publish
-  it nationally.
+  cadence. CJA11 publishes 564 stations across the whole State, but only the
+  41 Dublin ones are mapped here, because published station locations exist for
+  Dublin and not for the rest.

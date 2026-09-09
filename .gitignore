@@ -57,3 +57,6 @@ __pycache__/
 # design canvas working files, kept local
 /design/
 /Design.pdf
+
+# personal analysis workspace; the fetch script is tracked, its output is not
+/analysis/

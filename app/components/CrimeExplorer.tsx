@@ -111,13 +111,36 @@ function quarterTotal(
   return any ? total : null;
 }
 
+/**
+ * The opening comparison. Station data is annual and runs from 2019, so it
+ * opens on the full span. Division data is quarterly and starts at 2025Q1, so
+ * it opens on the same quarter a year apart — the comparison the CSO's own
+ * quarterly release leads on.
+ */
+function defaultFrom(stations: boolean, years: number[], quarters: string[]): string {
+  if (stations) return String(years[0]);
+  const latest = quarters[quarters.length - 1];
+  if (!latest) return "";
+  const yearBefore = `${Number(latest.slice(0, 4)) - 1}${latest.slice(4)}`;
+  return quarters.includes(yearBefore) ? yearBefore : quarters[0];
+}
+
+function defaultTo(stations: boolean, latestYear: number, quarters: string[]): string {
+  return stations ? String(latestYear) : quarters[quarters.length - 1] ?? "";
+}
+
 export function CrimeExplorer({ data }: { data: DashboardData }) {
   const years = data.meta.years;
   const latest = years[years.length - 1];
 
   const [view, setView] = useState<"atlas" | "dublin" | "about">("atlas");
-  const [fromYear, setFromYear] = useState(years[0]);
-  const [toYear, setToYear] = useState(latest);
+  // A period is a year at station level and a quarter at Division level: the
+  // two tables have different cadences and CJQ10 only starts at 2025Q1, so a
+  // single "compare two years" control cannot serve both.
+  const divisionQuarters = data.meta.divisionQuarters ?? [];
+  const stationPeriods = years.map(String);
+  const [fromPeriod, setFromPeriod] = useState(defaultFrom(false, years, divisionQuarters));
+  const [toPeriod, setToPeriod] = useState(defaultTo(false, latest, divisionQuarters));
   const [group, setGroup] = useState(ALL_CRIME);
   const [sub, setSub] = useState<string | null>(null);
   const [moreGroups, setMoreGroups] = useState(false);
@@ -161,9 +184,15 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     return () => observer.disconnect();
   }, []);
 
-  const fromIndex = years.indexOf(fromYear);
-  const toIndex = years.indexOf(toYear);
+  const divisionSpan =
+    divisionQuarters.length > 0
+      ? `${divisionQuarters[0]}–${divisionQuarters[divisionQuarters.length - 1]}`
+      : "";
+
   const stationMode = view === "dublin";
+  const periods = stationMode ? stationPeriods : divisionQuarters;
+  const fromIndex = stationMode ? years.indexOf(Number(fromPeriod)) : -1;
+  const toIndex = stationMode ? years.indexOf(Number(toPeriod)) : -1;
 
   const divisionCentroids = useMemo(() => {
     const out: Record<string, [number, number]> = {};
@@ -179,19 +208,19 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     [data.divisions],
   );
 
-  /** Which positions in a Division's quarterly series belong to each year. */
-  const quartersByYear = useMemo(() => {
-    const out: Record<number, number[]> = {};
+  /** Where each quarter label sits in a Division's series. */
+  const quarterIndex = useMemo(() => {
+    const out: Record<string, number> = {};
     (data.meta.quarters ?? []).forEach((label, index) => {
-      const year = Number(label.slice(0, 4));
-      if (!Number.isFinite(year)) return;
-      (out[year] ??= []).push(index);
+      out[label] = index;
     });
     return out;
   }, [data.meta.quarters]);
 
-  const fromQuarters = quartersByYear[fromYear] ?? [];
-  const toQuarters = quartersByYear[toYear] ?? [];
+  const at = (period: string) =>
+    quarterIndex[period] === undefined ? [] : [quarterIndex[period]];
+  const fromQuarters = stationMode ? [] : at(fromPeriod);
+  const toQuarters = stationMode ? [] : at(toPeriod);
 
   /** The offence code in play: a sub-category if chosen, else the group. */
   const activeCode = stationMode ? (group === ALL_CRIME ? "all" : group) : sub ?? (group === ALL_CRIME ? null : group);
@@ -294,9 +323,9 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       valueLabel:
         area.to === null
           ? "no comparable count"
-          : `${numberFormat.format(area.to)} incidents, ${formatChange(area.change)} on ${fromYear}`,
+          : `${numberFormat.format(area.to)} incidents, ${formatChange(area.change)} on ${fromPeriod}`,
     }));
-  }, [areas, dublinAggregate, dublinZoom, dmrIds, fromYear, stationMode]);
+  }, [areas, dublinAggregate, dublinZoom, dmrIds, fromPeriod, stationMode]);
 
   const selectedId = stationMode ? selectedStation : selectedDivision;
 
@@ -452,14 +481,19 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
         ? "Ireland"
         : selectedArea?.name ?? "";
 
-  function pickYear(which: "from" | "to", year: number) {
+  function pickPeriod(which: "from" | "to", period: string) {
     // Clamp rather than refuse: picking a From at or past To pushes To along.
+    const order = periods;
     if (which === "from") {
-      setFromYear(year);
-      if (year >= toYear) setToYear(years[Math.min(years.length - 1, years.indexOf(year) + 1)]);
+      setFromPeriod(period);
+      if (period >= toPeriod) {
+        setToPeriod(order[Math.min(order.length - 1, order.indexOf(period) + 1)]);
+      }
     } else {
-      setToYear(year);
-      if (year <= fromYear) setFromYear(years[Math.max(0, years.indexOf(year) - 1)]);
+      setToPeriod(period);
+      if (period <= fromPeriod) {
+        setFromPeriod(order[Math.max(0, order.indexOf(period) - 1)]);
+      }
     }
   }
 
@@ -490,8 +524,8 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     setSelectedDivision(null);
     setSelectedStation(null);
     setDublinZoom(false);
-    setFromYear(years[0]);
-    setToYear(latest);
+    setFromPeriod(defaultFrom(stationMode, years, divisionQuarters));
+    setToPeriod(defaultTo(stationMode, latest, divisionQuarters));
     setJump("");
     setPanel(null);
   }
@@ -500,6 +534,10 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     setView(next);
     setPanel(null);
     setJump("");
+    // Years at station level, quarters at Division level.
+    const toStations = next === "dublin";
+    setFromPeriod(defaultFrom(toStations, years, divisionQuarters));
+    setToPeriod(defaultTo(toStations, latest, divisionQuarters));
     setDublinZoom(false);
     setSub(null);
     if (next === "dublin" && !selectedStation) setSelectedStation(data.stations[0]?.id ?? null);
@@ -511,6 +549,8 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
       <main className={`explorer is-about${narrow ? " is-narrow" : ""}`} ref={root}>
         <Masthead
           latest={latest}
+          years={years}
+          span={divisionSpan}
           theme={theme}
           onToggleTheme={() => setStoredTheme(isDark ? "light" : "dark")}
           onOpenAbout={() => setView("atlas")}
@@ -531,6 +571,8 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
     >
       <Masthead
         latest={latest}
+        years={years}
+        span={divisionSpan}
         theme={theme}
         onToggleTheme={() => setStoredTheme(isDark ? "light" : "dark")}
         onOpenAbout={() => setView("about")}
@@ -579,7 +621,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           aria-expanded={panel === "years"}
           onClick={() => setPanel((current) => (current === "years" ? null : "years"))}
         >
-          {fromYear} → {toYear} <span aria-hidden="true">▾</span>
+          {fromPeriod} → {toPeriod} <span aria-hidden="true">▾</span>
         </button>
         <input
           className="controlbar-jump"
@@ -619,15 +661,15 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
                 <div className="year-row">
                   <span className="year-label">From</span>
                   <div className="year-chips">
-                    {years.map((year) => (
+                    {periods.map((period) => (
                       <button
                         type="button"
-                        key={`from-${year}`}
-                        className={year === fromYear ? "is-on" : ""}
-                        disabled={year === years[years.length - 1]}
-                        onClick={() => pickYear("from", year)}
+                        key={`from-${period}`}
+                        className={period === fromPeriod ? "is-on" : ""}
+                        disabled={period === periods[periods.length - 1]}
+                        onClick={() => pickPeriod("from", period)}
                       >
-                        {year}
+                        {period}
                       </button>
                     ))}
                   </div>
@@ -635,23 +677,23 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
                 <div className="year-row">
                   <span className="year-label">To</span>
                   <div className="year-chips">
-                    {years.map((year) => (
+                    {periods.map((period) => (
                       <button
                         type="button"
-                        key={`to-${year}`}
-                        className={year === toYear ? "is-on" : ""}
-                        disabled={year === years[0]}
-                        onClick={() => pickYear("to", year)}
+                        key={`to-${period}`}
+                        className={period === toPeriod ? "is-on" : ""}
+                        disabled={period === periods[0]}
+                        onClick={() => pickPeriod("to", period)}
                       >
-                        {year}
+                        {period}
                       </button>
                     ))}
                   </div>
                 </div>
                 <p className="rail-caption">
-                  Percentage change between {fromYear} and {toYear}. Areas with fewer than
-                  ten incidents in {fromYear} are left blank rather than shown as a large
-                  swing.
+                  Percentage change between {fromPeriod} and {toPeriod}. Areas with fewer
+                  than ten incidents in {fromPeriod} are left blank rather than shown as a
+                  large swing.{!stationMode && " Division figures are quarterly."}
                 </p>
               </div>
             ) : (
@@ -771,10 +813,10 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
           <div className="map-legend">
             <span>Circle area = {narrow ? "incidents" : "recorded incidents"}</span>
             <span>
-              <i className="dot-down" /> Down on {fromYear}
-              {!narrow && <> · {toYear} count</>}
+              <i className="dot-down" /> Down on {fromPeriod}
+              {!narrow && <> · {toPeriod} count</>}
             </span>
-            <span><i className="dot-up" /> Up{!narrow && <> on {fromYear}</>}</span>
+            <span><i className="dot-up" /> Up{!narrow && <> on {fromPeriod}</>}</span>
           </div>
 
           {stationMode && (
@@ -813,7 +855,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
                   : selectedId === DUBLIN_AGGREGATE
                     ? "Dublin Metropolitan Region"
                     : "Garda Division"}{" "}
-              · {toYear}
+              · {toPeriod}
             </p>
             <h2>{selectedArea?.name ?? "—"}</h2>
             <p className="readout-count">
@@ -826,7 +868,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
             <p className={`readout-change tone-${toneOf(selectedArea?.change ?? null)}`}>
               {selectedArea?.change === null || selectedArea?.change === undefined
                 ? "No comparable baseline"
-                : `${formatChange(selectedArea.change)} on ${fromYear} (${numberFormat.format(selectedArea.from ?? 0)})`}
+                : `${formatChange(selectedArea.change)} on ${fromPeriod} (${numberFormat.format(selectedArea.from ?? 0)})`}
             </p>
           </div>
 
@@ -900,7 +942,7 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
                 All {stationMode ? data.stations.length : data.divisions.length}{" "}
                 {stationMode ? "station areas" : "Divisions"}
               </h2>
-              <span>{fromYear} → {toYear}</span>
+              <span>{fromPeriod} → {toPeriod}</span>
             </div>
             <ol>
               {listed.map((area) => (
@@ -943,12 +985,16 @@ export function CrimeExplorer({ data }: { data: DashboardData }) {
 
 function Masthead({
   latest,
+  years,
+  span,
   theme,
   onToggleTheme,
   onOpenAbout,
   aboutLabel,
 }: {
   latest: number;
+  years: number[];
+  span: string;
   theme: Theme;
   onToggleTheme: () => void;
   onOpenAbout: () => void;
@@ -966,7 +1012,8 @@ function Masthead({
         <div>
           <h1>Ireland Crime Explorer</h1>
           <p className="dateline">
-            Official recorded-crime incidents · CSO CJA11 and CJQ06 · 2019–{latest}
+            Official recorded-crime incidents · CSO CJA11 {years[0]}–{latest} ·
+            CJQ10 {span}
           </p>
         </div>
       </div>
@@ -1044,18 +1091,28 @@ function AboutView({ meta }: { meta: DashboardData["meta"] }) {
         </p>
       </section>
       <section>
-        <h3>Dublin detail is Dublin-only</h3>
+        <h3>Station detail here is Dublin-only</h3>
         <p>
-          Station-level figures exist for the Dublin Metropolitan Region and nowhere
-          else. The rest of the country is available at Division level only.
+          CSO publishes station-level figures for every Garda station in the State,
+          but only the Dublin Metropolitan Region ones are mapped here, because
+          published locations exist for those stations and not for the rest. The
+          rest of the country appears at Division level.
         </p>
       </section>
       <section>
         <h3>Two tables, two shapes</h3>
         <p>
-          CJA11 gives 14 broad groups annually by station area. CJQ06 gives 16 groups and
-          85 official sub-categories quarterly by Division. They do not line up, so this
-          does not pretend they do.
+          CJA11 gives 14 broad groups annually by station. CJQ10 gives 16 groups and 85
+          official sub-categories quarterly by Division. They do not line up, so this
+          does not pretend they do: the station view compares years and the Division
+          view compares quarters.
+        </p>
+        <p>
+          CJQ10 replaced CJQ06 when An Garda Síochána reorganised from 28 Divisions to
+          21 under the current operating model, and it begins at 2025Q1. The superseded
+          series is preserved but not spliced onto this one — station reassignment and
+          revision put the two more than twenty per cent apart in some areas, so a
+          joined line would show a change that never happened.
         </p>
       </section>
       <section>

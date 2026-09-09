@@ -85,10 +85,10 @@ def main() -> None:
     if dict(canonical_totals) != dashboard_totals:
         fail("dashboard totals differ from canonical 2025 totals")
 
-    if len(dashboard["divisions"]) != 28:
-        fail("dashboard must contain all 28 national Garda divisions")
+    if len(dashboard["divisions"]) != 21:
+        fail("dashboard must contain all 21 national Garda divisions")
     if len(dashboard["divisionCategories"]) != 16:
-        fail("divisionCategories must cover all 16 CJQ06 top-level offence groups")
+        fail("divisionCategories must cover all 16 CJQ10 top-level offence groups")
 
     quarters = dashboard["meta"]["quarters"]
     if quarters != sorted(quarters):
@@ -109,7 +109,7 @@ def main() -> None:
         if division["boundary"]["type"] not in ("Polygon", "MultiPolygon"):
             fail(f"{division['name']} boundary must be a Polygon/MultiPolygon")
         if len(division["series"]) != 85:
-            fail(f"{division['name']} must publish all 85 CJQ06 offence codes")
+            fail(f"{division['name']} must publish all 85 CJQ10 offence codes")
         for code, series in division["series"].items():
             if len(series) != len(quarters):
                 fail(f"{division['name']} series {code} length mismatch")
@@ -122,7 +122,7 @@ def main() -> None:
     print("PASS: canonical key uniqueness and 41-station coverage")
     print("PASS: all station points fall within a broad Dublin extent")
     print("PASS: dashboard aggregates reproduce canonical 2025 DMR totals")
-    print("PASS: 28 national divisions with real boundaries, 85-code quarterly series")
+    print("PASS: 21 national divisions with real boundaries, 85-code quarterly series")
     print("PASS: every station division name resolves to a division record")
     print(
         f"CHECK: Dundrum 2025 theft share = {dundrum_share:.1%} "

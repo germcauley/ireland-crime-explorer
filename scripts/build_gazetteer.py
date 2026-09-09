@@ -190,10 +190,10 @@ def main() -> None:
             # whether it names an area specific enough to pin down.
             counties[division["id"]] = ["Dublin"]
         else:
-            # "Cork City", "Cork North" and "Cork West" are Division regions,
-            # not counties; a headline says "Cork".
+            # "Cork City" and "Cork County" are Division regions, not
+            # counties; a headline says "Cork".
             counties[division["id"]] = [
-                re.sub(r"\s+(City|North|South|East|West)$", "", part)
+                re.sub(r"\s+(City|County|North|South|East|West)$", "", part)
                 for part in stem.split("/")
             ]
 
