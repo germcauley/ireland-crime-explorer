@@ -2906,6 +2906,1766 @@
    "confidence": 0.85,
    "why": "Over 230 rental scams reported to Limerick Gardaí.",
    "by": "claude"
+  },
+  {
+   "id": "ab375c248c9fab5c",
+   "title": "Bus and slurry tanker damaged in Raphoe collision",
+   "division": "12",
+   "town": "Raphoe",
+   "group": null,
+   "confidence": 0.85,
+   "why": "Raphoe, Co Donegal. No offence stated.",
+   "by": "claude"
+  },
+  {
+   "id": "257b392e5feee0f0",
+   "title": "University of Galway sees 114% increase in sexual violence and harassment reports since policy introduction",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.7,
+   "why": "Reports made under a university policy, not recorded crime.",
+   "by": "claude"
+  },
+  {
+   "id": "0a2f735f0d4f4908",
+   "title": "Gardaí at the scene of collision on Convoy to Raphoe road",
+   "division": "12",
+   "town": "Raphoe",
+   "group": null,
+   "confidence": 0.85,
+   "why": "The same collision.",
+   "by": "claude"
+  },
+  {
+   "id": "9fa74dbb24188625",
+   "title": "Gardaí spark debate after ‘tired, older driver’ spotted driving wrong way on M9",
+   "division": "53",
+   "town": "Thomastown",
+   "group": "14",
+   "confidence": 0.85,
+   "why": "The same M9 incident.",
+   "by": "claude"
+  },
+  {
+   "id": "ecc442cc45f54463",
+   "title": "Waterford ceremony to mark 25 years since 9/11 attacks",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.95,
+   "why": "A commemoration.",
+   "by": "claude"
+  },
+  {
+   "id": "b99e92a7ac6e390b",
+   "title": "Galway family 'lose everything' as home ransacked and robbed three years after petrol bomb attack",
+   "division": "23",
+   "town": "Galway",
+   "group": "07",
+   "confidence": 0.85,
+   "why": "A home ransacked and robbed in Galway.",
+   "by": "claude"
+  },
+  {
+   "id": "4a7bfb17d78fcfe8",
+   "title": "Emergency services rescue person from River Suir",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.85,
+   "why": "A rescue, not an offence.",
+   "by": "claude"
+  },
+  {
+   "id": "a6ae8459f84b1989",
+   "title": "Irish teen stabbed 71 times after watching Netlix – before killer brother targeted twins",
+   "division": "64",
+   "town": "Tallaght",
+   "group": "01",
+   "confidence": 0.7,
+   "why": "The 2022 Cash murders at Tallaght. A retrospective, but the offence and its place are real.",
+   "by": "claude"
+  },
+  {
+   "id": "07b94465fcd3b9bf",
+   "title": "'It was murder' say TD and Mum of Limerick hit and run victim Bryan Lowe",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "The same case.",
+   "by": "claude"
+  },
+  {
+   "id": "79ecbcb4b835e356",
+   "title": "Tallaght man stabbed his sisters 136 times before throwing brother out of window",
+   "division": "64",
+   "town": "Tallaght",
+   "group": "01",
+   "confidence": 0.7,
+   "why": "The same 2022 case.",
+   "by": "claude"
+  },
+  {
+   "id": "091daa5ec4a81b76",
+   "title": "Man remains in critical condition after Co Meath assault",
+   "division": "42",
+   "town": "Ballivor",
+   "group": "03",
+   "confidence": 0.85,
+   "why": "An assault at Ballivor, Co Meath.",
+   "by": "claude"
+  },
+  {
+   "id": "f2dd9362f4d2a8cb",
+   "title": "Woman sent for trial accused of possession of €35k in crime proceeds at Dublin Airport",
+   "division": "63",
+   "town": null,
+   "group": "15",
+   "confidence": 0.7,
+   "why": "Dublin Airport is in DMR North.",
+   "by": "claude"
+  },
+  {
+   "id": "83685acdbe5b6b15",
+   "title": "Man (20s) in a critical condition after Co Meath assault",
+   "division": "42",
+   "town": "Ballivor",
+   "group": "03",
+   "confidence": 0.9,
+   "why": "Ballivor, Co Meath.",
+   "by": "claude"
+  },
+  {
+   "id": "9e33dfff99355ee5",
+   "title": "Gardaí investigating possibility that teenager deliberately knocked off e-bike in Co Clare",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.9,
+   "why": "Near Clonlara village, Co Clare.",
+   "by": "claude"
+  },
+  {
+   "id": "6b41fe327b01ca38",
+   "title": "Gardai arrest man, 40s, following serious assault in Co Meath as witness appeal issued",
+   "division": "42",
+   "town": "Ballivor",
+   "group": "03",
+   "confidence": 0.85,
+   "why": "The same assault; Mullingar and Beaumont are hospitals.",
+   "by": "claude"
+  },
+  {
+   "id": "333d953f55b6d8d2",
+   "title": "Arrest made after man in his 20s seriously injured in Co Meath assault",
+   "division": "42",
+   "town": "Ballivor",
+   "group": "03",
+   "confidence": 0.85,
+   "why": "The same assault.",
+   "by": "claude"
+  },
+  {
+   "id": "8351605daca77d24",
+   "title": "Bryan Lowe's mother says 'eye for an eye' and speaks of closed coffin as she calls on gardai to solve case",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "The same Cloonlara hit-and-run.",
+   "by": "claude"
+  },
+  {
+   "id": "5b08a2140ae3be40",
+   "title": "‘My son died on his own’: Mother seeking justice for son killed in hit-and-run as Gardaí investigate whether boy was targeted",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "The same case; Gardaí investigating whether he was targeted.",
+   "by": "claude"
+  },
+  {
+   "id": "73d40ef2917b186f",
+   "title": "Huge crisis, hired guns and pesticides - Biodiversity plan for Mayo",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.95,
+   "why": "A biodiversity plan.",
+   "by": "claude"
+  },
+  {
+   "id": "2c3ac8086d677b10",
+   "title": "Waste company Panda faces trial over fatal workplace incident at Dublin recycling plant",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.75,
+   "why": "A workplace death at a Dublin recycling plant; no area named.",
+   "by": "claude"
+  },
+  {
+   "id": "6f91d5db8fc43f62",
+   "title": "Drunk and topless man in court after Milford incident",
+   "division": "12",
+   "town": "Milford",
+   "group": "13",
+   "confidence": 0.8,
+   "why": "Milford, Co Donegal.",
+   "by": "claude"
+  },
+  {
+   "id": "f58c5150cbc12f57",
+   "title": "Brown Thomas and Arnotts operator to pay €2k over spam marketing emails",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.8,
+   "why": "A Data Protection Commission prosecution, not recorded crime.",
+   "by": "claude"
+  },
+  {
+   "id": "d4ac0e297e7b9a18",
+   "title": "Gardaí investigating whether teenager killed in Clare hit-and-run was deliberately targeted",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.9,
+   "why": "Co Clare, southeast, near Limerick city.",
+   "by": "claude"
+  },
+  {
+   "id": "1cafc89d53e9097b",
+   "title": "‘Potentially fatal’ M9 incident sparks warning from Kilkenny gardaí",
+   "division": "53",
+   "town": "Thomastown",
+   "group": "14",
+   "confidence": 0.85,
+   "why": "The M9 in Co Kilkenny; Thomastown and Kilkenny units responded.",
+   "by": "claude"
+  },
+  {
+   "id": "8ead2b34b46d93ba",
+   "title": "Cyclist hospitalised after collision with lorry on busy Dublin road",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.65,
+   "why": "Infirmary Road sits near a Divisional boundary and no offence is alleged.",
+   "by": "claude"
+  },
+  {
+   "id": "bcabecfddb4bdc55",
+   "title": "Arrest as man, 20s, critical after Co Meath assault",
+   "division": "42",
+   "town": "Ballivor",
+   "group": "03",
+   "confidence": 0.9,
+   "why": "Ballivor, Co Meath.",
+   "by": "claude"
+  },
+  {
+   "id": "c35a81275bc533fb",
+   "title": "Woman allegedly had drugs for sale or supply in Portlaoise",
+   "division": "41",
+   "town": "Portlaoise",
+   "group": "10",
+   "confidence": 0.9,
+   "why": "Portlaoise, Co Laois.",
+   "by": "claude"
+  },
+  {
+   "id": "446ce40ca50c633c",
+   "title": "Shannon man charged with organised crime offence after extradition from the UK",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.65,
+   "why": "Extradited from the UK; where the offence occurred is not stated.",
+   "by": "claude"
+  },
+  {
+   "id": "330e529feae01254",
+   "title": "Located! Vehicle of interest in hit-and-run which killed Limerick student is found",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "The victim was a Limerick student; the offence was in Clare.",
+   "by": "claude"
+  },
+  {
+   "id": "c82ac866332b9a30",
+   "title": "Gardaí targeting anti-social behavior seize electric vehicles in Tallaght crackdown",
+   "division": "64",
+   "town": "Tallaght",
+   "group": null,
+   "confidence": 0.8,
+   "why": "Tallaght is in DMR South. Seizures, no offence stated.",
+   "by": "claude"
+  },
+  {
+   "id": "062531f6e337f4f7",
+   "title": "LIVE: Galway gardai arrest one person as another rushed to hospital after crash",
+   "division": "23",
+   "town": "Galway",
+   "group": null,
+   "confidence": 0.7,
+   "why": "A Galway crash with an arrest; the offence is not stated.",
+   "by": "claude"
+  },
+  {
+   "id": "4371e7d0010144e0",
+   "title": "Waste firm Panda faces trial over fatal workplace incident at Dublin recycling plant",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.75,
+   "why": "The same prosecution.",
+   "by": "claude"
+  },
+  {
+   "id": "8c8e946bb28cf3c1",
+   "title": "Family of woman murdered in Limerick lay her to rest in Brazil",
+   "division": "35",
+   "town": "Limerick",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "Cecil Street, Limerick City.",
+   "by": "claude"
+  },
+  {
+   "id": "48332c43d9502497",
+   "title": "Cork mum's shock after young son finds syringe filled with 'heroin and blood' near play area",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.6,
+   "why": "'Cork' alone cannot separate the City and County Divisions.",
+   "by": "claude"
+  },
+  {
+   "id": "4a47cee0ff73ab50",
+   "title": "Waste firm Panda faces trial over recycling plant death",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.75,
+   "why": "The same prosecution.",
+   "by": "claude"
+  },
+  {
+   "id": "ce393afd4b6af95e",
+   "title": "Missing Limerick teen found safe and well",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "A missing-person appeal, resolved.",
+   "by": "claude"
+  },
+  {
+   "id": "a3ef241964894a74",
+   "title": "Man remanded in custody over mother's murder at Galway home",
+   "division": "23",
+   "town": "Galway",
+   "group": "01",
+   "confidence": 0.9,
+   "why": "The Ballybrit murder, Galway city.",
+   "by": "claude"
+  },
+  {
+   "id": "0a7caaa8b7d2f467",
+   "title": "Funeral details announced for ‘little angel’ (2) killed in hit and run",
+   "division": "35",
+   "town": "Rathkeale",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "Peter Mulcaire (2), killed at Rathkeale, Co Limerick.",
+   "by": "claude"
+  },
+  {
+   "id": "e95ff77af7f92659",
+   "title": "‘Forever our Little Angel’: Funeral arrangements for Limerick boy killed in collision",
+   "division": "35",
+   "town": "Rathkeale",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "The same Rathkeale collision.",
+   "by": "claude"
+  },
+  {
+   "id": "5a8174ea327086f4",
+   "title": "Gardaí issue update on missing Limerick teenager, 17",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "The same appeal.",
+   "by": "claude"
+  },
+  {
+   "id": "43597bba0019d494",
+   "title": "Attempted to steal wallet from 80 year old man in Portlaoise",
+   "division": "41",
+   "town": "Portlaoise",
+   "group": "08",
+   "confidence": 0.85,
+   "why": "Portlaoise.",
+   "by": "claude"
+  },
+  {
+   "id": "39391d4ea14feb49",
+   "title": "Former Mrs Brown’s Boys star faces drink-driving charge",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "The alleged offence is in Glasgow.",
+   "by": "claude"
+  },
+  {
+   "id": "d3b77fcb60dae325",
+   "title": "Limerick school's grief for hit-and-run victim as Gardaí probe final text message",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "His school is in Limerick; the collision was in Clare.",
+   "by": "claude"
+  },
+  {
+   "id": "faf7d426c3c7e278",
+   "title": "Sympathy for teacher whose stepbrother died in train crossing crash",
+   "division": "22",
+   "town": "Ballyhaunis",
+   "group": null,
+   "confidence": 0.75,
+   "why": "The Galway school is the teacher's; the collision was in Mayo.",
+   "by": "claude"
+  },
+  {
+   "id": "9802377f983219e4",
+   "title": "Major garda investigations continue as two children dead after hit-and-runs",
+   "division": "35",
+   "town": "Rathkeale",
+   "group": "01",
+   "confidence": 0.7,
+   "why": "Covers both Clonlara and Rathkeale; filed to Rathkeale, the Limerick one.",
+   "by": "claude"
+  },
+  {
+   "id": "48ec52d120ba0867",
+   "title": "Man accused of rape at Galway’s Ceannt Station requests bail to see his new wife",
+   "division": "23",
+   "town": "Galway",
+   "group": "02",
+   "confidence": 0.9,
+   "why": "The station car park at Eyre Square, Galway city.",
+   "by": "claude"
+  },
+  {
+   "id": "3d94ddc8fc6b133d",
+   "title": "Hundreds of balloons released at emotional vigil for Limerick student Bryan Lowe, 16",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "A vigil for the Cloonlara victim.",
+   "by": "claude"
+  },
+  {
+   "id": "e0d6bf5f7f914a41",
+   "title": "Investigation into boy’s death in train collision ‘will happen’, says Taoiseach",
+   "division": "22",
+   "town": "Ballyhaunis",
+   "group": null,
+   "confidence": 0.8,
+   "why": "Syndicated; the collision is in Co Mayo.",
+   "by": "claude"
+  },
+  {
+   "id": "e025b6a30d442876",
+   "title": "Investigation into boy’s death in train collision ‘will happen’, says Taoiseach",
+   "division": "22",
+   "town": "Ballyhaunis",
+   "group": null,
+   "confidence": 0.8,
+   "why": "Syndicated; the collision is in Co Mayo.",
+   "by": "claude"
+  },
+  {
+   "id": "cffe72a18b9480c5",
+   "title": "Investigation into boy’s death in train collision ‘will happen’, says Taoiseach",
+   "division": "22",
+   "town": "Ballyhaunis",
+   "group": null,
+   "confidence": 0.8,
+   "why": "Syndicated; the collision is in Co Mayo.",
+   "by": "claude"
+  },
+  {
+   "id": "1096b9e9cd5c904a",
+   "title": "Investigation into boy’s death in train collision ‘will happen’, says Taoiseach",
+   "division": "22",
+   "town": "Ballyhaunis",
+   "group": null,
+   "confidence": 0.8,
+   "why": "Syndicated; the collision is in Co Mayo.",
+   "by": "claude"
+  },
+  {
+   "id": "9313d18393d15b38",
+   "title": "Investigation into boy’s death in train collision ‘will happen’, says Taoiseach",
+   "division": "22",
+   "town": "Ballyhaunis",
+   "group": null,
+   "confidence": 0.8,
+   "why": "Syndicated; the collision is in Co Mayo.",
+   "by": "claude"
+  },
+  {
+   "id": "e5cb277207635e4d",
+   "title": "Investigation into boy’s death in train collision ‘will happen’, says Taoiseach",
+   "division": "22",
+   "town": "Ballyhaunis",
+   "group": null,
+   "confidence": 0.8,
+   "why": "Syndicated; the collision is in Co Mayo.",
+   "by": "claude"
+  },
+  {
+   "id": "2e70b0169574e6b1",
+   "title": "Investigation into boy’s death in train collision ‘will happen’, says Taoiseach",
+   "division": "22",
+   "town": "Ballyhaunis",
+   "group": null,
+   "confidence": 0.8,
+   "why": "Syndicated; the collision is in Co Mayo.",
+   "by": "claude"
+  },
+  {
+   "id": "044fbd537fbcc788",
+   "title": "Pedestrian involved in early morning Limerick incident",
+   "division": "35",
+   "town": null,
+   "group": null,
+   "confidence": 0.75,
+   "why": "A Limerick incident with no offence stated.",
+   "by": "claude"
+  },
+  {
+   "id": "c051a1c675701222",
+   "title": "Significant drugs seizure in rural location outside Kilkenny",
+   "division": "53",
+   "town": "Kilkenny",
+   "group": "10",
+   "confidence": 0.85,
+   "why": "Co Kilkenny.",
+   "by": "claude"
+  },
+  {
+   "id": "d3de0f794552fe87",
+   "title": "Gardai latest on East Cork village assault as man arrested",
+   "division": "32",
+   "town": "Whitegate",
+   "group": "03",
+   "confidence": 0.8,
+   "why": "Whitegate, near Midleton — East Cork, in Cork County.",
+   "by": "claude"
+  },
+  {
+   "id": "62906c52e6b801ef",
+   "title": "Man, 30s, arrested after assault near playground in Cork",
+   "division": "32",
+   "town": "Whitegate",
+   "group": "03",
+   "confidence": 0.8,
+   "why": "The same East Cork assault.",
+   "by": "claude"
+  },
+  {
+   "id": "77e5b58a7b6f6075",
+   "title": "'I'm being followed' - Teen killed in Co Clare hit and run texted friend",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "The same case.",
+   "by": "claude"
+  },
+  {
+   "id": "267055b2534d7f43",
+   "title": "Gardaí seize 3D-printed gun and drugs valued at €7,200 in Co Cork",
+   "division": "32",
+   "town": "Ballymacoda",
+   "group": "11",
+   "confidence": 0.85,
+   "why": "Ballymacoda, east Cork County.",
+   "by": "claude"
+  },
+  {
+   "id": "78c2ae4a5fae5c03",
+   "title": "Cocaine and 3-D printed gun seized in raid on Cork house",
+   "division": "32",
+   "town": "Ballymacoda",
+   "group": "11",
+   "confidence": 0.8,
+   "why": "The same raid.",
+   "by": "claude"
+  },
+  {
+   "id": "afa44277e3ac40d3",
+   "title": "Teenager killed in Clare hit-and-run text to say he was being followed before fatal collision",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "The same case.",
+   "by": "claude"
+  },
+  {
+   "id": "12aaf66fbe0fad30",
+   "title": "Kilkenny gardaí take action following incident with 12 year old in city centre",
+   "division": "53",
+   "town": "Kilkenny",
+   "group": null,
+   "confidence": 0.7,
+   "why": "An e-scooter seizure in Kilkenny City; no offence stated.",
+   "by": "claude"
+  },
+  {
+   "id": "a109c647b73bb95b",
+   "title": "Garda appeal on Skoda Octavia following hit-and-run in which teen was killed",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "The Bryan Lowe hit-and-run at Cottage Cross, Cloonlara, Co Clare. He was from Limerick; the offence was not.",
+   "by": "claude"
+  },
+  {
+   "id": "9ef40ba62fcef5e1",
+   "title": "Man appears in Portlaoise court accused of murder",
+   "division": "41",
+   "town": "Portlaoise",
+   "group": "01",
+   "confidence": 0.75,
+   "why": "Charged before Portlaoise District Court; the court is in the Division.",
+   "by": "claude"
+  },
+  {
+   "id": "b2b43daaa8de961f",
+   "title": "Gardaí issue big update in case of missing 15-year old Midlands girl",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.85,
+   "why": "A missing-person appeal, resolved.",
+   "by": "claude"
+  },
+  {
+   "id": "a938a601199b2a8f",
+   "title": "Limerick man accused of trying to escape garda custody refused bail for second time",
+   "division": "35",
+   "town": "Limerick",
+   "group": "15",
+   "confidence": 0.8,
+   "why": "Escaping custody is an offence against justice procedures.",
+   "by": "claude"
+  },
+  {
+   "id": "dd767c06a6143975",
+   "title": "Boy (2) killed in Co Limerick hit-and-run named locally",
+   "division": "35",
+   "town": "Rathkeale",
+   "group": "01",
+   "confidence": 0.9,
+   "why": "Co Limerick.",
+   "by": "claude"
+  },
+  {
+   "id": "1cdc6dad09e7b5ce",
+   "title": "Gardaí seeking driver or occupants of Skoda Octavia about fatal hit and run",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "Clare-Limerick border, at Cloonlara.",
+   "by": "claude"
+  },
+  {
+   "id": "d4ea2f6671937fe1",
+   "title": "Gardaí release image of car sought after fatal hit-and-run as witness appeal intensifies",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "The same appeal.",
+   "by": "claude"
+  },
+  {
+   "id": "3262bdea06c75198",
+   "title": "Long delays on road outside Limerick following collision",
+   "division": "35",
+   "town": null,
+   "group": null,
+   "confidence": 0.7,
+   "why": "A collision in Co Limerick; no offence stated.",
+   "by": "claude"
+  },
+  {
+   "id": "3f3aba0902803830",
+   "title": "Gardaí issue appeal for Skoda car after fatal hit-and-run in Co Clare",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.9,
+   "why": "Co Clare.",
+   "by": "claude"
+  },
+  {
+   "id": "53655d809d19ae93",
+   "title": "Gardaí hunt Skoda driver after teen, 16, knocked down and killed in Clare hit-and-run",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "The same appeal.",
+   "by": "claude"
+  },
+  {
+   "id": "aad578e3d21c3209",
+   "title": "Gardai investigating fatal hit-and-run appeal for information about car",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "Syndicated wire copy for the Cloonlara case.",
+   "by": "claude"
+  },
+  {
+   "id": "dba5453f1ced9029",
+   "title": "Gardai investigating fatal hit-and-run appeal for information about car",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "Syndicated wire copy for the Cloonlara case.",
+   "by": "claude"
+  },
+  {
+   "id": "6cfe116a8fac3d01",
+   "title": "Gardai investigating fatal hit-and-run appeal for information about car",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "Syndicated wire copy for the Cloonlara case.",
+   "by": "claude"
+  },
+  {
+   "id": "ea018e8da8a11b1f",
+   "title": "Gardai investigating fatal hit-and-run appeal for information about car",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "Syndicated wire copy for the Cloonlara case.",
+   "by": "claude"
+  },
+  {
+   "id": "1a0ae1c2ddcf0bc9",
+   "title": "Gardai investigating fatal hit-and-run appeal for information about car",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "Syndicated wire copy for the Cloonlara case.",
+   "by": "claude"
+  },
+  {
+   "id": "19e8df741b8609c0",
+   "title": "Gardai investigating fatal hit-and-run appeal for information about car",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "Syndicated wire copy for the Cloonlara case.",
+   "by": "claude"
+  },
+  {
+   "id": "7d23ee154ca04c3c",
+   "title": "Gardai investigating fatal hit-and-run appeal for information about car",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "Syndicated wire copy for the Cloonlara case.",
+   "by": "claude"
+  },
+  {
+   "id": "95c171d6a88c6b82",
+   "title": "Gardai issue appeal after boy, 16, killed in crash outside Limerick",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "'Outside Limerick' is Cloonlara, Co Clare.",
+   "by": "claude"
+  },
+  {
+   "id": "307588105a55df84",
+   "title": "Gardaí looking for car occupants after Clare hit-and-run",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.9,
+   "why": "Clonlara, Co Clare.",
+   "by": "claude"
+  },
+  {
+   "id": "3b2ce01c2cbb4a2f",
+   "title": "Gardaí release details as they search for Cork reg car after fatal Clare hit-and-run",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "The car is Cork-registered; the offence is in Clare.",
+   "by": "claude"
+  },
+  {
+   "id": "019d99441828de6d",
+   "title": "'Violence and intimidation' in Leitrim housing estates leads to bigger garda presence",
+   "division": "13",
+   "town": "Carrick-on-Shannon",
+   "group": "13",
+   "confidence": 0.8,
+   "why": "Anti-social behaviour in Carrick-on-Shannon, Co Leitrim.",
+   "by": "claude"
+  },
+  {
+   "id": "01bcf7f3bb2563a6",
+   "title": "Man to face special court sitting after Cork city centre street rampage",
+   "division": "31",
+   "town": null,
+   "group": "03",
+   "confidence": 0.85,
+   "why": "Cork city centre.",
+   "by": "claude"
+  },
+  {
+   "id": "d89590bfa5fc4d7d",
+   "title": "‘Acting in the interest of my children’: Donegal man charged with breaching order",
+   "division": "12",
+   "town": null,
+   "group": "15",
+   "confidence": 0.85,
+   "why": "Breach of a court order, Co Donegal.",
+   "by": "claude"
+  },
+  {
+   "id": "76ddd06f149f9991",
+   "title": "Boy (2) hit and killed by jeep in Co Limerick named locally",
+   "division": "35",
+   "town": "Rathkeale",
+   "group": "01",
+   "confidence": 0.9,
+   "why": "The same collision.",
+   "by": "claude"
+  },
+  {
+   "id": "45d282a71e47a6bf",
+   "title": "Man arrested after two-year-old killed in Limerick hit-and-run",
+   "division": "35",
+   "town": "Rathkeale",
+   "group": "01",
+   "confidence": 0.9,
+   "why": "Rathkeale.",
+   "by": "claude"
+  },
+  {
+   "id": "a024c3a8926db54d",
+   "title": "Family heartbroken after ‘little angel’ son (2) killed in hit-and-run collision",
+   "division": "35",
+   "town": "Rathkeale",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "Abbeycourt, Rathkeale.",
+   "by": "claude"
+  },
+  {
+   "id": "d848581830e54d40",
+   "title": "Two-year-old boy killed in hit-and-run collision in Limerick",
+   "division": "35",
+   "town": "Rathkeale",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "Syndicated; Rathkeale.",
+   "by": "claude"
+  },
+  {
+   "id": "e43cf36f959b8541",
+   "title": "Two-year-old boy killed in hit-and-run collision in Limerick",
+   "division": "35",
+   "town": "Rathkeale",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "Syndicated; Rathkeale.",
+   "by": "claude"
+  },
+  {
+   "id": "0744adf56cc40881",
+   "title": "Two-year-old boy killed in hit-and-run collision in Limerick",
+   "division": "35",
+   "town": "Rathkeale",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "Syndicated; Rathkeale.",
+   "by": "claude"
+  },
+  {
+   "id": "d1749d656509d7d3",
+   "title": "Two-year-old boy killed in hit-and-run collision in Limerick",
+   "division": "35",
+   "town": "Rathkeale",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "Syndicated; Rathkeale.",
+   "by": "claude"
+  },
+  {
+   "id": "903c02a7e863cb61",
+   "title": "Two-year-old boy killed in hit-and-run collision in Limerick",
+   "division": "35",
+   "town": "Rathkeale",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "Syndicated; Rathkeale.",
+   "by": "claude"
+  },
+  {
+   "id": "b3f4dc62973a47e8",
+   "title": "Two-year-old boy killed in hit-and-run collision in Limerick",
+   "division": "35",
+   "town": "Rathkeale",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "Syndicated; Rathkeale.",
+   "by": "claude"
+  },
+  {
+   "id": "9cee93cb1a799051",
+   "title": "Two-year-old boy killed in hit-and-run collision in Limerick",
+   "division": "35",
+   "town": "Rathkeale",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "Syndicated; Rathkeale.",
+   "by": "claude"
+  },
+  {
+   "id": "6fac3e755fead60a",
+   "title": "Impressive Islandeady advance to last eight as Zac shines in attack",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.95,
+   "why": "GAA coverage.",
+   "by": "claude"
+  },
+  {
+   "id": "e98f5ae56dd57357",
+   "title": "RIP: Toddler, 2, dies after collision in County Limerick",
+   "division": "35",
+   "town": "Rathkeale",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "The same collision.",
+   "by": "claude"
+  },
+  {
+   "id": "0b9aa8c50901028e",
+   "title": "Family heartbroken after “little angel” son, 2, killed in hit and run collision in Limerick",
+   "division": "35",
+   "town": "Rathkeale",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "The same collision.",
+   "by": "claude"
+  },
+  {
+   "id": "dc7a4934e93c5ab3",
+   "title": "‘Don’t confront them’: Garda warning to Limerick farmers after suspected trespass reports",
+   "division": "35",
+   "town": null,
+   "group": null,
+   "confidence": 0.7,
+   "why": "Suspected trespass at Hospital and Kilmallock, Co Limerick.",
+   "by": "claude"
+  },
+  {
+   "id": "fc4f97c9b489cb0b",
+   "title": "Bloody incident on O'Connell Street sees one man arrested",
+   "division": "62",
+   "town": "O'Connell Street",
+   "group": "03",
+   "confidence": 0.85,
+   "why": "The same stabbing.",
+   "by": "claude"
+  },
+  {
+   "id": "9ad6da9641761ad7",
+   "title": "Man hospitalised after stabbing on O'Connell Street",
+   "division": "62",
+   "town": "O'Connell Street",
+   "group": "03",
+   "confidence": 0.85,
+   "why": "O'Connell Street is in DMR North Central.",
+   "by": "claude"
+  },
+  {
+   "id": "001b0f74a4f58f10",
+   "title": "Letterkenny Rovers prove too strong for Mayo FC",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.95,
+   "why": "Football coverage.",
+   "by": "claude"
+  },
+  {
+   "id": "21cb7bf004b1c6d4",
+   "title": "Two remanded in custody over firearms possession",
+   "division": "63",
+   "town": "Ballymun",
+   "group": "11",
+   "confidence": 0.85,
+   "why": "Ballymun is in DMR North.",
+   "by": "claude"
+  },
+  {
+   "id": "8cbb14c6cf18eacf",
+   "title": "Child rushed to hospital with serious injuries following Limerick collision",
+   "division": "35",
+   "town": "Rathkeale",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "The Abbeycourt area of Rathkeale.",
+   "by": "claude"
+  },
+  {
+   "id": "4b4062795adabcda",
+   "title": "Man (40s) arrested following assault on O'Connell Street that put man in hospital",
+   "division": "62",
+   "town": "O'Connell Street",
+   "group": "03",
+   "confidence": 0.9,
+   "why": "O'Connell Street Lower, Dublin 1.",
+   "by": "claude"
+  },
+  {
+   "id": "194f5fec6c6b45d4",
+   "title": "Man taken to hospital following stabbing incident on O'Connell Street",
+   "division": "62",
+   "town": "O'Connell Street",
+   "group": "03",
+   "confidence": 0.85,
+   "why": "The same stabbing.",
+   "by": "claude"
+  },
+  {
+   "id": "2ae200ac0520297e",
+   "title": "Teenager killed in e-bike hit-and-run named locally",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "The same case.",
+   "by": "claude"
+  },
+  {
+   "id": "a864c9f6976efb26",
+   "title": "Driver fesses up after Ballybofey hit-and-run collision",
+   "division": "12",
+   "town": "Ballybofey",
+   "group": "14",
+   "confidence": 0.85,
+   "why": "Ballybofey, Co Donegal.",
+   "by": "claude"
+  },
+  {
+   "id": "7e77a06a45cdbc83",
+   "title": "Garda appeal after man assaulted and threatened near playground in Cork",
+   "division": "32",
+   "town": "Whitegate",
+   "group": "03",
+   "confidence": 0.85,
+   "why": "Whitegate village, near Midleton.",
+   "by": "claude"
+  },
+  {
+   "id": "b5c39e16a84ef0d3",
+   "title": "ICYMI: Late-night Kilkenny arrest leaves gardaí with one message",
+   "division": "53",
+   "town": "Kilkenny",
+   "group": null,
+   "confidence": 0.7,
+   "why": "A Kilkenny seizure; the offence type is not stated.",
+   "by": "claude"
+  },
+  {
+   "id": "a6f424a428d91033",
+   "title": "Teenager killed in hit-and-run described as ‘absolute gentleman’",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "Syndicated; the incident is at Cloonlara.",
+   "by": "claude"
+  },
+  {
+   "id": "661ea5944a1545fb",
+   "title": "Teenager killed in hit-and-run described as ‘absolute gentleman’",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "Syndicated; the incident is at Cloonlara.",
+   "by": "claude"
+  },
+  {
+   "id": "4de9ad86ae2f9de8",
+   "title": "Teenager killed in hit-and-run described as ‘absolute gentleman’",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "Syndicated; the incident is at Cloonlara.",
+   "by": "claude"
+  },
+  {
+   "id": "c573871262bcea83",
+   "title": "Teenager killed in hit-and-run described as ‘absolute gentleman’",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "Syndicated; the incident is at Cloonlara.",
+   "by": "claude"
+  },
+  {
+   "id": "892035f89d4848d1",
+   "title": "Teenager killed in hit-and-run described as ‘absolute gentleman’",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "Syndicated; the incident is at Cloonlara.",
+   "by": "claude"
+  },
+  {
+   "id": "8e7d506227803754",
+   "title": "Teenager killed in hit-and-run described as ‘absolute gentleman’",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "Syndicated; the incident is at Cloonlara.",
+   "by": "claude"
+  },
+  {
+   "id": "831f9f665f3f20b8",
+   "title": "Teenager killed in hit-and-run described as ‘absolute gentleman’",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "Syndicated; the incident is at Cloonlara.",
+   "by": "claude"
+  },
+  {
+   "id": "e6c1d2c432a25562",
+   "title": "Man assaulted and threatened in East Cork village - Gardaí appeal for witnesses",
+   "division": "32",
+   "town": "Whitegate",
+   "group": "03",
+   "confidence": 0.8,
+   "why": "The same assault.",
+   "by": "claude"
+  },
+  {
+   "id": "2d56dbeefd62f6cf",
+   "title": "Tributes paid to teen who ‘could make anyone laugh’ after tragic hit-and-run death",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "The same case.",
+   "by": "claude"
+  },
+  {
+   "id": "8071962577e34096",
+   "title": "Teenager killed in hit-and-run collision on Clare-Limerick border",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "Cottage Cross near Cloonlara.",
+   "by": "claude"
+  },
+  {
+   "id": "6b1b814ebe459f27",
+   "title": "Gardaí appeal for information as teenager is killed in e-bike hit-and-run in County Clare",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.9,
+   "why": "Co Clare.",
+   "by": "claude"
+  },
+  {
+   "id": "832734145c82d40e",
+   "title": "Hugh Jackman says filming in Tipperary was 'incredible'",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.95,
+   "why": "Film production. 'Shooting' matched the prefilter.",
+   "by": "claude"
+  },
+  {
+   "id": "4ba8c66c38538a89",
+   "title": "Gardai in appeal to locate missing Limerick teen who may be in Dublin",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.85,
+   "why": "A missing-person appeal spanning two counties.",
+   "by": "claude"
+  },
+  {
+   "id": "a86af679f519a8e3",
+   "title": "Teen killed in e-bike hit-and-run as Gardaí appeal for witnesses",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "Cloonlara.",
+   "by": "claude"
+  },
+  {
+   "id": "2e5ec6d48d9c7a9b",
+   "title": "Teenage boy killed in hit-and-run collision",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "Syndicated; Clare-Limerick border.",
+   "by": "claude"
+  },
+  {
+   "id": "a48af3c24706993c",
+   "title": "Teenage boy killed in hit-and-run collision",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "Syndicated; Clare-Limerick border.",
+   "by": "claude"
+  },
+  {
+   "id": "f748e870752d142a",
+   "title": "Teenage boy killed in hit-and-run collision",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "Syndicated; Clare-Limerick border.",
+   "by": "claude"
+  },
+  {
+   "id": "5d458473dd13516f",
+   "title": "Teenage boy killed in hit-and-run collision",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "Syndicated; Clare-Limerick border.",
+   "by": "claude"
+  },
+  {
+   "id": "e9b3376b50d6d8b5",
+   "title": "Teenage boy killed in hit-and-run collision",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "Syndicated; Clare-Limerick border.",
+   "by": "claude"
+  },
+  {
+   "id": "c74258964f6c0b88",
+   "title": "Teenage boy killed in hit-and-run collision",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "Syndicated; Clare-Limerick border.",
+   "by": "claude"
+  },
+  {
+   "id": "1f6aec474089267b",
+   "title": "Teenage boy killed in hit-and-run collision",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "Syndicated; Clare-Limerick border.",
+   "by": "claude"
+  },
+  {
+   "id": "12afcfaa981610c9",
+   "title": "Teenage boy on e-bike killed in hit-and-run near Clare-Limerick border as gardai issue urgent appeal",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.85,
+   "why": "Near the Clare-Limerick border.",
+   "by": "claude"
+  },
+  {
+   "id": "9c8fdd4743ddd429",
+   "title": "RIP: Teenager dies following hit and run close to Limerick/Clare border",
+   "division": "21",
+   "town": "Cloonlara",
+   "group": "01",
+   "confidence": 0.8,
+   "why": "The same incident.",
+   "by": "claude"
+  },
+  {
+   "id": "2652d239b6c537a4",
+   "title": "Young woman missing in Cork for a week as Gardaí issue urgent appeal",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.85,
+   "why": "A missing-person appeal.",
+   "by": "claude"
+  },
+  {
+   "id": "2d6211cafec4e98c",
+   "title": "Funeral arrangements for 'wonderful young boy' killed after train crashed into car in Mayo",
+   "division": "22",
+   "town": "Ballyhaunis",
+   "group": null,
+   "confidence": 0.8,
+   "why": "The same collision.",
+   "by": "claude"
+  },
+  {
+   "id": "37361469213eb9b4",
+   "title": "Man allegedly had drugs valued at €100,000 in Laois",
+   "division": "41",
+   "town": "Portlaoise",
+   "group": "10",
+   "confidence": 0.9,
+   "why": "A Portlaoise address, Co Laois.",
+   "by": "claude"
+  },
+  {
+   "id": "4815fe0da24ee7ae",
+   "title": "Woman accused of stealing from Limerick church refused bail to see her dying father",
+   "division": "35",
+   "town": "Limerick",
+   "group": "08",
+   "confidence": 0.85,
+   "why": "A theft from a Limerick church.",
+   "by": "claude"
+  },
+  {
+   "id": "4f2b68255e96fcc7",
+   "title": "Boy (12) killed in collision between car and train in Ballyhaunis named locally",
+   "division": "22",
+   "town": "Ballyhaunis",
+   "group": null,
+   "confidence": 0.85,
+   "why": "Kiltybo level crossing, Co Mayo. No offence alleged.",
+   "by": "claude"
+  },
+  {
+   "id": "391c6cb7eb9fed79",
+   "title": "13-year-old identified by Gardaí through social media footage pleads guilty to car thefts",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.65,
+   "why": "The thefts span Limerick City and Co Clare — two Divisions.",
+   "by": "claude"
+  },
+  {
+   "id": "b019e63873f52f45",
+   "title": "First picture of 'wonderful young boy' killed after train crashes into car in Mayo",
+   "division": "22",
+   "town": "Ballyhaunis",
+   "group": null,
+   "confidence": 0.8,
+   "why": "The same collision.",
+   "by": "claude"
+  },
+  {
+   "id": "8cf6539ad05621ec",
+   "title": "Operation involving 60 gardaí results in seizure of drugs, ammunition and boat engine",
+   "division": "66",
+   "town": "Clondalkin",
+   "group": "10",
+   "confidence": 0.7,
+   "why": "Searches span DMR West and South; the investigation is the Clondalkin shooting.",
+   "by": "claude"
+  },
+  {
+   "id": "7c5f85f5b6f57597",
+   "title": "Museum witnesses expected as Offaly judge schedules court hearing",
+   "division": "41",
+   "town": null,
+   "group": "16",
+   "confidence": 0.7,
+   "why": "Alleged possession of artefacts contrary to the National Monuments Act.",
+   "by": "claude"
+  },
+  {
+   "id": "634df50e00d1c98e",
+   "title": "Gardaí referred almost 100 people to Limerick drug services last year",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.85,
+   "why": "A diversion-scheme statistic, not a located offence.",
+   "by": "claude"
+  },
+  {
+   "id": "2cc3886d6baaf5f7",
+   "title": "More than 60 Gardai involved in 'high intensity police operation' following shooting in Clondalkin",
+   "division": "66",
+   "town": "Clondalkin",
+   "group": "11",
+   "confidence": 0.85,
+   "why": "The shooting was in Clondalkin, DMR West.",
+   "by": "claude"
+  },
+  {
+   "id": "1548fcd9522bb0b1",
+   "title": "Ten homes raided as part of probe into shooting of man in Clondalkin",
+   "division": "66",
+   "town": "Clondalkin",
+   "group": "11",
+   "confidence": 0.85,
+   "why": "St Killian's Park, Clondalkin.",
+   "by": "claude"
+  },
+  {
+   "id": "4be58f9e0815dcc4",
+   "title": "Traffic delays expected in Lahinch as thousands set to attend Walker Cup",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "A traffic plan for a golf tournament.",
+   "by": "claude"
+  },
+  {
+   "id": "821f60fb3e483816",
+   "title": "12 million smuggled cigarettes worth €11.3m seized at Dublin Port",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.7,
+   "why": "Dublin Port; a Revenue seizure with no Division named.",
+   "by": "claude"
+  },
+  {
+   "id": "53365681b8e4eb63",
+   "title": "Rail line reopens after 12-year-old boy killed after train collides with car as Irish Rail boss pays tribute to victim",
+   "division": "22",
+   "town": "Ballyhaunis",
+   "group": null,
+   "confidence": 0.8,
+   "why": "Kiltybo level crossing.",
+   "by": "claude"
+  },
+  {
+   "id": "91a70f7275865dee",
+   "title": "Long traffic delays for motorists following collision on busy Limerick road",
+   "division": "35",
+   "town": "Adare",
+   "group": null,
+   "confidence": 0.75,
+   "why": "Near Adare, Co Limerick.",
+   "by": "claude"
+  },
+  {
+   "id": "e12e2d518f6ee6e6",
+   "title": "Gardaí used social media to identify boy (13) stealing cars in Limerick and Clare",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.65,
+   "why": "The same case, spanning two Divisions.",
+   "by": "claude"
+  },
+  {
+   "id": "e2a856c53f8e7705",
+   "title": "Investigation underway following road traffic collision in County Limerick",
+   "division": "35",
+   "town": null,
+   "group": null,
+   "confidence": 0.75,
+   "why": "Co Limerick, no injuries and no offence stated.",
+   "by": "claude"
+  },
+  {
+   "id": "991ec2aaf119f7e1",
+   "title": "Court orders destruction of car that killed young boy (9) in Bundoran",
+   "division": "12",
+   "town": "Bundoran",
+   "group": "01",
+   "confidence": 0.7,
+   "why": "An ancillary order in a fatal collision at Bundoran, Co Donegal.",
+   "by": "claude"
+  },
+  {
+   "id": "7281264bf3086276",
+   "title": "Childers Road shooting highlights need to secure future of Limerick CCTV Monitoring Centre",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.8,
+   "why": "A CCTV funding story.",
+   "by": "claude"
+  },
+  {
+   "id": "5d12a1d9028f840a",
+   "title": "Child killed in collision between car and train in Mayo recently had 'joy of seeing Sam Maguire'",
+   "division": "22",
+   "town": "Ballyhaunis",
+   "group": null,
+   "confidence": 0.8,
+   "why": "The same collision.",
+   "by": "claude"
+  },
+  {
+   "id": "e761d576a107fa90",
+   "title": "Man before Kilkenny Court on fourth charge of driving without insurance",
+   "division": "53",
+   "town": "Kilkenny",
+   "group": "14",
+   "confidence": 0.85,
+   "why": "Driving without insurance, Co Kilkenny.",
+   "by": "claude"
+  },
+  {
+   "id": "66213902e1b3aeeb",
+   "title": "Gardaí Investigate Alleged Assault in Waterford City",
+   "division": "54",
+   "town": "Waterford",
+   "group": "03",
+   "confidence": 0.9,
+   "why": "Wellington Street, Waterford City.",
+   "by": "claude"
+  },
+  {
+   "id": "25aeaf5a6b4f228c",
+   "title": "‘Left to languish’ – Female prisoner told to go to window for breath of air if she has a panic attack",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.85,
+   "why": "Prison conditions raised in court.",
+   "by": "claude"
+  },
+  {
+   "id": "dfcbd22585cef5ba",
+   "title": "Woman in court following 'serious knife offences' in Limerick refused bail",
+   "division": "35",
+   "town": "Limerick",
+   "group": "03",
+   "confidence": 0.8,
+   "why": "A robbery and an alleged assault on gardaí in Limerick.",
+   "by": "claude"
+  },
+  {
+   "id": "70d45b1397f9a4fe",
+   "title": "Woman at risk of jail for Offaly milk carton theft says 'sorry'",
+   "division": "41",
+   "town": null,
+   "group": "08",
+   "confidence": 0.85,
+   "why": "A shop theft in Co Offaly.",
+   "by": "claude"
+  },
+  {
+   "id": "377c97f859ec471c",
+   "title": "The Greg Hughes Podcast Bonus Ep: Ride for Resilience: The Donegal & FDNY 9/11 Anniversary Story",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.95,
+   "why": "A 9/11 commemoration podcast.",
+   "by": "claude"
+  },
+  {
+   "id": "1891ab7a3e45b20b",
+   "title": "Arrest as driver drifts on Cork roundabout and speeds at 130km/h",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.6,
+   "why": "No area named within Cork.",
+   "by": "claude"
+  },
+  {
+   "id": "ffebb93598a2bab3",
+   "title": "Duo charged in connection with Corduff shopping centre shooting",
+   "division": "66",
+   "town": "Corduff",
+   "group": "11",
+   "confidence": 0.8,
+   "why": "Corduff is in Blanchardstown, DMR West.",
+   "by": "claude"
+  },
+  {
+   "id": "0e626091ab8916ac",
+   "title": "Irish GP honoured after fighting off axe man in Australia",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "The attack was in Australia.",
+   "by": "claude"
+  },
+  {
+   "id": "a90e44e27973dcf7",
+   "title": "Galway man threatened to cut partner's head off and ruin career with photo",
+   "division": "23",
+   "town": null,
+   "group": "03",
+   "confidence": 0.85,
+   "why": "A threat to kill, Co Galway.",
+   "by": "claude"
+  },
+  {
+   "id": "4b351a13c35fc651",
+   "title": "Kilkenny Court - Man charged with pub sexual assault",
+   "division": "53",
+   "town": "Kilkenny",
+   "group": "02",
+   "confidence": 0.85,
+   "why": "A sexual assault in a Kilkenny pub.",
+   "by": "claude"
+  },
+  {
+   "id": "94e90ca406a3c1d4",
+   "title": "Shock as boy, 12, killed in train collision in Mayo",
+   "division": "22",
+   "town": "Ballyhaunis",
+   "group": null,
+   "confidence": 0.85,
+   "why": "The same collision.",
+   "by": "claude"
+  },
+  {
+   "id": "e3b31775692e6455",
+   "title": "Mayo train crash LIVE: 'Significant disruption' to Irish Rail services after boy dies in Ballyhaunis tragedy",
+   "division": "22",
+   "town": "Ballyhaunis",
+   "group": null,
+   "confidence": 0.85,
+   "why": "Kiltybo, Ballyhaunis.",
+   "by": "claude"
+  },
+  {
+   "id": "4aa780ae840e6aa0",
+   "title": "Breaking: Boy aged 12 dies after train smashes into car in Co Mayo",
+   "division": "22",
+   "town": "Ballyhaunis",
+   "group": null,
+   "confidence": 0.85,
+   "why": "The same level-crossing collision.",
+   "by": "claude"
+  },
+  {
+   "id": "fa54a79cebb3092a",
+   "title": "Boy aged 12 dies after train smashes into car in Co Mayo",
+   "division": "22",
+   "town": "Ballyhaunis",
+   "group": null,
+   "confidence": 0.85,
+   "why": "The same level-crossing collision.",
+   "by": "claude"
+  },
+  {
+   "id": "db295387f826d386",
+   "title": "Iarnród Éireann express sympathies to family of Mayo boy who died in train collision",
+   "division": "22",
+   "town": "Ballyhaunis",
+   "group": null,
+   "confidence": 0.8,
+   "why": "The same collision.",
+   "by": "claude"
+  },
+  {
+   "id": "81d07d69125d0a66",
+   "title": "'Disruption' to Dublin-bound train services after boy dies in level crossing tragedy: latest updates",
+   "division": "22",
+   "town": "Ballyhaunis",
+   "group": null,
+   "confidence": 0.75,
+   "why": "Disruption reported from Dublin; the collision is in Mayo.",
+   "by": "claude"
+  },
+  {
+   "id": "3949d338de2289ef",
+   "title": "The 9 at 9: Friday",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.9,
+   "why": "A news digest.",
+   "by": "claude"
+  },
+  {
+   "id": "076f4af7f3ce8d93",
+   "title": "Gardaí warn Donegal public over new ‘quishing’ QR code scam",
+   "division": null,
+   "town": null,
+   "group": null,
+   "confidence": 0.8,
+   "why": "A general fraud warning, not a located offence.",
+   "by": "claude"
+  },
+  {
+   "id": "254b0514e58f8d7b",
+   "title": "RIP: Boy, 12, dies after train hits car at level crossing in Mayo",
+   "division": "22",
+   "town": "Ballyhaunis",
+   "group": null,
+   "confidence": 0.85,
+   "why": "The same collision.",
+   "by": "claude"
+  },
+  {
+   "id": "2d02d28773b71850",
+   "title": "Boy killed and man injured after train hits car in Mayo",
+   "division": "22",
+   "town": "Ballyhaunis",
+   "group": null,
+   "confidence": 0.85,
+   "why": "The same collision.",
+   "by": "claude"
   }
  ]
 }
