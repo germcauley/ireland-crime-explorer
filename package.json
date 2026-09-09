@@ -15,6 +15,7 @@
     "db:generate": "drizzle-kit generate"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "d3-geo": "^3.1.1",
     "d3-scale": "^4.0.2",
     "d3-selection": "^3.0.0",

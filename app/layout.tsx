@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -79,6 +80,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        {/* Cookieless and aggregate: no identifiers, nothing to consent to,
+            and it keeps the "no tracking" claim on the About page honest.
+            Without it there is no way to tell whether any of this is read. */}
+        <Analytics />
       </body>
     </html>
   );
